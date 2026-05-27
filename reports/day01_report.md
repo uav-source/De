@@ -58,10 +58,21 @@ git init
   empty `.git/` directory but `git rev-parse --show-toplevel` fails.
 - A new independent git repository was initialized at
   `/home/lj/suidao_ws/Degen-LIO`.
+- Initial Day 1 contract artifact commit:
+  `cc8531a` (`Day 1 freeze mini validation contracts`).
 - Random seed for Day 1-14 remains frozen by contract as `42`; the concrete
   config file will be generated on Day 2.
-- Git commit hash is not available yet at the moment this report file is
-  created because Day 1 files have not been committed before verification.
+- This report was updated after the initial artifact commit to record the
+  commit hash and verification state.
+
+## Verification
+
+- File inventory was checked with `find . -maxdepth 4 -type f | sort`.
+- Git user config is available in the new repository.
+- Initial artifact commit succeeded.
+- No pytest run was required on Day 1 because no executable code was created;
+  Day 2 must introduce the first executable environment check and pytest
+  skeleton.
 
 ## Failed Or Deferred Items
 
@@ -81,4 +92,3 @@ Create the reproducible environment and test harness:
 - initial pytest files
 - `scripts/reproduce_day14.sh` skeleton
 - `reports/day02_report.md`
-
