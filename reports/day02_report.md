@@ -92,12 +92,15 @@ Final pytest result:
 5 passed in 0.02s
 ```
 
-Post-commit verification was run after the Day 2 artifact commit:
+Post-commit verification was run after the Day 2 artifact commit. The exact
+current commit is regenerated into
+`results/day14/manifests/day02_env_check.json` whenever
+`python3 scripts/check_env.py` is rerun:
 
 ```text
 Degen-LIO Day 2 environment check
 repo_root: /home/lj/Degen-LIO
-git_commit: 41e22cb
+git_commit: <current HEAD at check time>
 random_seed: 42
 manifest: /home/lj/Degen-LIO/results/day14/manifests/day02_env_check.json
 status: OK
@@ -134,7 +137,7 @@ Key values from the manifest:
 | --- | --- |
 | Python | 3.8.10 |
 | Git commit at first successful check | `9c1b801` |
-| Git commit at post-commit verification | `41e22cb` |
+| Git commit at final verification | recorded in `day02_env_check.json` |
 | Random seed | `42` |
 | Missing packages | none |
 | numpy | 1.24.4 |
