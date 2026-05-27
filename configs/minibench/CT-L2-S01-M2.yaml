@@ -1,0 +1,39 @@
+sequence_id: CT-L2-S01-M2
+scene_family: CT
+difficulty: L2
+seed_id: S01
+motion_id: M2
+random_seed: 42
+
+axis: null
+local_axis: centerline_tangent
+trajectory: curved_centerline_motion
+curve_radius_m: 40
+arc_length_m: 100
+frames: 220
+dt_s: 0.1
+
+structure: curved_rectangular_tunnel
+expected_degeneracy: medium_local_axis
+scientific_role: local_axis_case_weak_direction_should_rotate_with_centerline
+
+scene:
+  width_m: 4
+  height_m: 3
+  curvature_type: single_arc
+  wall_planes_follow_centerline: true
+  floor_plane_follows_centerline: true
+  dominant_local_normal_tangent_abs_max: 0.08
+
+motion:
+  speed_mps: 1.8
+  yaw_excitation: medium
+  lateral_excitation: low
+  vertical_excitation: very_low
+
+sensor_stub:
+  lidar_rate_hz: 10
+  imu_rate_hz: 100
+  point_noise_std_m: 0.02
+  min_points_per_frame: 650
+

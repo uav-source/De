@@ -1,0 +1,41 @@
+sequence_id: ST-L3-S01-M1
+scene_family: ST
+difficulty: L3
+seed_id: S01
+motion_id: M1
+random_seed: 42
+
+axis: [1.0, 0.0, 0.0]
+local_axis: constant_axis
+trajectory: straight_axis_motion
+tunnel_length_m: 120
+width_m: 4
+height_m: 3
+frames: 240
+dt_s: 0.1
+
+structure: long_rectangular_tunnel
+expected_degeneracy: high_axis_translation
+scientific_role: primary_positive_case_axis_translation_weakness
+
+scene:
+  wall_planes: true
+  floor_plane: true
+  ceiling_plane: true
+  end_caps: false
+  dominant_normal_x_abs_max: 0.05
+  side_wall_normals: [[0.0, 1.0, 0.0], [0.0, -1.0, 0.0]]
+  floor_ceiling_normals: [[0.0, 0.0, 1.0], [0.0, 0.0, -1.0]]
+
+motion:
+  speed_mps: 2.0
+  yaw_excitation: low
+  lateral_excitation: very_low
+  vertical_excitation: very_low
+
+sensor_stub:
+  lidar_rate_hz: 10
+  imu_rate_hz: 100
+  point_noise_std_m: 0.02
+  min_points_per_frame: 700
+

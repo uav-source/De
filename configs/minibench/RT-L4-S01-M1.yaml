@@ -1,0 +1,42 @@
+sequence_id: RT-L4-S01-M1
+scene_family: RT
+difficulty: L4
+seed_id: S01
+motion_id: M1
+random_seed: 42
+
+axis: [1.0, 0.0, 0.0]
+local_axis: constant_axis
+trajectory: straight_axis_motion
+tunnel_length_m: 140
+width_m: 4
+height_m: 3
+frames: 260
+dt_s: 0.1
+
+structure: repeated_features
+expected_degeneracy: high_axis_translation_and_association_ambiguity
+scientific_role: hard_positive_case_axis_weakness_plus_repetition
+
+scene:
+  wall_planes: true
+  floor_plane: true
+  ceiling_plane: true
+  end_caps: false
+  repeat_period_m: 5
+  repeat_feature_types: [side_patches, ceiling_ribs, floor_markers]
+  repeat_feature_strength: high
+  dominant_normal_x_abs_max: 0.05
+
+motion:
+  speed_mps: 2.2
+  yaw_excitation: low
+  lateral_excitation: very_low
+  vertical_excitation: very_low
+
+sensor_stub:
+  lidar_rate_hz: 10
+  imu_rate_hz: 100
+  point_noise_std_m: 0.025
+  min_points_per_frame: 700
+
