@@ -92,6 +92,21 @@ Final pytest result:
 5 passed in 0.02s
 ```
 
+Post-commit verification was run after the Day 2 artifact commit:
+
+```text
+Degen-LIO Day 2 environment check
+repo_root: /home/lj/Degen-LIO
+git_commit: 41e22cb
+random_seed: 42
+manifest: /home/lj/Degen-LIO/results/day14/manifests/day02_env_check.json
+status: OK
+```
+
+```text
+5 passed in 0.01s
+```
+
 Reproduction skeleton dry run:
 
 ```text
@@ -118,7 +133,8 @@ Key values from the manifest:
 | Field | Value |
 | --- | --- |
 | Python | 3.8.10 |
-| Git commit at check time | `9c1b801` |
+| Git commit at first successful check | `9c1b801` |
+| Git commit at post-commit verification | `41e22cb` |
 | Random seed | `42` |
 | Missing packages | none |
 | numpy | 1.24.4 |
@@ -160,4 +176,3 @@ Create the four fixed minimum sequence configs and data specification:
 - `configs/minibench/CT-L2-S01-M2.yaml`
 - `configs/minibench/RT-L4-S01-M1.yaml`
 - `docs/minibench_spec.md`
-
