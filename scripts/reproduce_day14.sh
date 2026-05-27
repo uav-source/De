@@ -8,7 +8,7 @@ MODE="${1:---dry-run}"
 
 STEPS=(
   "python scripts/00_generate_minibench.py --all"
-  "python scripts/01_simulate_observations.py --all"
+  "python scripts/01_simulate_observations.py --all --config configs/detector/odi_default.yaml"
   "python scripts/02_run_toy_lio.py --all"
   "python scripts/03_eval_metrics.py --all"
   "python scripts/04_plot_day14.py --results results/day14 --out results/day14/figures"
@@ -42,4 +42,3 @@ for step in "${STEPS[@]}"; do
   echo "+ $step"
   eval "$step"
 done
-
