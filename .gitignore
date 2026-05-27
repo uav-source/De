@@ -25,4 +25,4 @@ results/day14/manifests/*
 !results/day14/figures/.gitkeep
 !results/day14/tables/.gitkeep
 !results/day14/manifests/.gitkeep
-
+!results/day14/manifests/manifest_template.json

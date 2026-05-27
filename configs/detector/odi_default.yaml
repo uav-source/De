@@ -1,0 +1,9 @@
+s_theta: 0.05
+s_p: 0.5
+epsilon_mode: relative_trace
+epsilon_ratio: 1.0e-6
+tau_w: 0.02
+window_size: 20
+window_stride: 5
+random_seed: 42
+
