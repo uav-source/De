@@ -1,15 +1,22 @@
 import csv
+import json
 import math
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts/06_sensitivity.py"
 
 
-def test_sensitivity_script_runs_and_writes_required_tables(tmp_path):
+@pytest.fixture(scope="module")
+def sensitivity_run(tmp_path_factory):
+    base = tmp_path_factory.mktemp("sensitivity")
+    tables = base / "tables"
+    figures = base / "figures"
     subprocess.run(
         [
             sys.executable,
@@ -19,17 +26,29 @@ def test_sensitivity_script_runs_and_writes_required_tables(tmp_path):
             "--results",
             str(ROOT / "results/day14"),
             "--out",
-            str(tmp_path),
+            str(tables),
+            "--figures-out",
+            str(figures),
         ],
         cwd=str(ROOT),
         check=True,
         timeout=120,
     )
+    return {"tables": tables, "figures": figures}
 
-    d_path = tmp_path / "day12_sensitivity_D.csv"
-    tau_path = tmp_path / "day12_sensitivity_tau.csv"
+
+def test_sensitivity_script_writes_required_tables_and_figures(sensitivity_run):
+    d_path = sensitivity_run["tables"] / "day12_sensitivity_D.csv"
+    tau_path = sensitivity_run["tables"] / "day12_sensitivity_tau.csv"
     assert d_path.exists()
     assert tau_path.exists()
+    for name in ["Fig_D14_08_sensitivity_D", "Fig_D14_09_sensitivity_tau"]:
+        assert (sensitivity_run["figures"] / f"{name}.png").exists()
+        assert (sensitivity_run["figures"] / f"{name}.pdf").exists()
+    manifest = json.loads((sensitivity_run["figures"] / "plotting_manifest.json").read_text(encoding="utf-8"))
+    figure_names = {item["name"] for item in manifest["figures"]}
+    assert "Fig_D14_08_sensitivity_D" in figure_names
+    assert "Fig_D14_09_sensitivity_tau" in figure_names
 
     d_rows = read_rows(d_path)
     tau_rows = read_rows(tau_path)
@@ -59,29 +78,6 @@ def test_sensitivity_script_runs_and_writes_required_tables(tmp_path):
                 assert math.isfinite(float(row[key]))
         if row["valid_sensitivity_point"] == "0":
             assert row["notes"]
-
-
-def test_sensitivity_figures_are_written_by_script(tmp_path):
-    subprocess.run(
-        [
-            sys.executable,
-            str(SCRIPT),
-            "--config",
-            str(ROOT / "configs/detector/odi_default.yaml"),
-            "--results",
-            str(ROOT / "results/day14"),
-            "--out",
-            str(tmp_path),
-        ],
-        cwd=str(ROOT),
-        check=True,
-        timeout=120,
-    )
-
-    figures = ROOT / "results/day14/figures"
-    for name in ["Fig_D14_08_sensitivity_D", "Fig_D14_09_sensitivity_tau"]:
-        assert (figures / f"{name}.png").exists()
-        assert (figures / f"{name}.pdf").exists()
 
 
 def read_rows(path):
