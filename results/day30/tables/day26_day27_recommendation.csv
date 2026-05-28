@@ -1,0 +1,5 @@
+recommended_day,recommended_route,task,allowed,reason,blocking_condition
+Day 27,README/release cleanup implementation,"update README scope, reproduction commands, release exclusions, and forbidden claims",true,Day26 release plan identifies README as blocking for release,must not imply estimator method validation
+Day 27,figure/table generation script planning,turn Day26 figure/table execution plan into safe scripts or table-generation placeholders,true,figure/table execution plan contains pending items that must not be faked,pending figures must remain marked pending until generated
+Day 27,paper section draft expansion,expand skeleton sections into scoped draft prose,true,paper skeleton is ready for prose expansion,preserve claim-boundary language
+Day 27,weak-subspace update implementation,implement estimator update,false,blocked by Day22/25/26 evidence boundary,requires future method_update_authorized=true
