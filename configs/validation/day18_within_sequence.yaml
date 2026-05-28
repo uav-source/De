@@ -1,0 +1,15 @@
+source_probe: day17_unbiased
+window_size: 20
+stride: 5
+min_windows_per_sequence: 3
+metrics:
+  - ODI
+  - AIS
+  - lambda_min_clamped
+  - condition_number
+  - weak_alignment
+targets:
+  - axis_drift_rate
+  - cross_drift_rate
+  - weak_drift_alignment
+notes: "Day 18 validates metric-drift relationships at window level within each sequence."
