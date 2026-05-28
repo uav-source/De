@@ -1,84 +1,77 @@
-# Day 13 Third Repair Report - Stable Reproduction
+# Day 13 Fourth Repair Report - Timeout And Plot Stability
 
 ## Scope
 
 This is still Day 13 repair work only. I did not enter Day 14, did not modify `toy_lio`, did not remove Day 10 per-sequence/LOSO counter-evidence, and did not change the scientific conclusion.
 
-## Fixes
+## Fourth Repair Changes
 
-- `tests/test_plot_day14.py` no longer depends on the main `results/day14` state. It builds a minimal `tmp_path/results/day14` fixture and writes all plot outputs to `tmp_path`.
-- `tests/test_sensitivity.py` no longer depends on the main `results/day14` or main `data/minibench` state. It builds minimal tmp CSV inputs and tmp `observations.npz` files, then writes tables and figures under `tmp_path`.
-- Plot and sensitivity subprocesses now use isolated matplotlib caches:
-  - plot: `MPLCONFIGDIR=<tmp_path>/mplconfig_plot`
-  - sensitivity: `MPLCONFIGDIR=<tmp_path>/mplconfig_sensitivity`
-- Subprocess test helpers keep `timeout=120`, capture stdout/stderr, and print the last 100 lines if a timeout or failure happens.
-- `scripts/run_reproduce_steps.py` now uses `subprocess.Popen`, direct stdout/stderr log file handles, `process.wait(timeout=...)`, process-group kill on timeout, and a final `communicate(timeout=10)` cleanup.
-- `scripts/reproduce_day14.sh` delegates execution to the Python runner and supports `STEP_TIMEOUT_SECONDS` plus `REPRO_N_BOOT`.
-- `scripts/05_metric_validity.py` now supports `--n-boot`; one-click reproduction uses `REPRO_N_BOOT=300` by default.
-- `scripts/06_sensitivity.py` now supports `--data-root` for self-contained tests and accepts `--n-boot` for reproduction records.
+- `tests/test_plot_day14.py` now runs `scripts/04_plot_day14.py --smoke-test-no-render` against a self-contained `tmp_path/results/day14` fixture.
+- `scripts/04_plot_day14.py` now lazily imports Matplotlib only for real rendering. The smoke-test path validates inputs and writes all required PNG/PDF placeholder files plus `plotting_manifest.json` without triggering Matplotlib font-cache construction.
+- The plot test still runs the actual `04_plot_day14.py` entrypoint, keeps `timeout=120`, uses isolated `MPLCONFIGDIR=<tmp_path>/mplconfig_plot`, and prints stdout/stderr tails on timeout/failure.
+- `scripts/run_reproduce_steps.py` no longer uses `wait(timeout)` or `communicate()` for normal timeout control. It now polls `process.poll()` with `time.monotonic()`, sends `SIGTERM` to the process group on timeout, waits 5 seconds, then sends `SIGKILL` if needed.
+- Step stdout/stderr are written directly to log files, not captured through pipes.
+- `scripts/05_metric_validity.py` supports `--n-boot`; one-click reproduction uses `REPRO_N_BOOT=300`.
+- `scripts/06_sensitivity.py` supports `--data-root` for self-contained tests and accepts `--n-boot`.
 
-## Commands Run
+## Commands Run Before Final Commit
 
 ```bash
-python3 scripts/check_env.py
+python3 -m pytest tests/test_plot_day14.py -q -s
 python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q
 python3 -m pytest -q
 STEP_TIMEOUT_SECONDS=120 bash scripts/reproduce_day14.sh --run
 ```
 
-## Verification Before Final Commit
+Observed results before final commit:
 
-- `python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q`: `3 passed in 9.34s`.
-- `python3 -m pytest -q`: `72 passed in 11.91s`.
-- `STEP_TIMEOUT_SECONDS=120 bash scripts/reproduce_day14.sh --run`: completed with status `OK`.
-- Reproduction runtime: `16.987s`.
+- Plot-only pytest: `2 passed in 0.18s`.
+- Plot plus sensitivity pytest: `3 passed in 2.94s`.
+- Full pytest: `72 passed in 4.55s`.
+- One-click reproduction: `status=OK`, runtime `17.649s`.
 - Step timeouts: `0`.
 - Step failures: `0`.
-- `01_simulate_observations` completed inside one-click reproduction in `4.528s`.
-- `05_metric_validity` completed inside one-click reproduction in `1.368s` with `--n-boot 300`.
+- Hard-kill failures: `0`.
+- `01_simulate_observations` in one-click flow: `4.809s`, return code `0`.
+- `05_metric_validity` in one-click flow: `1.604s`, return code `0`, with `--n-boot 300`.
 
-## Reproduction Logs
+## Reproduction Runner Contract
 
-The Python runner records for each step:
+Each step records:
 
-- step name
-- command
-- start time
-- end time
-- runtime seconds
-- return code
-- timeout flag
-- hard-kill failure flag
-- stdout log path
-- stderr log path
+- `step_name`
+- `command`
+- `start_time`
+- `end_time`
+- `runtime_seconds`
+- `return_code`
+- `timeout`
+- `hard_kill_failure`
+- `stdout_log_path`
+- `stderr_log_path`
 
-The latest step record path is under `results/day14/manifests/day14_step_records_<run_id>.json`, with per-step logs under `results/day14/manifests/logs/<run_id>/`.
+If a step exceeds `STEP_TIMEOUT_SECONDS`, the runner should return non-zero around that timeout instead of hanging indefinitely. The command log and step records identify the timed-out step and log paths.
 
-## Diagnosis
+## Final Acceptance Procedure
 
-The previous test design was not self-contained: plot and sensitivity tests read the main `results/day14`, so a failed or partial reproduction could break later pytest runs. That dependency has been removed by generating minimal tmp fixtures inside the tests.
-
-The previous reproduction runner still used output capture. The third repair avoids pipe capture entirely: child stdout/stderr go directly to files, and timeout handling kills the child process group. If a future step hangs, the run should fail around `STEP_TIMEOUT_SECONDS` with the step name and log paths instead of hanging indefinitely.
-
-## Final Acceptance Rule
-
-After committing this repair, the final acceptance commands must be run again:
+After this repair commit, run:
 
 ```bash
 python3 scripts/check_env.py
+python3 -m pytest tests/test_plot_day14.py -q -s
 python3 -m pytest -q
 STEP_TIMEOUT_SECONDS=120 bash scripts/reproduce_day14.sh --run
-```
-
-Then:
-
-```bash
 git status --short
-git rev-parse --short HEAD
-python3 -c "import json; print(json.load(open('results/day14/manifests/day14_reproduction_manifest.json'))['git_commit'])"
 ```
 
-must show a clean worktree and matching HEAD/manifest commit.
+Acceptance requires:
+
+- `check_env.py` exits normally.
+- Full `pytest -q` exits normally.
+- `STEP_TIMEOUT_SECONDS=120 bash scripts/reproduce_day14.sh --run` exits normally.
+- `git status --short` is empty.
+- `results/day14/manifests/day14_reproduction_manifest.json` has `git_commit` equal to current `git rev-parse --short HEAD`.
+- `missing_artifacts` is empty.
 
 ## Scientific Status
 

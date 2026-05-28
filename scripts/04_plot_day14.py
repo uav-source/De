@@ -11,14 +11,11 @@ import sys
 from pathlib import Path
 from typing import Dict, Iterable, List, Mapping, Sequence
 
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 
 
 ROOT = Path(__file__).resolve().parents[1]
+plt = None
 
 SEQUENCES = [
     "OC-L0-S01-M1",
@@ -44,6 +41,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--results", type=Path, default=ROOT / "results/day14", help="Day 14 results directory.")
     parser.add_argument("--out", type=Path, default=ROOT / "results/day14/figures", help="Figure output directory.")
+    parser.add_argument(
+        "--smoke-test-no-render",
+        action="store_true",
+        help="Validate inputs and write placeholder outputs/manifest without importing matplotlib.",
+    )
     return parser.parse_args()
 
 
@@ -57,6 +59,15 @@ def main() -> int:
     for path in input_files:
         if not path.exists():
             raise FileNotFoundError(f"Missing required plotting input: {path}")
+
+    if args.smoke_test_no_render:
+        outputs = write_smoke_outputs(out_dir)
+        write_plotting_manifest(out_dir, input_files, outputs, smoke_test=True)
+        print(f"generated diagnostic smoke-test files: count={len(FIGURES)} out={out_dir}")
+        print(f"manifest: {out_dir / 'plotting_manifest.json'}")
+        return 0
+
+    load_pyplot()
 
     raw_odi = {seq: load_csv_dicts(results_dir / "raw" / f"{seq}_odi.csv") for seq in SEQUENCES}
     window_metrics = {seq: load_csv_dicts(results_dir / "metrics" / f"{seq}_metrics.csv") for seq in SEQUENCES}
@@ -86,6 +97,24 @@ def main() -> int:
         lambda: plot_bias_audit_summary(validity, per_sequence, loso, metric_summary),
     )
 
+    write_plotting_manifest(out_dir, input_files, outputs, smoke_test=False)
+    print(f"generated diagnostic figures: count={len(FIGURES)} out={out_dir}")
+    print(f"manifest: {out_dir / 'plotting_manifest.json'}")
+    return 0
+
+
+def load_pyplot() -> None:
+    global plt
+    if plt is None:
+        import matplotlib
+
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as pyplot
+
+        plt = pyplot
+
+
+def write_plotting_manifest(out_dir: Path, input_files: Sequence[Path], outputs: Sequence[Path], smoke_test: bool) -> None:
     manifest = {
         "script": "scripts/04_plot_day14.py",
         "command": "python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures",
@@ -105,14 +134,30 @@ def main() -> int:
             "Fig_D14_04 explicitly includes merged_and_per_sequence evidence.",
             "Fig_D14_05 explicitly includes metric_validity_comparison evidence.",
             "Rho values are read from Day 10 CSV tables, not hard-coded.",
+            "Smoke-test outputs skip matplotlib rendering." if smoke_test else "Rendered with matplotlib Agg backend.",
         ],
     }
     manifest_path = out_dir / "plotting_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def write_smoke_outputs(out_dir: Path) -> List[Path]:
+    outputs: List[Path] = []
+    png_bytes = (
+        b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01"
+        b"\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDATx\x9cc```\x00"
+        b"\x00\x00\x04\x00\x01\xf6\x178U\x00\x00\x00\x00IEND\xaeB`\x82"
+    )
+    pdf_bytes = b"%PDF-1.4\n1 0 obj<<>>endobj\ntrailer<<>>\n%%EOF\n"
+    for name in FIGURES:
+        png_path = out_dir / f"{name}.png"
+        pdf_path = out_dir / f"{name}.pdf"
+        png_path.write_bytes(png_bytes)
+        pdf_path.write_bytes(pdf_bytes)
+        outputs.extend([png_path, pdf_path])
+    manifest_path = out_dir / "plotting_manifest.json"
     outputs.append(manifest_path)
-    print(f"generated diagnostic figures: count={len(FIGURES)} out={out_dir}")
-    print(f"manifest: {manifest_path}")
-    return 0
+    return outputs
 
 
 def plot_spectrum(raw_odi: Mapping[str, List[Dict[str, object]]]) -> plt.Figure:

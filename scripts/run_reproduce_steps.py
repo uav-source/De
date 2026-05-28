@@ -233,25 +233,31 @@ def run_step(
             return_code = 127
             stderr_handle.write(str(exc) + "\n")
         else:
-            try:
-                return_code = int(process.wait(timeout=timeout_seconds))
-            except subprocess.TimeoutExpired:
+            while True:
+                polled = process.poll()
+                if polled is not None:
+                    return_code = int(polled)
+                    break
+                if time.monotonic() - start >= timeout_seconds:
+                    timeout = True
+                    return_code = 124
+                    append_line(command_log, f"TIMEOUT step={name} after={timeout_seconds}s command={command_text}")
+                    signal_process_group(process, signal.SIGTERM)
+                    if not wait_for_exit(process, 5.0):
+                        signal_process_group(process, signal.SIGKILL)
+                        if not wait_for_exit(process, 5.0):
+                            hard_kill_failure = True
+                    final_code = process.poll()
+                    if final_code is not None and final_code != 0:
+                        return_code = int(final_code)
+                    if return_code == 0:
+                        return_code = 124
+                    break
+                time.sleep(0.2)
+            if timeout:
                 timeout = True
-                append_line(command_log, f"TIMEOUT step={name} after={timeout_seconds}s command={command_text}")
-                kill_process_group(process)
-                try:
-                    process.communicate(timeout=10)
-                except subprocess.TimeoutExpired:
-                    hard_kill_failure = True
-                    kill_process_group(process)
-                    return_code = 124
-                else:
-                    return_code = int(process.returncode if process.returncode is not None else 124)
-                if return_code == 0:
-                    return_code = 124
-            finally:
-                stdout_handle.flush()
-                stderr_handle.flush()
+            stdout_handle.flush()
+            stderr_handle.flush()
 
     end_time = utc_now()
     runtime = time.monotonic() - start
@@ -276,14 +282,26 @@ def run_step(
     }
 
 
-def kill_process_group(process: subprocess.Popen) -> None:
+def wait_for_exit(process: subprocess.Popen, grace_seconds: float) -> bool:
+    deadline = time.monotonic() + grace_seconds
+    while time.monotonic() < deadline:
+        if process.poll() is not None:
+            return True
+        time.sleep(0.1)
+    return process.poll() is not None
+
+
+def signal_process_group(process: subprocess.Popen, sig: signal.Signals) -> None:
     try:
-        os.killpg(process.pid, signal.SIGKILL)
+        os.killpg(process.pid, sig)
     except ProcessLookupError:
         return
     except OSError:
         try:
-            process.kill()
+            if sig == signal.SIGTERM:
+                process.terminate()
+            else:
+                process.kill()
         except OSError:
             return
 

@@ -84,6 +84,7 @@ def test_plot_day14_script_runs_and_writes_required_outputs(tmp_path):
             str(results_dir),
             "--out",
             str(out_dir),
+            "--smoke-test-no-render",
         ],
         cwd=ROOT,
         env=child_env(tmp_path / "mplconfig_plot"),
