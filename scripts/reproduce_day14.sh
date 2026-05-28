@@ -7,6 +7,14 @@ cd "$ROOT_DIR"
 MODE="${1:---dry-run}"
 RUN_ID="day14_$(date -u +%Y%m%dT%H%M%SZ)"
 TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+STEP_TIMEOUT_SECONDS="${STEP_TIMEOUT_SECONDS:-180}"
+
+export MPLBACKEND=Agg
+export PYTHONUNBUFFERED=1
+export OMP_NUM_THREADS=1
+export OPENBLAS_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export NUMEXPR_NUM_THREADS=1
 
 SEQUENCES=(
   "OC-L0-S01-M1"
@@ -18,6 +26,7 @@ SEQUENCES=(
 echo "Degen-LIO Day 14 reproduction"
 echo "repo: $ROOT_DIR"
 echo "mode: $MODE"
+echo "step_timeout_seconds: $STEP_TIMEOUT_SECONDS"
 
 if [[ "$MODE" == "--dry-run" ]]; then
   cat <<'EOF'
@@ -33,6 +42,7 @@ Planned --run steps:
   python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
   python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --out results/day14/tables --figures-out results/day14/figures
   python3 scripts/07_reproduction_manifest.py ...
+Each step is run with STEP_TIMEOUT_SECONDS and a pinned non-interactive plotting/threading environment.
 EOF
   exit 0
 fi
@@ -77,9 +87,25 @@ COMMAND_LOG="results/day14/manifests/day14_commands_${RUN_ID}.txt"
 : > "$COMMAND_LOG"
 
 run_step() {
-  echo "$*" >> "$COMMAND_LOG"
-  echo "+ $*"
-  "$@"
+  local status
+  local command_text="$*"
+  echo "RUN timeout=${STEP_TIMEOUT_SECONDS}s ${command_text}" >> "$COMMAND_LOG"
+  echo "+ timeout ${STEP_TIMEOUT_SECONDS}s ${command_text}"
+  set +e
+  timeout --foreground "${STEP_TIMEOUT_SECONDS}s" "$@"
+  status=$?
+  set -e
+  if [[ "$status" -eq 124 ]]; then
+    echo "TIMEOUT after ${STEP_TIMEOUT_SECONDS}s: ${command_text}" >> "$COMMAND_LOG"
+    echo "ERROR: step timed out after ${STEP_TIMEOUT_SECONDS}s: ${command_text}" >&2
+    exit 124
+  fi
+  if [[ "$status" -ne 0 ]]; then
+    echo "FAILED status=${status}: ${command_text}" >> "$COMMAND_LOG"
+    echo "ERROR: step failed with status ${status}: ${command_text}" >&2
+    exit "$status"
+  fi
+  echo "OK ${command_text}" >> "$COMMAND_LOG"
 }
 
 run_step python3 scripts/check_env.py

@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -17,6 +18,21 @@ REQUIRED = [
 ]
 
 
+def child_env():
+    env = os.environ.copy()
+    env.update(
+        {
+            "MPLBACKEND": "Agg",
+            "PYTHONUNBUFFERED": "1",
+            "OMP_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "MKL_NUM_THREADS": "1",
+            "NUMEXPR_NUM_THREADS": "1",
+        }
+    )
+    return env
+
+
 def test_plot_day14_script_runs_and_writes_required_outputs(tmp_path):
     out_dir = tmp_path / "figures"
 
@@ -30,6 +46,7 @@ def test_plot_day14_script_runs_and_writes_required_outputs(tmp_path):
             str(out_dir),
         ],
         cwd=str(ROOT),
+        env=child_env(),
         check=True,
         timeout=120,
     )

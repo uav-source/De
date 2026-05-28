@@ -1,6 +1,7 @@
 import csv
 import json
 import math
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -10,6 +11,21 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts/06_sensitivity.py"
+
+
+def child_env():
+    env = os.environ.copy()
+    env.update(
+        {
+            "MPLBACKEND": "Agg",
+            "PYTHONUNBUFFERED": "1",
+            "OMP_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "MKL_NUM_THREADS": "1",
+            "NUMEXPR_NUM_THREADS": "1",
+        }
+    )
+    return env
 
 
 @pytest.fixture(scope="module")
@@ -31,6 +47,7 @@ def sensitivity_run(tmp_path_factory):
             str(figures),
         ],
         cwd=str(ROOT),
+        env=child_env(),
         check=True,
         timeout=120,
     )
