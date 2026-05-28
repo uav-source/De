@@ -1,0 +1,10 @@
+story_step,question,experiment_or_analysis,evidence_artifact,observed_result,interpretation,next_step,claim_allowed
+E01,Can synthetic tunnel-like geometry expose degeneracy?,minibench and information spectrum analysis,Day14/Day9 artifacts,weak direction and spectrum concentration are diagnosable,start from geometry diagnosis,audit drift evidence,diagnostic geometry claim allowed
+E02,Is legacy drift evidence confounded?,Day15 bias audit,results/day30/tables/day15_bias_audit.csv,legacy scene-family axis bias exists,legacy toy_lio is diagnostic only,build unbiased protocol,bias-audit claim allowed
+E03,Can we remove scene-family bias from the probe?,Day16 unbiased protocol,day16 summary and manifest,applied_axis_bias is zero under none mode,unbiased synthetic protocol established,run multi-trial probe,protocol claim allowed
+E04,Do ODI and baselines correlate under unbiased trials?,Day17 exploratory probe,day17 trials and correlation tables,merged evidence remains exploratory,merged-only evidence can mislead,perform window-level validation,exploratory only
+E05,Do metrics work within each sequence?,Day18 window-level validation,day18 window/correlation tables,weak and undefined cases remain,do not hide negative results,run grouped/LOSO,stress-test claim allowed
+E06,Do metrics generalize across held-out groups?,Day19 grouped / LOSO,day19 tables,stability is not sufficient for method claims,single metrics remain exploratory,control for baselines,negative evidence allowed
+E07,Does ODI add controlled incremental value?,Day20 partial validity,day20 incremental validity summary,ODI does not pass strict controlled screen,do not authorize control logic,test joint risk,negative evidence allowed
+E08,Can joint risk rescue the gate?,Day21 joint risk screen,day21 comparison table,all joint features remain exploratory_not_validated,no method gate support,formal gate review,exploratory only
+E09,What is the honest route after No-Go?,Day22-24 gate and consolidation,day22/day23/day24 tables,project pivots to diagnostic benchmark / failure-analysis,No-Go is useful evidence,draft paper outline,diagnostic benchmark claim allowed

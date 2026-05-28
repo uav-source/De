@@ -1,0 +1,8 @@
+contribution_id,contribution_text,claim_status,supporting_evidence,blocking_evidence,paper_section,risk_level,allowed_wording
+C01,synthetic degeneracy benchmark,allowed,"Day14 minibench, manifests, and diagnostic tables",synthetic-only scope,Benchmark,medium,We provide a reproducible synthetic diagnostic benchmark for controlled degeneracy cases.
+C02,weak-direction / whitened information diagnostic protocol,allowed,Day6-9 ODI/weak-direction artifacts and Day24 protocol,not estimator validation,Diagnostics,medium,We analyze whitened information spectra and weak-direction geometry as diagnostics.
+C03,legacy bias audit and unbiased toy_lio protocol,allowed,Day15 bias audit and Day16 unbiased protocol,toy_lio is synthetic and not real LIO,Bias Audit,low,We expose the legacy axis-bias confound and replace it with an unbiased probe protocol.
+C04,strict metric validity negative evidence,allowed,Day18-21 validation tables,limited scene families,Metric Validity,high,We report strict negative evidence rather than turning weak correlations into claims.
+C05,claim-boundary and gate-review framework,allowed,Day22-24 gate and claim maps,conservative framing may reduce method novelty,Gate Review,medium,"We formalize allowed, conditional, exploratory, diagnostic-only, and forbidden claims."
+C06,reproducibility package,conditional,Day13/14 manifests and Day15-24 scripts,smoke plotting/sensitivity mode in reproduction,Artifact,medium,"We release scripts, configs, tables, and manifests with explicit reproduction commands."
+C07,validated estimator update,forbidden,none,Day22/24 method_update_authorized=false,Not Included,critical,Do not present an estimator update as a contribution.
