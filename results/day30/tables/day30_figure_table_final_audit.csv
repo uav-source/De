@@ -1,0 +1,16 @@
+item_id,item_type,path,exists,nonempty,size_bytes,real_or_placeholder,claim_boundary_present,status,reason
+F01,figure,docs/paper/figures/F01_benchmark_geometry_overview.png,true,true,136126,real,true,pass,real figure exists and claim boundary is represented in Day29 inventory/caption bank
+F01,figure,docs/paper/figures/F01_benchmark_geometry_overview.pdf,true,true,29384,real,true,pass,real figure exists and claim boundary is represented in Day29 inventory/caption bank
+F03,figure,docs/paper/figures/F03_bias_audit_legacy_vs_unbiased.png,true,true,108826,real,true,pass,real figure exists and claim boundary is represented in Day29 inventory/caption bank
+F03,figure,docs/paper/figures/F03_bias_audit_legacy_vs_unbiased.pdf,true,true,18309,real,true,pass,real figure exists and claim boundary is represented in Day29 inventory/caption bank
+T01,table,docs/paper/generated_tables/T01_day17_unbiased_probe_summary.md,true,true,1749,paper_table_or_note,true,pass,paper table/note exists with claim boundary
+T02,table,docs/paper/generated_tables/T02_day18_within_sequence_summary.md,true,true,1556,paper_table_or_note,true,pass,paper table/note exists with claim boundary
+T03,table,docs/paper/generated_tables/T03_day19_grouped_loso_summary.md,true,true,2768,paper_table_or_note,true,pass,paper table/note exists with claim boundary
+T04,table,docs/paper/generated_tables/T04_day20_controlled_partial_summary.md,true,true,2221,paper_table_or_note,true,pass,paper table/note exists with claim boundary
+T05,table,docs/paper/generated_tables/T05_day21_joint_risk_summary.md,true,true,4150,paper_table_or_note,true,pass,paper table/note exists with claim boundary
+T06,table,docs/paper/generated_tables/T06_day22_gate_decision.md,true,true,1637,paper_table_or_note,true,pass,paper table/note exists with claim boundary
+T07,table,docs/paper/generated_tables/T07_claim_boundary.md,true,true,2588,paper_table_or_note,true,pass,paper table/note exists with claim boundary
+T08,table,docs/paper/generated_tables/T08_reproducibility_commands.md,true,true,3378,paper_table_or_note,true,pass,paper table/note exists with claim boundary
+table_interpretation_notes,table,docs/paper/generated_tables/table_interpretation_notes.md,true,true,1239,paper_table_or_note,true,pass,paper table/note exists with claim boundary
+caption_bank,table,docs/paper/caption_bank.md,true,true,5110,paper_table_or_note,true,pass,paper table/note exists with claim boundary
+caption_bank_day29,table,docs/paper/caption_bank_day29.md,true,true,922,paper_table_or_note,true,pass,paper table/note exists with claim boundary

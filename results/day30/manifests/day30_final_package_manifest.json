@@ -1,0 +1,41 @@
+{
+  "fake_figures_detected": false,
+  "figure_table_audit_passed": true,
+  "final_package_status": "ready_for_draft",
+  "git_commit": "a61756f",
+  "global_claim_boundary_passed": true,
+  "inputs": [
+    "README.md",
+    "results/day14/manifests/day14_reproduction_manifest.json",
+    "results/day14/manifests/day14_final_manifest.json",
+    "results/day30/manifests/day15_bias_audit_manifest.json",
+    "results/day30/manifests/day22_gate_review_manifest.json",
+    "results/day30/manifests/day29_safe_figures_manifest.json",
+    "results/day30/tables/day29_generated_figure_inventory.csv",
+    "results/day30/tables/day29_caption_safety_audit.csv",
+    "reports/day29_safe_figures_report.md",
+    "docs/paper/diagnostic_benchmark_paper_skeleton.md",
+    "docs/release/release_scope.md",
+    "configs/validation/day30_final_package_review.yaml"
+  ],
+  "interpretation": "final diagnostic benchmark package review; method update and weak-subspace update remain unauthorized",
+  "method_update_authorized": false,
+  "missing_artifacts": [],
+  "odi_robust_claim_allowed": false,
+  "outputs": [
+    "results/day30/tables/day30_required_artifact_audit.csv",
+    "results/day30/tables/day30_figure_table_final_audit.csv",
+    "results/day30/tables/day30_global_claim_boundary_audit.csv",
+    "results/day30/tables/day30_release_readiness_checklist.csv",
+    "results/day30/tables/day30_clean_archive_plan.csv",
+    "results/day30/tables/day30_final_decision.csv",
+    "results/day30/manifests/day30_final_package_manifest.json",
+    "reports/day30_final_package_review.md",
+    "docs/release/day30_final_release_notes.md"
+  ],
+  "release_readiness_status": "manual_required",
+  "required_artifact_audit_passed": true,
+  "runtime_seconds": 0.027745,
+  "status": "CONDITIONAL_OK",
+  "weak_update_authorized": false
+}

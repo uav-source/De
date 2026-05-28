@@ -1,0 +1,135 @@
+artifact_id,day,artifact_type,path,exists,nonempty,required_for_final_package,status,reason
+D14-M01,Day 14,manifest,results/day14/manifests/day14_reproduction_manifest.json,true,true,true,pass,Day14 reproduction provenance
+D14-M02,Day 14,manifest,results/day14/manifests/day14_final_manifest.json,true,true,true,pass,Day14 final decision provenance
+D14-R01,Day 14,report,reports/day14_go_nogo_report.md,true,true,true,pass,Day14 Conditional Go/No-Go report
+D15-C01,Day 15,scope_doc,docs/day15_30_scope.md,true,true,true,pass,Day15-30 scope boundary
+D15-S01,Day 15,script,scripts/08_bias_audit.py,true,true,true,pass,Day15 executable audit
+D15-R01,Day 15,report,reports/day15_report.md,true,true,true,pass,Day15 bias audit report
+D15-T01,Day 15,table,results/day30/tables/day15_bias_audit.csv,true,true,true,pass,Day15 bias audit table
+D15-M01,Day 15,manifest,results/day30/manifests/day15_bias_audit_manifest.json,true,true,true,pass,Day15 manifest
+D16-C01,Day 16,config,configs/toy_lio/unbiased_day16.yaml,true,true,true,pass,Day16 unbiased config
+D16-S01,Day 16,script,scripts/09_run_unbiased_toy_lio.py,true,true,true,pass,Day16 executable script
+D16-R01,Day 16,report,reports/day16_report.md,true,true,true,pass,Day16 report
+D16-T01,Day 16,table,results/day30/tables/day16_unbiased_toy_lio_summary.csv,true,true,true,pass,Day16 summary
+D16-M01,Day 16,manifest,results/day30/manifests/day16_unbiased_toy_lio_manifest.json,true,true,true,pass,Day16 manifest
+D17-C01,Day 17,config,configs/toy_lio/unbiased_day17.yaml,true,true,true,pass,Day17 multi-trial config
+D17-S01,Day 17,script,scripts/10_unbiased_metric_probe.py,true,true,true,pass,Day17 executable script
+D17-R01,Day 17,report,reports/day17_report.md,true,true,true,pass,Day17 report
+D17-T01,Day 17,table,results/day30/tables/day17_unbiased_probe_trials.csv,true,true,true,pass,Day17 trials
+D17-T02,Day 17,table,results/day30/tables/day17_unbiased_probe_summary.csv,true,true,true,pass,Day17 summary
+D17-T03,Day 17,table,results/day30/tables/day17_metric_drift_correlations.csv,true,true,true,pass,Day17 correlations
+D17-M01,Day 17,manifest,results/day30/manifests/day17_unbiased_probe_manifest.json,true,true,true,pass,Day17 manifest
+D18-C01,Day 18,config,configs/validation/day18_within_sequence.yaml,true,true,true,pass,Day18 config
+D18-S01,Day 18,script,scripts/11_within_sequence_validation.py,true,true,true,pass,Day18 executable script
+D18-R01,Day 18,report,reports/day18_report.md,true,true,true,pass,Day18 report
+D18-T01,Day 18,table,results/day30/tables/day18_window_metrics.csv,true,true,true,pass,Day18 window table
+D18-T02,Day 18,table,results/day30/tables/day18_within_sequence_correlations.csv,true,true,true,pass,Day18 correlations
+D18-T03,Day 18,table,results/day30/tables/day18_sequence_validity_summary.csv,true,true,true,pass,Day18 summary
+D18-M01,Day 18,manifest,results/day30/manifests/day18_within_sequence_manifest.json,true,true,true,pass,Day18 manifest
+D19-C01,Day 19,config,configs/validation/day19_grouped_loso.yaml,true,true,true,pass,Day19 config
+D19-S01,Day 19,script,scripts/12_grouped_loso_validation.py,true,true,true,pass,Day19 executable script
+D19-R01,Day 19,report,reports/day19_report.md,true,true,true,pass,Day19 report
+D19-T01,Day 19,table,results/day30/tables/day19_grouped_metric_summary.csv,true,true,true,pass,Day19 grouped table
+D19-T02,Day 19,table,results/day30/tables/day19_loso_selection_results.csv,true,true,true,pass,Day19 LOSO table
+D19-T03,Day 19,table,results/day30/tables/day19_metric_pass_fail_summary.csv,true,true,true,pass,Day19 pass/fail
+D19-M01,Day 19,manifest,results/day30/manifests/day19_grouped_loso_manifest.json,true,true,true,pass,Day19 manifest
+D20-C01,Day 20,config,configs/validation/day20_controlled_partial.yaml,true,true,true,pass,Day20 config
+D20-S01,Day 20,script,scripts/13_controlled_partial_validity.py,true,true,true,pass,Day20 executable script
+D20-R01,Day 20,report,reports/day20_report.md,true,true,true,pass,Day20 report
+D20-T01,Day 20,table,results/day30/tables/day20_partial_correlations.csv,true,true,true,pass,Day20 partial correlations
+D20-T02,Day 20,table,results/day30/tables/day20_controlled_regression_summary.csv,true,true,true,pass,Day20 controlled regression
+D20-T03,Day 20,table,results/day30/tables/day20_permutation_tests.csv,true,true,true,pass,Day20 permutation tests
+D20-T04,Day 20,table,results/day30/tables/day20_incremental_validity_summary.csv,true,true,true,pass,Day20 incremental summary
+D20-M01,Day 20,manifest,results/day30/manifests/day20_controlled_partial_manifest.json,true,true,true,pass,Day20 manifest
+D21-C01,Day 21,config,configs/validation/day21_joint_risk.yaml,true,true,true,pass,Day21 config
+D21-S01,Day 21,script,scripts/14_joint_risk_features.py,true,true,true,pass,Day21 executable script
+D21-R01,Day 21,report,reports/day21_report.md,true,true,true,pass,Day21 report
+D21-T01,Day 21,table,results/day30/tables/day21_joint_risk_window_features.csv,true,true,true,pass,Day21 features
+D21-T02,Day 21,table,results/day30/tables/day21_joint_risk_correlations.csv,true,true,true,pass,Day21 correlations
+D21-T03,Day 21,table,results/day30/tables/day21_joint_risk_controlled_validity.csv,true,true,true,pass,Day21 controlled validity
+D21-T04,Day 21,table,results/day30/tables/day21_joint_risk_comparison.csv,true,true,true,pass,Day21 comparison
+D21-M01,Day 21,manifest,results/day30/manifests/day21_joint_risk_manifest.json,true,true,true,pass,Day21 manifest
+D22-C01,Day 22,config,configs/validation/day22_gate_review.yaml,true,true,true,pass,Day22 config
+D22-S01,Day 22,script,scripts/15_day22_gate_review.py,true,true,true,pass,Day22 executable script
+D22-R01,Day 22,report,reports/day22_gate_review.md,true,true,true,pass,Day22 report
+D22-M01,Day 22,manifest,results/day30/manifests/day22_gate_review_manifest.json,true,true,true,pass,Day22 manifest
+D23-C01,Day 23,config,configs/validation/day23_route_b_pivot.yaml,true,true,true,pass,Day23 config
+D23-S01,Day 23,script,scripts/16_day23_route_b_pivot.py,true,true,true,pass,Day23 executable script
+D23-R01,Day 23,report,reports/day23_route_b_pivot_report.md,true,true,true,pass,Day23 report
+D23-M01,Day 23,manifest,results/day30/manifests/day23_route_b_pivot_manifest.json,true,true,true,pass,Day23 manifest
+D24-C01,Day 24,config,configs/validation/day24_diagnostic_consolidation.yaml,true,true,true,pass,Day24 config
+D24-S01,Day 24,script,scripts/17_day24_diagnostic_consolidation.py,true,true,true,pass,Day24 executable script
+D24-R01,Day 24,report,reports/day24_diagnostic_consolidation_report.md,true,true,true,pass,Day24 report
+D24-M01,Day 24,manifest,results/day30/manifests/day24_diagnostic_consolidation_manifest.json,true,true,true,pass,Day24 manifest
+D25-C01,Day 25,config,configs/validation/day25_paper_outline.yaml,true,true,true,pass,Day25 config
+D25-S01,Day 25,script,scripts/18_day25_paper_outline.py,true,true,true,pass,Day25 executable script
+D25-R01,Day 25,report,reports/day25_paper_outline_report.md,true,true,true,pass,Day25 report
+D25-M01,Day 25,manifest,results/day30/manifests/day25_paper_outline_manifest.json,true,true,true,pass,Day25 manifest
+D26-C01,Day 26,config,configs/validation/day26_paper_skeleton.yaml,true,true,true,pass,Day26 config
+D26-S01,Day 26,script,scripts/19_day26_paper_skeleton.py,true,true,true,pass,Day26 executable script
+D26-R01,Day 26,report,reports/day26_paper_skeleton_report.md,true,true,true,pass,Day26 report
+D26-M01,Day 26,manifest,results/day30/manifests/day26_paper_skeleton_manifest.json,true,true,true,pass,Day26 manifest
+D27-C01,Day 27,config,configs/validation/day27_release_cleanup.yaml,true,true,true,pass,Day27 config
+D27-S01,Day 27,script,scripts/20_day27_release_cleanup.py,true,true,true,pass,Day27 executable script
+D27-R01,Day 27,report,reports/day27_release_cleanup_report.md,true,true,true,pass,Day27 report
+D27-M01,Day 27,manifest,results/day30/manifests/day27_release_cleanup_manifest.json,true,true,true,pass,Day27 manifest
+D28-C01,Day 28,config,configs/validation/day28_figure_table_generation.yaml,true,true,true,pass,Day28 config
+D28-S01,Day 28,script,scripts/21_day28_figure_table_generation.py,true,true,true,pass,Day28 executable script
+D28-R01,Day 28,report,reports/day28_figure_table_generation_report.md,true,true,true,pass,Day28 report
+D28-M01,Day 28,manifest,results/day30/manifests/day28_figure_table_generation_manifest.json,true,true,true,pass,Day28 manifest
+D29-C01,Day 29,config,configs/validation/day29_safe_figures.yaml,true,true,true,pass,Day29 config
+D29-S01,Day 29,script,scripts/22_day29_safe_figures.py,true,true,true,pass,Day29 executable script
+D29-R01,Day 29,report,reports/day29_safe_figures_report.md,true,true,true,pass,Day29 report
+D29-M01,Day 29,manifest,results/day30/manifests/day29_safe_figures_manifest.json,true,true,true,pass,Day29 manifest
+README,General,readme,README.md,true,true,true,pass,README scope and reproduction commands
+PAPER-SKEL,Day 26,paper_doc,docs/paper/diagnostic_benchmark_paper_skeleton.md,true,true,true,pass,paper skeleton
+PAPER-TABLES,Day 28,paper_doc,docs/paper/generated_tables/T01_day17_unbiased_probe_summary.md,true,true,true,pass,generated paper table
+PAPER-FIG-F01,Day 29,figure,docs/paper/figures/F01_benchmark_geometry_overview.png,true,true,true,pass,real F01 figure
+PAPER-FIG-F03,Day 29,figure,docs/paper/figures/F03_bias_audit_legacy_vs_unbiased.png,true,true,true,pass,real F03 figure
+RELEASE-SCOPE,Day 27,release_doc,docs/release/release_scope.md,true,true,true,pass,release scope
+RELEASE-CLEAN,Day 27,release_doc,docs/release/release_cleanup_policy.md,true,true,true,pass,release cleanup policy
+RELEASE-CMDS,Day 27,release_doc,docs/release/release_reproducibility_commands.md,true,true,true,pass,release commands
+D22-T01,Day 22,table,results/day30/tables/day22_evidence_matrix.csv,true,true,true,pass,Day22 main table
+D22-T02,Day 22,table,results/day30/tables/day22_gate_decision.csv,true,true,true,pass,Day22 main table
+D22-T03,Day 22,table,results/day30/tables/day22_claim_status.csv,true,true,true,pass,Day22 main table
+D22-T04,Day 22,table,results/day30/tables/day22_next_action_plan.csv,true,true,true,pass,Day22 main table
+D23-T01,Day 23,table,results/day30/tables/day23_failure_taxonomy.csv,true,true,true,pass,Day23 main table
+D23-T02,Day 23,table,results/day30/tables/day23_claim_consolidation.csv,true,true,true,pass,Day23 main table
+D23-T03,Day 23,table,results/day30/tables/day23_metric_redesign_candidates.csv,true,true,true,pass,Day23 main table
+D23-T04,Day 23,table,results/day30/tables/day23_diagnostic_benchmark_route.csv,true,true,true,pass,Day23 main table
+D23-T05,Day 23,table,results/day30/tables/day23_day24_recommendation.csv,true,true,true,pass,Day23 main table
+D24-T01,Day 24,table,results/day30/tables/day24_artifact_inventory.csv,true,true,true,pass,Day24 main table
+D24-T02,Day 24,table,results/day30/tables/day24_benchmark_protocol.csv,true,true,true,pass,Day24 main table
+D24-T03,Day 24,table,results/day30/tables/day24_paper_claim_map.csv,true,true,true,pass,Day24 main table
+D24-T04,Day 24,table,results/day30/tables/day24_reviewer_risk_register.csv,true,true,true,pass,Day24 main table
+D24-T05,Day 24,table,results/day30/tables/day24_release_checklist.csv,true,true,true,pass,Day24 main table
+D24-T06,Day 24,table,results/day30/tables/day24_day25_recommendation.csv,true,true,true,pass,Day24 main table
+D25-T01,Day 25,table,results/day30/tables/day25_title_positioning_candidates.csv,true,true,true,pass,Day25 main table
+D25-T02,Day 25,table,results/day30/tables/day25_contribution_map.csv,true,true,true,pass,Day25 main table
+D25-T03,Day 25,table,results/day30/tables/day25_section_outline.csv,true,true,true,pass,Day25 main table
+D25-T04,Day 25,table,results/day30/tables/day25_figure_table_plan.csv,true,true,true,pass,Day25 main table
+D25-T05,Day 25,table,results/day30/tables/day25_experiment_storyline.csv,true,true,true,pass,Day25 main table
+D25-T06,Day 25,table,results/day30/tables/day25_claim_boundary_for_paper.csv,true,true,true,pass,Day25 main table
+D25-T07,Day 25,table,results/day30/tables/day25_reproducibility_plan.csv,true,true,true,pass,Day25 main table
+D25-T08,Day 25,table,results/day30/tables/day25_reviewer_response_plan.csv,true,true,true,pass,Day25 main table
+D25-T09,Day 25,table,results/day30/tables/day25_day26_recommendation.csv,true,true,true,pass,Day25 main table
+D26-T01,Day 26,table,results/day30/tables/day26_section_writing_tasks.csv,true,true,true,pass,Day26 main table
+D26-T02,Day 26,table,results/day30/tables/day26_figure_table_execution_plan.csv,true,true,true,pass,Day26 main table
+D26-T03,Day 26,table,results/day30/tables/day26_readme_scope_update_plan.csv,true,true,true,pass,Day26 main table
+D26-T04,Day 26,table,results/day30/tables/day26_release_cleanup_plan.csv,true,true,true,pass,Day26 main table
+D26-T05,Day 26,table,results/day30/tables/day26_day27_recommendation.csv,true,true,true,pass,Day26 main table
+D27-T01,Day 27,table,results/day30/tables/day27_readme_scope_audit.csv,true,true,true,pass,Day27 main table
+D27-T02,Day 27,table,results/day30/tables/day27_forbidden_claims_audit.csv,true,true,true,pass,Day27 main table
+D27-T03,Day 27,table,results/day30/tables/day27_release_forbidden_paths_audit.csv,true,true,true,pass,Day27 main table
+D27-T04,Day 27,table,results/day30/tables/day27_release_file_policy.csv,true,true,true,pass,Day27 main table
+D27-T05,Day 27,table,results/day30/tables/day27_safe_archive_plan.csv,true,true,true,pass,Day27 main table
+D27-T06,Day 27,table,results/day30/tables/day27_figure_table_readiness.csv,true,true,true,pass,Day27 main table
+D27-T07,Day 27,table,results/day30/tables/day27_day28_recommendation.csv,true,true,true,pass,Day27 main table
+D28-T01,Day 28,table,results/day30/tables/day28_generated_table_inventory.csv,true,true,true,pass,Day28 main table
+D28-T02,Day 28,table,results/day30/tables/day28_pending_figure_plan.csv,true,true,true,pass,Day28 main table
+D28-T03,Day 28,table,results/day30/tables/day28_caption_bank.csv,true,true,true,pass,Day28 main table
+D28-T04,Day 28,table,results/day30/tables/day28_day29_recommendation.csv,true,true,true,pass,Day28 main table
+D29-T01,Day 29,table,results/day30/tables/day29_generated_figure_inventory.csv,true,true,true,pass,Day29 main table
+D29-T02,Day 29,table,results/day30/tables/day29_table_safety_notes.csv,true,true,true,pass,Day29 main table
+D29-T03,Day 29,table,results/day30/tables/day29_caption_safety_audit.csv,true,true,true,pass,Day29 main table
+D29-T04,Day 29,table,results/day30/tables/day29_day30_recommendation.csv,true,true,true,pass,Day29 main table

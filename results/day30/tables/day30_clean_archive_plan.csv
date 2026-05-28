@@ -1,0 +1,7 @@
+archive_step,command_or_action,include_patterns,exclude_patterns,safe,requires_manual_confirmation,reason
+A01,python3 scripts/check_env.py,source/config/script/report/results metadata,".git,.pytest_cache,__pycache__",true,false,confirm local environment before packaging
+A02,python3 -m pytest -q,all tracked testable source,".git,.pytest_cache,__pycache__",true,false,manual quality gate before release
+A03,python3 scripts/23_day30_final_package_review.py --config configs/validation/day30_final_package_review.yaml,"Day30 audit tables, report, release notes",".git,.pytest_cache,__pycache__",true,false,refresh final review artifacts
+A04,git archive --format=tar.gz --output degen_lio_diagnostic_benchmark.tar.gz HEAD,tracked release files,.git automatically excluded,true,true,safe clean archive option; manually inspect output
+A05,rsync -a --exclude .git --exclude .pytest_cache --exclude __pycache__ ./ release_dir/,selected checkout files,".git,.pytest_cache,__pycache__",true,true,alternate staging command; do not run until manually confirmed
+A06,do not delete local checkout caches as part of Day30,none,n/a,true,false,Day30 creates a plan only and does not delete user files
