@@ -1,0 +1,23 @@
+source_days:
+  - day15_bias_audit
+  - day16_unbiased_toy_lio
+  - day17_unbiased_probe
+  - day18_within_sequence
+  - day19_grouped_loso
+  - day20_controlled_partial
+  - day21_joint_risk
+
+gate_rules:
+  require_unbiased_protocol: true
+  require_day18_window_validation: true
+  require_day19_grouped_loso: true
+  require_day20_controlled_validity_for_odi: false
+  require_day21_joint_risk_candidate_for_method: true
+  require_weak_update_authorized_for_method: true
+
+decision_labels:
+  - GO_WEAK_UPDATE
+  - CONDITIONAL_ANALYSIS_ONLY
+  - NO_GO_METHOD_UPDATE
+
+notes: "Day 22 reviews accumulated evidence and decides whether method implementation is authorized. A negative gate is still a valid Day 22 outcome."
