@@ -1,0 +1,16 @@
+# T03
+
+Day19 grouped / LOSO summary. This item supports diagnostic benchmark interpretation only; Diagnostic benchmark evidence only; do not claim generalized validity.
+
+Claim boundary: Diagnostic benchmark evidence only; do not claim generalized validity.
+
+| held_out_sequence | held_out_scene_family | target_name | selected_metric_from_train | train_mean_abs_rho | held_out_rho | held_out_abs_rho | held_out_validity_status | ODI_held_out_rho | AIS_held_out_rho | lambda_min_clamped_held_out_rho | condition_number_held_out_rho | interpretation |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CT-L2-S01-M2 | CT | axis_drift_rate | ODI_median | 0.125737273816 | 0.0215333604313 | 0.0215333604313 | valid | 0.0215333604313 | -0.0199496458027 | 0.02296580028 | -0.0158025059429 | train-selected metric ODI_median remains valid on held-out sequence |
+| OC-L0-S01-M1 | OC | axis_drift_rate | condition_number_median | 0.057565420191 | 0.0133060567464 | 0.0133060567464 | valid | -0.227916791073 | 0.172531392814 | -0.0160667576162 | 0.0133060567464 | train-selected metric condition_number_median remains valid on held-out sequence |
+| RT-L4-S01-M1 | RT | axis_drift_rate | ODI_median | 0.112431201839 | -0.061451576363 | 0.061451576363 | valid | -0.061451576363 | 0.0434276654697 | nan | -0.0796400157518 | train-selected metric ODI_median remains valid on held-out sequence |
+| ST-L3-S01-M1 | ST | axis_drift_rate | ODI_median | 0.103633909289 | -0.0878434540112 | 0.0878434540112 | valid | -0.0878434540112 | 0.0399336541898 | 0.00852981040715 | -0.0772537388783 | train-selected metric ODI_median remains valid on held-out sequence |
+| CT-L2-S01-M2 | CT | weak_drift_alignment | lambda_min_clamped_median | 0.0926964090164 | 0.0644882839229 | 0.0644882839229 | valid | -0.0471354326471 | 0.0654264333395 | 0.0644882839229 | -0.0336443961096 | train-selected metric lambda_min_clamped_median remains valid on held-out sequence |
+| OC-L0-S01-M1 | OC | weak_drift_alignment | lambda_min_clamped_median | 0.0785923464696 | nan | nan | insufficient_windows | nan | nan | nan | nan | train-selected metric lambda_min_clamped_median is not valid on held-out sequence (insufficient_windows) |
+| RT-L4-S01-M1 | RT | weak_drift_alignment | AIS_median | 0.0836331593908 | 0.0299863704167 | 0.0299863704167 | valid | -0.0141534566552 | 0.0299863704167 | nan | 0.0502028781828 | train-selected metric AIS_median remains valid on held-out sequence |
+| ST-L3-S01-M1 | ST | weak_drift_alignment | lambda_min_clamped_median | 0.0644882839229 | -0.0926964090164 | 0.0926964090164 | valid | -0.111195961142 | 0.101839885442 | -0.0926964090164 | -0.0877683613278 | train-selected metric lambda_min_clamped_median remains valid on held-out sequence |

@@ -1,0 +1,3 @@
+item_id,figure_name,reason_pending,required_source,proposed_generation_script,allowed_placeholder,must_not_fake,must_not_claim,next_action
+F01,benchmark geometry overview,requires a real generation script; no rendered figure is produced on Day 28,configs/minibench and results/day14 artifacts,scripts/paper_figures/generate_f01.py,true,true,real-world coverage,implement a real figure-generation script or keep this markdown plan as placeholder
+F03,legacy vs unbiased toy_lio bias audit,requires a real generation script; no rendered figure is produced on Day 28,results/day30/tables/day15_bias_audit.csv and day16 summary,scripts/paper_figures/generate_f03.py,true,true,real LIO validation,implement a real figure-generation script or keep this markdown plan as placeholder

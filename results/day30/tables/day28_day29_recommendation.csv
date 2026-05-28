@@ -1,0 +1,4 @@
+recommended_day,recommended_route,task,allowed,reason,blocking_condition
+Day 29,paper section drafting,insert generated tables into section drafts and expand text using claim boundaries,true,Day28 produces paper-ready tables and caption bank,do not convert pending figure plans into fake figures
+Day 29,safe figure-generation script implementation,implement real scripts for F01/F03 or keep them pending with explicit plan,true,F01 and F03 remain pending and require real generation scripts,must not generate fake PNG/PDF
+Day 29,weak-subspace update implementation,implement estimator update,false,method update remains unauthorized,requires future method_update_authorized=true

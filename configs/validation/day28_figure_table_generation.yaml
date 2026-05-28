@@ -1,0 +1,29 @@
+source_days:
+  - day25_paper_outline
+  - day26_paper_skeleton
+  - day27_release_cleanup
+
+route: figure_table_generation_scripts
+
+table_items:
+  - T01
+  - T02
+  - T03
+  - T04
+  - T05
+  - T06
+  - T07
+  - T08
+
+pending_figure_items:
+  - F01
+  - F03
+
+forbidden_actions:
+  - weak_subspace_update
+  - estimator_method_implementation
+  - robust_ODI_claim
+  - fake_figure_generation
+  - overwrite_previous_artifacts
+
+notes: "Day 28 converts existing table artifacts into paper-ready markdown tables and prepares explicit generation plans for pending figures. It does not fake plots."
