@@ -1,0 +1,27 @@
+{
+  "day19_validation_passed": true,
+  "git_commit": "8cb149a",
+  "inputs": [
+    "results/day30/tables/day18_window_metrics.csv",
+    "results/day30/tables/day18_within_sequence_correlations.csv",
+    "results/day30/tables/day18_sequence_validity_summary.csv",
+    "configs/validation/day19_grouped_loso.yaml"
+  ],
+  "interpretation": "data chain passed; this is not authorization for weak-subspace update",
+  "missing_artifacts": [],
+  "n_metrics": 4,
+  "n_sequences": 4,
+  "n_targets": 2,
+  "odi_grouped_status": "false",
+  "odi_loso_status": "true",
+  "outputs": [
+    "results/day30/tables/day19_grouped_metric_summary.csv",
+    "results/day30/tables/day19_loso_selection_results.csv",
+    "results/day30/tables/day19_metric_pass_fail_summary.csv",
+    "results/day30/manifests/day19_grouped_loso_manifest.json",
+    "reports/day19_report.md"
+  ],
+  "runtime_seconds": 0.024574,
+  "source_validation": "day18_within_sequence",
+  "status": "OK"
+}

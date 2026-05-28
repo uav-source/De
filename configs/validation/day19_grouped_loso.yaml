@@ -1,0 +1,16 @@
+source_validation: day18_within_sequence
+targets:
+  - axis_drift_rate
+  - weak_drift_alignment
+metrics:
+  - ODI_median
+  - AIS_median
+  - lambda_min_clamped_median
+  - condition_number_median
+group_keys:
+  - sequence_id
+  - scene_family
+loso_unit: sequence_id
+min_valid_sequences: 3
+selection_rule: mean_abs_spearman_on_train
+notes: "Day 19 tests whether metric validity generalizes across held-out sequences/groups."
