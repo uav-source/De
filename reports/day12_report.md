@@ -20,6 +20,7 @@
 - Date: 2026-05-28
 - Repository: `/home/lj/Degen-LIO`
 - Base git commit at run start: `1f8691c`
+- Day 12 implementation commit: `375cdda`
 - Detector config: `configs/detector/odi_default.yaml`
 - Random seed: `42`
 - D grid:
