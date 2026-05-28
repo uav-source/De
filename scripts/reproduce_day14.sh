@@ -229,7 +229,14 @@ plot_start_epoch="$(date +%s)"
 echo "RUN step=plot_day14 timeout=${STEP_TIMEOUT_SECONDS}s command=plot_day14" >> "$COMMAND_LOG"
 echo "+ [plot_day14] timeout=${STEP_TIMEOUT_SECONDS}s plot_day14"
 set +e
-env DEGEN_FORCE_CLI_EXIT=1 timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" \
+timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" \
+  env DEGEN_FORCE_CLI_EXIT=1 \
+      MPLBACKEND=Agg \
+      PYTHONUNBUFFERED=1 \
+      OMP_NUM_THREADS=1 \
+      OPENBLAS_NUM_THREADS=1 \
+      MKL_NUM_THREADS=1 \
+      NUMEXPR_NUM_THREADS=1 \
   python3 scripts/04_plot_day14.py \
     --results results/day14 \
     --out results/day14/figures \
@@ -262,10 +269,18 @@ sensitivity_start_epoch="$(date +%s)"
 echo "RUN step=sensitivity timeout=${STEP_TIMEOUT_SECONDS}s command=sensitivity" >> "$COMMAND_LOG"
 echo "+ [sensitivity] timeout=${STEP_TIMEOUT_SECONDS}s sensitivity"
 set +e
-env DEGEN_FORCE_CLI_EXIT=1 timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" \
+timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" \
+  env DEGEN_FORCE_CLI_EXIT=1 \
+      MPLBACKEND=Agg \
+      PYTHONUNBUFFERED=1 \
+      OMP_NUM_THREADS=1 \
+      OPENBLAS_NUM_THREADS=1 \
+      MKL_NUM_THREADS=1 \
+      NUMEXPR_NUM_THREADS=1 \
   python3 scripts/06_sensitivity.py \
     --config configs/detector/odi_default.yaml \
     --results results/day14 \
+    --data-root data/minibench \
     --out results/day14/tables \
     --figures-out results/day14/figures \
     --n-boot "$REPRO_N_BOOT" \

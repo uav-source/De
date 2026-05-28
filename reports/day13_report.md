@@ -1,20 +1,21 @@
-# Day 13 Eleventh Repair Report - Reproduction Stability
+# Day 13 Twelfth Repair Report - Reproduction Stability
 
 ## Scope
 
 This is still Day 13 repair work only. I did not enter Day 14, did not modify `toy_lio`, did not remove Day 10 per-sequence/LOSO counter-evidence, and did not change the scientific conclusion.
 
-## Eleventh Repair Changes
+## Twelfth Repair Changes
 
-- `scripts/reproduce_day14.sh` now runs `sensitivity` through the same forced CLI exit path as `plot_day14`.
-- The reproduction command for sensitivity is recorded as `env DEGEN_FORCE_CLI_EXIT=1 timeout --kill-after=10s ... python3 scripts/06_sensitivity.py ...`.
-- `scripts/06_sensitivity.py` writes CSVs, figures, the updated plotting manifest, flushes stdout/stderr, and calls `os._exit(0)` when `DEGEN_FORCE_CLI_EXIT=1`.
-- The forced-exit path avoids entering matplotlib cleanup that has been observed to block process termination in the reproduce runner.
-- Existing `plot_day14` forced-exit behavior is retained.
+- `scripts/reproduce_day14.sh` no longer runs `plot_day14` or `sensitivity` through a wrapper function.
+- `plot_day14` is an explicit in-place shell step with the verified command order:
+  `timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" env DEGEN_FORCE_CLI_EXIT=1 ... python3 scripts/04_plot_day14.py ...`
+- `sensitivity` uses the same timeout/env ordering and explicitly passes `--data-root data/minibench`.
+- The step status command fields for these two steps are fixed short strings: `plot_day14` and `sensitivity`.
+- Failure handling still writes a FAILED reproduction manifest and exits non-zero.
 
-## Validation Commands
+## Validation
 
-The generated directories were cleared before validation:
+Generated results were cleared before validation:
 
 ```bash
 rm -rf data/minibench/* \
@@ -25,30 +26,7 @@ rm -rf data/minibench/* \
        results/day14/manifests/*
 ```
 
-Validation commands:
-
-```bash
-python3 scripts/check_env.py
-python3 -m pytest -q
-STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run
-```
-
-Observed results before the final commit:
-
-- `python3 scripts/check_env.py`: OK.
-- `python3 -m pytest -q`: `72 passed`.
-- `STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run`: OK.
-- Reproduction runtime: `16s`.
-- Step timeouts: `0`.
-- Step failures: `0`.
-- `plot_day14` completed and was recorded in `day14_step_status_*.csv`.
-- `sensitivity` completed and was recorded in `day14_step_status_*.csv`.
-- `results/day14/manifests/day14_reproduction_manifest.json`: `status=OK`.
-- `missing_artifacts`: empty.
-
-## Final Acceptance Procedure
-
-After the repair commit, run:
+Commands run:
 
 ```bash
 python3 scripts/check_env.py
@@ -57,15 +35,18 @@ STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run
 git status --short
 ```
 
-Acceptance requires:
+Observed results:
 
-- `check_env.py` exits normally.
-- Full `pytest -q` exits normally, including after generated data/results are empty.
-- `STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run` exits normally.
-- `git status --short` is empty.
-- `results/day14/manifests/day14_reproduction_manifest.json` has `status=OK`.
-- `missing_artifacts` is empty.
-- Manifest `git_commit` equals current `git rev-parse --short HEAD`.
+- `python3 scripts/check_env.py`: OK.
+- `python3 -m pytest -q`: `72 passed`.
+- Full pytest after clearing generated results: passed.
+- `STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run`: OK.
+- `plot_day14`: completed and recorded in `day14_step_status_*.csv` with return code `0`.
+- `sensitivity`: completed and recorded in `day14_step_status_*.csv` with return code `0`.
+- Final reproduction manifest: `status=OK`.
+- Manifest `missing_artifacts`: empty.
+- Manifest `git_commit`: matches `git rev-parse --short HEAD`.
+- `git status --short`: clean after the repair commit and final reproduction.
 
 ## Scientific Status
 
