@@ -48,7 +48,6 @@ Planned --run steps:
   02_run_toy_lio --all
   03_eval_metrics --all
   05_metric_validity --n-boot "$REPRO_N_BOOT"
-  prewarm_matplotlib
   04_plot_day14 real rendering
   06_sensitivity real computation --n-boot "$REPRO_N_BOOT"
   07_reproduction_manifest
@@ -220,7 +219,10 @@ run_step compute_odi python3 scripts/02_compute_odi.py --all --config configs/de
 run_step run_toy_lio python3 scripts/02_run_toy_lio.py --all --config configs/detector/odi_default.yaml
 run_step eval_metrics python3 scripts/03_eval_metrics.py --all --config configs/detector/odi_default.yaml
 run_step metric_validity python3 scripts/05_metric_validity.py --config configs/detector/odi_default.yaml --n-boot "$REPRO_N_BOOT"
-run_step prewarm_matplotlib python3 scripts/prewarm_matplotlib.py
+echo "BEFORE_PREWARM: skipped; prewarm_matplotlib is not a mandatory reproduction step" >> "$COMMAND_LOG"
+echo "AFTER_PREWARM_TIMEOUT_RETURN: skipped; no timeout subprocess launched" >> "$COMMAND_LOG"
+echo "BEFORE_STEP_STATUS_APPEND: skipped prewarm; no step status row" >> "$COMMAND_LOG"
+echo "AFTER_STEP_STATUS_APPEND: skipped prewarm; no step status row" >> "$COMMAND_LOG"
 run_step plot_day14 python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
 run_step sensitivity python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --out results/day14/tables --figures-out results/day14/figures --n-boot "$REPRO_N_BOOT"
 

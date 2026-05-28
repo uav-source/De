@@ -17,6 +17,13 @@ This is still Day 13 repair work only. I did not enter Day 14, did not modify `t
 - `run_step` was simplified to plain per-step status logging, immediate return-code recording, failure-only log tailing, and no complex CSV escaping.
 - `scripts/07_reproduction_manifest.py` records failure metadata and marks the run failed if required artifacts are missing.
 
+## Eighth Minimal Repair Changes
+
+- `prewarm_matplotlib` is no longer a mandatory `reproduce_day14.sh --run` step.
+- The reproduction flow now runs `plot_day14` directly under the existing per-step timeout.
+- `scripts/prewarm_matplotlib.py` remains in the repository, but it is reduced to a minimal Agg smoke check and does not force a full Matplotlib font-manager rebuild.
+- The command log records that prewarm was skipped so the previous hang point remains diagnosable.
+
 ## Commands Run
 
 The generated directories were cleared before validation:
@@ -44,9 +51,10 @@ Final validation results:
 - Reproduction runtime was `16-17s` in the final local validation runs; the exact runtime for each run is recorded in `results/day14/manifests/day14_reproduction_manifest.json`.
 - Step timeouts: `0`.
 - Step failures: `0`.
-- Reproduction steps completed: `17`.
+- Reproduction steps completed: `16`.
 - `obs_OC/ST/CT/RT` completed as separate steps.
 - `metric_validity` completed with `--n-boot 300`.
+- `prewarm_matplotlib` is skipped in the mandatory chain; `plot_day14` remains timeout-controlled.
 - `missing_artifacts`: empty.
 - manifest `git_commit` equals current `git rev-parse --short HEAD`.
 
