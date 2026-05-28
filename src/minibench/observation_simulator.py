@@ -19,6 +19,9 @@ import numpy as np
 import yaml
 
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+
 @dataclass
 class ObservationPlane:
     plane_id: str
@@ -67,17 +70,29 @@ def load_detector_config(path: Union[str, Path]) -> Dict[str, Any]:
 
 
 def load_sequence_config(metadata: Dict[str, Any]) -> Dict[str, Any]:
+    sequence_id = metadata.get("sequence_id")
+    candidates = []
+
     config_path = metadata.get("config_path")
-    if not config_path:
-        return {}
-    path = Path(config_path)
-    if not path.is_absolute():
-        path = Path.cwd() / path
-    if not path.exists():
-        return {}
-    with path.open("r", encoding="utf-8") as handle:
-        config = yaml.safe_load(handle)
-    return config if isinstance(config, dict) else {}
+    if config_path:
+        path = Path(config_path)
+        candidates.append(path if path.is_absolute() else Path.cwd() / path)
+
+    if sequence_id:
+        candidates.append(REPO_ROOT / "configs" / "minibench" / f"{sequence_id}.yaml")
+
+    for path in candidates:
+        if path.exists():
+            with path.open("r", encoding="utf-8") as handle:
+                config = yaml.safe_load(handle)
+            if not isinstance(config, dict):
+                raise ValueError(f"Sequence config must be a mapping: {path}")
+            return config
+
+    searched = ", ".join(str(path) for path in candidates) if candidates else "<no candidates>"
+    raise FileNotFoundError(
+        f"Could not locate sequence config for sequence_id={sequence_id!r}; searched: {searched}"
+    )
 
 
 def load_axis_csv(path: Path) -> np.ndarray:

@@ -16,6 +16,7 @@ from minibench.observation_simulator import (  # noqa: E402
     information_matrix,
     load_detector_config,
     load_sequence,
+    load_sequence_config,
     quat_to_rot,
     simulate_frame_observations,
     simulate_sequence_observations,
@@ -154,3 +155,29 @@ def test_sequence_observations_npz_contract_shapes():
     assert observations["num_points_per_frame"].shape == (frames,)
     assert observations["axis_per_frame"].shape == (frames, 3)
     assert observations["pose_gt"].shape[1] == 8
+
+
+def test_load_sequence_config_falls_back_from_stale_absolute_path():
+    metadata = {
+        "sequence_id": "RT-L4-S01-M1",
+        "config_path": "/definitely/not/this/machine/RT-L4-S01-M1.yaml",
+    }
+
+    config = load_sequence_config(metadata)
+
+    assert config["sequence_id"] == "RT-L4-S01-M1"
+    assert config["sensor_stub"]["point_noise_std_m"] == 0.025
+
+
+def test_load_sequence_config_raises_when_no_candidate_exists():
+    metadata = {
+        "sequence_id": "MISSING-L9-S99-M9",
+        "config_path": "/definitely/not/this/machine/missing.yaml",
+    }
+
+    try:
+        load_sequence_config(metadata)
+    except FileNotFoundError as exc:
+        assert "MISSING-L9-S99-M9" in str(exc)
+    else:
+        raise AssertionError("Expected FileNotFoundError for missing config")
