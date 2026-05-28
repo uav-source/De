@@ -42,7 +42,9 @@ Planned --run steps:
   python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
   python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --out results/day14/tables --figures-out results/day14/figures
   python3 scripts/07_reproduction_manifest.py ...
-Each step is run with STEP_TIMEOUT_SECONDS and a pinned non-interactive plotting/threading environment.
+Execution is delegated to scripts/run_reproduce_steps.py.
+Each step is run with subprocess.run(timeout=STEP_TIMEOUT_SECONDS), stdout/stderr logs,
+and a pinned non-interactive plotting/threading environment.
 EOF
   exit 0
 fi
@@ -52,80 +54,13 @@ if [[ "$MODE" != "--run" ]]; then
   exit 2
 fi
 
-for script in \
-  scripts/check_env.py \
-  scripts/00_generate_minibench.py \
-  scripts/01_simulate_observations.py \
-  scripts/02_compute_odi.py \
-  scripts/02_run_toy_lio.py \
-  scripts/03_eval_metrics.py \
-  scripts/04_plot_day14.py \
-  scripts/05_metric_validity.py \
-  scripts/06_sensitivity.py \
-  scripts/07_reproduction_manifest.py; do
-  if [[ ! -f "$script" ]]; then
-    echo "Missing required script: $script" >&2
-    exit 3
-  fi
-done
+if [[ ! -f scripts/run_reproduce_steps.py ]]; then
+  echo "Missing required script: scripts/run_reproduce_steps.py" >&2
+  exit 3
+fi
 
-START_EPOCH="$(date +%s)"
-
-clean_generated() {
-  for dir in raw metrics tables figures manifests; do
-    mkdir -p "results/day14/$dir"
-    find "results/day14/$dir" -type f ! -name ".gitkeep" ! -name "manifest_template.json" -delete
-  done
-  for seq in "${SEQUENCES[@]}"; do
-    rm -rf "data/minibench/$seq"
-  done
-}
-
-clean_generated
-
-COMMAND_LOG="results/day14/manifests/day14_commands_${RUN_ID}.txt"
-: > "$COMMAND_LOG"
-
-run_step() {
-  local status
-  local command_text="$*"
-  echo "RUN timeout=${STEP_TIMEOUT_SECONDS}s ${command_text}" >> "$COMMAND_LOG"
-  echo "+ timeout ${STEP_TIMEOUT_SECONDS}s ${command_text}"
-  set +e
-  timeout --foreground "${STEP_TIMEOUT_SECONDS}s" "$@"
-  status=$?
-  set -e
-  if [[ "$status" -eq 124 ]]; then
-    echo "TIMEOUT after ${STEP_TIMEOUT_SECONDS}s: ${command_text}" >> "$COMMAND_LOG"
-    echo "ERROR: step timed out after ${STEP_TIMEOUT_SECONDS}s: ${command_text}" >&2
-    exit 124
-  fi
-  if [[ "$status" -ne 0 ]]; then
-    echo "FAILED status=${status}: ${command_text}" >> "$COMMAND_LOG"
-    echo "ERROR: step failed with status ${status}: ${command_text}" >&2
-    exit "$status"
-  fi
-  echo "OK ${command_text}" >> "$COMMAND_LOG"
-}
-
-run_step python3 scripts/check_env.py
-run_step python3 scripts/00_generate_minibench.py --all
-run_step python3 scripts/01_simulate_observations.py --all --config configs/detector/odi_default.yaml
-run_step python3 scripts/02_compute_odi.py --all --config configs/detector/odi_default.yaml
-run_step python3 scripts/02_run_toy_lio.py --all --config configs/detector/odi_default.yaml
-run_step python3 scripts/03_eval_metrics.py --all --config configs/detector/odi_default.yaml
-run_step python3 scripts/05_metric_validity.py --config configs/detector/odi_default.yaml
-run_step python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
-run_step python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --out results/day14/tables --figures-out results/day14/figures
-
-END_EPOCH="$(date +%s)"
-RUNTIME_SECONDS="$((END_EPOCH - START_EPOCH))"
-run_step python3 scripts/07_reproduction_manifest.py \
-  --results results/day14 \
-  --commands-file "$COMMAND_LOG" \
+exec python3 scripts/run_reproduce_steps.py \
   --run-id "$RUN_ID" \
   --timestamp "$TIMESTAMP" \
-  --runtime-seconds "$RUNTIME_SECONDS" \
-  --status OK
-
-echo "Day 14 reproduction complete: run_id=$RUN_ID runtime_seconds=$RUNTIME_SECONDS"
+  --timeout-seconds "$STEP_TIMEOUT_SECONDS" \
+  --results results/day14

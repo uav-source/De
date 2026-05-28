@@ -1,28 +1,44 @@
-# Day 13 Report - One-Click Reproduction Stabilization
+# Day 13 Second Repair Report - Reproduction Stability
 
 ## Scope
 
-Day 13 focused on engineering reproducibility and test stability, not on improving the scientific result. No `toy_lio` drift behavior, Day 10 statistics, or Day 12 sensitivity conclusions were modified.
+This is a Day 13 second repair pass only. It does not enter Day 14, does not modify `toy_lio`, and does not change the Day 10/Day 12 scientific conclusions.
 
-Implementation commit used for final reproduction: `d623a08`.
+## Engineering Fixes
 
-## Completed Items
+- `tests/test_plot_day14.py` now gives its plotting subprocess an isolated `MPLCONFIGDIR=<tmp>/mplconfig_plot`.
+- `tests/test_sensitivity.py` now gives its sensitivity subprocess an isolated `MPLCONFIGDIR=<tmp>/mplconfig_sensitivity`.
+- Both subprocess test helpers set `MPLBACKEND=Agg`, `PYTHONUNBUFFERED=1`, `OMP_NUM_THREADS=1`, `OPENBLAS_NUM_THREADS=1`, `MKL_NUM_THREADS=1`, and `NUMEXPR_NUM_THREADS=1`.
+- Both subprocess test helpers capture stdout/stderr; on timeout they print the last 100 lines instead of failing silently.
+- `scripts/reproduce_day14.sh` now delegates execution to `scripts/run_reproduce_steps.py`.
+- `scripts/run_reproduce_steps.py` runs each reproduction step with `subprocess.run(timeout=STEP_TIMEOUT_SECONDS)`, captures stdout/stderr, and writes per-step records.
 
-- Stabilized `tests/test_sensitivity.py` by running `scripts/06_sensitivity.py` once through a module-scoped fixture with `timeout=120`.
-- Added `--figures-out` to `scripts/06_sensitivity.py`, so tables are controlled by `--out` and figures can be redirected to `tmp_path` during tests.
-- Kept matplotlib on the `Agg` backend and confirmed figure scripts close figures after saving.
-- Replaced the Day 14 reproduction skeleton with a real `bash scripts/reproduce_day14.sh --run` pipeline.
-- Added `scripts/07_reproduction_manifest.py` to write the final reproduction manifest and artifact summary.
+## Reproduction Step Records
+
+Each one-click reproduction step records:
+
+- step name
+- command
+- start time
+- end time
+- runtime seconds
+- return code
+- timeout flag
+- stdout log path
+- stderr log path
+
+The records are written to `results/day14/manifests/day14_step_records_<run_id>.json`, and per-step logs are written under `results/day14/manifests/logs/<run_id>/`.
 
 ## Commands Run
 
 ```bash
 python3 scripts/check_env.py
+python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q
 python3 -m pytest -q
 bash scripts/reproduce_day14.sh --run
 ```
 
-The final one-click command executed:
+The one-click command still preserves the required order:
 
 ```bash
 python3 scripts/check_env.py
@@ -39,25 +55,28 @@ python3 scripts/07_reproduction_manifest.py ...
 
 ## Verification
 
-- `python3 scripts/check_env.py`: OK, commit `d623a08`, random seed `42`.
-- `python3 -m pytest -q`: completed normally, `72 passed in 12.57s`. The Python 3.13-style full-suite hang was not reproduced after the fixture and plotting cleanup.
-- `bash scripts/reproduce_day14.sh --run`: completed normally with non-zero-on-failure shell settings.
+- `python3 scripts/check_env.py`: completed and exited.
+- `python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q`: completed and exited, `3 passed in 12.68s`.
+- `python3 -m pytest -q`: completed and exited, `72 passed in 13.38s`.
+- `bash scripts/reproduce_day14.sh --run`: completed and exited with status `OK`.
+- Observed reproduction runtime before final post-commit rerun: `25.405s`.
+- Step timeouts observed: none.
+- `05_metric_validity` in one-click flow completed in `5.570s` with return code `0`.
 
-Final reproduction run:
+## 05 Metric Validity Diagnosis
 
-- `run_id`: `day14_20260528T032851Z`
-- `runtime_seconds`: `21`
-- `status`: `OK`
-- missing artifacts: `0`
-- artifact summary rows: `46`, all `OK`
+The local hang could not be reproduced after the runner change: `05_metric_validity` completes both standalone and inside the one-click flow. The previous bash runner did not capture stdout/stderr per step and relied on shell timeout behavior, so a process cleanup, cache, or inherited threading issue could appear as an opaque hang. The new Python runner pins plotting/threading environment, captures output through `communicate`, writes step logs, and converts any future hang into an explicit timeout record.
 
-## Output Files
+## Final Manifest Rule
 
-- Reproduction manifest: `results/day14/manifests/day14_reproduction_manifest.json`
-- Artifact summary: `results/day14/tables/day13_reproduction_summary.csv`
-- Plotting manifest: `results/day14/figures/plotting_manifest.json`
+After the final commit of this repair, `bash scripts/reproduce_day14.sh --run` must be rerun. The acceptance check is:
 
-The plotting manifest now records Fig_D14_01 through Fig_D14_09. The reproduction summary covers 4 `observations.npz`, 4 ODI CSV files, 4 toy TUM trajectories, 4 metrics CSV files, Day 06/07/08/09/10/12/13 tables, Fig_D14_01 through Fig_D14_09 PNG/PDF files, and the two required manifests.
+```bash
+git rev-parse --short HEAD
+python3 -c "import json; print(json.load(open('results/day14/manifests/day14_reproduction_manifest.json'))['git_commit'])"
+```
+
+The two values must match. Final post-commit verification result: manifest `git_commit` equals current HEAD, with no missing artifacts; the final manifest also records `runtime_seconds`, generated artifact paths, and missing artifact count.
 
 ## Day 14 Gate Status
 
@@ -80,5 +99,4 @@ Not satisfied / still limited:
 
 Day 14 remains **CONDITIONAL GO**.
 
-The engineering reproduction blocker is fixed: full pytest exits, sensitivity tests no longer duplicate expensive plotting runs, figures can be redirected away from the main results directory, and `reproduce_day14.sh --run` regenerates the tracked Day 14 artifact set with a manifest. The scientific claim must still stay narrow: Day 10 supports a merged-level ODI signal in this synthetic probe, not robust sequence-internal drift prediction.
-
+The engineering goal of this second repair is a stable, diagnosable reproduction pipeline. The scientific claim remains narrow: Day 10 supports a merged-level ODI signal in this synthetic probe, not robust sequence-internal drift prediction.

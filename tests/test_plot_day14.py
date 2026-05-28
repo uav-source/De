@@ -18,11 +18,13 @@ REQUIRED = [
 ]
 
 
-def child_env():
+def child_env(mpl_config_dir: Path):
+    mpl_config_dir.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
     env.update(
         {
             "MPLBACKEND": "Agg",
+            "MPLCONFIGDIR": str(mpl_config_dir),
             "PYTHONUNBUFFERED": "1",
             "OMP_NUM_THREADS": "1",
             "OPENBLAS_NUM_THREADS": "1",
@@ -33,10 +35,45 @@ def child_env():
     return env
 
 
+def run_with_diagnostics(cmd, *, cwd: Path, env: dict, timeout: int) -> subprocess.CompletedProcess:
+    try:
+        result = subprocess.run(
+            cmd,
+            cwd=str(cwd),
+            env=env,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        print(f"subprocess timed out after {timeout}s: {' '.join(map(str, cmd))}")
+        print_tail("stdout", exc.stdout)
+        print_tail("stderr", exc.stderr)
+        raise
+    if result.returncode != 0:
+        print(f"subprocess failed with return code {result.returncode}: {' '.join(map(str, cmd))}")
+        print_tail("stdout", result.stdout)
+        print_tail("stderr", result.stderr)
+    result.check_returncode()
+    return result
+
+
+def print_tail(label: str, content) -> None:
+    if content is None:
+        print(f"--- {label} empty ---")
+        return
+    if isinstance(content, bytes):
+        content = content.decode(errors="replace")
+    lines = str(content).splitlines()
+    print(f"--- {label} last {min(100, len(lines))} lines ---")
+    for line in lines[-100:]:
+        print(line)
+
+
 def test_plot_day14_script_runs_and_writes_required_outputs(tmp_path):
     out_dir = tmp_path / "figures"
 
-    subprocess.run(
+    run_with_diagnostics(
         [
             sys.executable,
             str(SCRIPT),
@@ -45,9 +82,8 @@ def test_plot_day14_script_runs_and_writes_required_outputs(tmp_path):
             "--out",
             str(out_dir),
         ],
-        cwd=str(ROOT),
-        env=child_env(),
-        check=True,
+        cwd=ROOT,
+        env=child_env(tmp_path / "mplconfig_plot"),
         timeout=120,
     )
 
