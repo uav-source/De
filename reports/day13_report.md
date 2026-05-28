@@ -1,81 +1,50 @@
-# Day 13 Sixth Repair Report - Reproduction Engineering
+# Day 13 Eleventh Repair Report - Reproduction Stability
 
 ## Scope
 
 This is still Day 13 repair work only. I did not enter Day 14, did not modify `toy_lio`, did not remove Day 10 per-sequence/LOSO counter-evidence, and did not change the scientific conclusion.
 
-## Sixth Repair Changes
+## Eleventh Repair Changes
 
-- Added a session-scoped pytest fixture in `tests/conftest.py` that builds an isolated temporary minibench pipeline under `tmp_path`.
-- `tests/test_odi_tracker.py`, `tests/test_toy_lio.py`, `tests/test_metrics.py`, and `tests/test_weak_direction.py` no longer depend on repository `data/minibench` or `results/day14` state.
-- `tests/test_observation_simulator.py` was also made self-contained because it depended on `data/minibench` after the generated directories were cleared.
-- The isolated fixture generates the four minibench sequences, simulates observations, and creates the minimal ST ODI/toy outputs needed by tests.
-- Fixture subprocesses use isolated `MPLCONFIGDIR`, `MPLBACKEND=Agg`, `PYTHONUNBUFFERED=1`, and single-threaded BLAS/OpenMP environment variables.
-- `scripts/reproduce_day14.sh` now writes a reproduction manifest even when a step fails or times out.
-- `scripts/reproduce_day14.sh` recreates the tracked `manifest_template.json` if an external cleanup removes everything under `results/day14/manifests/*`.
-- Failed reproduction manifests include `status=FAILED`, `failed_step`, `return_code`, `timeout`, `step_status_csv`, `commands_file`, `stdout_log_path`, `stderr_log_path`, `git_commit`, `timestamp`, and `runtime_seconds`.
-- `run_step` was simplified to plain per-step status logging, immediate return-code recording, failure-only log tailing, and no complex CSV escaping.
-- `scripts/07_reproduction_manifest.py` records failure metadata and marks the run failed if required artifacts are missing.
+- `scripts/reproduce_day14.sh` now runs `sensitivity` through the same forced CLI exit path as `plot_day14`.
+- The reproduction command for sensitivity is recorded as `env DEGEN_FORCE_CLI_EXIT=1 timeout --kill-after=10s ... python3 scripts/06_sensitivity.py ...`.
+- `scripts/06_sensitivity.py` writes CSVs, figures, the updated plotting manifest, flushes stdout/stderr, and calls `os._exit(0)` when `DEGEN_FORCE_CLI_EXIT=1`.
+- The forced-exit path avoids entering matplotlib cleanup that has been observed to block process termination in the reproduce runner.
+- Existing `plot_day14` forced-exit behavior is retained.
 
-## Eighth Minimal Repair Changes
-
-- `prewarm_matplotlib` is no longer a mandatory `reproduce_day14.sh --run` step.
-- The reproduction flow now runs `plot_day14` directly under the existing per-step timeout.
-- `scripts/prewarm_matplotlib.py` remains in the repository, but it is reduced to a minimal Agg smoke check and does not force a full Matplotlib font-manager rebuild.
-- The command log records that prewarm was skipped so the previous hang point remains diagnosable.
-
-## Commands Run
+## Validation Commands
 
 The generated directories were cleared before validation:
 
 ```bash
-rm -rf data/minibench/* results/day14/raw/* results/day14/metrics/* results/day14/tables/* results/day14/figures/* results/day14/manifests/*
+rm -rf data/minibench/* \
+       results/day14/raw/* \
+       results/day14/metrics/* \
+       results/day14/tables/* \
+       results/day14/figures/* \
+       results/day14/manifests/*
 ```
 
 Validation commands:
 
 ```bash
 python3 scripts/check_env.py
-python3 -m pytest tests/test_odi_tracker.py tests/test_toy_lio.py tests/test_metrics.py tests/test_weak_direction.py -q
-python3 -m pytest tests/test_observation_simulator.py tests/test_odi_tracker.py tests/test_toy_lio.py tests/test_metrics.py tests/test_weak_direction.py -q
 python3 -m pytest -q
 STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run
 ```
 
-Final validation results:
+Observed results before the final commit:
 
-- Self-contained ODI/toy/metrics/weak-direction subset: `33 passed in 6.48s`.
-- Self-contained observation plus downstream subset: `44 passed in 8.75s`.
-- Full pytest after clearing generated results: `72 passed` and exited normally.
-- One-click reproduction: `status=OK` and exited normally.
-- Reproduction runtime was `16-17s` in the final local validation runs; the exact runtime for each run is recorded in `results/day14/manifests/day14_reproduction_manifest.json`.
+- `python3 scripts/check_env.py`: OK.
+- `python3 -m pytest -q`: `72 passed`.
+- `STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run`: OK.
+- Reproduction runtime: `16s`.
 - Step timeouts: `0`.
 - Step failures: `0`.
-- Reproduction steps completed: `16`.
-- `obs_OC/ST/CT/RT` completed as separate steps.
-- `metric_validity` completed with `--n-boot 300`.
-- `prewarm_matplotlib` is skipped in the mandatory chain; `plot_day14` remains timeout-controlled.
+- `plot_day14` completed and was recorded in `day14_step_status_*.csv`.
+- `sensitivity` completed and was recorded in `day14_step_status_*.csv`.
+- `results/day14/manifests/day14_reproduction_manifest.json`: `status=OK`.
 - `missing_artifacts`: empty.
-- manifest `git_commit` equals current `git rev-parse --short HEAD`.
-
-## Failure Manifest Contract
-
-If reproduction fails or times out, the runner exits non-zero and still writes:
-
-- `results/day14/manifests/day14_reproduction_manifest.json`
-- `status=FAILED`
-- `failed_step`
-- `return_code`
-- `timeout`
-- `step_status_csv`
-- `commands_file`
-- `stdout_log_path`
-- `stderr_log_path`
-- `git_commit`
-- `timestamp`
-- `runtime_seconds`
-
-This fixes the previous failure mode where a failed reproduction left no manifest to diagnose.
 
 ## Final Acceptance Procedure
 
@@ -91,12 +60,12 @@ git status --short
 Acceptance requires:
 
 - `check_env.py` exits normally.
-- Full `pytest -q` exits normally even after generated data/results are empty.
+- Full `pytest -q` exits normally, including after generated data/results are empty.
 - `STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run` exits normally.
 - `git status --short` is empty.
 - `results/day14/manifests/day14_reproduction_manifest.json` has `status=OK`.
 - `missing_artifacts` is empty.
-- manifest `git_commit` equals current `git rev-parse --short HEAD`.
+- Manifest `git_commit` equals current `git rev-parse --short HEAD`.
 
 ## Scientific Status
 
@@ -104,12 +73,12 @@ Satisfied engineering gates:
 
 - Four minibench sequences regenerate from scratch.
 - Observations, ODI/weak direction CSVs, toy LIO trajectories, metrics, validity tables, diagnostic figures, sensitivity figures, and manifests are regenerated by one command.
-- ST/CT/RT weak direction median axis alignment remains `1.0`; OC reliable weak-direction ratio remains `0.0`.
-- Merged ODI vs axis drift still shows an initial positive signal: Spearman rho `0.647`.
+- ST/CT/RT weak direction median axis alignment remains high in the synthetic probe.
+- Merged ODI vs axis drift still shows an initial positive signal.
 
 Still limited:
 
-- Per-sequence ODI vs axis drift remains unstable: OC `-0.025`, ST `-0.146`, CT `0.142`, RT `-0.289`.
+- Per-sequence ODI vs axis drift remains unstable.
 - Leave-one-sequence-out held-out ODI correlations remain unstable.
 - AIS and `lambda_min_clamped` remain strong competing indicators.
 - Day 7 scene-family `axis_bias` remains a synthetic-probe confound.

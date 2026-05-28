@@ -55,6 +55,7 @@ def main() -> int:
     results_dir = args.results if args.results.is_absolute() else ROOT / args.results
     out_dir = args.out if args.out.is_absolute() else ROOT / args.out
     out_dir.mkdir(parents=True, exist_ok=True)
+    force_cli_exit = os.environ.get("DEGEN_FORCE_CLI_EXIT") == "1"
 
     input_files = required_inputs(results_dir)
     for path in input_files:
@@ -67,6 +68,10 @@ def main() -> int:
             write_plotting_manifest(out_dir, input_files, outputs, smoke_test=True)
             print(f"generated diagnostic smoke-test files: count={len(FIGURES)} out={out_dir}")
             print(f"manifest: {out_dir / 'plotting_manifest.json'}")
+            sys.stdout.flush()
+            sys.stderr.flush()
+            if force_cli_exit:
+                os._exit(0)
             return 0
 
         load_pyplot()
@@ -102,12 +107,17 @@ def main() -> int:
         write_plotting_manifest(out_dir, input_files, outputs, smoke_test=False)
         print(f"generated diagnostic figures: count={len(FIGURES)} out={out_dir}")
         print(f"manifest: {out_dir / 'plotting_manifest.json'}")
-        return 0
-    finally:
-        if plt is not None:
-            plt.close("all")
         sys.stdout.flush()
         sys.stderr.flush()
+        if force_cli_exit:
+            os._exit(0)
+        return 0
+    finally:
+        if not force_cli_exit and plt is not None:
+            plt.close("all")
+        if not force_cli_exit:
+            sys.stdout.flush()
+            sys.stderr.flush()
 
 
 def load_pyplot() -> None:
@@ -480,7 +490,4 @@ def git_commit() -> str:
 
 
 if __name__ == "__main__":
-    rc = main()
-    if os.environ.get("DEGEN_FORCE_CLI_EXIT") == "1":
-        os._exit(rc)
-    raise SystemExit(rc)
+    raise SystemExit(main())

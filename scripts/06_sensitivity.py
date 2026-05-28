@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Dict, List, Mapping, Sequence, Tuple
@@ -91,13 +92,59 @@ def main() -> int:
     figures_dir = args.figures_out if args.figures_out else results_dir / "figures"
     figures_dir = figures_dir if figures_dir.is_absolute() else ROOT / figures_dir
     figures_dir.mkdir(parents=True, exist_ok=True)
+    force_cli_exit = os.environ.get("DEGEN_FORCE_CLI_EXIT") == "1"
 
-    if args.smoke_test_no_render:
-        d_rows = smoke_d_rows(int(args.n_boot))
-        tau_rows = smoke_tau_rows(int(args.n_boot))
+    try:
+        if args.smoke_test_no_render:
+            d_rows = smoke_d_rows(int(args.n_boot))
+            tau_rows = smoke_tau_rows(int(args.n_boot))
+            write_csv(out_dir / "day12_sensitivity_D.csv", d_rows)
+            write_csv(out_dir / "day12_sensitivity_tau.csv", tau_rows)
+            write_smoke_figures(figures_dir)
+            update_plotting_manifest(
+                figures_dir,
+                results_dir,
+                [
+                    out_dir / "day12_sensitivity_D.csv",
+                    out_dir / "day12_sensitivity_tau.csv",
+                ],
+                smoke_test=True,
+            )
+            print(
+                f"sensitivity smoke-test: D_rows={len(d_rows)} tau_rows={len(tau_rows)} "
+                f"n_boot={int(args.n_boot)} tables={out_dir} figures={figures_dir}"
+            )
+            sys.stdout.flush()
+            sys.stderr.flush()
+            if force_cli_exit:
+                os._exit(0)
+            return 0
+
+        load_pyplot()
+        base_config = load_config(config_path)
+        window_metrics = {seq: load_csv_dicts(results_dir / "metrics" / f"{seq}_metrics.csv") for seq in SEQUENCES}
+        observations = {seq: load_observations(data_root / seq / "observations.npz") for seq in SEQUENCES}
+
+        d_rows = []
+        for s_theta in S_THETA_VALUES:
+            for s_p in S_P_VALUES:
+                variant = dict(base_config)
+                variant["s_theta"] = float(s_theta)
+                variant["s_p"] = float(s_p)
+                variant["n_boot"] = int(args.n_boot)
+                d_rows.append(evaluate_variant(variant, observations, window_metrics))
+
+        tau_rows = []
+        for tau_w in TAU_W_VALUES:
+            variant = dict(base_config)
+            variant["tau_w"] = float(tau_w)
+            variant["n_boot"] = int(args.n_boot)
+            tau_rows.append(evaluate_variant(variant, observations, window_metrics))
+
         write_csv(out_dir / "day12_sensitivity_D.csv", d_rows)
         write_csv(out_dir / "day12_sensitivity_tau.csv", tau_rows)
-        write_smoke_figures(figures_dir)
+        save_figure(figures_dir, "Fig_D14_08_sensitivity_D", lambda: plot_sensitivity_D(d_rows))
+        save_figure(figures_dir, "Fig_D14_09_sensitivity_tau", lambda: plot_sensitivity_tau(tau_rows))
         update_plotting_manifest(
             figures_dir,
             results_dir,
@@ -105,54 +152,24 @@ def main() -> int:
                 out_dir / "day12_sensitivity_D.csv",
                 out_dir / "day12_sensitivity_tau.csv",
             ],
-            smoke_test=True,
+            smoke_test=False,
         )
+
         print(
-            f"sensitivity smoke-test: D_rows={len(d_rows)} tau_rows={len(tau_rows)} "
+            f"sensitivity: D_rows={len(d_rows)} tau_rows={len(tau_rows)} "
             f"n_boot={int(args.n_boot)} tables={out_dir} figures={figures_dir}"
         )
+        sys.stdout.flush()
+        sys.stderr.flush()
+        if force_cli_exit:
+            os._exit(0)
         return 0
-
-    load_pyplot()
-    base_config = load_config(config_path)
-    window_metrics = {seq: load_csv_dicts(results_dir / "metrics" / f"{seq}_metrics.csv") for seq in SEQUENCES}
-    observations = {seq: load_observations(data_root / seq / "observations.npz") for seq in SEQUENCES}
-
-    d_rows = []
-    for s_theta in S_THETA_VALUES:
-        for s_p in S_P_VALUES:
-            variant = dict(base_config)
-            variant["s_theta"] = float(s_theta)
-            variant["s_p"] = float(s_p)
-            variant["n_boot"] = int(args.n_boot)
-            d_rows.append(evaluate_variant(variant, observations, window_metrics))
-
-    tau_rows = []
-    for tau_w in TAU_W_VALUES:
-        variant = dict(base_config)
-        variant["tau_w"] = float(tau_w)
-        variant["n_boot"] = int(args.n_boot)
-        tau_rows.append(evaluate_variant(variant, observations, window_metrics))
-
-    write_csv(out_dir / "day12_sensitivity_D.csv", d_rows)
-    write_csv(out_dir / "day12_sensitivity_tau.csv", tau_rows)
-    save_figure(figures_dir, "Fig_D14_08_sensitivity_D", lambda: plot_sensitivity_D(d_rows))
-    save_figure(figures_dir, "Fig_D14_09_sensitivity_tau", lambda: plot_sensitivity_tau(tau_rows))
-    update_plotting_manifest(
-        figures_dir,
-        results_dir,
-        [
-            out_dir / "day12_sensitivity_D.csv",
-            out_dir / "day12_sensitivity_tau.csv",
-        ],
-        smoke_test=False,
-    )
-
-    print(
-        f"sensitivity: D_rows={len(d_rows)} tau_rows={len(tau_rows)} "
-        f"n_boot={int(args.n_boot)} tables={out_dir} figures={figures_dir}"
-    )
-    return 0
+    finally:
+        if not force_cli_exit and plt is not None:
+            plt.close("all")
+        if not force_cli_exit:
+            sys.stdout.flush()
+            sys.stderr.flush()
 
 
 def load_pyplot() -> None:

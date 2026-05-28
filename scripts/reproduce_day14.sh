@@ -84,10 +84,10 @@ START_EPOCH="$(date +%s)"
 clean_generated() {
   for dir in raw metrics tables figures manifests; do
     mkdir -p "results/day14/$dir"
-    find "results/day14/$dir" -mindepth 1 -maxdepth 1 ! -name ".gitkeep" ! -name "manifest_template.json" -exec rm -rf {} +
+    find "results/day14/$dir" -mindepth 1 -maxdepth 1 ! -name ".gitkeep" ! -name "manifest_template.json" -exec rm -rf {} + || true
   done
   for seq in "${SEQUENCES[@]}"; do
-    rm -rf "data/minibench/$seq"
+    rm -rf "data/minibench/$seq" || true
   done
 }
 
@@ -203,6 +203,47 @@ run_step() {
   echo "OK step=${step_name} return_code=0 runtime_seconds=${runtime}" >> "$COMMAND_LOG"
 }
 
+run_plot_step_simple() {
+  local step_name="$1"
+  shift
+  local stdout_path="$LOG_DIR/${step_name}.stdout.log"
+  local stderr_path="$LOG_DIR/${step_name}.stderr.log"
+  local start_time end_time start_epoch end_epoch runtime timeout_flag status
+  local command_text
+  command_text="env DEGEN_FORCE_CLI_EXIT=1 timeout --kill-after=10s ${STEP_TIMEOUT_SECONDS}s $*"
+
+  start_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  start_epoch="$(date +%s)"
+  echo "RUN step=${step_name} timeout=${STEP_TIMEOUT_SECONDS}s command=${command_text}" >> "$COMMAND_LOG"
+  echo "+ [${step_name}] ${command_text}"
+
+  set +e
+  env DEGEN_FORCE_CLI_EXIT=1 timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" "$@" >"$stdout_path" 2>"$stderr_path"
+  status=$?
+  set -e
+
+  end_epoch="$(date +%s)"
+  end_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  runtime="$((end_epoch - start_epoch))"
+  timeout_flag="false"
+  if [[ "$status" -eq 124 || "$status" -eq 137 ]]; then
+    timeout_flag="true"
+  fi
+
+  printf '%s,%s,%s,%s,%s,%s,%s,%s,%s\n' \
+    "$step_name" "$command_text" "$start_time" "$end_time" "$runtime" "$status" "$timeout_flag" "$stdout_path" "$stderr_path" >> "$STEP_STATUS"
+
+  if [[ "$status" -ne 0 ]]; then
+    echo "FAILED step=${step_name} return_code=${status} timeout=${timeout_flag} runtime_seconds=${runtime}" >> "$COMMAND_LOG"
+    echo "ERROR: step failed: ${step_name} return_code=${status} timeout=${timeout_flag}" >&2
+    tail_logs "$stdout_path" "$stderr_path"
+    write_manifest FAILED "$step_name" "$status" "$timeout_flag" "$stdout_path" "$stderr_path" || true
+    exit "$status"
+  fi
+
+  echo "OK step=${step_name} return_code=0 runtime_seconds=${runtime}" >> "$COMMAND_LOG"
+}
+
 run_step check_env python3 scripts/check_env.py
 
 for seq in "${SEQUENCES[@]}"; do
@@ -221,10 +262,8 @@ run_step eval_metrics python3 scripts/03_eval_metrics.py --all --config configs/
 run_step metric_validity python3 scripts/05_metric_validity.py --config configs/detector/odi_default.yaml --n-boot "$REPRO_N_BOOT"
 echo "BEFORE_PREWARM: skipped; prewarm_matplotlib is not a mandatory reproduction step" >> "$COMMAND_LOG"
 echo "AFTER_PREWARM_TIMEOUT_RETURN: skipped; no timeout subprocess launched" >> "$COMMAND_LOG"
-echo "BEFORE_STEP_STATUS_APPEND: skipped prewarm; no step status row" >> "$COMMAND_LOG"
-echo "AFTER_STEP_STATUS_APPEND: skipped prewarm; no step status row" >> "$COMMAND_LOG"
-run_step plot_day14 env DEGEN_FORCE_CLI_EXIT=1 python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
-run_step sensitivity python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --out results/day14/tables --figures-out results/day14/figures --n-boot "$REPRO_N_BOOT"
+run_plot_step_simple plot_day14 python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
+run_plot_step_simple sensitivity python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --out results/day14/tables --figures-out results/day14/figures --n-boot "$REPRO_N_BOOT"
 
 END_EPOCH="$(date +%s)"
 RUNTIME_SECONDS="$((END_EPOCH - START_EPOCH))"
