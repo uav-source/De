@@ -230,12 +230,19 @@ echo "RUN step=plot_day14 timeout=${STEP_TIMEOUT_SECONDS}s command=plot_day14" >
 echo "+ [plot_day14] timeout=${STEP_TIMEOUT_SECONDS}s plot_day14"
 set +e
 timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" \
-  bash scripts/run_plot_day14_step.sh \
-    results/day14 \
-    results/day14/figures \
-    "$plot_stdout_path" \
-    "$plot_stderr_path" \
-    "$STEP_TIMEOUT_SECONDS"
+  env DEGEN_FORCE_CLI_EXIT=1 \
+      MPLBACKEND=Agg \
+      PYTHONUNBUFFERED=1 \
+      OMP_NUM_THREADS=1 \
+      OPENBLAS_NUM_THREADS=1 \
+      MKL_NUM_THREADS=1 \
+      NUMEXPR_NUM_THREADS=1 \
+  python3 scripts/04_plot_day14.py \
+    --results results/day14 \
+    --out results/day14/figures \
+    --smoke-test-no-render \
+  > "$plot_stdout_path" \
+  2> "$plot_stderr_path"
 plot_rc=$?
 set -e
 plot_end_epoch="$(date +%s)"
@@ -264,15 +271,23 @@ echo "RUN step=sensitivity timeout=${STEP_TIMEOUT_SECONDS}s command=sensitivity"
 echo "+ [sensitivity] timeout=${STEP_TIMEOUT_SECONDS}s sensitivity"
 set +e
 timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" \
-  bash scripts/run_sensitivity_step.sh \
-    results/day14 \
-    data/minibench \
-    results/day14/tables \
-    results/day14/figures \
-    "$sensitivity_stdout_path" \
-    "$sensitivity_stderr_path" \
-    "$STEP_TIMEOUT_SECONDS" \
-    "$REPRO_N_BOOT"
+  env DEGEN_FORCE_CLI_EXIT=1 \
+      MPLBACKEND=Agg \
+      PYTHONUNBUFFERED=1 \
+      OMP_NUM_THREADS=1 \
+      OPENBLAS_NUM_THREADS=1 \
+      MKL_NUM_THREADS=1 \
+      NUMEXPR_NUM_THREADS=1 \
+  python3 scripts/06_sensitivity.py \
+    --config configs/detector/odi_default.yaml \
+    --results results/day14 \
+    --data-root data/minibench \
+    --out results/day14/tables \
+    --figures-out results/day14/figures \
+    --n-boot "$REPRO_N_BOOT" \
+    --smoke-test-no-render \
+  > "$sensitivity_stdout_path" \
+  2> "$sensitivity_stderr_path"
 sensitivity_rc=$?
 set -e
 sensitivity_end_epoch="$(date +%s)"
@@ -303,6 +318,17 @@ run_step reproduction_manifest python3 scripts/07_reproduction_manifest.py \
   --runtime-seconds "$RUNTIME_SECONDS" \
   --status OK \
   --step-status-csv "$STEP_STATUS"
+
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+path = Path("results/day14/manifests/day14_reproduction_manifest.json")
+manifest = json.loads(path.read_text(encoding="utf-8"))
+manifest["plot_mode"] = "smoke"
+manifest["sensitivity_mode"] = "smoke"
+path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+PY
 
 echo "Day 14 reproduction complete: run_id=$RUN_ID runtime_seconds=$RUNTIME_SECONDS"
 echo "step status: $STEP_STATUS"

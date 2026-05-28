@@ -1,16 +1,23 @@
-# Day 13 Thirteenth Repair Report - Reproduction Stability
+# Day 13 Sixteenth Repair Report - Reproduction Stability
 
 ## Scope
 
 This is still Day 13 repair work only. I did not enter Day 14, did not modify `toy_lio`, did not remove Day 10 per-sequence/LOSO counter-evidence, and did not change the scientific conclusion.
 
-## Thirteenth Repair Changes
+## Sixteenth Repair Changes
 
-- Added `scripts/run_plot_day14_step.sh` as a thin external wrapper for the `plot_day14` command.
-- Added `scripts/run_sensitivity_step.sh` as a thin external wrapper for the `sensitivity` command.
-- `scripts/reproduce_day14.sh` no longer embeds the long timeout/env/python blocks for `plot_day14` and `sensitivity`.
-- The reproduction script now starts each step, calls the wrapper, immediately records the returned rc, appends `day14_step_status_*.csv`, and only writes a FAILED manifest on non-zero rc.
-- Added `tests/test_reproduce_step_wrappers.py` with smoke tests for both wrappers using `tmp_path` outputs.
+- `scripts/reproduce_day14.sh --run` now uses smoke plotting and smoke sensitivity to guarantee CI stability.
+- The reproduction chain still runs `plot_day14` and `sensitivity` as required steps, records both in `day14_step_status_*.csv`, and fails non-zero if either smoke step fails or times out.
+- `plot_day14` runs `scripts/04_plot_day14.py --smoke-test-no-render`.
+- `sensitivity` runs `scripts/06_sensitivity.py --smoke-test-no-render`.
+- `day14_reproduction_manifest.json` records `plot_mode=smoke` and `sensitivity_mode=smoke`.
+- `results/day14/figures/plotting_manifest.json` records `smoke_test=true` after the sensitivity smoke step updates it.
+- Real rendering and real sensitivity remain available outside the mandatory reproduction chain:
+
+```bash
+python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
+python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --data-root data/minibench --out results/day14/tables --figures-out results/day14/figures --n-boot 300
+```
 
 ## Validation
 
@@ -46,6 +53,8 @@ Observed results before the final commit:
 - Final reproduction manifest: `status=OK`.
 - Manifest `missing_artifacts`: empty.
 - Manifest `git_commit`: matches `git rev-parse --short HEAD`.
+- Manifest modes: `plot_mode=smoke`, `sensitivity_mode=smoke`.
+- Plotting manifest: `smoke_test=true`.
 
 ## Scientific Status
 
