@@ -58,6 +58,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--step-status-csv", type=Path)
     parser.add_argument("--stdout-log-path", default="")
     parser.add_argument("--stderr-log-path", default="")
+    parser.add_argument("--plot-mode", default="smoke")
+    parser.add_argument("--sensitivity-mode", default="smoke")
     return parser.parse_args()
 
 
@@ -106,6 +108,8 @@ def main() -> int:
         "runtime_seconds": float(args.runtime_seconds),
         "artifact_summary_csv": relative_to_root(summary_path),
         "missing_artifacts": [row["path"] for row in missing],
+        "plot_mode": args.plot_mode,
+        "sensitivity_mode": args.sensitivity_mode,
     }
     manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     rows = build_artifact_rows(results_dir, manifest_path, summary_path)

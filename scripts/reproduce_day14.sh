@@ -17,16 +17,6 @@ export OPENBLAS_NUM_THREADS=1
 export MKL_NUM_THREADS=1
 export NUMEXPR_NUM_THREADS=1
 
-cleanup_children() {
-  local children
-  children="$(jobs -pr || true)"
-  if [ -n "$children" ]; then
-    kill $children 2>/dev/null || true
-  fi
-}
-
-trap cleanup_children EXIT
-
 SEQUENCES=(
   "OC-L0-S01-M1"
   "ST-L3-S01-M1"
@@ -327,25 +317,10 @@ run_step reproduction_manifest python3 scripts/07_reproduction_manifest.py \
   --timestamp "$TIMESTAMP" \
   --runtime-seconds "$RUNTIME_SECONDS" \
   --status OK \
-  --step-status-csv "$STEP_STATUS"
-
-python3 - <<'PY'
-import json
-from pathlib import Path
-
-path = Path("results/day14/manifests/day14_reproduction_manifest.json")
-manifest = json.loads(path.read_text(encoding="utf-8"))
-manifest["plot_mode"] = "smoke"
-manifest["sensitivity_mode"] = "smoke"
-path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-PY
+  --step-status-csv "$STEP_STATUS" \
+  --plot-mode smoke \
+  --sensitivity-mode smoke
 
 echo "Day 14 reproduction complete: run_id=$RUN_ID runtime_seconds=$RUNTIME_SECONDS"
 echo "step status: $STEP_STATUS"
-
-# final process cleanup: do not call bare wait because it may block on inherited/background jobs
-children="$(jobs -pr || true)"
-if [ -n "$children" ]; then
-  kill $children 2>/dev/null || true
-fi
 exit 0
