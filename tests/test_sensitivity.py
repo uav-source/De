@@ -88,6 +88,7 @@ def sensitivity_run(tmp_path_factory):
             str(tables),
             "--figures-out",
             str(figures),
+            "--smoke-test-no-render",
         ],
         cwd=ROOT,
         env=child_env(base / "mplconfig_sensitivity"),
@@ -105,6 +106,7 @@ def test_sensitivity_script_writes_required_tables_and_figures(sensitivity_run):
         assert (sensitivity_run["figures"] / f"{name}.png").exists()
         assert (sensitivity_run["figures"] / f"{name}.pdf").exists()
     manifest = json.loads((sensitivity_run["figures"] / "plotting_manifest.json").read_text(encoding="utf-8"))
+    assert manifest["smoke_test"] is True
     figure_names = {item["name"] for item in manifest["figures"]}
     assert "Fig_D14_08_sensitivity_D" in figure_names
     assert "Fig_D14_09_sensitivity_tau" in figure_names

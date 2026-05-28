@@ -1,43 +1,48 @@
-# Day 13 Fourth Repair Report - Timeout And Plot Stability
+# Day 13 Fifth Repair Report - Reproduction Engineering
 
 ## Scope
 
 This is still Day 13 repair work only. I did not enter Day 14, did not modify `toy_lio`, did not remove Day 10 per-sequence/LOSO counter-evidence, and did not change the scientific conclusion.
 
-## Fourth Repair Changes
+## Fifth Repair Changes
 
-- `tests/test_plot_day14.py` now runs `scripts/04_plot_day14.py --smoke-test-no-render` against a self-contained `tmp_path/results/day14` fixture.
-- `scripts/04_plot_day14.py` now lazily imports Matplotlib only for real rendering. The smoke-test path validates inputs and writes all required PNG/PDF placeholder files plus `plotting_manifest.json` without triggering Matplotlib font-cache construction.
-- The plot test still runs the actual `04_plot_day14.py` entrypoint, keeps `timeout=120`, uses isolated `MPLCONFIGDIR=<tmp_path>/mplconfig_plot`, and prints stdout/stderr tails on timeout/failure.
-- `scripts/run_reproduce_steps.py` no longer uses `wait(timeout)` or `communicate()` for normal timeout control. It now polls `process.poll()` with `time.monotonic()`, sends `SIGTERM` to the process group on timeout, waits 5 seconds, then sends `SIGKILL` if needed.
-- Step stdout/stderr are written directly to log files, not captured through pipes.
-- `scripts/05_metric_validity.py` supports `--n-boot`; one-click reproduction uses `REPRO_N_BOOT=300`.
-- `scripts/06_sensitivity.py` supports `--data-root` for self-contained tests and accepts `--n-boot`.
+- `scripts/06_sensitivity.py` no longer imports Matplotlib at module import time. Plotting is lazy-loaded only for real rendering.
+- `scripts/06_sensitivity.py` now supports `--smoke-test-no-render`, which writes structurally valid Day 12 sensitivity CSVs, Fig_D14_08/09 placeholder PNG/PDF files, and `plotting_manifest.json` with `smoke_test=true`.
+- `tests/test_sensitivity.py` now uses the smoke path, so pytest does not run real sensitivity computation or real rendering.
+- `scripts/reproduce_day14.sh` no longer delegates to the Python runner. It uses bash `timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" "$@"` in `run_step`.
+- Reproduction stdout/stderr logs are written per step under `results/day14/manifests/logs/<run_id>/`.
+- Reproduction step status is written to `results/day14/manifests/day14_step_status_<run_id>.csv`.
+- Reproduction generation and observation stages are split by sequence: `gen_OC/ST/CT/RT` and `obs_OC/ST/CT/RT`.
+- Added `scripts/prewarm_matplotlib.py`; reproduction runs it before real Day 14 plotting.
+- One-click reproduction runs `05_metric_validity.py --n-boot "$REPRO_N_BOOT"` and real `06_sensitivity.py --n-boot "$REPRO_N_BOOT"`.
+- `.gitignore` was tightened for generated Day 14 artifacts, pytest/cache files, and Matplotlib cache directories.
+- Script file modes were normalized to non-executable where the project already invokes them via `python3 ...` or `bash ...`; this avoids dirty `git status` after zip/extract loses executable bits.
 
 ## Commands Run Before Final Commit
 
 ```bash
 python3 -m pytest tests/test_plot_day14.py -q -s
-python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q
+python3 -m pytest tests/test_sensitivity.py -q -s
+python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q -s
 python3 -m pytest -q
-STEP_TIMEOUT_SECONDS=120 bash scripts/reproduce_day14.sh --run
+STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run
 ```
 
 Observed results before final commit:
 
-- Plot-only pytest: `2 passed in 0.18s`.
-- Plot plus sensitivity pytest: `3 passed in 2.94s`.
-- Full pytest: `72 passed in 4.55s`.
-- One-click reproduction: `status=OK`, runtime `17.649s`.
+- Plot-only pytest: `2 passed in 0.13s`.
+- Sensitivity-only pytest: `1 passed in 0.35s`.
+- Plot plus sensitivity pytest: `3 passed in 0.43s`.
+- Full pytest: `72 passed in 2.45s`.
+- One-click reproduction: `status=OK`, runtime `18s`.
 - Step timeouts: `0`.
 - Step failures: `0`.
-- Hard-kill failures: `0`.
-- `01_simulate_observations` in one-click flow: `4.809s`, return code `0`.
-- `05_metric_validity` in one-click flow: `1.604s`, return code `0`, with `--n-boot 300`.
+- `obs_OC/ST/CT/RT` completed as separate steps.
+- `metric_validity` completed with `--n-boot 300`.
 
 ## Reproduction Runner Contract
 
-Each step records:
+Each step writes:
 
 - `step_name`
 - `command`
@@ -46,11 +51,10 @@ Each step records:
 - `runtime_seconds`
 - `return_code`
 - `timeout`
-- `hard_kill_failure`
 - `stdout_log_path`
 - `stderr_log_path`
 
-If a step exceeds `STEP_TIMEOUT_SECONDS`, the runner should return non-zero around that timeout instead of hanging indefinitely. The command log and step records identify the timed-out step and log paths.
+If a step fails or times out, `run_step` tails the last 100 lines of stdout/stderr and exits non-zero. The runner no longer uses Python pipe capture for the main reproduction path.
 
 ## Final Acceptance Procedure
 
@@ -58,9 +62,8 @@ After this repair commit, run:
 
 ```bash
 python3 scripts/check_env.py
-python3 -m pytest tests/test_plot_day14.py -q -s
 python3 -m pytest -q
-STEP_TIMEOUT_SECONDS=120 bash scripts/reproduce_day14.sh --run
+STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run
 git status --short
 ```
 
@@ -68,10 +71,11 @@ Acceptance requires:
 
 - `check_env.py` exits normally.
 - Full `pytest -q` exits normally.
-- `STEP_TIMEOUT_SECONDS=120 bash scripts/reproduce_day14.sh --run` exits normally.
+- `STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run` exits normally.
 - `git status --short` is empty.
-- `results/day14/manifests/day14_reproduction_manifest.json` has `git_commit` equal to current `git rev-parse --short HEAD`.
+- `results/day14/manifests/day14_reproduction_manifest.json` has `status=OK`.
 - `missing_artifacts` is empty.
+- manifest `git_commit` equals current `git rev-parse --short HEAD`.
 
 ## Scientific Status
 

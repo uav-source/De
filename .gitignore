@@ -4,6 +4,12 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+**/__pycache__/
+mplconfig*/
+**/mplconfig*/
+.matplotlib/
+.cache/matplotlib/
+fontlist-v*.json
 
 # Environments
 .venv/
