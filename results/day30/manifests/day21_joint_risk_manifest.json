@@ -1,0 +1,30 @@
+{
+  "best_joint_risk_feature": "joint_risk_no_odi",
+  "best_joint_risk_status": "exploratory_not_validated",
+  "day21_analysis_passed": true,
+  "effect_size_threshold": 0.1,
+  "git_commit": "4420cc1",
+  "inputs": [
+    "results/day30/tables/day18_window_metrics.csv",
+    "results/day30/tables/day20_partial_correlations.csv",
+    "results/day30/tables/day20_incremental_validity_summary.csv",
+    "configs/validation/day21_joint_risk.yaml"
+  ],
+  "interpretation": "joint risk screened only; Day 22 gate review is required before any method update",
+  "missing_artifacts": [],
+  "n_features": 6,
+  "n_permutations": 200,
+  "n_targets": 2,
+  "outputs": [
+    "results/day30/tables/day21_joint_risk_window_features.csv",
+    "results/day30/tables/day21_joint_risk_correlations.csv",
+    "results/day30/tables/day21_joint_risk_controlled_validity.csv",
+    "results/day30/tables/day21_joint_risk_comparison.csv",
+    "results/day30/manifests/day21_joint_risk_manifest.json",
+    "reports/day21_report.md"
+  ],
+  "runtime_seconds": 1.856683,
+  "source_validation": "day18_day20",
+  "status": "OK",
+  "weak_update_authorized": false
+}
