@@ -20,10 +20,8 @@ export NUMEXPR_NUM_THREADS=1
 cleanup_children() {
   local children
   children="$(jobs -pr || true)"
-  if [[ -n "$children" ]]; then
+  if [ -n "$children" ]; then
     kill $children 2>/dev/null || true
-    sleep 1
-    kill -9 $children 2>/dev/null || true
   fi
 }
 
@@ -345,7 +343,9 @@ PY
 echo "Day 14 reproduction complete: run_id=$RUN_ID runtime_seconds=$RUNTIME_SECONDS"
 echo "step status: $STEP_STATUS"
 
-# Final process cleanup. This only targets background jobs owned by this shell.
-jobs -pr | xargs -r kill 2>/dev/null || true
-wait 2>/dev/null || true
+# final process cleanup: do not call bare wait because it may block on inherited/background jobs
+children="$(jobs -pr || true)"
+if [ -n "$children" ]; then
+  kill $children 2>/dev/null || true
+fi
 exit 0
