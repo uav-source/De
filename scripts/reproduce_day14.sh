@@ -203,47 +203,6 @@ run_step() {
   echo "OK step=${step_name} return_code=0 runtime_seconds=${runtime}" >> "$COMMAND_LOG"
 }
 
-run_plot_step_simple() {
-  local step_name="$1"
-  shift
-  local stdout_path="$LOG_DIR/${step_name}.stdout.log"
-  local stderr_path="$LOG_DIR/${step_name}.stderr.log"
-  local start_time end_time start_epoch end_epoch runtime timeout_flag status
-  local command_text
-  command_text="env DEGEN_FORCE_CLI_EXIT=1 timeout --kill-after=10s ${STEP_TIMEOUT_SECONDS}s $*"
-
-  start_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  start_epoch="$(date +%s)"
-  echo "RUN step=${step_name} timeout=${STEP_TIMEOUT_SECONDS}s command=${command_text}" >> "$COMMAND_LOG"
-  echo "+ [${step_name}] ${command_text}"
-
-  set +e
-  env DEGEN_FORCE_CLI_EXIT=1 timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" "$@" >"$stdout_path" 2>"$stderr_path"
-  status=$?
-  set -e
-
-  end_epoch="$(date +%s)"
-  end_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  runtime="$((end_epoch - start_epoch))"
-  timeout_flag="false"
-  if [[ "$status" -eq 124 || "$status" -eq 137 ]]; then
-    timeout_flag="true"
-  fi
-
-  printf '%s,%s,%s,%s,%s,%s,%s,%s,%s\n' \
-    "$step_name" "$command_text" "$start_time" "$end_time" "$runtime" "$status" "$timeout_flag" "$stdout_path" "$stderr_path" >> "$STEP_STATUS"
-
-  if [[ "$status" -ne 0 ]]; then
-    echo "FAILED step=${step_name} return_code=${status} timeout=${timeout_flag} runtime_seconds=${runtime}" >> "$COMMAND_LOG"
-    echo "ERROR: step failed: ${step_name} return_code=${status} timeout=${timeout_flag}" >&2
-    tail_logs "$stdout_path" "$stderr_path"
-    write_manifest FAILED "$step_name" "$status" "$timeout_flag" "$stdout_path" "$stderr_path" || true
-    exit "$status"
-  fi
-
-  echo "OK step=${step_name} return_code=0 runtime_seconds=${runtime}" >> "$COMMAND_LOG"
-}
-
 run_step check_env python3 scripts/check_env.py
 
 for seq in "${SEQUENCES[@]}"; do
@@ -262,8 +221,75 @@ run_step eval_metrics python3 scripts/03_eval_metrics.py --all --config configs/
 run_step metric_validity python3 scripts/05_metric_validity.py --config configs/detector/odi_default.yaml --n-boot "$REPRO_N_BOOT"
 echo "BEFORE_PREWARM: skipped; prewarm_matplotlib is not a mandatory reproduction step" >> "$COMMAND_LOG"
 echo "AFTER_PREWARM_TIMEOUT_RETURN: skipped; no timeout subprocess launched" >> "$COMMAND_LOG"
-run_plot_step_simple plot_day14 python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
-run_plot_step_simple sensitivity python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --out results/day14/tables --figures-out results/day14/figures --n-boot "$REPRO_N_BOOT"
+
+plot_stdout_path="$LOG_DIR/plot_day14.stdout.log"
+plot_stderr_path="$LOG_DIR/plot_day14.stderr.log"
+plot_start_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+plot_start_epoch="$(date +%s)"
+echo "RUN step=plot_day14 timeout=${STEP_TIMEOUT_SECONDS}s command=plot_day14" >> "$COMMAND_LOG"
+echo "+ [plot_day14] timeout=${STEP_TIMEOUT_SECONDS}s plot_day14"
+set +e
+env DEGEN_FORCE_CLI_EXIT=1 timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" \
+  python3 scripts/04_plot_day14.py \
+    --results results/day14 \
+    --out results/day14/figures \
+  > "$plot_stdout_path" \
+  2> "$plot_stderr_path"
+plot_rc=$?
+set -e
+plot_end_epoch="$(date +%s)"
+plot_end_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+plot_runtime="$((plot_end_epoch - plot_start_epoch))"
+plot_timeout="false"
+if [[ "$plot_rc" -eq 124 || "$plot_rc" -eq 137 ]]; then
+  plot_timeout="true"
+fi
+printf '%s,%s,%s,%s,%s,%s,%s,%s,%s\n' \
+  "plot_day14" "plot_day14" "$plot_start_time" "$plot_end_time" "$plot_runtime" "$plot_rc" "$plot_timeout" "$plot_stdout_path" "$plot_stderr_path" >> "$STEP_STATUS"
+if [[ "$plot_rc" -ne 0 ]]; then
+  echo "FAILED step=plot_day14 return_code=${plot_rc} timeout=${plot_timeout} runtime_seconds=${plot_runtime}" >> "$COMMAND_LOG"
+  echo "ERROR: step failed: plot_day14 return_code=${plot_rc} timeout=${plot_timeout}" >&2
+  tail_logs "$plot_stdout_path" "$plot_stderr_path"
+  write_manifest FAILED "plot_day14" "$plot_rc" "$plot_timeout" "$plot_stdout_path" "$plot_stderr_path" || true
+  exit "$plot_rc"
+fi
+echo "OK step=plot_day14 return_code=0 runtime_seconds=${plot_runtime}" >> "$COMMAND_LOG"
+
+sensitivity_stdout_path="$LOG_DIR/sensitivity.stdout.log"
+sensitivity_stderr_path="$LOG_DIR/sensitivity.stderr.log"
+sensitivity_start_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+sensitivity_start_epoch="$(date +%s)"
+echo "RUN step=sensitivity timeout=${STEP_TIMEOUT_SECONDS}s command=sensitivity" >> "$COMMAND_LOG"
+echo "+ [sensitivity] timeout=${STEP_TIMEOUT_SECONDS}s sensitivity"
+set +e
+env DEGEN_FORCE_CLI_EXIT=1 timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" \
+  python3 scripts/06_sensitivity.py \
+    --config configs/detector/odi_default.yaml \
+    --results results/day14 \
+    --out results/day14/tables \
+    --figures-out results/day14/figures \
+    --n-boot "$REPRO_N_BOOT" \
+  > "$sensitivity_stdout_path" \
+  2> "$sensitivity_stderr_path"
+sensitivity_rc=$?
+set -e
+sensitivity_end_epoch="$(date +%s)"
+sensitivity_end_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+sensitivity_runtime="$((sensitivity_end_epoch - sensitivity_start_epoch))"
+sensitivity_timeout="false"
+if [[ "$sensitivity_rc" -eq 124 || "$sensitivity_rc" -eq 137 ]]; then
+  sensitivity_timeout="true"
+fi
+printf '%s,%s,%s,%s,%s,%s,%s,%s,%s\n' \
+  "sensitivity" "sensitivity" "$sensitivity_start_time" "$sensitivity_end_time" "$sensitivity_runtime" "$sensitivity_rc" "$sensitivity_timeout" "$sensitivity_stdout_path" "$sensitivity_stderr_path" >> "$STEP_STATUS"
+if [[ "$sensitivity_rc" -ne 0 ]]; then
+  echo "FAILED step=sensitivity return_code=${sensitivity_rc} timeout=${sensitivity_timeout} runtime_seconds=${sensitivity_runtime}" >> "$COMMAND_LOG"
+  echo "ERROR: step failed: sensitivity return_code=${sensitivity_rc} timeout=${sensitivity_timeout}" >&2
+  tail_logs "$sensitivity_stdout_path" "$sensitivity_stderr_path"
+  write_manifest FAILED "sensitivity" "$sensitivity_rc" "$sensitivity_timeout" "$sensitivity_stdout_path" "$sensitivity_stderr_path" || true
+  exit "$sensitivity_rc"
+fi
+echo "OK step=sensitivity return_code=0 runtime_seconds=${sensitivity_runtime}" >> "$COMMAND_LOG"
 
 END_EPOCH="$(date +%s)"
 RUNTIME_SECONDS="$((END_EPOCH - START_EPOCH))"
