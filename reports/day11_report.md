@@ -12,6 +12,7 @@
 - Date: 2026-05-28
 - Repository: `/home/lj/Degen-LIO`
 - Base git commit at run start: `b33b960`
+- Day 11 implementation commit: `cd2ed5b`
 - Detector config: `configs/detector/odi_default.yaml`
 - Random seed: `42`
 - Plot command: `python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures`
