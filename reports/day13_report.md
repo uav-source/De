@@ -1,17 +1,16 @@
-# Day 13 Twelfth Repair Report - Reproduction Stability
+# Day 13 Thirteenth Repair Report - Reproduction Stability
 
 ## Scope
 
 This is still Day 13 repair work only. I did not enter Day 14, did not modify `toy_lio`, did not remove Day 10 per-sequence/LOSO counter-evidence, and did not change the scientific conclusion.
 
-## Twelfth Repair Changes
+## Thirteenth Repair Changes
 
-- `scripts/reproduce_day14.sh` no longer runs `plot_day14` or `sensitivity` through a wrapper function.
-- `plot_day14` is an explicit in-place shell step with the verified command order:
-  `timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" env DEGEN_FORCE_CLI_EXIT=1 ... python3 scripts/04_plot_day14.py ...`
-- `sensitivity` uses the same timeout/env ordering and explicitly passes `--data-root data/minibench`.
-- The step status command fields for these two steps are fixed short strings: `plot_day14` and `sensitivity`.
-- Failure handling still writes a FAILED reproduction manifest and exits non-zero.
+- Added `scripts/run_plot_day14_step.sh` as a thin external wrapper for the `plot_day14` command.
+- Added `scripts/run_sensitivity_step.sh` as a thin external wrapper for the `sensitivity` command.
+- `scripts/reproduce_day14.sh` no longer embeds the long timeout/env/python blocks for `plot_day14` and `sensitivity`.
+- The reproduction script now starts each step, calls the wrapper, immediately records the returned rc, appends `day14_step_status_*.csv`, and only writes a FAILED manifest on non-zero rc.
+- Added `tests/test_reproduce_step_wrappers.py` with smoke tests for both wrappers using `tmp_path` outputs.
 
 ## Validation
 
@@ -32,13 +31,14 @@ Commands run:
 python3 scripts/check_env.py
 python3 -m pytest -q
 STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run
-git status --short
+grep "plot_day14" results/day14/manifests/day14_step_status_*.csv
+grep "sensitivity" results/day14/manifests/day14_step_status_*.csv
 ```
 
-Observed results:
+Observed results before the final commit:
 
 - `python3 scripts/check_env.py`: OK.
-- `python3 -m pytest -q`: `72 passed`.
+- `python3 -m pytest -q`: `74 passed`.
 - Full pytest after clearing generated results: passed.
 - `STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run`: OK.
 - `plot_day14`: completed and recorded in `day14_step_status_*.csv` with return code `0`.
@@ -46,7 +46,6 @@ Observed results:
 - Final reproduction manifest: `status=OK`.
 - Manifest `missing_artifacts`: empty.
 - Manifest `git_commit`: matches `git rev-parse --short HEAD`.
-- `git status --short`: clean after the repair commit and final reproduction.
 
 ## Scientific Status
 
