@@ -1,0 +1,10 @@
+axis_bias_mode: none
+perturbation_profile: unbiased_day17
+n_trials: 20
+seed: 17000
+seed_stride: 37
+noise:
+  axis_sigma: 0.004
+  cross_sigma: 0.004
+  yaw_sigma: 0.0008
+notes: "Day 17 unbiased multi-trial probe. No scene-family-dependent axis_bias is allowed."

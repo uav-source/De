@@ -1,0 +1,11 @@
+axis_bias_mode: legacy_scene_family
+perturbation_profile: legacy_day14
+seed: 42
+n_trials: 1
+legacy_axis_bias_by_family:
+  OC: 0.0
+  CT: 0.016
+  ST: 0.022
+  RT: 0.026
+use_for_main_claim: false
+notes: "Legacy Day 14 behavior is preserved for reproduction and diagnostic evidence only."

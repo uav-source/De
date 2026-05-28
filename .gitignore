@@ -23,6 +23,11 @@ results/day14/metrics/*
 results/day14/figures/*
 results/day14/tables/*
 results/day14/manifests/*
+results/day30/raw/*
+results/day30/metrics/*
+results/day30/figures/*
+results/day30/tables/*
+results/day30/manifests/*
 
 # Keep directory placeholders
 !data/minibench/.gitkeep

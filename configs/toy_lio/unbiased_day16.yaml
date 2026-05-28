@@ -1,0 +1,9 @@
+axis_bias_mode: none
+perturbation_profile: unbiased_day16
+seed: 42
+n_trials: 1
+noise:
+  axis_sigma: 0.004
+  cross_sigma: 0.004
+  yaw_sigma: 0.0008
+notes: "No scene-family-dependent axis_bias is allowed in this protocol."

@@ -8,17 +8,44 @@ from pathlib import Path
 from typing import Any, Dict, Tuple, Union
 
 import numpy as np
+import yaml
 
 from .observation_simulator import load_detector_config, load_sequence, quat_to_rot
 
 
-def run_toy_lio(sequence_dir: Union[str, Path], config: Union[str, Path, Dict[str, Any]]) -> Dict[str, Any]:
+LEGACY_AXIS_BIAS_BY_FAMILY = {
+    "OC": 0.0,
+    "CT": 0.016,
+    "RT": 0.026,
+    "ST": 0.022,
+}
+LEGACY_NOISE_BY_FAMILY = {
+    "OC": {"axis_sigma": 0.003, "cross_sigma": 0.003, "yaw_sigma": 0.0005},
+    "CT": {"axis_sigma": 0.004, "cross_sigma": 0.0025, "yaw_sigma": 0.0008},
+    "RT": {"axis_sigma": 0.006, "cross_sigma": 0.003, "yaw_sigma": 0.0008},
+    "ST": {"axis_sigma": 0.005, "cross_sigma": 0.003, "yaw_sigma": 0.0008},
+}
+UNBIASED_NOISE_DEFAULT = {
+    "axis_sigma": 0.004,
+    "cross_sigma": 0.004,
+    "yaw_sigma": 0.0008,
+}
+VALID_AXIS_BIAS_MODES = {"legacy_scene_family", "none", "controlled"}
+
+
+def run_toy_lio(
+    sequence_dir: Union[str, Path],
+    config: Union[str, Path, Dict[str, Any]],
+    toy_config: Union[None, str, Path, Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     sequence_dir = Path(sequence_dir)
     detector_config = load_detector_config(config) if not isinstance(config, dict) else config
+    toy_lio_config = load_toy_lio_config(toy_config)
     sequence = load_sequence(sequence_dir)
     observations = np.load(sequence_dir / "observations.npz")
 
-    seed = int(detector_config.get("random_seed", sequence.metadata["random_seed"])) + stable_seed_offset(sequence.sequence_id)
+    base_seed = int(toy_lio_config.get("seed", detector_config.get("random_seed", sequence.metadata["random_seed"])))
+    seed = base_seed + stable_seed_offset(sequence.sequence_id)
     rng = np.random.default_rng(seed)
     gt = observations["pose_gt"]
     axes = observations["axis_per_frame"]
@@ -31,13 +58,15 @@ def run_toy_lio(sequence_dir: Union[str, Path], config: Union[str, Path, Dict[st
     est = np.zeros_like(gt)
     est[0] = gt[0]
     family = sequence.metadata["scene_family"]
+    applied_axis_bias = []
 
     for idx in range(1, gt.shape[0]):
         gt_delta = {
             "translation": gt[idx, 1:4] - gt[idx - 1, 1:4],
             "yaw": yaw_from_quat(gt[idx, 4:8]) - yaw_from_quat(gt[idx - 1, 4:8]),
         }
-        process_noise = sample_process_noise(family, axes[idx], rng)
+        process_noise = sample_process_noise(family, axes[idx], rng, toy_lio_config)
+        applied_axis_bias.append(float(process_noise["axis_bias"]))
         prior = propagate_with_noisy_motion(est[idx - 1], gt_delta, process_noise)
         residual = residual_at_prior(
             prior,
@@ -50,11 +79,13 @@ def run_toy_lio(sequence_dir: Union[str, Path], config: Union[str, Path, Dict[st
         est[idx, 0] = gt[idx, 0]
 
     summary = compute_toy_summary(est, gt, axes)
+    bias_metadata = build_bias_metadata(family, toy_lio_config, applied_axis_bias)
     return {
         "poses": est,
         "summary": summary,
         "sequence_id": sequence.sequence_id,
         "random_seed": seed,
+        "bias_metadata": bias_metadata,
     }
 
 
@@ -105,30 +136,85 @@ def residual_at_prior(
     return geometric + base_residual
 
 
-def sample_process_noise(family: str, axis: np.ndarray, rng: np.random.Generator) -> Dict[str, Any]:
+def load_toy_lio_config(config: Union[None, str, Path, Dict[str, Any]]) -> Dict[str, Any]:
+    if config is None:
+        raw: Dict[str, Any] = {}
+    elif isinstance(config, dict):
+        raw = dict(config)
+    else:
+        with Path(config).open("r", encoding="utf-8") as handle:
+            loaded = yaml.safe_load(handle)
+        if not isinstance(loaded, dict):
+            raise ValueError(f"Toy LIO config must be a mapping: {config}")
+        raw = loaded
+
+    mode = str(raw.get("axis_bias_mode", "legacy_scene_family"))
+    if mode not in VALID_AXIS_BIAS_MODES:
+        raise ValueError(f"Unsupported axis_bias_mode={mode!r}")
+    profile = str(raw.get("perturbation_profile", "legacy_day14"))
+    normalized = {
+        "axis_bias_mode": mode,
+        "perturbation_profile": profile,
+        "seed": raw.get("seed"),
+        "seed_stride": int(raw.get("seed_stride", 1)),
+        "n_trials": int(raw.get("n_trials", 1)),
+        "controlled_axis_bias": raw.get("controlled_axis_bias", raw.get("axis_bias", None)),
+        "noise": raw.get("noise", {}),
+        "notes": raw.get("notes", ""),
+    }
+    if normalized["seed"] is None:
+        normalized.pop("seed")
+    return normalized
+
+
+def resolve_process_noise_parameters(family: str, toy_config: Union[None, str, Path, Dict[str, Any]] = None) -> Dict[str, float]:
+    config = load_toy_lio_config(toy_config)
+    mode = str(config["axis_bias_mode"])
+    if mode == "legacy_scene_family":
+        noise = dict(LEGACY_NOISE_BY_FAMILY.get(family, LEGACY_NOISE_BY_FAMILY["ST"]))
+        axis_bias = float(LEGACY_AXIS_BIAS_BY_FAMILY.get(family, LEGACY_AXIS_BIAS_BY_FAMILY["ST"]))
+    else:
+        noise_config = config.get("noise", {})
+        noise = dict(UNBIASED_NOISE_DEFAULT)
+        if isinstance(noise_config, dict):
+            for key in ["axis_sigma", "cross_sigma", "yaw_sigma"]:
+                if key in noise_config:
+                    noise[key] = float(noise_config[key])
+        axis_bias = resolve_axis_bias(family, config)
+    noise["axis_bias"] = axis_bias
+    return noise
+
+
+def resolve_axis_bias(family: str, toy_config: Union[None, str, Path, Dict[str, Any]] = None) -> float:
+    config = load_toy_lio_config(toy_config)
+    mode = str(config["axis_bias_mode"])
+    if mode == "legacy_scene_family":
+        return float(LEGACY_AXIS_BIAS_BY_FAMILY.get(family, LEGACY_AXIS_BIAS_BY_FAMILY["ST"]))
+    if mode == "none":
+        return 0.0
+    controlled = config.get("controlled_axis_bias")
+    if isinstance(controlled, dict):
+        if family not in controlled:
+            raise ValueError(f"controlled_axis_bias must explicitly define family={family!r}")
+        return float(controlled[family])
+    if controlled is None:
+        raise ValueError("axis_bias_mode='controlled' requires controlled_axis_bias")
+    return float(controlled)
+
+
+def sample_process_noise(
+    family: str,
+    axis: np.ndarray,
+    rng: np.random.Generator,
+    toy_config: Union[None, str, Path, Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     axis = normalize_vector(axis)
     u, v = orthonormal_cross_basis(axis)
-
-    if family == "OC":
-        axis_bias = 0.0
-        axis_sigma = 0.003
-        cross_sigma = 0.003
-        yaw_sigma = 0.0005
-    elif family == "CT":
-        axis_bias = 0.016
-        axis_sigma = 0.004
-        cross_sigma = 0.0025
-        yaw_sigma = 0.0008
-    elif family == "RT":
-        axis_bias = 0.026
-        axis_sigma = 0.006
-        cross_sigma = 0.003
-        yaw_sigma = 0.0008
-    else:
-        axis_bias = 0.022
-        axis_sigma = 0.005
-        cross_sigma = 0.003
-        yaw_sigma = 0.0008
+    params = resolve_process_noise_parameters(family, toy_config)
+    axis_bias = float(params["axis_bias"])
+    axis_sigma = float(params["axis_sigma"])
+    cross_sigma = float(params["cross_sigma"])
+    yaw_sigma = float(params["yaw_sigma"])
 
     translation = (
         axis * (axis_bias + rng.normal(0.0, axis_sigma))
@@ -138,6 +224,27 @@ def sample_process_noise(family: str, axis: np.ndarray, rng: np.random.Generator
     return {
         "translation": translation,
         "yaw": rng.normal(0.0, yaw_sigma),
+        "axis_bias": axis_bias,
+        "axis_sigma": axis_sigma,
+        "cross_sigma": cross_sigma,
+        "yaw_sigma": yaw_sigma,
+    }
+
+
+def build_bias_metadata(family: str, toy_config: Dict[str, Any], applied_axis_bias: list) -> Dict[str, Any]:
+    mode = str(toy_config["axis_bias_mode"])
+    profile = str(toy_config["perturbation_profile"])
+    values = [float(value) for value in applied_axis_bias]
+    unique_values = sorted({round(value, 12) for value in values})
+    return {
+        "scene_family": family,
+        "axis_bias_mode": mode,
+        "perturbation_profile": profile,
+        "legacy_axis_bias": float(LEGACY_AXIS_BIAS_BY_FAMILY.get(family, LEGACY_AXIS_BIAS_BY_FAMILY["ST"])),
+        "applied_axis_bias": float(values[0]) if values else resolve_axis_bias(family, toy_config),
+        "applied_axis_bias_values": unique_values,
+        "is_unbiased_protocol": mode == "none" and all(abs(value) < 1.0e-12 for value in values),
+        "bias_source": "scene_family" if mode == "legacy_scene_family" else mode,
     }
 
 
@@ -212,4 +319,3 @@ def orthonormal_cross_basis(axis: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
 def stable_seed_offset(sequence_id: str) -> int:
     digest = hashlib.sha256(sequence_id.encode("utf-8")).hexdigest()
     return int(digest[:8], 16) % 100000
-
