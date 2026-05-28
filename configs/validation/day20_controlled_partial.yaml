@@ -1,0 +1,35 @@
+source_validation: day18_day19
+targets:
+  - axis_drift_rate
+  - weak_drift_alignment
+metrics:
+  - ODI_median
+  - AIS_median
+  - lambda_min_clamped_median
+  - condition_number_median
+controls:
+  - AIS_median
+  - lambda_min_clamped_median
+  - condition_number_median
+  - weak_alignment_median
+  - path_length
+group_controls:
+  - sequence_id
+  - scene_family
+effect_size_threshold: 0.10
+n_permutations: 200
+seed: 20000
+expected_sign:
+  ODI_median:
+    axis_drift_rate: positive
+    weak_drift_alignment: positive
+  condition_number_median:
+    axis_drift_rate: positive
+    weak_drift_alignment: positive
+  AIS_median:
+    axis_drift_rate: negative
+    weak_drift_alignment: negative
+  lambda_min_clamped_median:
+    axis_drift_rate: negative
+    weak_drift_alignment: negative
+notes: "Day 20 tests whether ODI has incremental explanatory value after controlling for AIS, lambda_min, condition number, weak alignment, path length, and sequence / scene-family effects."

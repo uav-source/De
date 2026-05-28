@@ -1,0 +1,29 @@
+{
+  "day20_analysis_passed": true,
+  "effect_size_threshold": 0.1,
+  "git_commit": "ed2089f",
+  "inputs": [
+    "results/day30/tables/day18_window_metrics.csv",
+    "results/day30/tables/day19_grouped_metric_summary.csv",
+    "results/day30/tables/day19_loso_selection_results.csv",
+    "results/day30/tables/day19_metric_pass_fail_summary.csv",
+    "configs/validation/day20_controlled_partial.yaml"
+  ],
+  "interpretation": "analysis chain passed; this does not authorize weak-subspace update by itself",
+  "missing_artifacts": [],
+  "n_metrics": 4,
+  "n_permutations": 200,
+  "n_targets": 2,
+  "odi_day20_status": "exploratory_not_validated",
+  "outputs": [
+    "results/day30/tables/day20_partial_correlations.csv",
+    "results/day30/tables/day20_controlled_regression_summary.csv",
+    "results/day30/tables/day20_permutation_tests.csv",
+    "results/day30/tables/day20_incremental_validity_summary.csv",
+    "results/day30/manifests/day20_controlled_partial_manifest.json",
+    "reports/day20_report.md"
+  ],
+  "runtime_seconds": 1.995115,
+  "source_validation": "day18_day19",
+  "status": "OK"
+}

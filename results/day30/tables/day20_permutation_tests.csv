@@ -1,0 +1,41 @@
+metric_name,target_name,scope,sequence_id,observed_abs_partial_rho,permutation_p_value,n_permutations,seed,passes_permutation_screen,interpretation
+ODI_median,axis_drift_rate,merged_controlled,ALL,0.0221895295386,0.268656716418,200,332471,false,permutation screen did not pass
+ODI_median,axis_drift_rate,within_sequence_controlled,CT-L2-S01-M2,0.0235222638155,0.52736318408,200,123692,false,permutation screen did not pass
+ODI_median,axis_drift_rate,within_sequence_controlled,OC-L0-S01-M1,nan,nan,200,1019138,undefined,undefined permutation screen
+ODI_median,axis_drift_rate,within_sequence_controlled,RT-L4-S01-M1,0.0355129269179,0.353233830846,200,234895,false,permutation screen did not pass
+ODI_median,axis_drift_rate,within_sequence_controlled,ST-L3-S01-M1,0.0549021337469,0.0995024875622,200,853420,false,permutation screen did not pass
+AIS_median,axis_drift_rate,merged_controlled,ALL,0.02994388778,0.114427860697,200,556519,false,permutation screen did not pass
+AIS_median,axis_drift_rate,within_sequence_controlled,CT-L2-S01-M2,0.0877575704593,0.0248756218905,200,88882,true,permutation screen passed
+AIS_median,axis_drift_rate,within_sequence_controlled,OC-L0-S01-M1,nan,nan,200,984328,undefined,undefined permutation screen
+AIS_median,axis_drift_rate,within_sequence_controlled,RT-L4-S01-M1,0.00448093906318,0.910447761194,200,200085,false,permutation screen did not pass
+AIS_median,axis_drift_rate,within_sequence_controlled,ST-L3-S01-M1,0.00221714944812,0.950248756219,200,818610,false,permutation screen did not pass
+lambda_min_clamped_median,axis_drift_rate,merged_controlled,ALL,0.0136075502029,0.52736318408,200,810191,false,permutation screen did not pass
+lambda_min_clamped_median,axis_drift_rate,within_sequence_controlled,CT-L2-S01-M2,0.086013035028,0.0149253731343,200,764401,true,permutation screen passed
+lambda_min_clamped_median,axis_drift_rate,within_sequence_controlled,OC-L0-S01-M1,nan,nan,200,67343,undefined,undefined permutation screen
+lambda_min_clamped_median,axis_drift_rate,within_sequence_controlled,RT-L4-S01-M1,nan,nan,200,331689,undefined,undefined permutation screen
+lambda_min_clamped_median,axis_drift_rate,within_sequence_controlled,ST-L3-S01-M1,0.00702848001203,0.850746268657,200,358091,false,permutation screen did not pass
+condition_number_median,axis_drift_rate,merged_controlled,ALL,0.0618899281327,0.00497512437811,200,1016127,true,permutation screen passed
+condition_number_median,axis_drift_rate,within_sequence_controlled,CT-L2-S01-M2,0.0495160962554,0.179104477612,200,92455,false,permutation screen did not pass
+condition_number_median,axis_drift_rate,within_sequence_controlled,OC-L0-S01-M1,nan,nan,200,395400,undefined,undefined permutation screen
+condition_number_median,axis_drift_rate,within_sequence_controlled,RT-L4-S01-M1,0.0616389663321,0.044776119403,200,659746,true,permutation screen passed
+condition_number_median,axis_drift_rate,within_sequence_controlled,ST-L3-S01-M1,0.0657188658197,0.0696517412935,200,686148,false,permutation screen did not pass
+ODI_median,weak_drift_alignment,merged_controlled,ALL,0.0443781786558,0.0199004975124,200,97565,true,permutation screen passed
+ODI_median,weak_drift_alignment,within_sequence_controlled,CT-L2-S01-M2,0.0283009123127,0.462686567164,200,994558,false,permutation screen did not pass
+ODI_median,weak_drift_alignment,within_sequence_controlled,OC-L0-S01-M1,nan,nan,200,297500,undefined,undefined permutation screen
+ODI_median,weak_drift_alignment,within_sequence_controlled,RT-L4-S01-M1,0.155877941094,0.00497512437811,200,561846,true,permutation screen passed
+ODI_median,weak_drift_alignment,within_sequence_controlled,ST-L3-S01-M1,0.0212965322012,0.52736318408,200,588248,false,permutation screen did not pass
+AIS_median,weak_drift_alignment,merged_controlled,ALL,0.0604530211758,0.00497512437811,200,848517,true,permutation screen passed
+AIS_median,weak_drift_alignment,within_sequence_controlled,CT-L2-S01-M2,0.0106799213281,0.781094527363,200,226337,false,permutation screen did not pass
+AIS_median,weak_drift_alignment,within_sequence_controlled,OC-L0-S01-M1,nan,nan,200,529282,undefined,undefined permutation screen
+AIS_median,weak_drift_alignment,within_sequence_controlled,RT-L4-S01-M1,0.0568252445645,0.089552238806,200,793628,false,permutation screen did not pass
+AIS_median,weak_drift_alignment,within_sequence_controlled,ST-L3-S01-M1,0.0885744988616,0.00995024875622,200,820030,true,permutation screen passed
+lambda_min_clamped_median,weak_drift_alignment,merged_controlled,ALL,0.0220164062011,0.243781094527,200,799679,false,permutation screen did not pass
+lambda_min_clamped_median,weak_drift_alignment,within_sequence_controlled,CT-L2-S01-M2,0.0220482321797,0.452736318408,200,376826,false,permutation screen did not pass
+lambda_min_clamped_median,weak_drift_alignment,within_sequence_controlled,OC-L0-S01-M1,nan,nan,200,679771,undefined,undefined permutation screen
+lambda_min_clamped_median,weak_drift_alignment,within_sequence_controlled,RT-L4-S01-M1,nan,nan,200,944117,undefined,undefined permutation screen
+lambda_min_clamped_median,weak_drift_alignment,within_sequence_controlled,ST-L3-S01-M1,0.120735645934,0.00497512437811,200,970519,true,permutation screen passed
+condition_number_median,weak_drift_alignment,merged_controlled,ALL,0.0126834753263,0.487562189055,200,52615,false,permutation screen did not pass
+condition_number_median,weak_drift_alignment,within_sequence_controlled,CT-L2-S01-M2,0.0177545609642,0.606965174129,200,244370,false,permutation screen did not pass
+condition_number_median,weak_drift_alignment,within_sequence_controlled,OC-L0-S01-M1,nan,nan,200,547315,undefined,undefined permutation screen
+condition_number_median,weak_drift_alignment,within_sequence_controlled,RT-L4-S01-M1,0.0710591753059,0.0248756218905,200,811661,true,permutation screen passed
+condition_number_median,weak_drift_alignment,within_sequence_controlled,ST-L3-S01-M1,0.0265196080107,0.442786069652,200,838063,false,permutation screen did not pass
