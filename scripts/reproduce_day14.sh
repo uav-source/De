@@ -10,7 +10,7 @@ STEPS=(
   "python3 scripts/00_generate_minibench.py --all"
   "python3 scripts/01_simulate_observations.py --all --config configs/detector/odi_default.yaml"
   "python3 scripts/02_compute_odi.py --all --config configs/detector/odi_default.yaml"
-  "python3 scripts/02_run_toy_lio.py --all"
+  "python3 scripts/02_run_toy_lio.py --all --config configs/detector/odi_default.yaml"
   "python3 scripts/03_eval_metrics.py --all"
   "python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures"
 )
