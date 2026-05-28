@@ -7,7 +7,7 @@ ODI robust drift prediction is not validated.
 
 ## Project Scope
 
-This workspace preserves the Day 14-Day 27 evidence chain for a synthetic diagnostic benchmark. The project studies how degeneracy metrics, weak-direction diagnostics, toy probes, and gate reviews behave under increasingly strict validation.
+This workspace preserves the Day 14-Day 30 evidence chain for a synthetic diagnostic benchmark. The project studies how degeneracy metrics, weak-direction diagnostics, toy probes, and gate reviews behave under increasingly strict validation.
 
 The current route is Route B: diagnostic benchmark / failure-analysis. It is not a method implementation route.
 
@@ -32,7 +32,7 @@ The central diagnostic question is:
 - It does not claim ODI is superior to AIS, lambda_min_clamped, or condition_number.
 - It does not claim joint risk features are validated drift predictors.
 
-## Evidence Chain Day14-Day27
+## Evidence Chain Day14-Day30
 
 - Day 14: conditional go/no-go report for the initial synthetic probe.
 - Day 15: legacy toy_lio scene-family axis-bias audit.
@@ -48,6 +48,9 @@ The central diagnostic question is:
 - Day 25: paper outline and figure/table plan.
 - Day 26: paper skeleton and release cleanup plan.
 - Day 27: README scope update, release hygiene audit, and figure/table readiness review.
+- Day 28: paper-draft table conversion and pending figure planning.
+- Day 29: real F01/F03 figure generation and table interpretation safeguards.
+- Day 30: final package review, artifact audit, claim-boundary audit, and release readiness check.
 
 ## Reproduction Commands
 
@@ -70,6 +73,9 @@ python3 scripts/17_day24_diagnostic_consolidation.py --config configs/validation
 python3 scripts/18_day25_paper_outline.py --config configs/validation/day25_paper_outline.yaml
 python3 scripts/19_day26_paper_skeleton.py --config configs/validation/day26_paper_skeleton.yaml
 python3 scripts/20_day27_release_cleanup.py --config configs/validation/day27_release_cleanup.yaml
+python3 scripts/21_day28_figure_table_generation.py --config configs/validation/day28_figure_table_generation.yaml
+python3 scripts/22_day29_safe_figures.py --config configs/validation/day29_safe_figures.yaml
+python3 scripts/23_day30_final_package_review.py --config configs/validation/day30_final_package_review.yaml
 ```
 
 ## Smoke vs Real Plotting

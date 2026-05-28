@@ -203,6 +203,9 @@ It is not a validated Degen-LIO estimator method.
 
 ## Reproduction Commands
 
+For full staged reproduction, run the Day15-Day30 scripts listed in README.
+The short command block below is only a final audit shortcut, not the full chain.
+
 ```bash
 python3 scripts/check_env.py
 python3 -m pytest -q

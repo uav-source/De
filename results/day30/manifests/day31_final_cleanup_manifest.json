@@ -1,0 +1,27 @@
+{
+  "clean_archive_dryrun_manual_required": true,
+  "forbidden_claims_passed": true,
+  "full_pytest_manual_required": true,
+  "git_commit": "cb1683c",
+  "inputs": [
+    "README.md",
+    "docs/release/day30_final_release_notes.md",
+    "docs/release/day31_release_dryrun_checklist.md",
+    "scripts/release_dryrun.sh",
+    "results/day30/manifests/day30_final_package_manifest.json"
+  ],
+  "interpretation": "Day31 README/release synchronization and dry-run planning; no method update authorized",
+  "method_update_authorized": false,
+  "missing_artifacts": [],
+  "outputs": [
+    "results/day30/tables/day31_readme_release_sync_audit.csv",
+    "results/day30/tables/day31_release_dryrun_audit.csv",
+    "results/day30/manifests/day31_final_cleanup_manifest.json",
+    "reports/day31_final_cleanup_report.md"
+  ],
+  "readme_release_sync_passed": true,
+  "release_dryrun_audit_passed": true,
+  "runtime_seconds": 0.004952,
+  "status": "CONDITIONAL_OK",
+  "weak_update_authorized": false
+}
