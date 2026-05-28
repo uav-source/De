@@ -17,6 +17,18 @@ export OPENBLAS_NUM_THREADS=1
 export MKL_NUM_THREADS=1
 export NUMEXPR_NUM_THREADS=1
 
+cleanup_children() {
+  local children
+  children="$(jobs -pr || true)"
+  if [[ -n "$children" ]]; then
+    kill $children 2>/dev/null || true
+    sleep 1
+    kill -9 $children 2>/dev/null || true
+  fi
+}
+
+trap cleanup_children EXIT
+
 SEQUENCES=(
   "OC-L0-S01-M1"
   "ST-L3-S01-M1"
@@ -332,3 +344,8 @@ PY
 
 echo "Day 14 reproduction complete: run_id=$RUN_ID runtime_seconds=$RUNTIME_SECONDS"
 echo "step status: $STEP_STATUS"
+
+# Final process cleanup. This only targets background jobs owned by this shell.
+jobs -pr | xargs -r kill 2>/dev/null || true
+wait 2>/dev/null || true
+exit 0
