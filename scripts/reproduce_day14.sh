@@ -229,12 +229,13 @@ plot_start_epoch="$(date +%s)"
 echo "RUN step=plot_day14 timeout=${STEP_TIMEOUT_SECONDS}s command=plot_day14" >> "$COMMAND_LOG"
 echo "+ [plot_day14] timeout=${STEP_TIMEOUT_SECONDS}s plot_day14"
 set +e
-bash scripts/run_plot_day14_step.sh \
-  results/day14 \
-  results/day14/figures \
-  "$plot_stdout_path" \
-  "$plot_stderr_path" \
-  "$STEP_TIMEOUT_SECONDS"
+timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" \
+  bash scripts/run_plot_day14_step.sh \
+    results/day14 \
+    results/day14/figures \
+    "$plot_stdout_path" \
+    "$plot_stderr_path" \
+    "$STEP_TIMEOUT_SECONDS"
 plot_rc=$?
 set -e
 plot_end_epoch="$(date +%s)"
@@ -262,15 +263,16 @@ sensitivity_start_epoch="$(date +%s)"
 echo "RUN step=sensitivity timeout=${STEP_TIMEOUT_SECONDS}s command=sensitivity" >> "$COMMAND_LOG"
 echo "+ [sensitivity] timeout=${STEP_TIMEOUT_SECONDS}s sensitivity"
 set +e
-bash scripts/run_sensitivity_step.sh \
-  results/day14 \
-  data/minibench \
-  results/day14/tables \
-  results/day14/figures \
-  "$sensitivity_stdout_path" \
-  "$sensitivity_stderr_path" \
-  "$STEP_TIMEOUT_SECONDS" \
-  "$REPRO_N_BOOT"
+timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" \
+  bash scripts/run_sensitivity_step.sh \
+    results/day14 \
+    data/minibench \
+    results/day14/tables \
+    results/day14/figures \
+    "$sensitivity_stdout_path" \
+    "$sensitivity_stderr_path" \
+    "$STEP_TIMEOUT_SECONDS" \
+    "$REPRO_N_BOOT"
 sensitivity_rc=$?
 set -e
 sensitivity_end_epoch="$(date +%s)"
