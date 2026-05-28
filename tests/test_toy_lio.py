@@ -16,12 +16,12 @@ from minibench.toy_lio import run_toy_lio, save_pose_est_tum  # noqa: E402
 CONFIG = ROOT / "configs/detector/odi_default.yaml"
 
 
-def seq(name):
-    return ROOT / "data/minibench" / name
+def seq(day14_tmp_pipeline, name):
+    return day14_tmp_pipeline["seq"](name)
 
 
-def load_gt(sequence_id):
-    return np.loadtxt(seq(sequence_id) / "gt.tum")
+def load_gt(day14_tmp_pipeline, sequence_id):
+    return np.loadtxt(seq(day14_tmp_pipeline, sequence_id) / "gt.tum")
 
 
 def assert_tum_format(poses):
@@ -32,10 +32,10 @@ def assert_tum_format(poses):
     assert np.allclose(quat_norm, 1.0, atol=1.0e-6)
 
 
-def test_output_pose_count_matches_gt_and_tum_format(tmp_path):
-    result = run_toy_lio(seq("ST-L3-S01-M1"), CONFIG)
+def test_output_pose_count_matches_gt_and_tum_format(tmp_path, day14_tmp_pipeline):
+    result = run_toy_lio(seq(day14_tmp_pipeline, "ST-L3-S01-M1"), CONFIG)
     poses = result["poses"]
-    gt = load_gt("ST-L3-S01-M1")
+    gt = load_gt(day14_tmp_pipeline, "ST-L3-S01-M1")
 
     assert poses.shape[0] == gt.shape[0]
     assert_tum_format(poses)
@@ -46,33 +46,33 @@ def test_output_pose_count_matches_gt_and_tum_format(tmp_path):
     assert loaded.shape == poses.shape
 
 
-def test_open_control_does_not_obviously_diverge():
-    result = run_toy_lio(seq("OC-L0-S01-M1"), CONFIG)
+def test_open_control_does_not_obviously_diverge(day14_tmp_pipeline):
+    result = run_toy_lio(seq(day14_tmp_pipeline, "OC-L0-S01-M1"), CONFIG)
     summary = result["summary"]
 
     assert summary["final_translation_error"] < 0.75
     assert summary["mean_axis_error"] < 0.25
 
 
-def test_straight_tunnel_axis_error_exceeds_cross_error():
-    result = run_toy_lio(seq("ST-L3-S01-M1"), CONFIG)
+def test_straight_tunnel_axis_error_exceeds_cross_error(day14_tmp_pipeline):
+    result = run_toy_lio(seq(day14_tmp_pipeline, "ST-L3-S01-M1"), CONFIG)
     summary = result["summary"]
 
     assert summary["final_axis_error"] > 2.0 * summary["final_cross_error"]
     assert summary["mean_axis_error"] > 2.0 * summary["mean_cross_error"]
 
 
-def test_repetitive_tunnel_axis_error_exceeds_cross_error():
-    result = run_toy_lio(seq("RT-L4-S01-M1"), CONFIG)
+def test_repetitive_tunnel_axis_error_exceeds_cross_error(day14_tmp_pipeline):
+    result = run_toy_lio(seq(day14_tmp_pipeline, "RT-L4-S01-M1"), CONFIG)
     summary = result["summary"]
 
     assert summary["final_axis_error"] > 2.0 * summary["final_cross_error"]
     assert summary["mean_axis_error"] > 2.0 * summary["mean_cross_error"]
 
 
-def test_result_is_reproducible_with_fixed_seed():
-    first = run_toy_lio(seq("CT-L2-S01-M2"), CONFIG)["poses"]
-    second = run_toy_lio(seq("CT-L2-S01-M2"), CONFIG)["poses"]
+def test_result_is_reproducible_with_fixed_seed(day14_tmp_pipeline):
+    first = run_toy_lio(seq(day14_tmp_pipeline, "CT-L2-S01-M2"), CONFIG)["poses"]
+    second = run_toy_lio(seq(day14_tmp_pipeline, "CT-L2-S01-M2"), CONFIG)["poses"]
 
     assert np.allclose(first, second)
 

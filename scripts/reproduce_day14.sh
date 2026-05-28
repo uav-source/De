@@ -92,7 +92,30 @@ clean_generated() {
   done
 }
 
+ensure_manifest_template() {
+  local template_path="results/day14/manifests/manifest_template.json"
+  if [[ -f "$template_path" ]]; then
+    return
+  fi
+  cat > "$template_path" <<'EOF'
+{
+  "run_id": "",
+  "date": "",
+  "git_commit": "",
+  "config_hash": "",
+  "sequence_id": "",
+  "random_seed": 42,
+  "command": "",
+  "input_files": [],
+  "output_files": [],
+  "status": ""
+}
+
+EOF
+}
+
 clean_generated
+ensure_manifest_template
 
 MANIFEST_DIR="results/day14/manifests"
 LOG_DIR="$MANIFEST_DIR/logs/$RUN_ID"
@@ -104,23 +127,42 @@ printf 'step_name,command,start_time,end_time,runtime_seconds,return_code,timeou
 export MPLCONFIGDIR="$MANIFEST_DIR/mplconfig_${RUN_ID}"
 mkdir -p "$MPLCONFIGDIR"
 
-csv_escape() {
-  local value="$1"
-  value="${value//\"/\"\"}"
-  printf '"%s"' "$value"
-}
-
 tail_logs() {
   local stdout_path="$1"
   local stderr_path="$2"
   echo "--- stdout last 100 lines: $stdout_path ---" >&2
   if [[ -f "$stdout_path" ]]; then
-    tail -n 100 "$stdout_path" >&2 || true
+    timeout 5s tail -n 100 "$stdout_path" >&2 || true
   fi
   echo "--- stderr last 100 lines: $stderr_path ---" >&2
   if [[ -f "$stderr_path" ]]; then
-    tail -n 100 "$stderr_path" >&2 || true
+    timeout 5s tail -n 100 "$stderr_path" >&2 || true
   fi
+}
+
+write_manifest() {
+  local status="$1"
+  local failed_step="${2:-}"
+  local return_code="${3:-0}"
+  local timeout_flag="${4:-false}"
+  local stdout_path="${5:-}"
+  local stderr_path="${6:-}"
+  local now_epoch runtime
+  now_epoch="$(date +%s)"
+  runtime="$((now_epoch - START_EPOCH))"
+  python3 scripts/07_reproduction_manifest.py \
+    --results results/day14 \
+    --commands-file "$COMMAND_LOG" \
+    --run-id "$RUN_ID" \
+    --timestamp "$TIMESTAMP" \
+    --runtime-seconds "$runtime" \
+    --status "$status" \
+    --failed-step "$failed_step" \
+    --return-code "$return_code" \
+    --timeout "$timeout_flag" \
+    --step-status-csv "$STEP_STATUS" \
+    --stdout-log-path "$stdout_path" \
+    --stderr-log-path "$stderr_path"
 }
 
 run_step() {
@@ -149,20 +191,14 @@ run_step() {
     timeout_flag="true"
   fi
 
-  {
-    csv_escape "$step_name"; printf ','
-    csv_escape "$command_text"; printf ','
-    csv_escape "$start_time"; printf ','
-    csv_escape "$end_time"; printf ','
-    printf '%s,%s,%s,' "$runtime" "$status" "$timeout_flag"
-    csv_escape "$stdout_path"; printf ','
-    csv_escape "$stderr_path"; printf '\n'
-  } >> "$STEP_STATUS"
+  printf '%s,%s,%s,%s,%s,%s,%s,%s,%s\n' \
+    "$step_name" "$command_text" "$start_time" "$end_time" "$runtime" "$status" "$timeout_flag" "$stdout_path" "$stderr_path" >> "$STEP_STATUS"
 
   if [[ "$status" -ne 0 ]]; then
     echo "FAILED step=${step_name} return_code=${status} timeout=${timeout_flag} runtime_seconds=${runtime}" >> "$COMMAND_LOG"
     echo "ERROR: step failed: ${step_name} return_code=${status} timeout=${timeout_flag}" >&2
     tail_logs "$stdout_path" "$stderr_path"
+    write_manifest FAILED "$step_name" "$status" "$timeout_flag" "$stdout_path" "$stderr_path" || true
     exit "$status"
   fi
   echo "OK step=${step_name} return_code=0 runtime_seconds=${runtime}" >> "$COMMAND_LOG"
@@ -196,7 +232,8 @@ run_step reproduction_manifest python3 scripts/07_reproduction_manifest.py \
   --run-id "$RUN_ID" \
   --timestamp "$TIMESTAMP" \
   --runtime-seconds "$RUNTIME_SECONDS" \
-  --status OK
+  --status OK \
+  --step-status-csv "$STEP_STATUS"
 
 echo "Day 14 reproduction complete: run_id=$RUN_ID runtime_seconds=$RUNTIME_SECONDS"
 echo "step status: $STEP_STATUS"

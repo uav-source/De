@@ -28,8 +28,8 @@ def load_config():
         return yaml.safe_load(handle)
 
 
-def load_obs(sequence_id):
-    return np.load(ROOT / "data/minibench" / sequence_id / "observations.npz")
+def load_obs(day14_tmp_pipeline, sequence_id):
+    return np.load(day14_tmp_pipeline["seq"](sequence_id) / "observations.npz")
 
 
 def test_weak_direction_contract_uses_translation_component_only():
@@ -67,30 +67,30 @@ def test_eigenvector_sign_does_not_change_alignment():
     assert compute_drift_alignment(np.array([-1.0, 0.0, 0.0]), np.array([3.0, 0.0, 0.0])) == 1.0
 
 
-def test_st_median_axis_alignment_passes_day14_gate():
-    rows = compute_metrics_for_sequence(load_obs("ST-L3-S01-M1"), load_config())
+def test_st_median_axis_alignment_passes_day14_gate(day14_tmp_pipeline):
+    rows = compute_metrics_for_sequence(load_obs(day14_tmp_pipeline, "ST-L3-S01-M1"), load_config())
     reliable = rows["weak_reliable"].astype(bool)
 
     assert float(np.mean(reliable)) > 0.95
     assert float(np.median(rows["axis_alignment"][reliable])) >= 0.70
 
 
-def test_rt_median_axis_alignment_passes_day14_gate():
-    rows = compute_metrics_for_sequence(load_obs("RT-L4-S01-M1"), load_config())
+def test_rt_median_axis_alignment_passes_day14_gate(day14_tmp_pipeline):
+    rows = compute_metrics_for_sequence(load_obs(day14_tmp_pipeline, "RT-L4-S01-M1"), load_config())
     reliable = rows["weak_reliable"].astype(bool)
 
     assert float(np.mean(reliable)) > 0.95
     assert float(np.median(rows["axis_alignment"][reliable])) >= 0.70
 
 
-def test_oc_reliable_frame_ratio_is_not_high():
-    rows = compute_metrics_for_sequence(load_obs("OC-L0-S01-M1"), load_config())
+def test_oc_reliable_frame_ratio_is_not_high(day14_tmp_pipeline):
+    rows = compute_metrics_for_sequence(load_obs(day14_tmp_pipeline, "OC-L0-S01-M1"), load_config())
 
     assert float(np.mean(rows["weak_reliable"])) < 0.20
 
 
-def test_ct_axis_alignment_uses_local_axis_not_fixed_global_x():
-    obs = load_obs("CT-L2-S01-M2")
+def test_ct_axis_alignment_uses_local_axis_not_fixed_global_x(day14_tmp_pipeline):
+    obs = load_obs(day14_tmp_pipeline, "CT-L2-S01-M2")
     rows = compute_metrics_for_sequence(obs, load_config())
     reliable = rows["weak_reliable"].astype(bool)
     weak_trans = np.column_stack(

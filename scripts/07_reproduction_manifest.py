@@ -52,6 +52,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--timestamp", required=True)
     parser.add_argument("--runtime-seconds", type=float, required=True)
     parser.add_argument("--status", default="OK")
+    parser.add_argument("--failed-step", default="")
+    parser.add_argument("--return-code", type=int, default=0)
+    parser.add_argument("--timeout", default="false")
+    parser.add_argument("--step-status-csv", type=Path)
+    parser.add_argument("--stdout-log-path", default="")
+    parser.add_argument("--stderr-log-path", default="")
     return parser.parse_args()
 
 
@@ -74,7 +80,9 @@ def main() -> int:
         for row in rows
         if not row["exists"] and row["artifact_name"] != "day14_reproduction_manifest"
     ]
-    status = args.status if not missing else "FAIL"
+    status = args.status
+    if status == "OK" and missing:
+        status = "FAILED"
 
     manifest = {
         "run_id": args.run_id,
@@ -88,6 +96,13 @@ def main() -> int:
         "generated_figures": files_with_prefix(rows, "figure"),
         "generated_data_files": files_with_prefix(rows, "data"),
         "status": status,
+        "failed_step": args.failed_step or None,
+        "return_code": int(args.return_code),
+        "timeout": str(args.timeout).lower() == "true",
+        "step_status_csv": relative_to_root(args.step_status_csv) if args.step_status_csv else None,
+        "commands_file": relative_to_root(args.commands_file),
+        "stdout_log_path": args.stdout_log_path or None,
+        "stderr_log_path": args.stderr_log_path or None,
         "runtime_seconds": float(args.runtime_seconds),
         "artifact_summary_csv": relative_to_root(summary_path),
         "missing_artifacts": [row["path"] for row in missing],

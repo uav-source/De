@@ -26,19 +26,23 @@ from minibench.observation_simulator import (  # noqa: E402
 CONFIG = ROOT / "configs/detector/odi_default.yaml"
 
 
-def seq(name):
-    return ROOT / "data/minibench" / name
+def seq(day14_tmp_pipeline, name):
+    return day14_tmp_pipeline["seq"](name)
 
 
-def ensure_generated_sequences():
-    missing = [name for name in ["OC-L0-S01-M1", "ST-L3-S01-M1", "CT-L2-S01-M2", "RT-L4-S01-M1"] if not (seq(name) / "gt.tum").exists()]
+def ensure_generated_sequences(day14_tmp_pipeline):
+    missing = [
+        name
+        for name in ["OC-L0-S01-M1", "ST-L3-S01-M1", "CT-L2-S01-M2", "RT-L4-S01-M1"]
+        if not (seq(day14_tmp_pipeline, name) / "gt.tum").exists()
+    ]
     if missing:
         raise AssertionError(f"Day 4 generated sequence files are missing: {missing}")
 
 
-def frame_observation(sequence_id, frame_idx=0):
-    ensure_generated_sequences()
-    sequence = load_sequence(seq(sequence_id))
+def frame_observation(day14_tmp_pipeline, sequence_id, frame_idx=0):
+    ensure_generated_sequences(day14_tmp_pipeline)
+    sequence = load_sequence(seq(day14_tmp_pipeline, sequence_id))
     config = load_detector_config(CONFIG)
     pose = sequence.gt_poses[frame_idx]
     rng = np.random.default_rng(sequence.metadata["random_seed"])
@@ -54,8 +58,8 @@ def frame_observation(sequence_id, frame_idx=0):
     )
 
 
-def translation_info_for_sequence(sequence_id, frame_idx=0):
-    obs = frame_observation(sequence_id, frame_idx)
+def translation_info_for_sequence(day14_tmp_pipeline, sequence_id, frame_idx=0):
+    obs = frame_observation(day14_tmp_pipeline, sequence_id, frame_idx)
     H = information_matrix(obs["J"], obs["R_diag"])
     return np.diag(H[3:6, 3:6]), H
 
@@ -71,8 +75,8 @@ def test_point_to_plane_jacobian_shape_and_translation_block():
     assert np.allclose(J[3:6], normal)
 
 
-def test_observation_arrays_have_expected_shapes_and_positive_R_diag():
-    obs = frame_observation("ST-L3-S01-M1")
+def test_observation_arrays_have_expected_shapes_and_positive_R_diag(day14_tmp_pipeline):
+    obs = frame_observation(day14_tmp_pipeline, "ST-L3-S01-M1")
 
     assert obs["J"].shape == (64, 6)
     assert obs["residuals"].shape == (64,)
@@ -80,8 +84,8 @@ def test_observation_arrays_have_expected_shapes_and_positive_R_diag():
     assert np.all(obs["R_diag"] > 0)
 
 
-def test_information_matrix_is_symmetric_psd():
-    obs = frame_observation("OC-L0-S01-M1")
+def test_information_matrix_is_symmetric_psd(day14_tmp_pipeline):
+    obs = frame_observation(day14_tmp_pipeline, "OC-L0-S01-M1")
     H = information_matrix(obs["J"], obs["R_diag"])
     eigvals = np.linalg.eigvalsh(H)
 
@@ -89,32 +93,32 @@ def test_information_matrix_is_symmetric_psd():
     assert eigvals.min() > -1.0e-8
 
 
-def test_straight_tunnel_translation_x_information_is_weak():
-    diag, _ = translation_info_for_sequence("ST-L3-S01-M1")
+def test_straight_tunnel_translation_x_information_is_weak(day14_tmp_pipeline):
+    diag, _ = translation_info_for_sequence(day14_tmp_pipeline, "ST-L3-S01-M1")
 
     assert diag[0] < 1.0e-9
     assert diag[1] > 1000.0 * max(diag[0], 1.0e-12)
     assert diag[2] > 1000.0 * max(diag[0], 1.0e-12)
 
 
-def test_repetitive_tunnel_translation_x_information_is_weak():
-    diag, _ = translation_info_for_sequence("RT-L4-S01-M1")
+def test_repetitive_tunnel_translation_x_information_is_weak(day14_tmp_pipeline):
+    diag, _ = translation_info_for_sequence(day14_tmp_pipeline, "RT-L4-S01-M1")
 
     assert diag[0] < 1.0e-9
     assert diag[1] > 1000.0 * max(diag[0], 1.0e-12)
     assert diag[2] > 1000.0 * max(diag[0], 1.0e-12)
 
 
-def test_open_control_translation_information_not_concentrated_single_axis():
-    diag, _ = translation_info_for_sequence("OC-L0-S01-M1")
+def test_open_control_translation_information_not_concentrated_single_axis(day14_tmp_pipeline):
+    diag, _ = translation_info_for_sequence(day14_tmp_pipeline, "OC-L0-S01-M1")
     ratio = diag.max() / diag.min()
 
     assert diag.min() > 0.0
     assert ratio < 2.0
 
 
-def test_ct_local_planes_follow_axis_csv_not_fixed_global_x():
-    sequence = load_sequence(seq("CT-L2-S01-M2"))
+def test_ct_local_planes_follow_axis_csv_not_fixed_global_x(day14_tmp_pipeline):
+    sequence = load_sequence(seq(day14_tmp_pipeline, "CT-L2-S01-M2"))
     start_idx = 0
     end_idx = sequence.gt_poses.shape[0] - 1
 
@@ -132,10 +136,10 @@ def test_ct_local_planes_follow_axis_csv_not_fixed_global_x():
     assert not np.allclose(start_side, end_side)
 
 
-def test_ct_translational_null_direction_tracks_local_axis():
-    sequence = load_sequence(seq("CT-L2-S01-M2"))
+def test_ct_translational_null_direction_tracks_local_axis(day14_tmp_pipeline):
+    sequence = load_sequence(seq(day14_tmp_pipeline, "CT-L2-S01-M2"))
     for frame_idx in [0, sequence.gt_poses.shape[0] - 1]:
-        obs = frame_observation("CT-L2-S01-M2", frame_idx=frame_idx)
+        obs = frame_observation(day14_tmp_pipeline, "CT-L2-S01-M2", frame_idx=frame_idx)
         H = information_matrix(obs["J"], obs["R_diag"])
         H_t = H[3:6, 3:6]
         eigvals, eigvecs = np.linalg.eigh(H_t)
@@ -145,8 +149,8 @@ def test_ct_translational_null_direction_tracks_local_axis():
         assert alignment > 0.95
 
 
-def test_sequence_observations_npz_contract_shapes():
-    observations = simulate_sequence_observations(seq("ST-L3-S01-M1"), CONFIG)
+def test_sequence_observations_npz_contract_shapes(day14_tmp_pipeline):
+    observations = simulate_sequence_observations(seq(day14_tmp_pipeline, "ST-L3-S01-M1"), CONFIG)
 
     frames = observations["pose_gt"].shape[0]
     assert observations["packed_J"].shape[0] == frames

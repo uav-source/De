@@ -1,64 +1,77 @@
-# Day 13 Fifth Repair Report - Reproduction Engineering
+# Day 13 Sixth Repair Report - Reproduction Engineering
 
 ## Scope
 
 This is still Day 13 repair work only. I did not enter Day 14, did not modify `toy_lio`, did not remove Day 10 per-sequence/LOSO counter-evidence, and did not change the scientific conclusion.
 
-## Fifth Repair Changes
+## Sixth Repair Changes
 
-- `scripts/06_sensitivity.py` no longer imports Matplotlib at module import time. Plotting is lazy-loaded only for real rendering.
-- `scripts/06_sensitivity.py` now supports `--smoke-test-no-render`, which writes structurally valid Day 12 sensitivity CSVs, Fig_D14_08/09 placeholder PNG/PDF files, and `plotting_manifest.json` with `smoke_test=true`.
-- `tests/test_sensitivity.py` now uses the smoke path, so pytest does not run real sensitivity computation or real rendering.
-- `scripts/reproduce_day14.sh` no longer delegates to the Python runner. It uses bash `timeout --kill-after=10s "${STEP_TIMEOUT_SECONDS}s" "$@"` in `run_step`.
-- Reproduction stdout/stderr logs are written per step under `results/day14/manifests/logs/<run_id>/`.
-- Reproduction step status is written to `results/day14/manifests/day14_step_status_<run_id>.csv`.
-- Reproduction generation and observation stages are split by sequence: `gen_OC/ST/CT/RT` and `obs_OC/ST/CT/RT`.
-- Added `scripts/prewarm_matplotlib.py`; reproduction runs it before real Day 14 plotting.
-- One-click reproduction runs `05_metric_validity.py --n-boot "$REPRO_N_BOOT"` and real `06_sensitivity.py --n-boot "$REPRO_N_BOOT"`.
-- `.gitignore` was tightened for generated Day 14 artifacts, pytest/cache files, and Matplotlib cache directories.
-- Script file modes were normalized to non-executable where the project already invokes them via `python3 ...` or `bash ...`; this avoids dirty `git status` after zip/extract loses executable bits.
+- Added a session-scoped pytest fixture in `tests/conftest.py` that builds an isolated temporary minibench pipeline under `tmp_path`.
+- `tests/test_odi_tracker.py`, `tests/test_toy_lio.py`, `tests/test_metrics.py`, and `tests/test_weak_direction.py` no longer depend on repository `data/minibench` or `results/day14` state.
+- `tests/test_observation_simulator.py` was also made self-contained because it depended on `data/minibench` after the generated directories were cleared.
+- The isolated fixture generates the four minibench sequences, simulates observations, and creates the minimal ST ODI/toy outputs needed by tests.
+- Fixture subprocesses use isolated `MPLCONFIGDIR`, `MPLBACKEND=Agg`, `PYTHONUNBUFFERED=1`, and single-threaded BLAS/OpenMP environment variables.
+- `scripts/reproduce_day14.sh` now writes a reproduction manifest even when a step fails or times out.
+- `scripts/reproduce_day14.sh` recreates the tracked `manifest_template.json` if an external cleanup removes everything under `results/day14/manifests/*`.
+- Failed reproduction manifests include `status=FAILED`, `failed_step`, `return_code`, `timeout`, `step_status_csv`, `commands_file`, `stdout_log_path`, `stderr_log_path`, `git_commit`, `timestamp`, and `runtime_seconds`.
+- `run_step` was simplified to plain per-step status logging, immediate return-code recording, failure-only log tailing, and no complex CSV escaping.
+- `scripts/07_reproduction_manifest.py` records failure metadata and marks the run failed if required artifacts are missing.
 
-## Commands Run Before Final Commit
+## Commands Run
+
+The generated directories were cleared before validation:
 
 ```bash
-python3 -m pytest tests/test_plot_day14.py -q -s
-python3 -m pytest tests/test_sensitivity.py -q -s
-python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q -s
+rm -rf data/minibench/* results/day14/raw/* results/day14/metrics/* results/day14/tables/* results/day14/figures/* results/day14/manifests/*
+```
+
+Validation commands:
+
+```bash
+python3 scripts/check_env.py
+python3 -m pytest tests/test_odi_tracker.py tests/test_toy_lio.py tests/test_metrics.py tests/test_weak_direction.py -q
+python3 -m pytest tests/test_observation_simulator.py tests/test_odi_tracker.py tests/test_toy_lio.py tests/test_metrics.py tests/test_weak_direction.py -q
 python3 -m pytest -q
 STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run
 ```
 
-Observed results before final commit:
+Final validation results:
 
-- Plot-only pytest: `2 passed in 0.13s`.
-- Sensitivity-only pytest: `1 passed in 0.35s`.
-- Plot plus sensitivity pytest: `3 passed in 0.43s`.
-- Full pytest: `72 passed in 2.45s`.
-- One-click reproduction: `status=OK`, runtime `18s`.
+- Self-contained ODI/toy/metrics/weak-direction subset: `33 passed in 6.48s`.
+- Self-contained observation plus downstream subset: `44 passed in 8.75s`.
+- Full pytest after clearing generated results: `72 passed` and exited normally.
+- One-click reproduction: `status=OK` and exited normally.
+- Reproduction runtime was `16-17s` in the final local validation runs; the exact runtime for each run is recorded in `results/day14/manifests/day14_reproduction_manifest.json`.
 - Step timeouts: `0`.
 - Step failures: `0`.
+- Reproduction steps completed: `17`.
 - `obs_OC/ST/CT/RT` completed as separate steps.
 - `metric_validity` completed with `--n-boot 300`.
+- `missing_artifacts`: empty.
+- manifest `git_commit` equals current `git rev-parse --short HEAD`.
 
-## Reproduction Runner Contract
+## Failure Manifest Contract
 
-Each step writes:
+If reproduction fails or times out, the runner exits non-zero and still writes:
 
-- `step_name`
-- `command`
-- `start_time`
-- `end_time`
-- `runtime_seconds`
+- `results/day14/manifests/day14_reproduction_manifest.json`
+- `status=FAILED`
+- `failed_step`
 - `return_code`
 - `timeout`
+- `step_status_csv`
+- `commands_file`
 - `stdout_log_path`
 - `stderr_log_path`
+- `git_commit`
+- `timestamp`
+- `runtime_seconds`
 
-If a step fails or times out, `run_step` tails the last 100 lines of stdout/stderr and exits non-zero. The runner no longer uses Python pipe capture for the main reproduction path.
+This fixes the previous failure mode where a failed reproduction left no manifest to diagnose.
 
 ## Final Acceptance Procedure
 
-After this repair commit, run:
+After the repair commit, run:
 
 ```bash
 python3 scripts/check_env.py
@@ -70,7 +83,7 @@ git status --short
 Acceptance requires:
 
 - `check_env.py` exits normally.
-- Full `pytest -q` exits normally.
+- Full `pytest -q` exits normally even after generated data/results are empty.
 - `STEP_TIMEOUT_SECONDS=120 REPRO_N_BOOT=300 bash scripts/reproduce_day14.sh --run` exits normally.
 - `git status --short` is empty.
 - `results/day14/manifests/day14_reproduction_manifest.json` has `status=OK`.

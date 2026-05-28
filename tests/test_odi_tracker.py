@@ -51,8 +51,8 @@ def load_config():
         return yaml.safe_load(handle)
 
 
-def load_obs(sequence_id):
-    return np.load(ROOT / "data/minibench" / sequence_id / "observations.npz")
+def load_obs(day14_tmp_pipeline, sequence_id):
+    return np.load(day14_tmp_pipeline["seq"](sequence_id) / "observations.npz")
 
 
 def test_isotropic_eigenvalues_have_low_ODI():
@@ -77,8 +77,8 @@ def test_condition_number_can_explode_but_ODI_remains_finite():
     assert 0.0 <= odi <= 1.0
 
 
-def test_compute_metrics_for_frame_outputs_required_fields():
-    obs = load_obs("ST-L3-S01-M1")
+def test_compute_metrics_for_frame_outputs_required_fields(day14_tmp_pipeline):
+    obs = load_obs(day14_tmp_pipeline, "ST-L3-S01-M1")
     config = load_config()
 
     metrics = compute_metrics_for_frame(obs["packed_J"][0], obs["R_diag_list"][0], config)
@@ -90,8 +90,8 @@ def test_compute_metrics_for_frame_outputs_required_fields():
         assert f"eig_{idx}" in metrics
 
 
-def test_compute_metrics_for_sequence_outputs_required_dtype_fields():
-    obs = load_obs("OC-L0-S01-M1")
+def test_compute_metrics_for_sequence_outputs_required_dtype_fields(day14_tmp_pipeline):
+    obs = load_obs(day14_tmp_pipeline, "OC-L0-S01-M1")
     rows = compute_metrics_for_sequence(obs, load_config())
 
     assert rows.shape[0] == obs["packed_J"].shape[0]
@@ -99,20 +99,20 @@ def test_compute_metrics_for_sequence_outputs_required_dtype_fields():
         assert key in rows.dtype.names
 
 
-def test_st_rt_odi_higher_than_open_control():
+def test_st_rt_odi_higher_than_open_control(day14_tmp_pipeline):
     config = load_config()
-    oc = compute_metrics_for_sequence(load_obs("OC-L0-S01-M1"), config)
-    st = compute_metrics_for_sequence(load_obs("ST-L3-S01-M1"), config)
-    rt = compute_metrics_for_sequence(load_obs("RT-L4-S01-M1"), config)
+    oc = compute_metrics_for_sequence(load_obs(day14_tmp_pipeline, "OC-L0-S01-M1"), config)
+    st = compute_metrics_for_sequence(load_obs(day14_tmp_pipeline, "ST-L3-S01-M1"), config)
+    rt = compute_metrics_for_sequence(load_obs(day14_tmp_pipeline, "RT-L4-S01-M1"), config)
 
     assert float(np.median(st["ODI"])) > float(np.median(oc["ODI"])) + 0.10
     assert float(np.median(rt["ODI"])) > float(np.median(oc["ODI"])) + 0.10
 
 
-def test_ct_odi_not_identical_to_st_global_pattern():
+def test_ct_odi_not_identical_to_st_global_pattern(day14_tmp_pipeline):
     config = load_config()
-    st = compute_metrics_for_sequence(load_obs("ST-L3-S01-M1"), config)
-    ct = compute_metrics_for_sequence(load_obs("CT-L2-S01-M2"), config)
+    st = compute_metrics_for_sequence(load_obs(day14_tmp_pipeline, "ST-L3-S01-M1"), config)
+    ct = compute_metrics_for_sequence(load_obs(day14_tmp_pipeline, "CT-L2-S01-M2"), config)
 
     assert not np.allclose(ct["eig_1"][:50], st["eig_1"][:50])
     assert np.std(ct["eig_1"]) > 1.0

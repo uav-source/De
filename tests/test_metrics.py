@@ -140,11 +140,11 @@ def test_metrics_module_does_not_depend_on_toy_lio_or_day7_summary():
     assert "pose_est_toy" not in source
 
 
-def test_day8_summary_matches_recomputed_tum_errors(tmp_path):
+def test_day8_summary_matches_recomputed_tum_errors(tmp_path, day14_tmp_pipeline):
     module = load_eval_script()
-    sequence_dir = ROOT / "data/minibench/ST-L3-S01-M1"
-    odi_path = ROOT / "results/day14/raw/ST-L3-S01-M1_odi.csv"
-    est_path = ROOT / "results/day14/raw/ST-L3-S01-M1_pose_est_toy.tum"
+    sequence_dir = day14_tmp_pipeline["seq"]("ST-L3-S01-M1")
+    odi_path = day14_tmp_pipeline["odi"]("ST-L3-S01-M1")
+    est_path = day14_tmp_pipeline["toy"]("ST-L3-S01-M1")
     out_path = tmp_path / "ST-L3-S01-M1_metrics.csv"
 
     summary = module.evaluate_sequence(
