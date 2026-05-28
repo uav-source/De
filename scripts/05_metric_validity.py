@@ -91,6 +91,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, help="Detector config path for reproducibility record.")
     parser.add_argument("--results", type=Path, default=ROOT / "results/day14", help="Day 14 results directory.")
+    parser.add_argument("--n-boot", type=int, default=1000, help="Bootstrap samples for merged confidence intervals.")
     return parser.parse_args()
 
 
@@ -144,13 +145,13 @@ def add_high_axis_drift_flag(rows: List[Dict[str, object]]) -> None:
         row["high_axis_drift_flag"] = int(flag)
 
 
-def compute_merged_validity(rows: Sequence[Mapping[str, object]], random_seed: int) -> List[Dict[str, object]]:
+def compute_merged_validity(rows: Sequence[Mapping[str, object]], random_seed: int, n_boot: int) -> List[Dict[str, object]]:
     outputs: List[Dict[str, object]] = []
     for metric_name in METRIC_FIELDS:
         metric = values(rows, metric_name)
         for target_name in TARGET_FIELDS:
             target = values(rows, target_name)
-            outputs.append(compute_validity_row("merged_all_sequences", metric_name, target_name, metric, target, random_seed))
+            outputs.append(compute_validity_row("merged_all_sequences", metric_name, target_name, metric, target, random_seed, n_boot))
     return outputs
 
 
@@ -205,10 +206,11 @@ def compute_validity_row(
     metric: np.ndarray,
     target: np.ndarray,
     random_seed: int,
+    n_boot: int,
 ) -> Dict[str, object]:
     rho, p_value = spearman_corr(metric, target)
     pearson = pearson_corr(metric, target)
-    ci_low, ci_high = bootstrap_ci_corr(metric, target, n_boot=1000, random_seed=random_seed)
+    ci_low, ci_high = bootstrap_ci_corr(metric, target, n_boot=int(n_boot), random_seed=random_seed)
     auc = safe_auc_if_binary_available(metric, target) if target_name.endswith("_flag") else float("nan")
     return {
         "scope": scope,
@@ -301,7 +303,7 @@ def main() -> int:
     random_seed = int(config.get("random_seed", 42))
     rows = load_metric_rows(args.results)
 
-    merged = compute_merged_validity(rows, random_seed)
+    merged = compute_merged_validity(rows, random_seed, int(args.n_boot))
     per_sequence = compute_per_sequence_validity(rows)
     loso = compute_loso_validity(rows)
 
@@ -312,7 +314,8 @@ def main() -> int:
 
     print(
         f"metric validity: windows={len(rows)} merged_rows={len(merged)} "
-        f"per_sequence_rows={len(per_sequence)} loso_rows={len(loso)} out={table_dir}"
+        f"per_sequence_rows={len(per_sequence)} loso_rows={len(loso)} "
+        f"n_boot={int(args.n_boot)} out={table_dir}"
     )
     print_rank_summary(merged)
     return 0

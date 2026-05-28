@@ -62,6 +62,7 @@ FIELDNAMES = [
     "OC_false_high_degeneracy_ratio",
     "high_degeneracy_odi_threshold",
     "valid_sensitivity_point",
+    "n_boot",
     "notes",
 ]
 
@@ -70,8 +71,10 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True, help="Base detector config.")
     parser.add_argument("--results", type=Path, default=ROOT / "results/day14", help="Day 14 results directory.")
+    parser.add_argument("--data-root", type=Path, default=ROOT / "data/minibench", help="Minibench data root containing observations.npz.")
     parser.add_argument("--out", type=Path, default=ROOT / "results/day14/tables", help="Output table directory.")
     parser.add_argument("--figures-out", type=Path, help="Figure output directory; defaults to <results>/figures.")
+    parser.add_argument("--n-boot", type=int, default=1000, help="Reserved bootstrap budget for reproducibility records.")
     return parser.parse_args()
 
 
@@ -79,6 +82,7 @@ def main() -> int:
     args = parse_args()
     config_path = args.config if args.config.is_absolute() else ROOT / args.config
     results_dir = args.results if args.results.is_absolute() else ROOT / args.results
+    data_root = args.data_root if args.data_root.is_absolute() else ROOT / args.data_root
     out_dir = args.out if args.out.is_absolute() else ROOT / args.out
     out_dir.mkdir(parents=True, exist_ok=True)
     figures_dir = args.figures_out if args.figures_out else results_dir / "figures"
@@ -87,7 +91,7 @@ def main() -> int:
 
     base_config = load_config(config_path)
     window_metrics = {seq: load_csv_dicts(results_dir / "metrics" / f"{seq}_metrics.csv") for seq in SEQUENCES}
-    observations = {seq: load_observations(ROOT / "data/minibench" / seq / "observations.npz") for seq in SEQUENCES}
+    observations = {seq: load_observations(data_root / seq / "observations.npz") for seq in SEQUENCES}
 
     d_rows = []
     for s_theta in S_THETA_VALUES:
@@ -95,12 +99,14 @@ def main() -> int:
             variant = dict(base_config)
             variant["s_theta"] = float(s_theta)
             variant["s_p"] = float(s_p)
+            variant["n_boot"] = int(args.n_boot)
             d_rows.append(evaluate_variant(variant, observations, window_metrics))
 
     tau_rows = []
     for tau_w in TAU_W_VALUES:
         variant = dict(base_config)
         variant["tau_w"] = float(tau_w)
+        variant["n_boot"] = int(args.n_boot)
         tau_rows.append(evaluate_variant(variant, observations, window_metrics))
 
     write_csv(out_dir / "day12_sensitivity_D.csv", d_rows)
@@ -118,7 +124,7 @@ def main() -> int:
 
     print(
         f"sensitivity: D_rows={len(d_rows)} tau_rows={len(tau_rows)} "
-        f"tables={out_dir} figures={figures_dir}"
+        f"n_boot={int(args.n_boot)} tables={out_dir} figures={figures_dir}"
     )
     return 0
 
@@ -156,6 +162,7 @@ def evaluate_variant(
         "s_theta": float(config["s_theta"]),
         "s_p": float(config["s_p"]),
         "tau_w": float(config.get("tau_w", 0.02)),
+        "n_boot": int(config.get("n_boot", 1000)),
         "ODI_median": float(np.median(all_odi)),
         "merged_ODI_axis_drift_spearman": merged_rho,
         "per_sequence_rho_min": float(np.min(finite_per_seq)) if finite_per_seq.size else float("nan"),

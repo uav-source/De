@@ -8,6 +8,7 @@ MODE="${1:---dry-run}"
 RUN_ID="day14_$(date -u +%Y%m%dT%H%M%SZ)"
 TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 STEP_TIMEOUT_SECONDS="${STEP_TIMEOUT_SECONDS:-180}"
+REPRO_N_BOOT="${REPRO_N_BOOT:-300}"
 
 export MPLBACKEND=Agg
 export PYTHONUNBUFFERED=1
@@ -27,6 +28,7 @@ echo "Degen-LIO Day 14 reproduction"
 echo "repo: $ROOT_DIR"
 echo "mode: $MODE"
 echo "step_timeout_seconds: $STEP_TIMEOUT_SECONDS"
+echo "repro_n_boot: $REPRO_N_BOOT"
 
 if [[ "$MODE" == "--dry-run" ]]; then
   cat <<'EOF'
@@ -63,4 +65,5 @@ exec python3 scripts/run_reproduce_steps.py \
   --run-id "$RUN_ID" \
   --timestamp "$TIMESTAMP" \
   --timeout-seconds "$STEP_TIMEOUT_SECONDS" \
+  --n-boot "$REPRO_N_BOOT" \
   --results results/day14

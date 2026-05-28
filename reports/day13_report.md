@@ -1,21 +1,45 @@
-# Day 13 Second Repair Report - Reproduction Stability
+# Day 13 Third Repair Report - Stable Reproduction
 
 ## Scope
 
-This is a Day 13 second repair pass only. It does not enter Day 14, does not modify `toy_lio`, and does not change the Day 10/Day 12 scientific conclusions.
+This is still Day 13 repair work only. I did not enter Day 14, did not modify `toy_lio`, did not remove Day 10 per-sequence/LOSO counter-evidence, and did not change the scientific conclusion.
 
-## Engineering Fixes
+## Fixes
 
-- `tests/test_plot_day14.py` now gives its plotting subprocess an isolated `MPLCONFIGDIR=<tmp>/mplconfig_plot`.
-- `tests/test_sensitivity.py` now gives its sensitivity subprocess an isolated `MPLCONFIGDIR=<tmp>/mplconfig_sensitivity`.
-- Both subprocess test helpers set `MPLBACKEND=Agg`, `PYTHONUNBUFFERED=1`, `OMP_NUM_THREADS=1`, `OPENBLAS_NUM_THREADS=1`, `MKL_NUM_THREADS=1`, and `NUMEXPR_NUM_THREADS=1`.
-- Both subprocess test helpers capture stdout/stderr; on timeout they print the last 100 lines instead of failing silently.
-- `scripts/reproduce_day14.sh` now delegates execution to `scripts/run_reproduce_steps.py`.
-- `scripts/run_reproduce_steps.py` runs each reproduction step with `subprocess.run(timeout=STEP_TIMEOUT_SECONDS)`, captures stdout/stderr, and writes per-step records.
+- `tests/test_plot_day14.py` no longer depends on the main `results/day14` state. It builds a minimal `tmp_path/results/day14` fixture and writes all plot outputs to `tmp_path`.
+- `tests/test_sensitivity.py` no longer depends on the main `results/day14` or main `data/minibench` state. It builds minimal tmp CSV inputs and tmp `observations.npz` files, then writes tables and figures under `tmp_path`.
+- Plot and sensitivity subprocesses now use isolated matplotlib caches:
+  - plot: `MPLCONFIGDIR=<tmp_path>/mplconfig_plot`
+  - sensitivity: `MPLCONFIGDIR=<tmp_path>/mplconfig_sensitivity`
+- Subprocess test helpers keep `timeout=120`, capture stdout/stderr, and print the last 100 lines if a timeout or failure happens.
+- `scripts/run_reproduce_steps.py` now uses `subprocess.Popen`, direct stdout/stderr log file handles, `process.wait(timeout=...)`, process-group kill on timeout, and a final `communicate(timeout=10)` cleanup.
+- `scripts/reproduce_day14.sh` delegates execution to the Python runner and supports `STEP_TIMEOUT_SECONDS` plus `REPRO_N_BOOT`.
+- `scripts/05_metric_validity.py` now supports `--n-boot`; one-click reproduction uses `REPRO_N_BOOT=300` by default.
+- `scripts/06_sensitivity.py` now supports `--data-root` for self-contained tests and accepts `--n-boot` for reproduction records.
 
-## Reproduction Step Records
+## Commands Run
 
-Each one-click reproduction step records:
+```bash
+python3 scripts/check_env.py
+python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q
+python3 -m pytest -q
+STEP_TIMEOUT_SECONDS=120 bash scripts/reproduce_day14.sh --run
+```
+
+## Verification Before Final Commit
+
+- `python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q`: `3 passed in 9.34s`.
+- `python3 -m pytest -q`: `72 passed in 11.91s`.
+- `STEP_TIMEOUT_SECONDS=120 bash scripts/reproduce_day14.sh --run`: completed with status `OK`.
+- Reproduction runtime: `16.987s`.
+- Step timeouts: `0`.
+- Step failures: `0`.
+- `01_simulate_observations` completed inside one-click reproduction in `4.528s`.
+- `05_metric_validity` completed inside one-click reproduction in `1.368s` with `--n-boot 300`.
+
+## Reproduction Logs
+
+The Python runner records for each step:
 
 - step name
 - command
@@ -24,79 +48,52 @@ Each one-click reproduction step records:
 - runtime seconds
 - return code
 - timeout flag
+- hard-kill failure flag
 - stdout log path
 - stderr log path
 
-The records are written to `results/day14/manifests/day14_step_records_<run_id>.json`, and per-step logs are written under `results/day14/manifests/logs/<run_id>/`.
+The latest step record path is under `results/day14/manifests/day14_step_records_<run_id>.json`, with per-step logs under `results/day14/manifests/logs/<run_id>/`.
 
-## Commands Run
+## Diagnosis
+
+The previous test design was not self-contained: plot and sensitivity tests read the main `results/day14`, so a failed or partial reproduction could break later pytest runs. That dependency has been removed by generating minimal tmp fixtures inside the tests.
+
+The previous reproduction runner still used output capture. The third repair avoids pipe capture entirely: child stdout/stderr go directly to files, and timeout handling kills the child process group. If a future step hangs, the run should fail around `STEP_TIMEOUT_SECONDS` with the step name and log paths instead of hanging indefinitely.
+
+## Final Acceptance Rule
+
+After committing this repair, the final acceptance commands must be run again:
 
 ```bash
 python3 scripts/check_env.py
-python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q
 python3 -m pytest -q
-bash scripts/reproduce_day14.sh --run
+STEP_TIMEOUT_SECONDS=120 bash scripts/reproduce_day14.sh --run
 ```
 
-The one-click command still preserves the required order:
+Then:
 
 ```bash
-python3 scripts/check_env.py
-python3 scripts/00_generate_minibench.py --all
-python3 scripts/01_simulate_observations.py --all --config configs/detector/odi_default.yaml
-python3 scripts/02_compute_odi.py --all --config configs/detector/odi_default.yaml
-python3 scripts/02_run_toy_lio.py --all --config configs/detector/odi_default.yaml
-python3 scripts/03_eval_metrics.py --all --config configs/detector/odi_default.yaml
-python3 scripts/05_metric_validity.py --config configs/detector/odi_default.yaml
-python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
-python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --out results/day14/tables --figures-out results/day14/figures
-python3 scripts/07_reproduction_manifest.py ...
-```
-
-## Verification
-
-- `python3 scripts/check_env.py`: completed and exited.
-- `python3 -m pytest tests/test_plot_day14.py tests/test_sensitivity.py -q`: completed and exited, `3 passed in 12.68s`.
-- `python3 -m pytest -q`: completed and exited, `72 passed in 13.38s`.
-- `bash scripts/reproduce_day14.sh --run`: completed and exited with status `OK`.
-- Observed reproduction runtime before final post-commit rerun: `25.405s`.
-- Step timeouts observed: none.
-- `05_metric_validity` in one-click flow completed in `5.570s` with return code `0`.
-
-## 05 Metric Validity Diagnosis
-
-The local hang could not be reproduced after the runner change: `05_metric_validity` completes both standalone and inside the one-click flow. The previous bash runner did not capture stdout/stderr per step and relied on shell timeout behavior, so a process cleanup, cache, or inherited threading issue could appear as an opaque hang. The new Python runner pins plotting/threading environment, captures output through `communicate`, writes step logs, and converts any future hang into an explicit timeout record.
-
-## Final Manifest Rule
-
-After the final commit of this repair, `bash scripts/reproduce_day14.sh --run` must be rerun. The acceptance check is:
-
-```bash
+git status --short
 git rev-parse --short HEAD
 python3 -c "import json; print(json.load(open('results/day14/manifests/day14_reproduction_manifest.json'))['git_commit'])"
 ```
 
-The two values must match. Final post-commit verification result: manifest `git_commit` equals current HEAD, with no missing artifacts; the final manifest also records `runtime_seconds`, generated artifact paths, and missing artifact count.
+must show a clean worktree and matching HEAD/manifest commit.
 
-## Day 14 Gate Status
+## Scientific Status
 
-Satisfied:
+Satisfied engineering gates:
 
 - Four minibench sequences regenerate from scratch.
 - Observations, ODI/weak direction CSVs, toy LIO trajectories, metrics, validity tables, diagnostic figures, sensitivity figures, and manifests are regenerated by one command.
 - ST/CT/RT weak direction median axis alignment remains `1.0`; OC reliable weak-direction ratio remains `0.0`.
 - Merged ODI vs axis drift still shows an initial positive signal: Spearman rho `0.647`.
-- OC false reliable weak-direction ratio and OC false high-degeneracy ratio remain controlled at `0.0` across Day 12 sensitivity checks.
 
-Not satisfied / still limited:
+Still limited:
 
 - Per-sequence ODI vs axis drift remains unstable: OC `-0.025`, ST `-0.146`, CT `0.142`, RT `-0.289`.
-- Leave-one-sequence-out held-out ODI correlations remain unstable with the same signs as the per-sequence checks.
-- AIS and `lambda_min_clamped` remain strong competing indicators; merged AIS vs axis drift has rho `-0.898`.
-- Day 7 scene-family `axis_bias` remains a known synthetic-probe confound, so the merged correlation cannot be claimed as a robust drift predictor.
+- Leave-one-sequence-out held-out ODI correlations remain unstable.
+- AIS and `lambda_min_clamped` remain strong competing indicators.
+- Day 7 scene-family `axis_bias` remains a synthetic-probe confound.
 
-## Decision
-
-Day 14 remains **CONDITIONAL GO**.
-
-The engineering goal of this second repair is a stable, diagnosable reproduction pipeline. The scientific claim remains narrow: Day 10 supports a merged-level ODI signal in this synthetic probe, not robust sequence-internal drift prediction.
+Decision: **CONDITIONAL GO** only. Day 10 supports a merged-level ODI signal in this synthetic probe, not robust sequence-internal drift prediction.

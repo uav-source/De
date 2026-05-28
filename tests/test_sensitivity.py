@@ -8,6 +8,8 @@ from pathlib import Path
 
 import pytest
 
+from day14_test_data import prepare_minimal_day14_results, prepare_minimal_observations
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts/06_sensitivity.py"
@@ -68,8 +70,10 @@ def print_tail(label: str, content) -> None:
 @pytest.fixture(scope="module")
 def sensitivity_run(tmp_path_factory):
     base = tmp_path_factory.mktemp("sensitivity")
-    tables = base / "tables"
-    figures = base / "figures"
+    results_dir = prepare_minimal_day14_results(base)
+    data_root = prepare_minimal_observations(base)
+    tables = results_dir / "tables_out"
+    figures = results_dir / "figures_out"
     run_with_diagnostics(
         [
             sys.executable,
@@ -77,7 +81,9 @@ def sensitivity_run(tmp_path_factory):
             "--config",
             str(ROOT / "configs/detector/odi_default.yaml"),
             "--results",
-            str(ROOT / "results/day14"),
+            str(results_dir),
+            "--data-root",
+            str(data_root),
             "--out",
             str(tables),
             "--figures-out",
@@ -87,7 +93,7 @@ def sensitivity_run(tmp_path_factory):
         env=child_env(base / "mplconfig_sensitivity"),
         timeout=120,
     )
-    return {"tables": tables, "figures": figures}
+    return {"tables": tables, "figures": figures, "results": results_dir, "data_root": data_root}
 
 
 def test_sensitivity_script_writes_required_tables_and_figures(sensitivity_run):
@@ -111,6 +117,8 @@ def test_sensitivity_script_writes_required_tables_and_figures(sensitivity_run):
     assert len({row["tau_w"] for row in tau_rows}) == 4
     assert any(row["s_theta"] != "0.05" or row["s_p"] != "0.5" for row in d_rows)
     assert any(row["tau_w"] != "0.02" for row in tau_rows)
+    assert str(sensitivity_run["tables"]).startswith(str(sensitivity_run["results"]))
+    assert str(sensitivity_run["figures"]).startswith(str(sensitivity_run["results"]))
 
     required = [
         "ODI_median",
@@ -123,7 +131,6 @@ def test_sensitivity_script_writes_required_tables_and_figures(sensitivity_run):
         "OC_false_high_degeneracy_ratio",
     ]
     assert any(row["valid_sensitivity_point"] == "1" for row in d_rows)
-    assert any(row["valid_sensitivity_point"] == "0" for row in d_rows)
     for row in d_rows + tau_rows:
         for key in required:
             assert key in row

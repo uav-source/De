@@ -4,6 +4,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from day14_test_data import prepare_minimal_day14_results
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts/04_plot_day14.py"
@@ -71,14 +73,15 @@ def print_tail(label: str, content) -> None:
 
 
 def test_plot_day14_script_runs_and_writes_required_outputs(tmp_path):
-    out_dir = tmp_path / "figures"
+    results_dir = prepare_minimal_day14_results(tmp_path)
+    out_dir = tmp_path / "plot_outputs"
 
     run_with_diagnostics(
         [
             sys.executable,
             str(SCRIPT),
             "--results",
-            str(ROOT / "results/day14"),
+            str(results_dir),
             "--out",
             str(out_dir),
         ],

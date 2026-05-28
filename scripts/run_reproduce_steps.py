@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import signal
 import shutil
 import subprocess
 import sys
@@ -29,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--timestamp", required=True)
     parser.add_argument("--timeout-seconds", type=int, default=180)
+    parser.add_argument("--n-boot", type=int, default=300)
     parser.add_argument("--results", type=Path, default=ROOT / "results/day14")
     return parser.parse_args()
 
@@ -49,7 +51,7 @@ def main() -> int:
     records: List[Dict[str, object]] = []
     start_monotonic = time.monotonic()
 
-    steps = reproduction_steps()
+    steps = reproduction_steps(int(args.n_boot))
     for idx, (name, command) in enumerate(steps, start=1):
         record = run_step(
             idx,
@@ -109,7 +111,7 @@ def main() -> int:
     return 0
 
 
-def reproduction_steps() -> List[tuple[str, List[str]]]:
+def reproduction_steps(n_boot: int) -> List[tuple[str, List[str]]]:
     return [
         ("check_env", ["python3", "scripts/check_env.py"]),
         ("00_generate_minibench", ["python3", "scripts/00_generate_minibench.py", "--all"]),
@@ -129,7 +131,17 @@ def reproduction_steps() -> List[tuple[str, List[str]]]:
             "03_eval_metrics",
             ["python3", "scripts/03_eval_metrics.py", "--all", "--config", "configs/detector/odi_default.yaml"],
         ),
-        ("05_metric_validity", ["python3", "scripts/05_metric_validity.py", "--config", "configs/detector/odi_default.yaml"]),
+        (
+            "05_metric_validity",
+            [
+                "python3",
+                "scripts/05_metric_validity.py",
+                "--config",
+                "configs/detector/odi_default.yaml",
+                "--n-boot",
+                str(int(n_boot)),
+            ],
+        ),
         ("04_plot_day14", ["python3", "scripts/04_plot_day14.py", "--results", "results/day14", "--out", "results/day14/figures"]),
         (
             "06_sensitivity",
@@ -144,6 +156,8 @@ def reproduction_steps() -> List[tuple[str, List[str]]]:
                 "results/day14/tables",
                 "--figures-out",
                 "results/day14/figures",
+                "--n-boot",
+                str(int(n_boot)),
             ],
         ),
     ]
@@ -202,37 +216,42 @@ def run_step(
     print(f"+ [{name}] timeout={timeout_seconds}s {command_text}", flush=True)
 
     timeout = False
+    hard_kill_failure = False
     return_code = 0
-    stdout = ""
-    stderr = ""
-    try:
-        completed = subprocess.run(
-            list(command),
-            cwd=str(ROOT),
-            env=env,
-            capture_output=True,
-            text=True,
-            timeout=timeout_seconds,
-        )
-        stdout = completed.stdout or ""
-        stderr = completed.stderr or ""
-        return_code = int(completed.returncode)
-    except subprocess.TimeoutExpired as exc:
-        timeout = True
-        return_code = 124
-        stdout = decode_output(exc.stdout)
-        stderr = decode_output(exc.stderr)
-        append_line(command_log, f"TIMEOUT step={name} after={timeout_seconds}s command={command_text}")
-    except OSError as exc:
-        return_code = 127
-        stderr = str(exc)
-
-    stdout_path.write_text(stdout, encoding="utf-8")
-    stderr_path.write_text(stderr, encoding="utf-8")
-    if stdout:
-        print(stdout, end="" if stdout.endswith("\n") else "\n", flush=True)
-    if stderr:
-        print(stderr, end="" if stderr.endswith("\n") else "\n", file=sys.stderr, flush=True)
+    with stdout_path.open("w", encoding="utf-8") as stdout_handle, stderr_path.open("w", encoding="utf-8") as stderr_handle:
+        try:
+            process = subprocess.Popen(
+                list(command),
+                cwd=str(ROOT),
+                env=env,
+                stdout=stdout_handle,
+                stderr=stderr_handle,
+                text=True,
+                start_new_session=True,
+            )
+        except OSError as exc:
+            return_code = 127
+            stderr_handle.write(str(exc) + "\n")
+        else:
+            try:
+                return_code = int(process.wait(timeout=timeout_seconds))
+            except subprocess.TimeoutExpired:
+                timeout = True
+                append_line(command_log, f"TIMEOUT step={name} after={timeout_seconds}s command={command_text}")
+                kill_process_group(process)
+                try:
+                    process.communicate(timeout=10)
+                except subprocess.TimeoutExpired:
+                    hard_kill_failure = True
+                    kill_process_group(process)
+                    return_code = 124
+                else:
+                    return_code = int(process.returncode if process.returncode is not None else 124)
+                if return_code == 0:
+                    return_code = 124
+            finally:
+                stdout_handle.flush()
+                stderr_handle.flush()
 
     end_time = utc_now()
     runtime = time.monotonic() - start
@@ -251,9 +270,22 @@ def run_step(
         "runtime_seconds": runtime,
         "return_code": return_code,
         "timeout": timeout,
+        "hard_kill_failure": hard_kill_failure,
         "stdout_log_path": relative_to_root(stdout_path),
         "stderr_log_path": relative_to_root(stderr_path),
     }
+
+
+def kill_process_group(process: subprocess.Popen) -> None:
+    try:
+        os.killpg(process.pid, signal.SIGKILL)
+    except ProcessLookupError:
+        return
+    except OSError:
+        try:
+            process.kill()
+        except OSError:
+            return
 
 
 def print_step_tail(record: Dict[str, object]) -> None:
