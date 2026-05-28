@@ -31,6 +31,7 @@ def test_plot_day14_script_runs_and_writes_required_outputs(tmp_path):
         ],
         cwd=str(ROOT),
         check=True,
+        timeout=120,
     )
 
     for name in REQUIRED:

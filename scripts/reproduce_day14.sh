@@ -14,6 +14,7 @@ STEPS=(
   "python3 scripts/03_eval_metrics.py --all --config configs/detector/odi_default.yaml"
   "python3 scripts/05_metric_validity.py --config configs/detector/odi_default.yaml"
   "python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures"
+  "python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --out results/day14/tables"
 )
 
 echo "Degen-LIO Day 14 reproduction skeleton"
