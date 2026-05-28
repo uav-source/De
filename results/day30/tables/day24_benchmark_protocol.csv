@@ -1,0 +1,12 @@
+protocol_step,step_name,input_artifacts,output_artifacts,purpose,required_for_reproduction,claim_boundary,failure_mode_captured
+P01,synthetic geometry / minibench generation,configs/minibench,data/minibench sequences,controlled synthetic tunnel/open geometry,true,synthetic benchmark only,geometry degeneracy setup
+P02,weak-direction / whitened information analysis,"observations.npz, detector config",ODI CSV and alignment summaries,diagnose information spectrum and weak direction,true,"diagnostic geometry evidence, not drift proof",weak-axis information collapse
+P03,legacy bias audit,legacy toy_lio and Day14 summaries,Day15 bias audit table,separate confounded legacy evidence from main claims,true,legacy results diagnostic only,scene-family axis_bias
+P04,unbiased toy_lio protocol,Day16 config,unbiased protocol summary,remove implicit scene-family axis bias,true,toy probe remains synthetic,confound control
+P05,multi-trial unbiased probe,unbiased protocol and Day14 inputs,Day17 trial tables,generate exploratory unbiased drift evidence,true,exploratory evidence only,trial variability
+P06,window-level within-sequence validation,"Day17 trials, ODI, GT, axis",Day18 window metrics,avoid only merged/sequence-level correlation,true,"within-sequence only, undefined cases preserved",constant metrics and weak rho
+P07,grouped / LOSO validation,Day18 windows/correlations,Day19 grouped and LOSO tables,stress-test generalization across held-out sequences,true,no robust metric claim if unstable,group generalization failure
+P08,controlled / partial validity analysis,Day18/19 outputs,Day20 partial and permutation tables,test incremental value after baselines/controls,true,small rho is not substantive validity,confounding with baseline metrics
+P09,joint risk screening,Day18/20 outputs,Day21 joint-risk tables,test interpretable combined risk features,true,candidate only if strict screen passes,joint feature failure
+P10,go/no-go gate review,Day15-21 evidence,Day22 gate decision,block unsupported method updates,true,negative gate is valid evidence,overclaim prevention
+P11,Route B pivot,Day18-22 evidence,Day23 pivot tables,convert No-Go into diagnostic benchmark route,true,no estimator implementation,paper-route consolidation

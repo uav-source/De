@@ -1,0 +1,12 @@
+artifact_id,day,artifact_type,path,exists,nonempty,role_in_benchmark,claim_supported,limitations,paper_section
+A14-1,Day 14,manifest,results/day14/manifests/day14_reproduction_manifest.json,true,true,reproduction provenance,one-click reproducibility evidence,smoke plotting/sensitivity scope,artifact / reproducibility
+A14-2,Day 14,report,reports/day14_go_nogo_report.md,true,true,go/no-go boundary,CONDITIONAL GO with explicit limitations,legacy toy_lio and merged-correlation confounds,claims / limitations
+A15-1,Day 15,table,results/day30/tables/day15_bias_audit.csv,true,true,bias audit,legacy toy_lio is diagnostic only,scene-family axis_bias confound,bias audit
+A16-1,Day 16,table,results/day30/tables/day16_unbiased_toy_lio_summary.csv,true,true,unbiased protocol check,axis_bias_mode=none protocol established,toy probe remains synthetic,methods / protocol
+A17-1,Day 17,table,results/day30/tables/day17_unbiased_probe_trials.csv,true,true,multi-trial probe,unbiased exploratory evidence,not metric validation,experiments
+A18-1,Day 18,table,results/day30/tables/day18_window_metrics.csv,true,true,window-level validation,within-sequence diagnostic windows,weak/undefined correlations retained,experiments
+A19-1,Day 19,table,results/day30/tables/day19_metric_pass_fail_summary.csv,true,true,grouped / LOSO validity,generalization stress test,LOSO instability and weak effects,metric validity
+A20-1,Day 20,table,results/day30/tables/day20_incremental_validity_summary.csv,true,true,controlled partial validity,incremental validity screen,ODI did not pass controlled screen,metric validity
+A21-1,Day 21,table,results/day30/tables/day21_joint_risk_comparison.csv,true,true,joint risk screening,interpretable risk feature comparison,all candidates exploratory_not_validated,metric redesign
+A22-1,Day 22,manifest,results/day30/manifests/day22_gate_review_manifest.json,true,true,formal gate review,method update blocked by gate,No-Go method update,gate review
+A23-1,Day 23,table,results/day30/tables/day23_failure_taxonomy.csv,true,true,Route B pivot,failure taxonomy and route selection,no method implementation,pivot / future work

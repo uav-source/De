@@ -1,0 +1,29 @@
+source_days:
+  - day14_reproduction
+  - day15_bias_audit
+  - day16_unbiased_protocol
+  - day17_unbiased_probe
+  - day18_within_sequence
+  - day19_grouped_loso
+  - day20_controlled_partial
+  - day21_joint_risk
+  - day22_gate_review
+  - day23_route_b_pivot
+
+route: diagnostic_benchmark_consolidation
+
+consolidation_goals:
+  - artifact_inventory
+  - benchmark_protocol
+  - paper_claim_map
+  - reviewer_risk_register
+  - release_checklist
+  - day25_recommendation
+
+forbidden_actions:
+  - weak_subspace_update
+  - estimator_method_implementation
+  - robust_ODI_claim
+  - overwrite_previous_artifacts
+
+notes: "Day 24 consolidates the diagnostic benchmark evidence package. It does not implement or authorize a Degen-LIO estimator update."
