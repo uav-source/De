@@ -1,0 +1,12 @@
+item_id,source_artifact,output_target,readiness_status,next_action,must_not_claim
+F01,configs/minibench and results/day14 artifacts,docs/paper/figures/F01.png,pending,write explicit generation script or keep as planned placeholder; do not fake a rendered figure,real-world coverage
+F02,results/day14/tables/day09_alignment_summary.csv,docs/paper/figures/F02.png,ready_for_conversion,convert source CSV/table into paper table; keep claim boundary wording,drift prediction
+F03,results/day30/tables/day15_bias_audit.csv and day16 summary,docs/paper/figures/F03.png,pending,write explicit generation script or keep as planned placeholder; do not fake a rendered figure,real LIO validation
+T01,results/day30/tables/day17_unbiased_probe_summary.csv,docs/paper/figures/T01.md,ready_for_conversion,convert source CSV/table into paper table; keep claim boundary wording,metric validation
+T02,results/day30/tables/day18_sequence_validity_summary.csv,docs/paper/figures/T02.md,ready_for_conversion,convert source CSV/table into paper table; keep claim boundary wording,robust prediction
+T03,results/day30/tables/day19_loso_selection_results.csv,docs/paper/figures/T03.md,ready_for_conversion,convert source CSV/table into paper table; keep claim boundary wording,generalized validity
+T04,results/day30/tables/day20_incremental_validity_summary.csv,docs/paper/figures/T04.md,ready_for_conversion,convert source CSV/table into paper table; keep claim boundary wording,substantive validity if failed
+T05,results/day30/tables/day21_joint_risk_comparison.csv,docs/paper/figures/T05.md,ready_for_conversion,convert source CSV/table into paper table; keep claim boundary wording,validated joint-risk detector
+T06,results/day30/tables/day22_gate_decision.csv,docs/paper/figures/T06.md,ready_for_conversion,convert source CSV/table into paper table; keep claim boundary wording,Go method result
+T07,results/day30/tables/day25_claim_boundary_for_paper.csv,docs/paper/figures/T07.md,ready_for_conversion,convert source CSV/table into paper table; keep claim boundary wording,forbidden claims as conclusions
+T08,results/day30/tables/day25_reproducibility_plan.csv,docs/paper/figures/T08.md,ready_for_conversion,convert source CSV/table into paper table; keep claim boundary wording,full real-render guarantee from smoke path

@@ -1,0 +1,38 @@
+{
+  "figure_table_readiness_created": true,
+  "forbidden_claims_passed": true,
+  "git_commit": "c7f359d",
+  "inputs": [
+    "README.md",
+    "results/day30/manifests/day24_diagnostic_consolidation_manifest.json",
+    "reports/day24_diagnostic_consolidation_report.md",
+    "results/day30/manifests/day25_paper_outline_manifest.json",
+    "reports/day25_paper_outline_report.md",
+    "results/day30/manifests/day26_paper_skeleton_manifest.json",
+    "reports/day26_paper_skeleton_report.md",
+    "results/day30/tables/day26_figure_table_execution_plan.csv",
+    "results/day30/tables/day26_readme_scope_update_plan.csv",
+    "results/day30/tables/day26_release_cleanup_plan.csv",
+    "configs/validation/day27_release_cleanup.yaml"
+  ],
+  "interpretation": "README/release cleanup audit for diagnostic benchmark route; no destructive cleanup or method update",
+  "method_update_authorized": false,
+  "missing_artifacts": [],
+  "outputs": [
+    "results/day30/tables/day27_readme_scope_audit.csv",
+    "results/day30/tables/day27_forbidden_claims_audit.csv",
+    "results/day30/tables/day27_release_forbidden_paths_audit.csv",
+    "results/day30/tables/day27_release_file_policy.csv",
+    "results/day30/tables/day27_safe_archive_plan.csv",
+    "results/day30/tables/day27_figure_table_readiness.csv",
+    "results/day30/tables/day27_day28_recommendation.csv",
+    "results/day30/manifests/day27_release_cleanup_manifest.json",
+    "reports/day27_release_cleanup_report.md"
+  ],
+  "readme_scope_passed": true,
+  "release_forbidden_paths_audited": true,
+  "runtime_seconds": 0.012488,
+  "safe_archive_plan_created": true,
+  "status": "OK",
+  "weak_update_authorized": false
+}

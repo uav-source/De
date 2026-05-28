@@ -1,0 +1,4 @@
+recommended_day,recommended_route,task,allowed,reason,blocking_condition
+Day 28,figure/table generation scripts,implement safe conversion scripts for source_available tables and explicit pending placeholders for figures,true,Day27 identifies table-ready and pending figure items,must not fake generated figures
+Day 28,paper section drafting,expand paper skeleton sections using claim boundary language,true,README/release scope is now explicit,must preserve forbidden claim boundaries
+Day 28,weak-subspace update implementation,implement estimator update,false,method update remains unauthorized,requires future method_update_authorized=true

@@ -1,0 +1,6 @@
+check_id,required_phrase,found,status,reason
+READ01,diagnostic benchmark,true,pass,required README scope phrase found
+READ02,failure-analysis,true,pass,required README scope phrase found
+READ03,not a validated Degen-LIO estimator method,true,pass,required README scope phrase found
+READ04,Weak-subspace update remains unauthorized,true,pass,required README scope phrase found
+READ05,ODI robust drift prediction is not validated,true,pass,required README scope phrase found
