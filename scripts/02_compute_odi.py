@@ -55,7 +55,8 @@ def compute_one(sequence_dir: Path, config_path: Path, out_path: Path) -> np.nda
     write_odi_csv(rows, out_path)
     print(
         f"computed ODI: seq={sequence_dir.name} frames={len(rows)} "
-        f"mean_ODI={float(np.mean(rows['ODI'])):.6f} out={out_path}"
+        f"mean_ODI={float(np.mean(rows['ODI'])):.6f} "
+        f"reliable_ratio={float(np.mean(rows['weak_reliable'])):.3f} out={out_path}"
     )
     return rows
 
@@ -68,6 +69,7 @@ def write_summary(results, out_path: Path) -> None:
         "median_ODI",
         "mean_AIS",
         "median_lambda_min",
+        "median_lambda_min_clamped",
         "median_condition_number",
         "mean_num_points",
     ]
@@ -82,8 +84,46 @@ def write_summary(results, out_path: Path) -> None:
                     "median_ODI": float(np.median(rows["ODI"])),
                     "mean_AIS": float(np.mean(rows["AIS"])),
                     "median_lambda_min": float(np.median(rows["lambda_min"])),
+                    "median_lambda_min_clamped": float(np.median(rows["lambda_min_clamped"])),
                     "median_condition_number": float(np.median(rows["condition_number"])),
                     "mean_num_points": float(np.mean(rows["num_points"])),
+                }
+            )
+
+
+def write_alignment_summary(results, out_path: Path) -> None:
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fieldnames = [
+        "sequence_id",
+        "median_axis_alignment",
+        "mean_axis_alignment",
+        "reliable_frame_ratio",
+        "num_weak_dims_median",
+        "ODI_median",
+        "lambda_min_clamped_median",
+    ]
+    with out_path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        for sequence_id, rows in results:
+            reliable = rows["weak_reliable"].astype(bool)
+            alignment = rows["axis_alignment"][reliable]
+            alignment = alignment[np.isfinite(alignment)]
+            if alignment.size:
+                median_axis_alignment = float(np.median(alignment))
+                mean_axis_alignment = float(np.mean(alignment))
+            else:
+                median_axis_alignment = float("nan")
+                mean_axis_alignment = float("nan")
+            writer.writerow(
+                {
+                    "sequence_id": sequence_id,
+                    "median_axis_alignment": median_axis_alignment,
+                    "mean_axis_alignment": mean_axis_alignment,
+                    "reliable_frame_ratio": float(np.mean(rows["weak_reliable"])),
+                    "num_weak_dims_median": float(np.median(rows["num_weak_dims"])),
+                    "ODI_median": float(np.median(rows["ODI"])),
+                    "lambda_min_clamped_median": float(np.median(rows["lambda_min_clamped"])),
                 }
             )
 
@@ -106,6 +146,7 @@ def main() -> int:
             rows = compute_one(sequence_dir, args.config, out)
             results.append((sequence_dir.name, rows))
         write_summary(results, ROOT / "results/day14/tables/day06_odi_summary.csv")
+        write_alignment_summary(results, ROOT / "results/day14/tables/day09_alignment_summary.csv")
         return 0
 
     if args.seq is None:
@@ -117,4 +158,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

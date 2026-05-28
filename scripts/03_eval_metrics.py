@@ -30,6 +30,7 @@ from eval.metrics import (  # noqa: E402
     load_tum_pose,
     summarize_odi_table,
 )
+from degen_detector.weak_direction import compute_drift_alignment  # noqa: E402
 
 
 DEFAULT_SEQUENCES = [
@@ -49,10 +50,12 @@ WINDOW_FIELDNAMES = [
     "axis_error_end",
     "axis_drift_rate",
     "cross_drift_rate",
+    "weak_drift_alignment",
     "mean_ODI",
     "median_ODI",
     "mean_AIS",
     "median_lambda_min",
+    "median_lambda_min_clamped",
     "median_condition_number",
 ]
 
@@ -67,10 +70,13 @@ SUMMARY_FIELDNAMES = [
     "mean_cross_error",
     "axis_drift_rate_median",
     "cross_drift_rate_median",
+    "weak_drift_alignment_median",
+    "weak_drift_alignment_valid_ratio",
     "ODI_mean",
     "ODI_median",
     "AIS_mean",
     "lambda_min_median",
+    "lambda_min_clamped_median",
     "condition_number_median",
 ]
 
@@ -120,6 +126,7 @@ def build_window_rows(
     cross_error: np.ndarray,
     path_length: np.ndarray,
     odi_table: Dict[str, np.ndarray],
+    translation_error: np.ndarray,
     window_size: int,
     stride: int,
 ) -> List[Dict[str, float]]:
@@ -130,6 +137,8 @@ def build_window_rows(
         start = int(axis_row["start_idx"])
         end = int(axis_row["end_idx"])
         sl = slice(start, end + 1)
+        weak_trans = representative_weak_translation(odi_table, start, end)
+        drift_vector = translation_error[end] - translation_error[start]
         rows.append(
             {
                 "sequence_id": sequence_id,
@@ -140,14 +149,44 @@ def build_window_rows(
                 "axis_error_end": float(axis_row["error_end"]),
                 "axis_drift_rate": float(axis_row["drift_rate"]),
                 "cross_drift_rate": float(cross_row["drift_rate"]),
+                "weak_drift_alignment": compute_drift_alignment(weak_trans, drift_vector),
                 "mean_ODI": float(np.mean(odi_table["ODI"][sl])),
                 "median_ODI": float(np.median(odi_table["ODI"][sl])),
                 "mean_AIS": float(np.mean(odi_table["AIS"][sl])),
                 "median_lambda_min": float(np.median(odi_table["lambda_min"][sl])),
+                "median_lambda_min_clamped": float(
+                    np.median(
+                        odi_table["lambda_min_clamped"][sl]
+                        if "lambda_min_clamped" in odi_table
+                        else np.maximum(odi_table["lambda_min"][sl], 0.0)
+                    )
+                ),
                 "median_condition_number": float(np.median(odi_table["condition_number"][sl])),
             }
         )
     return rows
+
+
+def representative_weak_translation(odi_table: Dict[str, np.ndarray], start: int, end: int) -> np.ndarray:
+    required = ["weak_trans_x", "weak_trans_y", "weak_trans_z", "weak_reliable"]
+    if any(key not in odi_table for key in required):
+        return np.full(3, np.nan, dtype=float)
+
+    reliable = odi_table["weak_reliable"][start : end + 1].astype(bool)
+    if not np.any(reliable):
+        return np.full(3, np.nan, dtype=float)
+
+    weak_trans = np.column_stack(
+        [
+            odi_table["weak_trans_x"][start : end + 1],
+            odi_table["weak_trans_y"][start : end + 1],
+            odi_table["weak_trans_z"][start : end + 1],
+        ]
+    )
+    local_indices = np.flatnonzero(reliable)
+    midpoint = 0.5 * (end - start)
+    chosen = local_indices[int(np.argmin(np.abs(local_indices - midpoint)))]
+    return weak_trans[chosen]
 
 
 def evaluate_sequence(
@@ -171,6 +210,7 @@ def evaluate_sequence(
 
     axis_error = compute_axis_error(est, gt, axis)
     cross_error = compute_cross_error(est, gt, axis)
+    translation_error = est[:, 1:4] - gt[:, 1:4]
     path_length = compute_cumulative_path_length(gt)
     window_size = int(config.get("window_size", 20))
     stride = int(config.get("window_stride", 5))
@@ -180,6 +220,7 @@ def evaluate_sequence(
         cross_error,
         path_length,
         odi_table,
+        translation_error,
         window_size,
         stride,
     )
@@ -198,6 +239,12 @@ def evaluate_sequence(
         "axis_drift_rate_median": float(np.median([row["axis_drift_rate"] for row in window_rows])),
         "cross_drift_rate_median": float(np.median([row["cross_drift_rate"] for row in window_rows])),
     }
+    drift_alignment = np.asarray([row["weak_drift_alignment"] for row in window_rows], dtype=float)
+    finite_drift_alignment = drift_alignment[np.isfinite(drift_alignment)]
+    summary["weak_drift_alignment_median"] = (
+        float(np.median(finite_drift_alignment)) if finite_drift_alignment.size else float("nan")
+    )
+    summary["weak_drift_alignment_valid_ratio"] = float(np.mean(np.isfinite(drift_alignment))) if drift_alignment.size else 0.0
     summary.update(odi_summary)
     return summary
 

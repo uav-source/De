@@ -39,6 +39,8 @@ def test_odi_default_config_freezes_required_keys():
     assert config["epsilon_mode"] == "relative_trace"
     assert config["epsilon_ratio"] == "1.0e-6"
     assert config["tau_w"] == "0.02"
+    assert config["weak_min_gap_ratio"] == "1.0e-3"
+    assert config["weak_min_translation_norm"] == "0.25"
     assert config["window_size"] == "20"
     assert config["window_stride"] == "5"
     assert config["random_seed"] == "42"

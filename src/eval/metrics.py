@@ -274,11 +274,16 @@ def summarize_odi_table(odi_table: Dict[str, np.ndarray]) -> Dict[str, float]:
         if key not in odi_table:
             raise ValueError(f"ODI table missing required field: {key}")
         _as_1d_float(key, odi_table[key])
+    if "lambda_min_clamped" in odi_table:
+        lambda_min_clamped = _as_1d_float("lambda_min_clamped", odi_table["lambda_min_clamped"])
+    else:
+        lambda_min_clamped = np.maximum(odi_table["lambda_min"], 0.0)
     return {
         "ODI_mean": float(np.mean(odi_table["ODI"])),
         "ODI_median": float(np.median(odi_table["ODI"])),
         "AIS_mean": float(np.mean(odi_table["AIS"])),
         "lambda_min_median": float(np.median(odi_table["lambda_min"])),
+        "lambda_min_clamped_median": float(np.median(lambda_min_clamped)),
         "condition_number_median": float(np.median(odi_table["condition_number"])),
     }
 

@@ -3,7 +3,8 @@ s_p: 0.5
 epsilon_mode: relative_trace
 epsilon_ratio: 1.0e-6
 tau_w: 0.02
+weak_min_gap_ratio: 1.0e-3
+weak_min_translation_norm: 0.25
 window_size: 20
 window_stride: 5
 random_seed: 42
-
