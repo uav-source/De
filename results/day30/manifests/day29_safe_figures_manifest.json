@@ -1,0 +1,40 @@
+{
+  "caption_safety_passed": true,
+  "fake_figures_created": false,
+  "generated_figure_count": 2,
+  "git_commit": "dc1149e",
+  "inputs": [
+    "results/day30/tables/day15_bias_audit.csv",
+    "results/day30/tables/day16_unbiased_toy_lio_summary.csv",
+    "results/day30/tables/day27_figure_table_readiness.csv",
+    "results/day30/manifests/day27_release_cleanup_manifest.json",
+    "reports/day27_release_cleanup_report.md",
+    "results/day30/tables/day28_generated_table_inventory.csv",
+    "results/day30/tables/day28_pending_figure_plan.csv",
+    "results/day30/tables/day28_caption_bank.csv",
+    "results/day30/manifests/day28_figure_table_generation_manifest.json",
+    "reports/day28_figure_table_generation_report.md",
+    "configs/validation/day29_safe_figures.yaml"
+  ],
+  "interpretation": "real F01/F03 figures plus table interpretation safeguards; no method update authorized",
+  "method_update_authorized": false,
+  "missing_artifacts": [],
+  "outputs": [
+    "docs/paper/figures/F01_benchmark_geometry_overview.png",
+    "docs/paper/figures/F01_benchmark_geometry_overview.pdf",
+    "docs/paper/figures/F03_bias_audit_legacy_vs_unbiased.png",
+    "docs/paper/figures/F03_bias_audit_legacy_vs_unbiased.pdf",
+    "docs/paper/generated_tables/table_interpretation_notes.md",
+    "docs/paper/caption_bank_day29.md",
+    "results/day30/tables/day29_generated_figure_inventory.csv",
+    "results/day30/tables/day29_table_safety_notes.csv",
+    "results/day30/tables/day29_caption_safety_audit.csv",
+    "results/day30/tables/day29_day30_recommendation.csv",
+    "results/day30/manifests/day29_safe_figures_manifest.json",
+    "reports/day29_safe_figures_report.md"
+  ],
+  "runtime_seconds": 2.345846,
+  "status": "OK",
+  "table_safety_notes_created": true,
+  "weak_update_authorized": false
+}

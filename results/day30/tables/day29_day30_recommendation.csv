@@ -1,0 +1,4 @@
+recommended_day,recommended_route,task,allowed,reason,blocking_condition
+Day 30,final package review,"audit final artifacts, manifests, figures, generated tables, release docs, and claim boundaries",true,Day29 creates real F01/F03 figures and paper-ready tables,must preserve No-Go method boundary
+Day 30,release readiness check,"run full pytest, verify manifests, inspect archive plan, and prepare release checklist",true,release hygiene is now documented and audited,must not package cache or fake figures
+Day 30,weak-subspace update implementation,implement estimator update,false,method update remains unauthorized,requires future method_update_authorized=true
