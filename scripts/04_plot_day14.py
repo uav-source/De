@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -60,47 +61,53 @@ def main() -> int:
         if not path.exists():
             raise FileNotFoundError(f"Missing required plotting input: {path}")
 
-    if args.smoke_test_no_render:
-        outputs = write_smoke_outputs(out_dir)
-        write_plotting_manifest(out_dir, input_files, outputs, smoke_test=True)
-        print(f"generated diagnostic smoke-test files: count={len(FIGURES)} out={out_dir}")
+    try:
+        if args.smoke_test_no_render:
+            outputs = write_smoke_outputs(out_dir)
+            write_plotting_manifest(out_dir, input_files, outputs, smoke_test=True)
+            print(f"generated diagnostic smoke-test files: count={len(FIGURES)} out={out_dir}")
+            print(f"manifest: {out_dir / 'plotting_manifest.json'}")
+            return 0
+
+        load_pyplot()
+
+        raw_odi = {seq: load_csv_dicts(results_dir / "raw" / f"{seq}_odi.csv") for seq in SEQUENCES}
+        window_metrics = {seq: load_csv_dicts(results_dir / "metrics" / f"{seq}_metrics.csv") for seq in SEQUENCES}
+        metric_summary = load_csv_dicts(results_dir / "tables/day08_metric_summary.csv")
+        validity = load_csv_dicts(results_dir / "tables/day10_metric_validity.csv")
+        per_sequence = load_csv_dicts(results_dir / "tables/day10_metric_validity_per_sequence.csv")
+        loso = load_csv_dicts(results_dir / "tables/day10_metric_validity_loso.csv")
+
+        outputs: List[Path] = []
+        outputs += save_figure(out_dir, "Fig_D14_01_spectrum_across_scenes", lambda: plot_spectrum(raw_odi))
+        outputs += save_figure(out_dir, "Fig_D14_02_odi_timeline", lambda: plot_timeline(raw_odi))
+        outputs += save_figure(out_dir, "Fig_D14_03_alignment_hist", lambda: plot_alignment_hist(raw_odi))
+        outputs += save_figure(
+            out_dir,
+            "Fig_D14_04_odi_vs_axis_drift_merged_and_per_sequence",
+            lambda: plot_odi_vs_axis_drift(window_metrics, validity, per_sequence),
+        )
+        outputs += save_figure(
+            out_dir,
+            "Fig_D14_05_metric_validity_comparison",
+            lambda: plot_metric_validity(validity, per_sequence, loso),
+        )
+        outputs += save_figure(out_dir, "Fig_D14_06_axis_cross_error", lambda: plot_axis_cross_error(metric_summary))
+        outputs += save_figure(
+            out_dir,
+            "Fig_D14_07_bias_audit_summary",
+            lambda: plot_bias_audit_summary(validity, per_sequence, loso, metric_summary),
+        )
+
+        write_plotting_manifest(out_dir, input_files, outputs, smoke_test=False)
+        print(f"generated diagnostic figures: count={len(FIGURES)} out={out_dir}")
         print(f"manifest: {out_dir / 'plotting_manifest.json'}")
         return 0
-
-    load_pyplot()
-
-    raw_odi = {seq: load_csv_dicts(results_dir / "raw" / f"{seq}_odi.csv") for seq in SEQUENCES}
-    window_metrics = {seq: load_csv_dicts(results_dir / "metrics" / f"{seq}_metrics.csv") for seq in SEQUENCES}
-    metric_summary = load_csv_dicts(results_dir / "tables/day08_metric_summary.csv")
-    validity = load_csv_dicts(results_dir / "tables/day10_metric_validity.csv")
-    per_sequence = load_csv_dicts(results_dir / "tables/day10_metric_validity_per_sequence.csv")
-    loso = load_csv_dicts(results_dir / "tables/day10_metric_validity_loso.csv")
-
-    outputs: List[Path] = []
-    outputs += save_figure(out_dir, "Fig_D14_01_spectrum_across_scenes", lambda: plot_spectrum(raw_odi))
-    outputs += save_figure(out_dir, "Fig_D14_02_odi_timeline", lambda: plot_timeline(raw_odi))
-    outputs += save_figure(out_dir, "Fig_D14_03_alignment_hist", lambda: plot_alignment_hist(raw_odi))
-    outputs += save_figure(
-        out_dir,
-        "Fig_D14_04_odi_vs_axis_drift_merged_and_per_sequence",
-        lambda: plot_odi_vs_axis_drift(window_metrics, validity, per_sequence),
-    )
-    outputs += save_figure(
-        out_dir,
-        "Fig_D14_05_metric_validity_comparison",
-        lambda: plot_metric_validity(validity, per_sequence, loso),
-    )
-    outputs += save_figure(out_dir, "Fig_D14_06_axis_cross_error", lambda: plot_axis_cross_error(metric_summary))
-    outputs += save_figure(
-        out_dir,
-        "Fig_D14_07_bias_audit_summary",
-        lambda: plot_bias_audit_summary(validity, per_sequence, loso, metric_summary),
-    )
-
-    write_plotting_manifest(out_dir, input_files, outputs, smoke_test=False)
-    print(f"generated diagnostic figures: count={len(FIGURES)} out={out_dir}")
-    print(f"manifest: {out_dir / 'plotting_manifest.json'}")
-    return 0
+    finally:
+        if plt is not None:
+            plt.close("all")
+        sys.stdout.flush()
+        sys.stderr.flush()
 
 
 def load_pyplot() -> None:
@@ -473,4 +480,7 @@ def git_commit() -> str:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    rc = main()
+    if os.environ.get("DEGEN_FORCE_CLI_EXIT") == "1":
+        os._exit(rc)
+    raise SystemExit(rc)

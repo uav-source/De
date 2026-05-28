@@ -223,7 +223,7 @@ echo "BEFORE_PREWARM: skipped; prewarm_matplotlib is not a mandatory reproductio
 echo "AFTER_PREWARM_TIMEOUT_RETURN: skipped; no timeout subprocess launched" >> "$COMMAND_LOG"
 echo "BEFORE_STEP_STATUS_APPEND: skipped prewarm; no step status row" >> "$COMMAND_LOG"
 echo "AFTER_STEP_STATUS_APPEND: skipped prewarm; no step status row" >> "$COMMAND_LOG"
-run_step plot_day14 python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
+run_step plot_day14 env DEGEN_FORCE_CLI_EXIT=1 python3 scripts/04_plot_day14.py --results results/day14 --out results/day14/figures
 run_step sensitivity python3 scripts/06_sensitivity.py --config configs/detector/odi_default.yaml --results results/day14 --out results/day14/tables --figures-out results/day14/figures --n-boot "$REPRO_N_BOOT"
 
 END_EPOCH="$(date +%s)"
