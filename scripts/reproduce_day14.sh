@@ -323,4 +323,7 @@ run_step reproduction_manifest python3 scripts/07_reproduction_manifest.py \
 
 echo "Day 14 reproduction complete: run_id=$RUN_ID runtime_seconds=$RUNTIME_SECONDS"
 echo "step status: $STEP_STATUS"
-exit 0
+sync || true
+
+# Force the current bash process to terminate cleanly without running any further shell cleanup.
+exec python3 -c 'import os; os._exit(0)'
