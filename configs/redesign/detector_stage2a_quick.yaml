@@ -1,0 +1,4 @@
+phase: quick
+geometry_seeds: [101]
+sensor_seeds: [11]
+expected_sensor_runs: 9

@@ -1,0 +1,18 @@
+s_theta: 0.05
+s_p: 0.5
+epsilon_mode: relative_trace
+epsilon_ratio: 1.0e-6
+tau_w: 0.02  # historical compatibility only; not the Stage 2A trigger
+primary_direction_min_eigengap_ratio: 0.02
+translation_schur_damping_ratio: 1.0e-6
+points_per_frame: 192
+point_noise_std_m: 0.02
+sensor_seed: 11
+sensor:
+  min_range_m: 0.0
+  max_range_m: 1000.0
+  horizontal_fov_deg: 360.0
+  vertical_fov_min_deg: -90.0
+  vertical_fov_max_deg: 90.0
+  dropout_probability: 0.0
+  max_resample_attempts: 20

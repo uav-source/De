@@ -1,0 +1,47 @@
+stage: detector_consolidation_stage2a
+metric_definition_version: detector_stage2a_v1
+scene:
+  frames: 40
+  dt_s: 0.1
+  tunnel_length_m: 30.0
+  width_m: 4.0
+  height_m: 3.0
+  master_axial_patch_pool_size: 16
+  open_length_m: 30.0
+  open_bounds_m: [34.0, 18.0, 8.0]
+  open_box_count: 12
+geometry_levels:
+  L1: 12
+  L2: 7
+  L3: 3
+  L4: 1
+observation_levels:
+  O1: 1.00
+  O2: 0.40
+  O3: 0.10
+  O4: 0.02
+observation_candidate_multiplier: 8
+geometry_points_per_square_meter: 0.5
+geometry_min_points_per_patch: 8
+analysis:
+  primary_metric: ODI_trans
+  odi_trigger_control_quantile: 0.95
+  primary_direction_min_eigengap_ratio: 0.02
+  bootstrap_repetitions: 5000
+  bootstrap_seed: 12037
+gates:
+  detector_severity_rho_min: 0.75
+  detector_kendall_median_min: 0.67
+  detector_positive_geometry_ratio_min: 0.80
+  detector_paired_monotonic_rate_min: 0.75
+  direction_alignment_median_min: 0.95
+  direction_alignment_p10_min: 0.80
+  direction_stable_rate_min: 0.85
+  actionable_direction_rate_min: 0.85
+  open_control_false_positive_max: 0.05
+  severe_l4_trigger_rate_min: 0.90
+  severe_o4_trigger_rate_min: 0.90
+  severe_l3_trigger_rate_min: 0.75
+  severe_o3_trigger_rate_min: 0.75
+  observation_mechanism_pairs_required: 18
+  geometry_mechanism_pairs_required: 20

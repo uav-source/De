@@ -1,0 +1,4 @@
+phase: test
+geometry_seeds: [1709, 1823, 1907, 2011, 2129, 2237, 2341, 2459, 2579, 2687]
+sensor_seeds: [55, 66]
+expected_sensor_runs: 180
