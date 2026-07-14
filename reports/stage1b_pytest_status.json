@@ -1,0 +1,9 @@
+{
+  "command": "pytest -q",
+  "status": "passed",
+  "test_count": 150,
+  "duration_seconds": 30.84,
+  "verified_date": "2026-07-14",
+  "branch": "feature/metric-redesign-stage1b",
+  "notes": "Exact full-suite command completed after the Stage 1b full run; no skipped or deleted Stage 1b tests."
+}
