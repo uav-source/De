@@ -5,12 +5,18 @@ from __future__ import annotations
 import csv
 import hashlib
 from pathlib import Path
-from typing import Any, Dict, Tuple, Union
+from typing import Any, Dict, Optional, Tuple, Union
 
 import numpy as np
 import yaml
 
 from .observation_simulator import load_detector_config, load_sequence, quat_to_rot
+from .motion_simulator import (
+    apply_se3_increment,
+    compose_pose_with_body_increment,
+    load_motion_measurements,
+    simulate_motion_measurements,
+)
 
 
 LEGACY_AXIS_BIAS_BY_FAMILY = {
@@ -37,16 +43,20 @@ def run_toy_lio(
     sequence_dir: Union[str, Path],
     config: Union[str, Path, Dict[str, Any]],
     toy_config: Union[None, str, Path, Dict[str, Any]] = None,
+    motion_measurements: Union[None, str, Path, Dict[str, np.ndarray]] = None,
+    process_seed: Optional[int] = None,
+    observations_path: Union[None, str, Path] = None,
 ) -> Dict[str, Any]:
     sequence_dir = Path(sequence_dir)
     detector_config = load_detector_config(config) if not isinstance(config, dict) else config
     toy_lio_config = load_toy_lio_config(toy_config)
     sequence = load_sequence(sequence_dir)
-    observations = np.load(sequence_dir / "observations.npz")
+    observations = np.load(Path(observations_path) if observations_path is not None else sequence_dir / "observations.npz")
 
     base_seed = int(toy_lio_config.get("seed", detector_config.get("random_seed", sequence.metadata["random_seed"])))
     seed = base_seed + stable_seed_offset(sequence.sequence_id)
-    rng = np.random.default_rng(seed)
+    if process_seed is not None:
+        seed = int(process_seed)
     gt = observations["pose_gt"]
     axes = observations["axis_per_frame"]
     packed_J = observations["packed_J"]
@@ -54,29 +64,44 @@ def run_toy_lio(
     base_residuals = observations["r_list"]
     points_lidar = observations["points_lidar"]
     normals_world = observations["normals_world"]
+    if "plane_points_world" not in observations:
+        raise ValueError(
+            "observations.npz lacks plane_points_world; regenerate observations with the finite-patch simulator"
+        )
+    plane_points_world = observations["plane_points_world"]
+    frame_count = int(packed_J.shape[0])
+
+    family = sequence.metadata["scene_family"]
+    params = resolve_process_noise_parameters(family, toy_lio_config)
+    if motion_measurements is None:
+        measurements = simulate_motion_measurements(gt, seed, params, axes=axes)
+    elif isinstance(motion_measurements, (str, Path)):
+        measurements = load_motion_measurements(motion_measurements)
+    else:
+        measurements = {key: np.asarray(value) for key, value in motion_measurements.items()}
 
     est = np.zeros_like(gt)
-    est[0] = gt[0]
-    family = sequence.metadata["scene_family"]
-    applied_axis_bias = []
+    est[0] = np.asarray(measurements["initial_pose"], dtype=float)
+    timestamps = np.asarray(measurements["timestamps"], dtype=float)
+    translations = np.asarray(measurements["delta_translation_body"], dtype=float)
+    rotations = np.asarray(measurements["delta_rotation_vector"], dtype=float)
+    if translations.shape != (frame_count - 1, 3) or rotations.shape != (frame_count - 1, 3):
+        raise ValueError("motion measurement count does not match observation frames")
+    applied_axis_bias = [float(params["axis_bias"])] * max(frame_count - 1, 0)
 
-    for idx in range(1, gt.shape[0]):
-        gt_delta = {
-            "translation": gt[idx, 1:4] - gt[idx - 1, 1:4],
-            "yaw": yaw_from_quat(gt[idx, 4:8]) - yaw_from_quat(gt[idx - 1, 4:8]),
-        }
-        process_noise = sample_process_noise(family, axes[idx], rng, toy_lio_config)
-        applied_axis_bias.append(float(process_noise["axis_bias"]))
-        prior = propagate_with_noisy_motion(est[idx - 1], gt_delta, process_noise)
+    # Estimator loop: no ground-truth pose or delta is read here. The only
+    # propagation input is the standalone 6DoF motion surrogate.
+    for idx in range(1, frame_count):
+        prior = compose_pose_with_body_increment(est[idx - 1], translations[idx - 1], rotations[idx - 1])
         residual = residual_at_prior(
             prior,
-            gt[idx],
             points_lidar[idx],
             normals_world[idx],
+            plane_points_world[idx],
             base_residuals[idx],
         )
         est[idx] = lidar_update_pose(prior, packed_J[idx], residual, R_diag[idx])
-        est[idx, 0] = gt[idx, 0]
+        est[idx, 0] = timestamps[idx]
 
     summary = compute_toy_summary(est, gt, axes)
     bias_metadata = build_bias_metadata(family, toy_lio_config, applied_axis_bias)
@@ -89,14 +114,6 @@ def run_toy_lio(
     }
 
 
-def propagate_with_noisy_motion(prev_est: np.ndarray, gt_delta: Dict[str, Any], process_noise: Dict[str, Any]) -> np.ndarray:
-    prior = prev_est.copy()
-    prior[1:4] = prev_est[1:4] + np.asarray(gt_delta["translation"], dtype=float) + np.asarray(process_noise["translation"], dtype=float)
-    yaw = yaw_from_quat(prev_est[4:8]) + float(gt_delta["yaw"]) + float(process_noise.get("yaw", 0.0))
-    prior[4:8] = yaw_to_quat(yaw)
-    return prior
-
-
 def lidar_update_pose(prior_pose: np.ndarray, J: np.ndarray, r: np.ndarray, R_diag: np.ndarray) -> np.ndarray:
     weighted_J = J / R_diag[:, None]
     H = J.T @ weighted_J
@@ -105,11 +122,7 @@ def lidar_update_pose(prior_pose: np.ndarray, J: np.ndarray, r: np.ndarray, R_di
     damping = max(float(np.max(np.diag(H))) * 1.0e-6, 1.0e-9)
     delta = -np.linalg.solve(H + damping * np.eye(6), b)
 
-    updated = prior_pose.copy()
-    updated[1:4] = prior_pose[1:4] + delta[3:6]
-    yaw = yaw_from_quat(prior_pose[4:8]) + delta[2]
-    updated[4:8] = yaw_to_quat(yaw)
-    return updated
+    return apply_se3_increment(prior_pose, delta)
 
 
 def save_pose_est_tum(poses: np.ndarray, output_path: Union[str, Path]) -> None:
@@ -123,16 +136,14 @@ def save_pose_est_tum(poses: np.ndarray, output_path: Union[str, Path]) -> None:
 
 def residual_at_prior(
     prior_pose: np.ndarray,
-    gt_pose: np.ndarray,
     points_lidar: np.ndarray,
     normals_world: np.ndarray,
+    plane_points_world: np.ndarray,
     base_residual: np.ndarray,
 ) -> np.ndarray:
     R_prior = quat_to_rot(prior_pose[4:8])
-    R_gt = quat_to_rot(gt_pose[4:8])
     world_prior = (R_prior @ points_lidar.T).T + prior_pose[1:4]
-    world_measured = (R_gt @ points_lidar.T).T + gt_pose[1:4]
-    geometric = np.einsum("ij,ij->i", normals_world, world_prior - world_measured)
+    geometric = np.einsum("ij,ij->i", normals_world, world_prior - plane_points_world)
     return geometric + base_residual
 
 
@@ -167,7 +178,7 @@ def load_toy_lio_config(config: Union[None, str, Path, Dict[str, Any]]) -> Dict[
     return normalized
 
 
-def resolve_process_noise_parameters(family: str, toy_config: Union[None, str, Path, Dict[str, Any]] = None) -> Dict[str, float]:
+def resolve_process_noise_parameters(family: str, toy_config: Union[None, str, Path, Dict[str, Any]] = None) -> Dict[str, Any]:
     config = load_toy_lio_config(toy_config)
     mode = str(config["axis_bias_mode"])
     if mode == "legacy_scene_family":
@@ -177,9 +188,10 @@ def resolve_process_noise_parameters(family: str, toy_config: Union[None, str, P
         noise_config = config.get("noise", {})
         noise = dict(UNBIASED_NOISE_DEFAULT)
         if isinstance(noise_config, dict):
-            for key in ["axis_sigma", "cross_sigma", "yaw_sigma"]:
+            for key in ["axis_sigma", "cross_sigma", "roll_sigma", "pitch_sigma", "yaw_sigma", "rotation_sigma_rad"]:
                 if key in noise_config:
-                    noise[key] = float(noise_config[key])
+                    value = noise_config[key]
+                    noise[key] = [float(item) for item in value] if isinstance(value, list) else float(value)
         axis_bias = resolve_axis_bias(family, config)
     noise["axis_bias"] = axis_bias
     return noise
