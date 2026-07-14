@@ -1,4 +1,4 @@
-"""ODI computation utilities for Day 6."""
+"""ODI computation, trigger-state, and direction-diagnostic utilities."""
 
 from __future__ import annotations
 
@@ -22,7 +22,8 @@ from .whitened_info import (
 from .weak_direction import (
     compute_axis_alignment,
     compute_subspace_axis_alignment,
-    compute_weak_projector,
+    estimate_primary_direction,
+    estimate_weak_subspace,
     extract_weak_subspace,
     get_primary_weak_direction,
     is_direction_reliable,
@@ -46,6 +47,18 @@ def compute_ODI(eigvals: np.ndarray, eps: float) -> float:
     r_eff = compute_effective_rank(values, eps)
     odi = 1.0 - (r_eff - 1.0) / (d - 1.0)
     return float(np.clip(odi, 0.0, 1.0))
+
+
+def evaluate_trigger_direction_state(
+    odi_trans: float,
+    odi_trigger_threshold: float,
+    primary_direction_stable: bool,
+) -> tuple[bool, bool]:
+    """Keep detector triggering independent from direction identifiability."""
+
+    degeneracy_triggered = bool(float(odi_trans) >= float(odi_trigger_threshold))
+    actionable_direction = bool(degeneracy_triggered and primary_direction_stable)
+    return degeneracy_triggered, actionable_direction
 
 
 def compute_metrics_for_frame(
@@ -88,12 +101,31 @@ def compute_metrics_for_frame(
         float(config.get("epsilon_ratio", 1.0e-6)),
     )
     trans_raw_eigvals, _ = eigen_decompose(trans_info_raw)
-    trans_weak = extract_weak_subspace(trans_eigvals, trans_eigvecs, float(config.get("tau_w", 0.02)))
-    trans_projector = compute_weak_projector(trans_eigvals, trans_eigvecs, float(config.get("tau_w", 0.02)))
+    trans_subspace = estimate_weak_subspace(
+        trans_eigvals,
+        trans_eigvecs,
+        float(config.get("tau_w", 0.02)),
+    )
+    trans_projector = trans_subspace.projector
     trans_alignment = float("nan")
     if axis is not None:
         trans_alignment = compute_subspace_axis_alignment(trans_projector, np.asarray(axis, dtype=float))
-    trans_primary = get_primary_weak_direction(trans_eigvals, trans_eigvecs)
+    primary = estimate_primary_direction(
+        trans_eigvals,
+        trans_eigvecs,
+        float(config.get("primary_direction_min_eigengap_ratio", 0.02)),
+    )
+    trans_primary = primary.direction
+    primary_axis_alignment = (
+        compute_axis_alignment(trans_primary, np.asarray(axis, dtype=float)) if axis is not None else float("nan")
+    )
+    odi_trans = compute_ODI(trans_eigvals, trans_eps)
+    odi_threshold = float(config.get("odi_trigger_threshold", float("inf")))
+    degeneracy_triggered, actionable_direction = evaluate_trigger_direction_state(
+        odi_trans,
+        odi_threshold,
+        primary.direction_stable,
+    )
     trans_primary_reliable = is_direction_reliable(
         trans_eigvals,
         trans_eigvecs,
@@ -111,7 +143,7 @@ def compute_metrics_for_frame(
         "axis_alignment": axis_alignment,
         "weak_reliable": float(1 if reliable else 0),
         "num_weak_dims": float(extract_weak_subspace(eigvals, eigvecs, float(config.get("tau_w", 0.02))).shape[1]),
-        "ODI_trans": compute_ODI(trans_eigvals, trans_eps),
+        "ODI_trans": odi_trans,
         "AIS_trans_raw": compute_AIS(trans_info_raw, trans_eps * n_eff),
         "AIS_trans_normalized": compute_AIS(trans_info_normalized, trans_eps),
         "lambda_min_trans_raw": compute_lambda_min(trans_raw_eigvals),
@@ -120,12 +152,25 @@ def compute_metrics_for_frame(
         "trans_info_trace_raw": float(np.trace(trans_info_raw)),
         "trans_info_trace_normalized": float(np.trace(trans_info_normalized)),
         "effective_sample_size": n_eff,
-        "weak_trans_subspace_dim": float(trans_weak.shape[1]),
+        # Deprecated compatibility fields retained for one cycle.
+        "weak_trans_subspace_dim": float(trans_subspace.dimension),
         "weak_trans_subspace_alignment": trans_alignment,
         "weak_trans_primary_x": float(trans_primary[0]),
         "weak_trans_primary_y": float(trans_primary[1]),
         "weak_trans_primary_z": float(trans_primary[2]),
         "weak_trans_primary_reliable": float(1 if trans_primary_reliable else 0),
+        "lambda_min_over_lambda_max": primary.lambda_min_ratio,
+        "primary_eigengap_ratio": primary.eigengap_ratio,
+        "primary_weak_dir_x": float(trans_primary[0]),
+        "primary_weak_dir_y": float(trans_primary[1]),
+        "primary_weak_dir_z": float(trans_primary[2]),
+        "primary_direction_stable": float(primary.direction_stable),
+        "primary_direction_axis_alignment": primary_axis_alignment,
+        "degeneracy_triggered": float(degeneracy_triggered),
+        "actionable_direction": float(actionable_direction),
+        "weak_subspace_triggered": float(trans_subspace.triggered),
+        "weak_subspace_dim": float(trans_subspace.dimension),
+        "weak_subspace_alignment": trans_alignment,
     }
     if axis is None:
         metrics.update(
@@ -146,7 +191,9 @@ def compute_metrics_for_frame(
         )
     for row in range(3):
         for column in range(3):
-            metrics[f"weak_trans_projector_{row}{column}"] = float(trans_projector[row, column])
+            metrics[f"weak_trans_projector_{row}{column}"] = (
+                float(trans_projector[row, column]) if trans_projector is not None else float("nan")
+            )
     for idx, value in enumerate(eigvals, start=1):
         metrics[f"eig_{idx}"] = float(value)
     for idx, value in enumerate(primary_weak):
@@ -207,6 +254,18 @@ def compute_metrics_for_sequence(observations: Any, config: Dict[str, Any]) -> n
         ("weak_trans_primary_y", "f8"),
         ("weak_trans_primary_z", "f8"),
         ("weak_trans_primary_reliable", "i4"),
+        ("lambda_min_over_lambda_max", "f8"),
+        ("primary_eigengap_ratio", "f8"),
+        ("primary_weak_dir_x", "f8"),
+        ("primary_weak_dir_y", "f8"),
+        ("primary_weak_dir_z", "f8"),
+        ("primary_direction_stable", "i4"),
+        ("primary_direction_axis_alignment", "f8"),
+        ("degeneracy_triggered", "i4"),
+        ("actionable_direction", "i4"),
+        ("weak_subspace_triggered", "i4"),
+        ("weak_subspace_dim", "i4"),
+        ("weak_subspace_alignment", "f8"),
         ("axis_information_raw", "f8"),
         ("axis_information_normalized", "f8"),
         ("axis_information_ratio", "f8"),
@@ -259,6 +318,13 @@ def compute_metrics_for_sequence(observations: Any, config: Dict[str, Any]) -> n
             "axis_information_raw",
             "axis_information_normalized",
             "axis_information_ratio",
+            "lambda_min_over_lambda_max",
+            "primary_eigengap_ratio",
+            "primary_weak_dir_x",
+            "primary_weak_dir_y",
+            "primary_weak_dir_z",
+            "primary_direction_axis_alignment",
+            "weak_subspace_alignment",
         ]:
             rows[key][idx] = metrics[key]
         for row in range(3):
@@ -270,4 +336,12 @@ def compute_metrics_for_sequence(observations: Any, config: Dict[str, Any]) -> n
         rows["num_weak_dims"][idx] = int(metrics["num_weak_dims"])
         rows["weak_trans_subspace_dim"][idx] = int(metrics["weak_trans_subspace_dim"])
         rows["weak_trans_primary_reliable"][idx] = int(metrics["weak_trans_primary_reliable"])
+        for key in [
+            "primary_direction_stable",
+            "degeneracy_triggered",
+            "actionable_direction",
+            "weak_subspace_triggered",
+            "weak_subspace_dim",
+        ]:
+            rows[key][idx] = int(metrics[key])
     return rows

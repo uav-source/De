@@ -2,9 +2,68 @@
 
 from __future__ import annotations
 
-from typing import Tuple
+from dataclasses import dataclass
+from typing import Optional, Tuple
 
 import numpy as np
+
+
+@dataclass(frozen=True)
+class PrimaryDirectionEstimate:
+    direction: np.ndarray
+    lambda_min_ratio: float
+    eigengap_ratio: float
+    direction_stable: bool
+
+
+@dataclass(frozen=True)
+class WeakSubspaceEstimate:
+    projector: Optional[np.ndarray]
+    dimension: int
+    triggered: bool
+
+
+def estimate_primary_direction(
+    eigvals: np.ndarray,
+    eigvecs: np.ndarray,
+    min_eigengap_ratio: float,
+) -> PrimaryDirectionEstimate:
+    """Always return the minimum-eigenvalue direction for a valid spectrum."""
+
+    values, vectors = _validate_eigensystem(eigvals, eigvecs)
+    if float(min_eigengap_ratio) < 0.0:
+        raise ValueError("min_eigengap_ratio must be non-negative")
+    order = np.argsort(values)
+    ordered = np.maximum(values[order], 0.0)
+    lambda_max = max(float(ordered[-1]), 1.0e-12)
+    lambda_min = float(ordered[0])
+    lambda_next = float(ordered[1]) if ordered.size > 1 else lambda_min
+    direction = np.asarray(vectors[:, int(order[0])], dtype=float)
+    norm = float(np.linalg.norm(direction))
+    if norm < 1.0e-12:
+        raise ValueError("Primary eigenvector has zero norm")
+    direction = _canonical_sign(direction / norm)
+    eigengap_ratio = (lambda_next - lambda_min) / lambda_max
+    return PrimaryDirectionEstimate(
+        direction=direction,
+        lambda_min_ratio=lambda_min / lambda_max,
+        eigengap_ratio=float(eigengap_ratio),
+        direction_stable=bool(eigengap_ratio >= float(min_eigengap_ratio)),
+    )
+
+
+def estimate_weak_subspace(
+    eigvals: np.ndarray,
+    eigvecs: np.ndarray,
+    tau_w: float,
+) -> WeakSubspaceEstimate:
+    """Return an explicit empty estimate when the legacy ratio does not trigger."""
+
+    weak = extract_weak_subspace(eigvals, eigvecs, tau_w)
+    dimension = int(weak.shape[1])
+    if dimension == 0:
+        return WeakSubspaceEstimate(projector=None, dimension=0, triggered=False)
+    return WeakSubspaceEstimate(projector=weak @ weak.T, dimension=dimension, triggered=True)
 
 
 def extract_weak_subspace(eigvals: np.ndarray, eigvecs: np.ndarray, tau_w: float) -> np.ndarray:
@@ -22,16 +81,9 @@ def extract_weak_subspace(eigvals: np.ndarray, eigvecs: np.ndarray, tau_w: float
 
 
 def get_primary_weak_direction(eigvals: np.ndarray, eigvecs: np.ndarray) -> np.ndarray:
-    """Return the unit eigenvector associated with the minimum eigenvalue."""
+    """Deprecated compatibility wrapper for the primary direction."""
 
-    values, vectors = _validate_eigensystem(eigvals, eigvecs)
-    index = int(np.argmin(values))
-    direction = np.asarray(vectors[:, index], dtype=float)
-    norm = float(np.linalg.norm(direction))
-    if norm < 1.0e-12:
-        raise ValueError("Primary weak eigenvector has zero norm")
-    direction = direction / norm
-    return _canonical_sign(direction)
+    return estimate_primary_direction(eigvals, eigvecs, 0.0).direction
 
 
 def translation_component(v: np.ndarray) -> np.ndarray:
@@ -120,17 +172,25 @@ def _validate_eigensystem(eigvals: np.ndarray, eigvecs: np.ndarray) -> Tuple[np.
     return values, vectors
 
 
-def compute_weak_projector(eigvals: np.ndarray, eigvecs: np.ndarray, tau_w: float) -> np.ndarray:
-    vectors = np.asarray(eigvecs, dtype=float)
-    weak = extract_weak_subspace(eigvals, vectors, tau_w)
-    return weak @ weak.T
+def compute_weak_projector(
+    eigvals: np.ndarray,
+    eigvecs: np.ndarray,
+    tau_w: float,
+) -> Optional[np.ndarray]:
+    """Deprecated compatibility wrapper; an empty subspace returns ``None``."""
+
+    return estimate_weak_subspace(eigvals, eigvecs, tau_w).projector
 
 
-def compute_subspace_axis_alignment(projector: np.ndarray, axis: np.ndarray) -> float:
+def compute_subspace_axis_alignment(projector: Optional[np.ndarray], axis: np.ndarray) -> float:
+    if projector is None:
+        return float("nan")
     matrix = np.asarray(projector, dtype=float)
     direction = np.asarray(axis, dtype=float)
     if matrix.shape != (direction.size, direction.size):
         raise ValueError("projector shape must match axis dimension")
+    if float(np.trace(matrix)) <= 1.0e-12:
+        return float("nan")
     unit = _normalize_or_nan(direction) if direction.size == 3 else direction / np.linalg.norm(direction)
     if not np.all(np.isfinite(unit)):
         return float("nan")
