@@ -34,7 +34,7 @@ pytest -q
 
 - Exact final command: `pytest -q`
 - Complete test count: 150 passed
-- Complete test duration: 30.84 seconds
+- Complete test duration: 31.57 seconds on the final result commit
 - A second diagnostic run, `pytest -q --durations=10`, also completed 150 tests in 30.20 seconds.
 
 Slowest 10 items in the diagnostic run:

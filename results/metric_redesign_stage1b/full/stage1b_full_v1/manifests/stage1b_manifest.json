@@ -15,8 +15,8 @@
       "full_pytest": {
         "branch": "feature/metric-redesign-stage1b",
         "command": "pytest -q",
-        "duration_seconds": 30.84,
-        "notes": "Exact full-suite command completed after the Stage 1b full run; no skipped or deleted Stage 1b tests.",
+        "duration_seconds": 31.57,
+        "notes": "Exact full-suite command completed from the final Stage 1b result commit; no skipped or deleted Stage 1b tests.",
         "status": "passed",
         "test_count": 150,
         "verified_date": "2026-07-14"
@@ -95,7 +95,7 @@
   "result_run_dir": "results/metric_redesign_stage1b/full/stage1b_full_v1",
   "run_id": "stage1b_full_v1",
   "runtime_seconds": 94.922622,
-  "runtime_seconds_last_analysis": 26.96008,
+  "runtime_seconds_last_analysis": 27.467029,
   "sensor_run_count": 90,
   "sequence_count": 45,
   "stage1b_decision": "STAGE1B_NO_GO",

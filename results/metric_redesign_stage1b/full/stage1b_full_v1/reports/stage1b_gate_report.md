@@ -17,7 +17,7 @@ Scientific gate failure is reported as a normal completed experiment, not as an 
 - one_row_per_sensor_run: `true`
 - process_trials_aggregated: `true`
 - common_process_noise: `true`
-- full_pytest: `{"branch": "feature/metric-redesign-stage1b", "command": "pytest -q", "duration_seconds": 30.84, "notes": "Exact full-suite command completed after the Stage 1b full run; no skipped or deleted Stage 1b tests.", "status": "passed", "test_count": 150, "verified_date": "2026-07-14"}`
+- full_pytest: `{"branch": "feature/metric-redesign-stage1b", "command": "pytest -q", "duration_seconds": 31.57, "notes": "Exact full-suite command completed from the final Stage 1b result commit; no skipped or deleted Stage 1b tests.", "status": "passed", "test_count": 150, "verified_date": "2026-07-14"}`
 - geometry_structure: `true`
 - observation_geometry_and_retention: `true`
 - geometry_axis_information_pair_rates: `[1.0, 0.8333333333333334]`

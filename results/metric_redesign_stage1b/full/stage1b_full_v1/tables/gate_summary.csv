@@ -8,7 +8,7 @@ check:process_trial_count,"{""actual"": 2700, ""expected"": 2700, ""pass"": true
 check:one_row_per_sensor_run,true
 check:process_trials_aggregated,true
 check:common_process_noise,true
-check:full_pytest,"{""branch"": ""feature/metric-redesign-stage1b"", ""command"": ""pytest -q"", ""duration_seconds"": 30.84, ""notes"": ""Exact full-suite command completed after the Stage 1b full run; no skipped or deleted Stage 1b tests."", ""status"": ""passed"", ""test_count"": 150, ""verified_date"": ""2026-07-14""}"
+check:full_pytest,"{""branch"": ""feature/metric-redesign-stage1b"", ""command"": ""pytest -q"", ""duration_seconds"": 31.57, ""notes"": ""Exact full-suite command completed from the final Stage 1b result commit; no skipped or deleted Stage 1b tests."", ""status"": ""passed"", ""test_count"": 150, ""verified_date"": ""2026-07-14""}"
 check:geometry_structure,true
 check:observation_geometry_and_retention,true
 check:geometry_axis_information_pair_rates,"[1.0, 0.8333333333333334]"
