@@ -1,0 +1,46 @@
+stage: metric_redesign_stage1b
+train_geometry_seeds: [101, 202, 303]
+test_geometry_seeds: [404, 505]
+sensor_seeds: [11, 22]
+process_seeds:
+  start: 1001
+  count: 30
+scene:
+  frames: 40
+  dt_s: 0.1
+  tunnel_length_m: 30.0
+  width_m: 4.0
+  height_m: 3.0
+  master_axial_patch_pool_size: 16
+  open_length_m: 30.0
+  open_bounds_m: [34.0, 18.0, 8.0]
+  open_box_count: 12
+statistics:
+  bootstrap_repetitions: 5000
+  bootstrap_seed: 7861
+  primary_abs_rho_threshold: 0.55
+  mechanism_pair_rate_threshold: 0.80
+  monotonic_tolerance: 1.0e-12
+  low_axis_information_threshold: 0.02
+  exposure_epsilon: 1.0e-12
+  weak_axis_alignment_threshold: 0.8
+  failure_thresholds_m: [0.05, 0.10, 0.20]
+preregistered_analysis:
+  primary_metric: mean_inverse_axis_information
+  primary_target: mean_final_axis_error_squared
+  secondary_metrics:
+    - harmonic_axis_information
+    - low_axis_information_ratio
+    - longest_low_information_duration_s
+    - ODI_trans_median
+    - lambda_min_trans_normalized_median
+    - condition_number_trans_median
+  expected_directions:
+    mean_inverse_axis_information: positive
+    harmonic_axis_information: negative
+    low_axis_information_ratio: positive
+    longest_low_information_duration_s: positive
+    ODI_trans_median: positive
+    lambda_min_trans_normalized_median: negative
+    condition_number_trans_median: positive
+  frozen_before_test: true

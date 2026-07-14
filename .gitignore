@@ -31,6 +31,10 @@ results/day30/manifests/*
 data/metric_redesign_stage1/**/observations.npz
 results/metric_redesign_stage1/trajectories/
 results/metric_redesign_stage1/motion/
+data/metric_redesign_stage1b/
+results/metric_redesign_stage1b/**/trajectories/
+results/metric_redesign_stage1b/**/motion/
+results/metric_redesign_stage1b/**/trials/
 
 # Keep directory placeholders
 !data/minibench/.gitkeep
