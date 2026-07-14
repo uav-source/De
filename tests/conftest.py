@@ -7,6 +7,8 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(ROOT / "src"))
 SEQUENCES = [
     "OC-L0-S01-M1",
     "ST-L3-S01-M1",

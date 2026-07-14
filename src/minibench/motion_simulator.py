@@ -49,6 +49,12 @@ def simulate_motion_measurements(
     rotation = np.zeros((count, 3), dtype=float)
     axis_sigma = float(config.get("axis_sigma", config.get("translation_sigma_m", 0.004)))
     cross_sigma = float(config.get("cross_sigma", config.get("translation_sigma_m", 0.004)))
+    translation_noise_frame = str(config.get("translation_noise_frame", "world_axis"))
+    if translation_noise_frame not in {"world_axis", "body"}:
+        raise ValueError("translation_noise_frame must be 'world_axis' or 'body'")
+    forward_sigma = float(config.get("forward_sigma_m", axis_sigma))
+    lateral_sigma = float(config.get("lateral_sigma_m", cross_sigma))
+    vertical_sigma = float(config.get("vertical_sigma_m", cross_sigma))
     rotation_sigma = np.asarray(
         config.get(
             "rotation_sigma_rad",
@@ -70,18 +76,39 @@ def simulate_motion_measurements(
         q_relative = quat_multiply(quat_conjugate(previous[4:8]), current[4:8])
         true_rotation_vector = quat_to_rotvec(q_relative)
 
-        if axes is None:
-            world_axis = np.array([1.0, 0.0, 0.0])
+        if translation_noise_frame == "body":
+            translation_noise_body = np.array(
+                [
+                    axis_bias + rng.normal(0.0, forward_sigma),
+                    rng.normal(0.0, lateral_sigma),
+                    rng.normal(0.0, vertical_sigma),
+                ],
+                dtype=float,
+            )
+            translation[index] = true_translation_body + translation_noise_body
         else:
-            world_axis = normalize_vector(np.asarray(axes[index + 1], dtype=float))
-        cross_1, cross_2 = orthonormal_cross_basis(world_axis)
-        world_noise = (
-            world_axis * (axis_bias + rng.normal(0.0, axis_sigma))
-            + cross_1 * rng.normal(0.0, cross_sigma)
-            + cross_2 * rng.normal(0.0, cross_sigma)
-        )
-        translation[index] = true_translation_body + R_previous.T @ world_noise
+            if axes is None:
+                world_axis = np.array([1.0, 0.0, 0.0])
+            else:
+                world_axis = normalize_vector(np.asarray(axes[index + 1], dtype=float))
+            cross_1, cross_2 = orthonormal_cross_basis(world_axis)
+            world_noise = (
+                world_axis * (axis_bias + rng.normal(0.0, axis_sigma))
+                + cross_1 * rng.normal(0.0, cross_sigma)
+                + cross_2 * rng.normal(0.0, cross_sigma)
+            )
+            translation[index] = true_translation_body + R_previous.T @ world_noise
         rotation[index] = true_rotation_vector + rng.normal(0.0, rotation_sigma, size=3)
+
+    if translation_noise_frame == "body":
+        translation_covariance_body = np.diag(
+            [forward_sigma**2, lateral_sigma**2, vertical_sigma**2]
+        )
+    else:
+        # Historical modes retain their old sampling semantics. This covariance
+        # is metadata only and is not consumed by Stage 1c.
+        translation_covariance_body = np.diag([axis_sigma**2, cross_sigma**2, cross_sigma**2])
+    rotation_covariance_local = np.diag(rotation_sigma**2)
 
     return {
         "timestamps": poses[:, 0].copy(),
@@ -96,6 +123,9 @@ def simulate_motion_measurements(
         "sensor_seed": np.asarray(-1 if sensor_seed is None else int(sensor_seed), dtype=np.int64),
         "motion_profile_id": np.asarray(str(motion_profile_id)),
         "surrogate_type": np.asarray("6dof_motion_propagation_surrogate"),
+        "translation_noise_frame": np.asarray(translation_noise_frame),
+        "translation_covariance_body": translation_covariance_body,
+        "rotation_covariance_local": rotation_covariance_local,
     }
 
 
