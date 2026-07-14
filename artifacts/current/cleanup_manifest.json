@@ -2,13 +2,18 @@
   "baseline_commit": "c1b288b16bf3057bfdb35bbf80ed2a584aeff8df",
   "cleanup_commit": "a842b87737001daa7317f6079777e0884f2992a0",
   "deleted_tracked_file_count": 455,
-  "deleted_untracked_file_count": 25247,
-  "deleted_bytes": 455458884,
+  "deleted_untracked_file_count": 27888,
+  "deleted_bytes": 1101647384,
+  "initial_legacy_cleanup_file_count": 25081,
+  "initial_legacy_cleanup_bytes": 445989361,
+  "validation_cleanup_file_count": 2807,
+  "validation_cleanup_bytes": 655658023,
+  "workspace_bytes_before_initial_cleanup": 456420570,
   "preserved_artifact_count": 23,
   "preserved_artifact_sha256": "a5a5a0e850e4728f6a4dd96463effb7755859108e408d0d559dc5e904508a0d4",
-  "remaining_workspace_bytes": 1840090,
+  "remaining_workspace_bytes": 1887166,
   "remaining_tracked_data_files": 0,
   "remaining_cache_files": 0,
   "legacy_import_reference_count": 0,
-  "pytest_result": "132 passed in 15.25s"
+  "pytest_result": "host final 132 passed in 15.32s; verified provenance 132 passed in 15.592647s; Docker Python 3.11 132 passed in 14.72s"
 }

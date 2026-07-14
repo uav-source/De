@@ -1,0 +1,12 @@
+{
+  "host_python": "3.8.10",
+  "host_pytest": "132 passed",
+  "host_verified_pytest_duration_seconds": 15.592647,
+  "python311_validation": "Docker python:3.11-slim",
+  "docker_version": "28.1.1",
+  "docker_image": "degen-lio-stage2a",
+  "docker_image_sha256": "f692e2cc15276c69f1c2d75bc765ea7234b9203152c38f611dbcf75c28c2fce6",
+  "docker_pytest": "132 passed in 14.72s",
+  "docker_build_status": "passed",
+  "host_python311_available": false
+}

@@ -6,8 +6,14 @@ ENV MPLBACKEND=Agg \
 
 WORKDIR /workspace
 COPY requirements-lock-py311.txt .
-RUN python -m pip install --no-cache-dir -r requirements-lock-py311.txt
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/* \
+    && python -m pip install --no-cache-dir -r requirements-lock-py311.txt
 COPY . .
-RUN python -m pytest -q -p no:cacheprovider
+RUN git init \
+    && git add . \
+    && git -c user.name=container -c user.email=container@invalid commit -m snapshot \
+    && python -c "import platform, pytest; platform.platform(); raise SystemExit(pytest.main(['-q', '-p', 'no:cacheprovider']))"
 
-CMD ["python", "-m", "pytest", "-q", "-p", "no:cacheprovider"]
+CMD ["python", "-c", "import platform, pytest; platform.platform(); raise SystemExit(pytest.main(['-q', '-p', 'no:cacheprovider']))"]

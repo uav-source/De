@@ -1,0 +1,108 @@
+{
+  "analysis_git_commit": "db1fbc72b6aa09708766d16934bfad17a61121d6",
+  "analysis_history": [
+    {
+      "analysis_git_commit": "db1fbc72b6aa09708766d16934bfad17a61121d6",
+      "analysis_source_tree_sha256": "77ca979c1e3c07d98e5cef90f885eb315f61d86f2793ce1a1298faadd3acae78",
+      "analysis_timestamp": "2026-07-14T07:03:36.969690+00:00"
+    }
+  ],
+  "authorizations": {
+    "RISK_WARNING_AUTHORIZED": false,
+    "WEAK_UPDATE_AUTHORIZED": true
+  },
+  "config_bundle_sha256": "850c40eb799bb65b2cd40781c6bf207183cc03856717530f6df274149db748db",
+  "data_generation_git_commit": "db1fbc72b6aa09708766d16934bfad17a61121d6",
+  "data_run_dir": "data/detector_stage2a/test/detector_stage2a_test_v1",
+  "detector_lock_path": "artifacts/current/detector_stage2a/locked/detector_lock.json",
+  "detector_lock_sha256": "075f14217f5e9c782bc1ab4051e6533f34d4932399c7f4b8cbc60a03d62fe358",
+  "expected_sensor_runs": 180,
+  "gates": {
+    "checks": {
+      "detector": {
+        "geometry": true,
+        "observation": true
+      },
+      "direction": {
+        "geometry": true,
+        "observation": true
+      },
+      "engineering": {
+        "cleanup_remaining_cache_files": 0,
+        "cleanup_workspace_bytes": 1840090,
+        "config_hash_matched": true,
+        "empty_subspace_nan_semantics": true,
+        "full_pytest_passed": true,
+        "geometry_measurements_nested": true,
+        "git_status_clean_at_start": true,
+        "observation_retention_nested": true,
+        "process_trials_absent": true,
+        "runtime_trigger_has_no_gt_dependency": true,
+        "source_hash_matched": true,
+        "test_sensor_runs": 180,
+        "tracked_generated_files": []
+      },
+      "mechanism": {
+        "delta_H_min_eigenvalue": -1.1641532182731423e-10,
+        "geometry_axis_information_monotonic_pairs": 20,
+        "geometry_pair_count": 20,
+        "geometry_pairs_passed": 20,
+        "measurement_sets_strictly_nested": true,
+        "observation_nested_pairs": 20,
+        "observation_pair_count": 20,
+        "observation_pairs_passed": 20,
+        "psd_increment_valid": true
+      },
+      "open_control": {
+        "actionable_direction_false_positive_rate": 0.05,
+        "degeneracy_false_positive_rate": 0.05,
+        "sensor_run_count": 20
+      }
+    },
+    "detector": "DETECTOR_PASS",
+    "engineering": "ENGINEERING_PASS",
+    "geometry_mechanism": "GEOMETRY_MECHANISM_PASS",
+    "observation_mechanism": "OBSERVATION_MECHANISM_PASS"
+  },
+  "git_status_clean_at_start": true,
+  "odi_trigger_threshold": 0.035199792993590634,
+  "phase": "test",
+  "process_trial_count": 0,
+  "pytest_provenance": {
+    "collected_test_count": 132,
+    "command": [
+      "/usr/bin/python3",
+      "-m",
+      "pytest",
+      "-q"
+    ],
+    "command_display": "/usr/bin/python3 -m pytest -q",
+    "duration_s": 15.592647,
+    "failed_test_count": 0,
+    "finished_at": "2026-07-14T07:01:49.860424+00:00",
+    "git_commit": "db1fbc72b6aa09708766d16934bfad17a61121d6",
+    "git_status_clean": true,
+    "hostname": "lj",
+    "passed_test_count": 132,
+    "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
+    "pytest_version": "8.3.5",
+    "python_executable": "/usr/bin/python3",
+    "python_version": "3.8.10 (default, Mar 18 2025, 20:04:55) \n[GCC 9.4.0]",
+    "pythonhashseed": null,
+    "return_code": 0,
+    "skipped_test_count": 0,
+    "source_tree_sha256": "f572b20a9f1547ff7924e0b4eb701c57bc2336bd51b130c89a65a1d36a97d3c5",
+    "started_at": "2026-07-14T07:01:34.268475+00:00",
+    "status": "passed",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "0fefaf9a68fbd1f95501c09d1c941a86a9c03558e780bef7fabcf5a0cecc7164",
+    "xfailed_test_count": 0
+  },
+  "result_run_dir": "results/detector_stage2a/test/detector_stage2a_test_v1",
+  "run_id": "detector_stage2a_test_v1",
+  "runtime_seconds": 99.662701,
+  "sensor_run_count": 180,
+  "source_tree_sha256": "77ca979c1e3c07d98e5cef90f885eb315f61d86f2793ce1a1298faadd3acae78",
+  "stage": "detector_consolidation_stage2a",
+  "status": "OK"
+}

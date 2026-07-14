@@ -1,0 +1,9 @@
+.git
+data
+results
+**/__pycache__
+**/.pytest_cache
+**/mplconfig*
+**/*.pyc
+**/*.pyo
+**/*.log
