@@ -14,12 +14,14 @@ Not confirmed:
 
 - reliable drift magnitude prediction;
 - online risk warning;
-- selective weak-direction update benefit (under evaluation);
+- selective weak-direction update benefit under the locked Stage 2B benchmark;
 - complete LiDAR-inertial odometry method.
 
 Current active stage: **Weak-Subspace Update Stage 2B**.
 
-Confirmed: the detector and weak direction. Under evaluation: a covariance-aware selective weak-direction update. Risk prediction remains paused. FAST-LIO2 integration, real IMU propagation, real data association, and a complete Degen-LIO system are not implemented.
+Confirmed: the detector and weak direction. Evaluated without authorization: the covariance-aware selective weak-direction update. Risk prediction remains paused. FAST-LIO2 integration, real IMU propagation, real data association, and a complete Degen-LIO system are not implemented.
+
+Locked Stage 2B outcome: **Selective update did not outperform robust full update under the locked benchmark.** Engineering, stress-mechanism, clean non-inferiority, and Open-Control safety checks passed, but both severe-contamination performance gates failed. Integration is not authorized, and the reserved Test seeds must not be reused for tuning.
 
 ## Reproduce the active Stage 2B study
 

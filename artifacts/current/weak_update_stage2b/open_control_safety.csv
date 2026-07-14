@@ -1,0 +1,2 @@
+scope_count,axis_rmse_relative_change,strong_translation_rmse_relative_change,orientation_rmse_rad_relative_change,trajectory_rmse_3d_relative_change,q95_update_norm_relative_change,formal_actionable_rate,solver_failure_count
+400,2.00539721209116e-05,-0.00011568481302457668,1.874184050626592e-05,-7.224653159222758e-05,0.0,0.03314102564102564,0
