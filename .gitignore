@@ -4,47 +4,34 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-**/__pycache__/
+.coverage
+htmlcov/
+
+# Matplotlib and runtime caches
 mplconfig*/
 **/mplconfig*/
 .matplotlib/
-.cache/matplotlib/
+.cache/
 fontlist-v*.json
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Generated data and experiment runs
+data/**
+!data/.gitkeep
+
+results/**
+
+# Historical compact evidence is intentionally tracked
+!artifacts/
+!artifacts/history/
+!artifacts/history/**
 
 # Environments
 .venv/
 venv/
 env/
-
-# Generated experiment data
-data/minibench/*/
-results/day14/raw/*
-results/day14/metrics/*
-results/day14/figures/*
-results/day14/tables/*
-results/day14/manifests/*
-results/day30/raw/*
-results/day30/metrics/*
-results/day30/figures/*
-results/day30/tables/*
-results/day30/manifests/*
-data/metric_redesign_stage1/**/observations.npz
-results/metric_redesign_stage1/trajectories/
-results/metric_redesign_stage1/motion/
-data/metric_redesign_stage1b/
-results/metric_redesign_stage1b/**/trajectories/
-results/metric_redesign_stage1b/**/motion/
-results/metric_redesign_stage1b/**/trials/
-results/metric_redesign_stage1b/**/sensors/
-results/metric_redesign_stage1b/full/**/tables/process_trial_summary.csv
-data/metric_redesign_stage1c/
-results/metric_redesign_stage1c/
-
-# Keep directory placeholders
-!data/minibench/.gitkeep
-!results/day14/raw/.gitkeep
-!results/day14/metrics/.gitkeep
-!results/day14/figures/.gitkeep
-!results/day14/tables/.gitkeep
-!results/day14/manifests/.gitkeep
-!results/day14/manifests/manifest_template.json

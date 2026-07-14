@@ -1,4 +1,4 @@
-"""Pre-registered hierarchical statistics for Metric Redesign Stage 1b."""
+"""Pre-registered hierarchical statistics shared by detector experiments."""
 
 from __future__ import annotations
 

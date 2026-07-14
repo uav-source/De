@@ -88,7 +88,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--est", type=Path, help="Estimated TUM trajectory for one sequence.")
     parser.add_argument("--out", type=Path, help="Output window metrics CSV for one sequence.")
     parser.add_argument("--config", type=Path, help="Detector config with window_size/window_stride.")
-    parser.add_argument("--all", action="store_true", help="Evaluate all four Day 14 sequences.")
+    parser.add_argument("--all", action="store_true", help="Evaluate all four core benchmark sequences.")
     return parser.parse_args()
 
 
@@ -270,9 +270,9 @@ def write_summary_csv(rows: List[Dict[str, float]], out_path: Path) -> None:
 def default_paths(sequence_dir: Path) -> Tuple[Path, Path, Path]:
     sequence_id = sequence_dir.name
     return (
-        ROOT / "results/day14/raw" / f"{sequence_id}_odi.csv",
-        ROOT / "results/day14/raw" / f"{sequence_id}_pose_est_toy.tum",
-        ROOT / "results/day14/metrics" / f"{sequence_id}_metrics.csv",
+        ROOT / "results/core/raw" / f"{sequence_id}_odi.csv",
+        ROOT / "results/core/raw" / f"{sequence_id}_pose_est_toy.tum",
+        ROOT / "results/core/metrics" / f"{sequence_id}_metrics.csv",
     )
 
 
@@ -296,7 +296,7 @@ def main() -> int:
             summary = evaluate_sequence(sequence_dir, odi_path, est_path, out_path, config)
             summaries.append(summary)
             print_summary(summary, out_path)
-        write_summary_csv(summaries, ROOT / "results/day14/tables/day08_metric_summary.csv")
+        write_summary_csv(summaries, ROOT / "results/core/tables/metric_summary.csv")
         return 0
 
     if args.seq is None:

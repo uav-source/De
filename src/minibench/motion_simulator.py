@@ -1,4 +1,4 @@
-"""Deterministic 6DoF motion-propagation surrogate for Metric Redesign Stage 1.
+"""Deterministic 6DoF motion-propagation surrogate retained for historical reproduction.
 
 This is not a full IMU model. Ground truth is consumed only here to synthesize
 standalone relative-motion measurements; the estimator reads the saved
@@ -41,7 +41,7 @@ def simulate_motion_measurements(
     elif any(value is not None for value in context):
         raise ValueError("experiment_family, geometry_seed, and sensor_seed must be provided together")
     else:
-        # Preserve the Stage 1b random stream for old runs and tests.
+        # Preserve the compatibility random stream for old runs and tests.
         resolved_noise_seed = process_noise_seed(process_seed, motion_profile_id)
     rng = np.random.default_rng(resolved_noise_seed)
     count = max(poses.shape[0] - 1, 0)
@@ -91,7 +91,7 @@ def simulate_motion_measurements(
         "process_seed": np.asarray(int(process_seed), dtype=np.int64),
         "process_noise_seed": np.asarray(resolved_noise_seed, dtype=np.uint64),
         "process_noise_seed_resolved": np.asarray(resolved_noise_seed, dtype=np.uint64),
-        "experiment_family": np.asarray("stage1b_legacy" if experiment_family is None else str(experiment_family)),
+        "experiment_family": np.asarray("common_legacy" if experiment_family is None else str(experiment_family)),
         "geometry_seed": np.asarray(-1 if geometry_seed is None else int(geometry_seed), dtype=np.int64),
         "sensor_seed": np.asarray(-1 if sensor_seed is None else int(sensor_seed), dtype=np.int64),
         "motion_profile_id": np.asarray(str(motion_profile_id)),
@@ -102,7 +102,7 @@ def simulate_motion_measurements(
 def process_noise_seed(process_seed: int, motion_profile_id: str) -> int:
     """Resolve common random numbers without sequence, level, or sensor ids."""
 
-    payload = f"stage1b:{int(process_seed)}:{str(motion_profile_id)}".encode("utf-8")
+    payload = f"common:{int(process_seed)}:{str(motion_profile_id)}".encode("utf-8")
     # NumPy accepts a 64-bit integer seed; keep this stable across processes.
     return int.from_bytes(hashlib.sha256(payload).digest()[:8], "big")
 

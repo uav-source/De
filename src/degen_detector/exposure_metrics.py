@@ -1,4 +1,4 @@
-"""Cumulative weak-constraint exposure metrics for Metric Redesign Stage 1b."""
+"""Cumulative weak-constraint exposure metrics retained for Stage 1c reproduction."""
 
 from __future__ import annotations
 

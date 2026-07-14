@@ -23,7 +23,7 @@ def test_same_process_seed_across_levels_has_identical_noise_checksum():
     )
     config = {"axis_sigma": 0.01, "cross_sigma": 0.003, "yaw_sigma": 0.001}
     checksums = [
-        process_noise_checksum(simulate_motion_measurements(poses, 1001, config, motion_profile_id="stage1b_m1"))
+        process_noise_checksum(simulate_motion_measurements(poses, 1001, config, motion_profile_id="common_m1"))
         for _level in ["L1", "L2", "L3", "L4", "O1", "O4"]
     ]
     assert len(set(checksums)) == 1

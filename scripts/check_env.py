@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check the Day 1-14 reproducible environment.
+"""Check the reproducible detector-prototype environment.
 
 The script verifies required Python packages, repository layout, random seed
 configuration, git commit availability, and whether result directories are
@@ -43,12 +43,6 @@ REQUIRED_DIRS = [
     "configs/detector",
     "scripts",
     "tests",
-    "data/minibench",
-    "results/day14/raw",
-    "results/day14/metrics",
-    "results/day14/figures",
-    "results/day14/tables",
-    "results/day14/manifests",
     "reports",
 ]
 
@@ -119,7 +113,7 @@ def check_writable(path: Path) -> bool:
 def make_manifest(root: Path) -> tuple[dict[str, Any], list[str]]:
     package_results, missing_packages = check_packages()
     missing_dirs = [directory for directory in REQUIRED_DIRS if not (root / directory).is_dir()]
-    manifests_dir = root / "results/day14/manifests"
+    manifests_dir = root / "results/environment"
     report_dir = root / "reports"
 
     random.seed(RANDOM_SEED)
@@ -133,7 +127,7 @@ def make_manifest(root: Path) -> tuple[dict[str, Any], list[str]]:
         pass
 
     manifest: dict[str, Any] = {
-        "check_name": "day02_environment_check",
+        "check_name": "detector_environment_check",
         "date_utc": datetime.now(timezone.utc).isoformat(),
         "repo_root": str(root),
         "cwd": os.getcwd(),
@@ -152,7 +146,7 @@ def make_manifest(root: Path) -> tuple[dict[str, Any], list[str]]:
         "required_dirs": {directory: (root / directory).is_dir() for directory in REQUIRED_DIRS},
         "missing_dirs": missing_dirs,
         "writable_paths": {
-            "results/day14/manifests": check_writable(manifests_dir),
+            "results/environment": check_writable(manifests_dir),
             "reports": check_writable(report_dir),
         },
     }
@@ -170,10 +164,10 @@ def make_manifest(root: Path) -> tuple[dict[str, Any], list[str]]:
 def main() -> int:
     root = repo_root()
     manifest, errors = make_manifest(root)
-    out_path = root / "results/day14/manifests/day02_env_check.json"
+    out_path = root / "results/environment/env_check.json"
     out_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
-    print("Degen-LIO Day 2 environment check")
+    print("Degen-LIO detector environment check")
     print(f"repo_root: {root}")
     print(f"git_commit: {manifest['git_commit']}")
     print(f"random_seed: {manifest['random_seed']}")
@@ -190,4 +184,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

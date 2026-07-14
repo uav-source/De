@@ -167,7 +167,7 @@ def load_toy_lio_config(config: Union[None, str, Path, Dict[str, Any]]) -> Dict[
     mode = str(raw.get("axis_bias_mode", "legacy_scene_family"))
     if mode not in VALID_AXIS_BIAS_MODES:
         raise ValueError(f"Unsupported axis_bias_mode={mode!r}")
-    profile = str(raw.get("perturbation_profile", "legacy_day14"))
+    profile = str(raw.get("perturbation_profile", "synthetic_core"))
     normalized = {
         "axis_bias_mode": mode,
         "perturbation_profile": profile,

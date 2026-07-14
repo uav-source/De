@@ -133,7 +133,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seq", type=Path, help="Generated sequence directory.")
     parser.add_argument("--config", type=Path, required=True, help="Detector config path.")
     parser.add_argument("--out", type=Path, help="Output ODI CSV path for one sequence.")
-    parser.add_argument("--all", action="store_true", help="Compute ODI for all four Day 14 sequences.")
+    parser.add_argument("--all", action="store_true", help="Compute ODI for all four core benchmark sequences.")
     return parser.parse_args()
 
 
@@ -142,16 +142,16 @@ def main() -> int:
     if args.all:
         results = []
         for sequence_dir in DEFAULT_SEQUENCES:
-            out = ROOT / "results/day14/raw" / f"{sequence_dir.name}_odi.csv"
+            out = ROOT / "results/core/raw" / f"{sequence_dir.name}_odi.csv"
             rows = compute_one(sequence_dir, args.config, out)
             results.append((sequence_dir.name, rows))
-        write_summary(results, ROOT / "results/day14/tables/day06_odi_summary.csv")
-        write_alignment_summary(results, ROOT / "results/day14/tables/day09_alignment_summary.csv")
+        write_summary(results, ROOT / "results/core/tables/odi_summary.csv")
+        write_alignment_summary(results, ROOT / "results/core/tables/alignment_summary.csv")
         return 0
 
     if args.seq is None:
         raise SystemExit("--seq is required unless --all is used")
-    out = args.out or (ROOT / "results/day14/raw" / f"{args.seq.name}_odi.csv")
+    out = args.out or (ROOT / "results/core/raw" / f"{args.seq.name}_odi.csv")
     compute_one(args.seq, args.config, out)
     return 0
 

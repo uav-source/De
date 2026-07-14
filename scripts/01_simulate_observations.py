@@ -31,7 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seq", type=Path, help="Generated sequence directory.")
     parser.add_argument("--config", type=Path, required=True, help="Detector config path.")
-    parser.add_argument("--all", action="store_true", help="Simulate all four Day 14 minimum sequences.")
+    parser.add_argument("--all", action="store_true", help="Simulate all four core benchmark sequences.")
     parser.add_argument("--sensor-seed", type=int, help="Override the sensor sampling/noise seed.")
     return parser.parse_args()
 

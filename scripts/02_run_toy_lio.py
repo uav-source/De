@@ -33,7 +33,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seq", type=Path, help="Generated sequence directory.")
     parser.add_argument("--config", type=Path, required=True, help="Detector config path.")
     parser.add_argument("--out", type=Path, help="Output TUM trajectory for one sequence.")
-    parser.add_argument("--all", action="store_true", help="Run all four Day 14 sequences.")
+    parser.add_argument("--all", action="store_true", help="Run all four core benchmark sequences.")
     return parser.parse_args()
 
 
@@ -54,19 +54,18 @@ def main() -> int:
     if args.all:
         rows = []
         for sequence_dir in DEFAULT_SEQUENCES:
-            out = ROOT / "results/day14/raw" / f"{sequence_dir.name}_pose_est_toy.tum"
+            out = ROOT / "results/core/raw" / f"{sequence_dir.name}_pose_est_toy.tum"
             result = run_one(sequence_dir, args.config, out)
             rows.append((sequence_dir.name, result["summary"]))
-        write_toy_summary_csv(rows, ROOT / "results/day14/tables/day07_toy_lio_summary.csv")
+        write_toy_summary_csv(rows, ROOT / "results/core/tables/toy_lio_summary.csv")
         return 0
 
     if args.seq is None:
         raise SystemExit("--seq is required unless --all is used")
-    out = args.out or ROOT / "results/day14/raw" / f"{args.seq.name}_pose_est_toy.tum"
+    out = args.out or ROOT / "results/core/raw" / f"{args.seq.name}_pose_est_toy.tum"
     run_one(args.seq, args.config, out)
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

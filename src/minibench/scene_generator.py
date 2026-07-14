@@ -2,7 +2,7 @@
 
 This module intentionally generates only geometry, ground-truth poses, axes,
 and metadata. It does not create Day 5 observations, Day 7 toy LIO estimates,
-or Day 14 figures.
+or presentation-specific figures.
 """
 
 from __future__ import annotations
@@ -549,7 +549,7 @@ def generate_master_axial_patch_pool(
     height_m: float,
     pool_size: int,
 ) -> List[PlanePatch]:
-    """Generate one deterministic, strength-ranked Stage 1b patch pool.
+    """Generate one deterministic, strength-ranked axial patch pool.
 
     Geometry levels select nested prefixes of this pool. Sampling weights are
     frozen at one, so level changes are physical additions/removals of finite

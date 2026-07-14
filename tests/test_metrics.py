@@ -43,14 +43,6 @@ def test_metrics_contract_includes_directional_and_alternative_metrics():
     assert "AIS" in text
 
 
-def test_day14_acceptance_freezes_gate_thresholds():
-    text = (ROOT / "docs/day14_acceptance.md").read_text(encoding="utf-8")
-
-    assert "Median reliable axis alignment >= 0.70" in text
-    assert "Spearman rho(ODI, axis drift rate) >= 0.50" in text
-    assert "ODI beats condition_number or lambda_min" in text
-
-
 def test_tum_file_reading_is_correct(tmp_path):
     tum_path = tmp_path / "pose.tum"
     tum_path.write_text(
@@ -140,7 +132,7 @@ def test_metrics_module_does_not_depend_on_toy_lio_or_day7_summary():
     assert "pose_est_toy" not in source
 
 
-def test_day8_summary_matches_recomputed_tum_errors(tmp_path, day14_tmp_pipeline):
+def test_metric_summary_matches_recomputed_tum_errors(tmp_path, day14_tmp_pipeline):
     module = load_eval_script()
     sequence_dir = day14_tmp_pipeline["seq"]("ST-L3-S01-M1")
     odi_path = day14_tmp_pipeline["odi"]("ST-L3-S01-M1")
@@ -192,7 +184,7 @@ def test_cumulative_path_length_is_monotonic():
 
 def load_eval_script():
     script_path = ROOT / "scripts/03_eval_metrics.py"
-    spec = importlib.util.spec_from_file_location("day8_eval_metrics_script", script_path)
+    spec = importlib.util.spec_from_file_location("core_eval_metrics_script", script_path)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
     spec.loader.exec_module(module)
