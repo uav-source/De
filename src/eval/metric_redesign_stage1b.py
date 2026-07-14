@@ -1485,7 +1485,7 @@ def normalize_numeric_row(row: Mapping[str, Any]) -> Dict[str, Any]:
             try:
                 output[key] = float(value)
             except ValueError:
-                pass
+                continue
     return output
 
 
