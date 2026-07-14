@@ -641,6 +641,8 @@ def analyze_stage1b_tables(
     comparison_rows = build_train_test_comparison(correlation_tables, within_rows, paired_rows)
     write_csv(tables / "train_test_comparison.csv", comparison_rows)
 
+    evidence_path = result_run.parents[3] / "reports/stage1b_pytest_status.json"
+    pytest_evidence = read_json(evidence_path) if evidence_path.exists() else None
     gates = evaluate_stage1b_gates(
         normalized_sensor_rows,
         process_rows,
@@ -649,8 +651,13 @@ def analyze_stage1b_tables(
         paired_rows,
         common,
         mode,
+        pytest_evidence,
     )
-    gate_rows = [{"gate": key, "status": value} for key, value in gates.items()]
+    gate_rows = [{"gate": key, "status": value} for key, value in gates.items() if key != "checks"]
+    gate_rows.extend(
+        {"gate": f"check:{key}", "status": json.dumps(value, sort_keys=True)}
+        for key, value in gates["checks"].items()
+    )
     write_csv(tables / "gate_summary.csv", gate_rows)
     generate_stage1b_figures(result_run / "figures", normalized_sensor_rows)
     report = build_gate_report(gates, level_rows, correlation_tables, within_rows, paired_rows, normalized_sensor_rows)
@@ -837,7 +844,8 @@ def evaluate_stage1b_gates(
     paired_rows: Sequence[Mapping[str, Any]],
     common: Mapping[str, Any],
     mode: str,
-) -> Dict[str, str]:
+    pytest_evidence: Mapping[str, Any] | None = None,
+) -> Dict[str, Any]:
     expected = {"quick": (9, 27), "full": (90, 2700)}[mode]
     sensor_count_ok = len(sensor_rows) == expected[0]
     trial_count_ok = len(process_rows) == expected[1]
@@ -847,21 +855,40 @@ def evaluate_stage1b_gates(
     ) == len(sensor_rows)
     aggregation_ok = all(int(row["process_trial_count"]) == expected_trials_per_sensor for row in sensor_rows)
     process_pair_ok = common_process_noise_pairing_pass(process_rows)
-    engineering_pass = sensor_count_ok and trial_count_ok and one_row_per_sensor and aggregation_ok and process_pair_ok
+    pytest_ok = mode == "quick" or bool(
+        pytest_evidence
+        and pytest_evidence.get("command") == "pytest -q"
+        and pytest_evidence.get("status") == "passed"
+        and int(pytest_evidence.get("test_count", 0)) >= 150
+    )
+    engineering_pass = (
+        sensor_count_ok and trial_count_ok and one_row_per_sensor and aggregation_ok and process_pair_ok and pytest_ok
+    )
 
     geometry_rows = [row for row in sensor_rows if str(row["sweep_type"]) == "geometry" and str(row["level"]) != "OC"]
     observation_rows = [row for row in sensor_rows if str(row["sweep_type"]) == "observation"]
     geometry_structure_ok = geometry_structure_mechanism_pass(geometry_rows)
     observation_structure_ok = observation_structure_mechanism_pass(observation_rows)
     required_pair_rate = float(common["statistics"]["mechanism_pair_rate_threshold"])
-    geometry_axis_pair = find_row(
-        paired_rows, sweep_type="geometry", split="train", field="axis_information_normalized_median"
-    )
-    observation_axis_pair = find_row(
-        paired_rows, sweep_type="observation", split="train", field="axis_information_normalized_median"
-    )
-    geometry_axis_ok = float(geometry_axis_pair.get("metric_monotonic_pair_rate", float("nan"))) >= required_pair_rate
-    observation_axis_ok = float(observation_axis_pair.get("metric_monotonic_pair_rate", float("nan"))) >= required_pair_rate
+    required_splits = ["train"] if mode == "quick" else ["train", "test"]
+    geometry_axis_rates = [
+        float(
+            find_row(
+                paired_rows, sweep_type="geometry", split=split, field="axis_information_normalized_median"
+            ).get("metric_monotonic_pair_rate", float("nan"))
+        )
+        for split in required_splits
+    ]
+    observation_axis_rates = [
+        float(
+            find_row(
+                paired_rows, sweep_type="observation", split=split, field="axis_information_normalized_median"
+            ).get("metric_monotonic_pair_rate", float("nan"))
+        )
+        for split in required_splits
+    ]
+    geometry_axis_ok = all(rate >= required_pair_rate for rate in geometry_axis_rates)
+    observation_axis_ok = all(rate >= required_pair_rate for rate in observation_axis_rates)
     mechanism_pass = geometry_structure_ok and observation_structure_ok and geometry_axis_ok and observation_axis_ok
 
     prediction_pass = mode == "full"
@@ -895,14 +922,42 @@ def evaluate_stage1b_gates(
             and residual_rho > 0.0
             and primary_not_worse
         )
-    gates = {
+    checks: Dict[str, Any] = {
+        "sensor_count": {"actual": len(sensor_rows), "expected": expected[0], "pass": sensor_count_ok},
+        "process_trial_count": {"actual": len(process_rows), "expected": expected[1], "pass": trial_count_ok},
+        "one_row_per_sensor_run": one_row_per_sensor,
+        "process_trials_aggregated": aggregation_ok,
+        "common_process_noise": process_pair_ok,
+        "full_pytest": dict(pytest_evidence) if pytest_evidence else {"status": "not_required" if mode == "quick" else "missing"},
+        "geometry_structure": geometry_structure_ok,
+        "observation_geometry_and_retention": observation_structure_ok,
+        "geometry_axis_information_pair_rates": geometry_axis_rates,
+        "observation_axis_information_pair_rates": observation_axis_rates,
+        "prediction_details": {},
+    }
+    for sweep in ["geometry", "observation"]:
+        primary = find_row(correlations[sweep], split="test", metric_name=PRIMARY_METRIC)
+        odi = find_row(correlations[sweep], split="test", metric_name="ODI_trans_median")
+        residual = find_row(within_rows, sweep_type=sweep, split="test", metric_name=PRIMARY_METRIC)
+        primary_pair = find_row(paired_rows, sweep_type=sweep, split="test", field=PRIMARY_METRIC)
+        checks["prediction_details"][sweep] = {
+            "primary_rho": primary.get("rho", float("nan")),
+            "primary_ci": [primary.get("bootstrap_ci_low", float("nan")), primary.get("bootstrap_ci_high", float("nan"))],
+            "odi_rho": odi.get("rho", float("nan")),
+            "within_level_residual_rho": residual.get("within_level_residual_spearman", float("nan")),
+            "primary_monotonic_pair_rate": primary_pair.get("metric_monotonic_pair_rate", float("nan")),
+        }
+    gates: Dict[str, Any] = {
         "engineering": "ENGINEERING_PASS" if engineering_pass else "ENGINEERING_FAIL",
         "mechanism": "MECHANISM_PASS" if mechanism_pass else "MECHANISM_FAIL",
         "prediction": "PREDICTION_PASS" if prediction_pass else "PREDICTION_FAIL",
+        "checks": checks,
     }
     gates["stage1b"] = (
         "STAGE1B_PASS"
-        if all(value.endswith("PASS") for key, value in gates.items() if key != "stage1b")
+        if gates["engineering"].endswith("PASS")
+        and gates["mechanism"].endswith("PASS")
+        and gates["prediction"].endswith("PASS")
         else "STAGE1B_NO_GO"
     )
     return gates
@@ -1122,7 +1177,7 @@ def save_figure(fig: Any, path: Path) -> None:
 
 
 def build_gate_report(
-    gates: Mapping[str, str],
+    gates: Mapping[str, Any],
     level_rows: Sequence[Mapping[str, Any]],
     correlations: Mapping[str, Sequence[Mapping[str, Any]]],
     within_rows: Sequence[Mapping[str, Any]],
@@ -1142,6 +1197,14 @@ def build_gate_report(
         f"- {gates['mechanism']}",
         f"- {gates['prediction']}",
         "",
+        "### Audited checks",
+        "",
+    ]
+    for name, value in gates["checks"].items():
+        lines.append(f"- {name}: `{json.dumps(value, sort_keys=True)}`")
+    lines.extend(
+        [
+        "",
         "## Independent-sample accounting",
         "",
         f"- Independent sensor runs: {len(sensor_rows)}",
@@ -1152,7 +1215,8 @@ def build_gate_report(
         "",
         "| Sweep | Split | Level | N | geometry support | axial fraction | axis information | primary metric | primary target |",
         "|---|---|---|---:|---:|---:|---:|---:|---:|",
-    ]
+        ]
+    )
     for row in level_rows:
         lines.append(
             f"| {row['sweep_type']} | {row['split']} | {row['level']} | {row['independent_sensor_runs']} | "
