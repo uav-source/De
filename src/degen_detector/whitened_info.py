@@ -130,6 +130,36 @@ def normalize_information_matrix(H: np.ndarray, n_eff: float) -> np.ndarray:
     return 0.5 * ((matrix / float(n_eff)) + (matrix / float(n_eff)).T)
 
 
+def compute_axis_information(H_trans: np.ndarray, axis: np.ndarray) -> float:
+    """Return directional translation information a^T H_trans a."""
+
+    matrix = np.asarray(H_trans, dtype=float)
+    direction = np.asarray(axis, dtype=float)
+    if matrix.shape != (3, 3):
+        raise ValueError(f"H_trans must be 3x3, got {matrix.shape}")
+    if direction.shape != (3,):
+        raise ValueError(f"axis must have shape [3], got {direction.shape}")
+    norm = float(np.linalg.norm(direction))
+    if norm < 1.0e-12:
+        raise ValueError("axis must be non-zero")
+    unit = direction / norm
+    return float(unit @ matrix @ unit)
+
+
+def compute_axis_information_ratio(
+    H_trans: np.ndarray,
+    axis: np.ndarray,
+    epsilon: float = 1.0e-12,
+) -> float:
+    """Normalize directional information by one third of total information."""
+
+    matrix = np.asarray(H_trans, dtype=float)
+    if epsilon <= 0.0:
+        raise ValueError("epsilon must be positive")
+    denominator = float(np.trace(matrix)) / 3.0 + float(epsilon)
+    return compute_axis_information(matrix, axis) / denominator
+
+
 def compute_epsilon(eigvals: np.ndarray, mode: str, ratio: float) -> float:
     values = np.asarray(eigvals, dtype=float)
     if mode == "relative_trace":

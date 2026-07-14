@@ -7,6 +7,7 @@ measurements and never reconstructs ground-truth deltas.
 
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 from typing import Any, Dict, Optional
 
@@ -20,11 +21,13 @@ def simulate_motion_measurements(
     process_seed: int,
     config: Dict[str, Any],
     axes: Optional[np.ndarray] = None,
+    motion_profile_id: str = "default_motion_profile",
 ) -> Dict[str, np.ndarray]:
     poses = np.asarray(gt_poses, dtype=float)
     if poses.ndim != 2 or poses.shape[1] != 8 or poses.shape[0] < 1:
         raise ValueError("gt_poses must have shape [N, 8]")
-    rng = np.random.default_rng(int(process_seed))
+    resolved_noise_seed = process_noise_seed(process_seed, motion_profile_id)
+    rng = np.random.default_rng(resolved_noise_seed)
     count = max(poses.shape[0] - 1, 0)
     translation = np.zeros((count, 3), dtype=float)
     rotation = np.zeros((count, 3), dtype=float)
@@ -70,8 +73,30 @@ def simulate_motion_measurements(
         "delta_translation_body": translation,
         "delta_rotation_vector": rotation,
         "process_seed": np.asarray(int(process_seed), dtype=np.int64),
+        "process_noise_seed": np.asarray(resolved_noise_seed, dtype=np.uint64),
+        "motion_profile_id": np.asarray(str(motion_profile_id)),
         "surrogate_type": np.asarray("6dof_motion_propagation_surrogate"),
     }
+
+
+def process_noise_seed(process_seed: int, motion_profile_id: str) -> int:
+    """Resolve common random numbers without sequence, level, or sensor ids."""
+
+    payload = f"stage1b:{int(process_seed)}:{str(motion_profile_id)}".encode("utf-8")
+    # NumPy accepts a 64-bit integer seed; keep this stable across processes.
+    return int.from_bytes(hashlib.sha256(payload).digest()[:8], "big")
+
+
+def process_noise_checksum(measurements: Dict[str, np.ndarray]) -> str:
+    """Checksum only stochastic increments, excluding paths and level labels."""
+
+    digest = hashlib.sha256()
+    for key in ["delta_translation_body", "delta_rotation_vector"]:
+        value = np.asarray(measurements[key])
+        digest.update(key.encode("utf-8"))
+        digest.update(value.dtype.str.encode("ascii"))
+        digest.update(np.ascontiguousarray(value).tobytes())
+    return digest.hexdigest()
 
 
 def save_motion_measurements(measurements: Dict[str, np.ndarray], output_path: str | Path) -> None:

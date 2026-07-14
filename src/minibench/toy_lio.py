@@ -5,7 +5,7 @@ from __future__ import annotations
 import csv
 import hashlib
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple, Union
+from typing import Any, Dict, Mapping, Optional, Tuple, Union
 
 import numpy as np
 import yaml
@@ -45,13 +45,18 @@ def run_toy_lio(
     toy_config: Union[None, str, Path, Dict[str, Any]] = None,
     motion_measurements: Union[None, str, Path, Dict[str, np.ndarray]] = None,
     process_seed: Optional[int] = None,
-    observations_path: Union[None, str, Path] = None,
+    observations_path: Union[None, str, Path, Mapping[str, np.ndarray]] = None,
 ) -> Dict[str, Any]:
     sequence_dir = Path(sequence_dir)
     detector_config = load_detector_config(config) if not isinstance(config, dict) else config
     toy_lio_config = load_toy_lio_config(toy_config)
     sequence = load_sequence(sequence_dir)
-    observations = np.load(Path(observations_path) if observations_path is not None else sequence_dir / "observations.npz")
+    if isinstance(observations_path, Mapping):
+        observations = {key: np.asarray(value) for key, value in observations_path.items()}
+    else:
+        observation_file = Path(observations_path) if observations_path is not None else sequence_dir / "observations.npz"
+        with np.load(observation_file) as loaded:
+            observations = {key: loaded[key].copy() for key in loaded.files}
 
     base_seed = int(toy_lio_config.get("seed", detector_config.get("random_seed", sequence.metadata["random_seed"])))
     seed = base_seed + stable_seed_offset(sequence.sequence_id)
@@ -263,8 +268,9 @@ def build_bias_metadata(family: str, toy_config: Dict[str, Any], applied_axis_bi
 def compute_toy_summary(est: np.ndarray, gt: np.ndarray, axes: np.ndarray) -> Dict[str, float]:
     errors = est[:, 1:4] - gt[:, 1:4]
     axis = normalize_rows(axes)
-    axis_error = np.abs(np.einsum("ij,ij->i", errors, axis))
-    cross_vectors = errors - axis_error[:, None] * axis * np.sign(np.einsum("ij,ij->i", errors, axis))[:, None]
+    axis_error_signed = np.einsum("ij,ij->i", errors, axis)
+    axis_error = np.abs(axis_error_signed)
+    cross_vectors = errors - axis_error_signed[:, None] * axis
     cross_error = np.linalg.norm(cross_vectors, axis=1)
     final_error = errors[-1]
     return {
@@ -273,6 +279,14 @@ def compute_toy_summary(est: np.ndarray, gt: np.ndarray, axes: np.ndarray) -> Di
         "final_cross_error": float(cross_error[-1]),
         "mean_axis_error": float(np.mean(axis_error)),
         "mean_cross_error": float(np.mean(cross_error)),
+        "final_axis_error_signed": float(axis_error_signed[-1]),
+        "final_axis_error_abs": float(axis_error[-1]),
+        "final_axis_error_squared": float(axis_error_signed[-1] ** 2),
+        "axis_rmse": float(np.sqrt(np.mean(axis_error_signed**2))),
+        "axis_mae": float(np.mean(axis_error)),
+        "max_axis_error_abs": float(np.max(axis_error)),
+        "final_cross_axis_error": float(cross_error[-1]),
+        "trajectory_rmse_3d": float(np.sqrt(np.mean(np.sum(errors**2, axis=1)))),
     }
 
 

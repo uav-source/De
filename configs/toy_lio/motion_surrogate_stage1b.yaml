@@ -1,0 +1,11 @@
+surrogate_type: 6dof_motion_propagation_surrogate
+motion_profile_id: stage1b_straight_m1
+axis_bias_mode: none
+perturbation_profile: metric_redesign_stage1b
+noise:
+  axis_sigma: 0.012
+  cross_sigma: 0.003
+  roll_sigma: 0.0004
+  pitch_sigma: 0.0004
+  yaw_sigma: 0.0008
+notes: "Standalone noisy relative-motion surrogate; GT is used only to synthesize measurements and initialize frame 0. Not a full IMU or full LIO."

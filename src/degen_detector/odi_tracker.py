@@ -8,6 +8,8 @@ import numpy as np
 
 from .whitened_info import (
     compute_AIS,
+    compute_axis_information,
+    compute_axis_information_ratio,
     compute_effective_sample_size,
     compute_H_tilde,
     compute_epsilon,
@@ -125,6 +127,26 @@ def compute_metrics_for_frame(
         "weak_trans_primary_z": float(trans_primary[2]),
         "weak_trans_primary_reliable": float(1 if trans_primary_reliable else 0),
     }
+    if axis is None:
+        metrics.update(
+            {
+                "axis_information_raw": float("nan"),
+                "axis_information_normalized": float("nan"),
+                "axis_information_ratio": float("nan"),
+            }
+        )
+    else:
+        direction = np.asarray(axis, dtype=float)
+        metrics.update(
+            {
+                "axis_information_raw": compute_axis_information(trans_info_raw, direction),
+                "axis_information_normalized": compute_axis_information(trans_info_normalized, direction),
+                "axis_information_ratio": compute_axis_information_ratio(trans_info_normalized, direction),
+            }
+        )
+    for row in range(3):
+        for column in range(3):
+            metrics[f"weak_trans_projector_{row}{column}"] = float(trans_projector[row, column])
     for idx, value in enumerate(eigvals, start=1):
         metrics[f"eig_{idx}"] = float(value)
     for idx, value in enumerate(primary_weak):
@@ -185,7 +207,11 @@ def compute_metrics_for_sequence(observations: Any, config: Dict[str, Any]) -> n
         ("weak_trans_primary_y", "f8"),
         ("weak_trans_primary_z", "f8"),
         ("weak_trans_primary_reliable", "i4"),
+        ("axis_information_raw", "f8"),
+        ("axis_information_normalized", "f8"),
+        ("axis_information_ratio", "f8"),
     ]
+    dtype.extend((f"weak_trans_projector_{row}{column}", "f8") for row in range(3) for column in range(3))
     rows = np.zeros(J_all.shape[0], dtype=dtype)
     axes = np.asarray(observations["axis_per_frame"], dtype=float) if "axis_per_frame" in observations else None
     for idx in range(J_all.shape[0]):
@@ -230,8 +256,15 @@ def compute_metrics_for_sequence(observations: Any, config: Dict[str, Any]) -> n
             "weak_trans_primary_x",
             "weak_trans_primary_y",
             "weak_trans_primary_z",
+            "axis_information_raw",
+            "axis_information_normalized",
+            "axis_information_ratio",
         ]:
             rows[key][idx] = metrics[key]
+        for row in range(3):
+            for column in range(3):
+                key = f"weak_trans_projector_{row}{column}"
+                rows[key][idx] = metrics[key]
         rows["num_points"][idx] = int(metrics["num_points"])
         rows["weak_reliable"][idx] = int(metrics["weak_reliable"])
         rows["num_weak_dims"][idx] = int(metrics["num_weak_dims"])
