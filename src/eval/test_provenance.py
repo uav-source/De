@@ -20,6 +20,12 @@ import pytest
 from .analysis_lock import compute_source_tree_hash, git_commit, git_status_clean, stage1c_source_paths
 
 
+def _run_pytest_command(command: Sequence[str], **kwargs: Any) -> subprocess.CompletedProcess:
+    """Narrow subprocess seam used only for the nested pytest invocation."""
+
+    return subprocess.run(command, **kwargs)
+
+
 def run_verified_pytest(root: Path, output_path: Path) -> Dict[str, Any]:
     root = Path(root).resolve()
     output = Path(output_path).resolve()
@@ -30,7 +36,7 @@ def run_verified_pytest(root: Path, output_path: Path) -> Dict[str, Any]:
     started_at = utc_now()
     started = time.monotonic()
     try:
-        completed = subprocess.run(
+        completed = _run_pytest_command(
             command,
             cwd=root,
             capture_output=True,

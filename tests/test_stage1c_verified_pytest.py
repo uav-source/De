@@ -21,7 +21,7 @@ def test_verified_pytest_status_depends_on_return_code(tmp_path, monkeypatch):
         captured["kwargs"] = kwargs
         return subprocess.CompletedProcess(command, 1, stdout="999 passed", stderr="failure")
 
-    monkeypatch.setattr(subprocess, "run", fake_run)
+    monkeypatch.setattr(provenance, "_run_pytest_command", fake_run)
     record = provenance.run_verified_pytest(ROOT, tmp_path / "provenance.json")
     assert captured["command"] == [sys.executable, "-m", "pytest", "-q"]
     assert record["return_code"] == 1
