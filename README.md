@@ -11,6 +11,10 @@ This workspace preserves the Day 14-Day 30 evidence chain for a synthetic diagno
 
 The current route is Route B: diagnostic benchmark / failure-analysis. It is not a method implementation route.
 
+## Metric Redesign Stage 1
+
+The incremental Stage 1 workflow replaces infinite tunnel planes with finite patches, separates geometry/sensor/process randomness, removes estimator ground-truth leakage, and evaluates translation-marginal spectra on independent sensor runs. See [docs/metric_redesign_stage1.md](docs/metric_redesign_stage1.md). This workflow does not authorize a weak-subspace update or validate a complete Degen-LIO method.
+
 ## What This Repository Does
 
 - Builds a reproducible synthetic minibench for open-control and tunnel-like degeneracy cases.

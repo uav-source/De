@@ -1,0 +1,32 @@
+stage: metric_redesign_stage1
+scene_family: ST
+levels:
+  L1:
+    axial_support_fraction: 0.25
+  L2:
+    axial_support_fraction: 0.10
+  L3:
+    axial_support_fraction: 0.03
+  L4:
+    axial_support_fraction: 0.005
+geometry_seeds: [101, 202, 303]
+sensor_seeds: [11, 22]
+process_seeds: [1001, 1002, 1003, 1004, 1005]
+open_control_geometry_seeds: [101, 202, 303]
+scene:
+  frames: 60
+  dt_s: 0.1
+  tunnel_length_m: 30.0
+  width_m: 4.0
+  height_m: 3.0
+  axial_patch_count: 8
+  open_length_m: 30.0
+  open_bounds_m: [34.0, 18.0, 8.0]
+  open_box_count: 12
+statistics:
+  bootstrap_samples: 500
+  bootstrap_seed: 7701
+  weak_effect_boundary: 0.10
+  target_abs_rho: 0.55
+  weak_alignment_target: 0.75
+  oc_false_trigger_max: 0.10
