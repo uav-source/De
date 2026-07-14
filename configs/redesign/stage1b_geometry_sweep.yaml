@@ -1,0 +1,13 @@
+sweep_type: geometry
+levels:
+  L1:
+    active_axial_patch_count: 12
+  L2:
+    active_axial_patch_count: 7
+  L3:
+    active_axial_patch_count: 3
+  L4:
+    active_axial_patch_count: 1
+sampling_weight: 1.0
+nested_master_pool: true
+include_open_control: true

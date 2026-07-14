@@ -9,6 +9,7 @@ LiDAR points are generated.
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import math
 from dataclasses import dataclass, replace
@@ -237,6 +238,7 @@ def simulate_frame_observations(
         "normals_world": normals_world,
         "plane_points_world": plane_points_world,
         "plane_indices": plane_indices,
+        "is_axial_support": np.asarray([planes[int(index)].is_axial_support for index in plane_indices], dtype=bool),
         "J": J,
         "residuals": residuals,
         "R_diag": R_diag,
@@ -267,6 +269,7 @@ def simulate_sequence_observations(
     point_list = np.zeros((frames, points_per_frame, 3), dtype=float)
     plane_point_list = np.zeros((frames, points_per_frame, 3), dtype=float)
     plane_index_list = np.zeros((frames, points_per_frame), dtype=np.int32)
+    axial_support_list = np.zeros((frames, points_per_frame), dtype=bool)
     sensor_options = dict(detector_config.get("sensor", {}))
     sensor_options["point_noise_std_m"] = float(point_noise_std)
 
@@ -289,6 +292,7 @@ def simulate_sequence_observations(
         point_list[frame_idx] = frame["points_lidar"]
         plane_point_list[frame_idx] = frame["plane_points_world"]
         plane_index_list[frame_idx] = frame["plane_indices"]
+        axial_support_list[frame_idx] = frame["is_axial_support"]
 
     return {
         "timestamps": sequence.gt_poses[:, 0],
@@ -302,7 +306,133 @@ def simulate_sequence_observations(
         "points_lidar": point_list,
         "plane_points_world": plane_point_list,
         "plane_indices": plane_index_list,
+        "is_axial_support": axial_support_list,
         "sensor_seed": np.asarray(resolved_seed, dtype=np.int64),
+    }
+
+
+def candidate_retention_uniform(geometry_seed: int, sensor_seed: int, candidate_point_id: int) -> float:
+    """Return a level-independent deterministic retention variate in [0, 1)."""
+
+    payload = f"stage1b:{int(geometry_seed)}:{int(sensor_seed)}:{int(candidate_point_id)}".encode("utf-8")
+    value = int.from_bytes(hashlib.sha256(payload).digest()[:8], "big")
+    return value / float(2**64)
+
+
+def simulate_stage1b_observation_degradation(
+    sequence_dir: Union[str, Path],
+    detector_config_path: Union[str, Path],
+    sensor_seed: int,
+    axial_observation_keep_probability: float,
+    candidate_multiplier: int = 8,
+) -> Dict[str, np.ndarray]:
+    """Simulate a fixed-size scan after selective axial-observation retention.
+
+    The candidate pool depends only on geometry and sensor seed. Axial keep
+    variates depend only on geometry seed, sensor seed, and candidate point id,
+    making O4 a strict retained-candidate subset of O3, O2, and O1.
+    Non-axial candidates fill dropped slots so final scan size stays constant.
+    """
+
+    probability = float(axial_observation_keep_probability)
+    if not 0.0 <= probability <= 1.0:
+        raise ValueError("axial_observation_keep_probability must be in [0, 1]")
+    if candidate_multiplier < 2:
+        raise ValueError("candidate_multiplier must be at least 2")
+    sequence = load_sequence(sequence_dir)
+    detector_config = load_detector_config(detector_config_path)
+    resolved_seed = resolve_sensor_seed(sequence, detector_config, sensor_seed)
+    rng = np.random.default_rng(resolved_seed)
+    points_per_frame = int(detector_config.get("points_per_frame", default_points_per_frame(sequence.sequence_id)))
+    candidate_count = points_per_frame * int(candidate_multiplier)
+    point_noise_std = float(
+        detector_config.get(
+            "point_noise_std_m",
+            sequence.sequence_config.get("sensor_stub", {}).get("point_noise_std_m", 0.02),
+        )
+    )
+    sensor_options = dict(detector_config.get("sensor", {}))
+    sensor_options["point_noise_std_m"] = point_noise_std
+    # Candidate construction already performs the frozen sensor dropout once.
+    geometry_seed = int(sequence.metadata["geometry_seed"])
+    frames = sequence.gt_poses.shape[0]
+    packed_J = np.zeros((frames, points_per_frame, 6), dtype=float)
+    r_list = np.zeros((frames, points_per_frame), dtype=float)
+    R_diag_list = np.zeros((frames, points_per_frame), dtype=float)
+    normal_list = np.zeros((frames, points_per_frame, 3), dtype=float)
+    point_list = np.zeros((frames, points_per_frame, 3), dtype=float)
+    plane_point_list = np.zeros((frames, points_per_frame, 3), dtype=float)
+    plane_index_list = np.zeros((frames, points_per_frame), dtype=np.int32)
+    axial_support_list = np.zeros((frames, points_per_frame), dtype=bool)
+    selected_candidate_ids = np.zeros((frames, points_per_frame), dtype=np.int64)
+    candidate_uniforms = np.zeros((frames, candidate_count), dtype=float)
+    candidate_is_axial = np.zeros((frames, candidate_count), dtype=bool)
+    retained_candidate_mask = np.zeros((frames, candidate_count), dtype=bool)
+    axial_candidate_counts = np.zeros(frames, dtype=np.int32)
+    axial_retained_counts = np.zeros(frames, dtype=np.int32)
+
+    for frame_idx, pose in enumerate(sequence.gt_poses):
+        R = quat_to_rot(pose[4:8])
+        t = pose[1:4]
+        planes = frame_planes(sequence, frame_idx)
+        world, normals, anchors, indices, lidar = sample_visible_points(
+            R, t, planes, candidate_count, rng, sensor_options
+        )
+        is_axial = np.asarray([planes[int(index)].is_axial_support for index in indices], dtype=bool)
+        ids = frame_idx * candidate_count + np.arange(candidate_count, dtype=np.int64)
+        uniforms = np.asarray(
+            [candidate_retention_uniform(geometry_seed, resolved_seed, int(candidate_id)) for candidate_id in ids],
+            dtype=float,
+        )
+        retained = is_axial & (uniforms <= probability)
+        eligible = (~is_axial) | retained
+        selected = np.flatnonzero(eligible)[:points_per_frame]
+        if selected.size != points_per_frame:
+            raise RuntimeError(
+                f"Stage 1b candidate pool could not refill frame {frame_idx}: "
+                f"needed {points_per_frame}, found {selected.size}"
+            )
+        chosen_lidar = lidar[selected]
+        chosen_normals = normals[selected]
+        for index, (point_lidar, normal) in enumerate(zip(chosen_lidar, chosen_normals)):
+            packed_J[frame_idx, index] = compute_point_to_plane_jacobian(R, point_lidar, normal)
+        r_list[frame_idx] = rng.normal(0.0, point_noise_std, size=points_per_frame)
+        R_diag_list[frame_idx] = max(point_noise_std**2, 1.0e-6)
+        normal_list[frame_idx] = chosen_normals
+        point_list[frame_idx] = chosen_lidar
+        plane_point_list[frame_idx] = anchors[selected]
+        plane_index_list[frame_idx] = indices[selected]
+        axial_support_list[frame_idx] = is_axial[selected]
+        selected_candidate_ids[frame_idx] = ids[selected]
+        candidate_uniforms[frame_idx] = uniforms
+        candidate_is_axial[frame_idx] = is_axial
+        retained_candidate_mask[frame_idx] = retained
+        axial_candidate_counts[frame_idx] = int(np.sum(is_axial))
+        axial_retained_counts[frame_idx] = int(np.sum(retained))
+
+    return {
+        "timestamps": sequence.gt_poses[:, 0],
+        "packed_J": packed_J,
+        "r_list": r_list,
+        "R_diag_list": R_diag_list,
+        "num_points_per_frame": np.full(frames, points_per_frame, dtype=np.int32),
+        "axis_per_frame": sequence.axis,
+        "pose_gt": sequence.gt_poses,
+        "normals_world": normal_list,
+        "points_lidar": point_list,
+        "plane_points_world": plane_point_list,
+        "plane_indices": plane_index_list,
+        "is_axial_support": axial_support_list,
+        "sensor_seed": np.asarray(resolved_seed, dtype=np.int64),
+        "axial_observation_keep_probability": np.asarray(probability, dtype=float),
+        "selected_candidate_ids": selected_candidate_ids,
+        "candidate_uniforms": candidate_uniforms,
+        "candidate_is_axial": candidate_is_axial,
+        "retained_axial_candidate_mask": retained_candidate_mask,
+        "axial_candidate_count": axial_candidate_counts,
+        "axial_retained_count": axial_retained_counts,
+        "realized_axial_points": np.sum(axial_support_list, axis=1).astype(np.int32),
+        "realized_non_axial_points": np.sum(~axial_support_list, axis=1).astype(np.int32),
     }
 
 

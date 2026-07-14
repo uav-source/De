@@ -1,0 +1,13 @@
+sweep_type: observation
+levels:
+  O1:
+    axial_observation_keep_probability: 1.00
+  O2:
+    axial_observation_keep_probability: 0.40
+  O3:
+    axial_observation_keep_probability: 0.10
+  O4:
+    axial_observation_keep_probability: 0.02
+fixed_final_point_count: true
+candidate_multiplier: 8
+nested_retention: true

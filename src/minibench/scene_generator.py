@@ -37,6 +37,9 @@ class PlanePatch:
     half_v: float = 1000.0
     sampling_weight: float = 1.0
     is_axial_support: bool = False
+    axial_normal_component: Optional[float] = None
+    projected_axial_area: Optional[float] = None
+    support_strength: Optional[float] = None
 
     def __post_init__(self) -> None:
         self.normal = normalize_vector(self.normal)
@@ -60,6 +63,26 @@ class PlanePatch:
             raise ValueError("PlanePatch half extents must be positive")
         if self.sampling_weight < 0.0:
             raise ValueError("PlanePatch sampling_weight must be non-negative")
+
+    @property
+    def patch_id(self) -> str:
+        return self.plane_id
+
+    @property
+    def center(self) -> np.ndarray:
+        return self.point
+
+    @property
+    def visible_frame_start(self) -> int:
+        return self.frame_start
+
+    @property
+    def visible_frame_end(self) -> int:
+        return self.frame_end
+
+    @property
+    def area(self) -> float:
+        return 4.0 * self.half_u * self.half_v
 
 
 # Backward-compatible public name used by the Day 1-14 pipeline.
@@ -144,7 +167,22 @@ def generate_straight_tunnel(config: Dict[str, Any]) -> Sequence:
 
     axis = np.tile(np.array(config["axis"], dtype=float), (frames, 1))
     axis = normalize_rows(axis)
-    if "axial_support_fraction" in config:
+    if "stage1b_master_pool_size" in config:
+        planes = build_rectangular_tunnel_patches(frames, length_m, width_m, height_m, prefix="st1b")
+        master_pool = generate_master_axial_patch_pool(
+            int(config.get("geometry_seed", config["random_seed"])),
+            length_m,
+            width_m,
+            height_m,
+            int(config["stage1b_master_pool_size"]),
+        )
+        active_count = int(config.get("active_axial_patch_count", len(master_pool)))
+        if not 0 < active_count <= len(master_pool):
+            raise ValueError("active_axial_patch_count must select a non-empty master-pool prefix")
+        planes.extend(master_pool[:active_count])
+        for plane in planes:
+            plane.sampling_weight = 1.0
+    elif "axial_support_fraction" in config:
         planes = build_rectangular_tunnel_patches(frames, length_m, width_m, height_m, prefix="st")
         planes.extend(
             build_axial_support_patches(
@@ -277,6 +315,38 @@ def make_sequence(
         "generated_by": "scripts/00_generate_minibench.py",
         "git_commit": git_commit(),
     }
+    if "stage1b_master_pool_size" in config:
+        axis_unit = normalize_vector(config["axis"])
+        axial = [plane for plane in planes if plane.is_axial_support]
+        shell = [plane for plane in planes if not plane.is_axial_support]
+        support = [plane.area * float(plane.normal @ axis_unit) ** 2 for plane in axial]
+        abs_components = [abs(float(plane.normal @ axis_unit)) for plane in axial]
+        metadata.update(
+            {
+                "master_pool_checksum": master_axial_patch_pool_checksum(
+                    generate_master_axial_patch_pool(
+                        int(config.get("geometry_seed", config["random_seed"])),
+                        float(config["tunnel_length_m"]),
+                        float(config["width_m"]),
+                        float(config["height_m"]),
+                        int(config["stage1b_master_pool_size"]),
+                    )
+                ),
+                "active_patch_ids": [plane.plane_id for plane in axial],
+                "active_axial_patch_count": len(axial),
+                "total_axial_patch_area": float(sum(plane.area for plane in axial)),
+                "total_projected_axial_area": float(sum(support)),
+                "mean_abs_axis_normal_component": float(np.mean(abs_components)),
+                "median_abs_axis_normal_component": float(np.median(abs_components)),
+                "geometry_axial_support_score": float(sum(support)),
+                "non_axial_shell_checksum": plane_patch_checksum(shell),
+                # This checksum deliberately describes the frozen policy, not
+                # the number of active planes. Every Stage 1b patch has weight 1.
+                "sampling_weight_checksum": hashlib.sha256(b"stage1b:all_sampling_weights=1.0").hexdigest(),
+                "sampling_weight_values": sorted({float(plane.sampling_weight) for plane in planes}),
+                "geometry_metadata_schema": "stage1b_real_geometry_v1",
+            }
+        )
     return Sequence(sequence_id, gt_poses, axis, planes, feature_points, metadata)
 
 
@@ -472,6 +542,94 @@ def build_axial_support_patches(
     return patches
 
 
+def generate_master_axial_patch_pool(
+    geometry_seed: int,
+    tunnel_length_m: float,
+    width_m: float,
+    height_m: float,
+    pool_size: int,
+) -> List[PlanePatch]:
+    """Generate one deterministic, strength-ranked Stage 1b patch pool.
+
+    Geometry levels select nested prefixes of this pool. Sampling weights are
+    frozen at one, so level changes are physical additions/removals of finite
+    surfaces rather than observation-probability changes.
+    """
+
+    if pool_size < 1:
+        raise ValueError("pool_size must be positive")
+    rng = np.random.default_rng(int(geometry_seed))
+    xs = np.linspace(0.06 * tunnel_length_m, 0.94 * tunnel_length_m, pool_size)
+    xs += rng.uniform(-0.018 * tunnel_length_m, 0.018 * tunnel_length_m, size=pool_size)
+    axis = np.array([1.0, 0.0, 0.0])
+    patches: List[PlanePatch] = []
+    for index, x in enumerate(np.clip(xs, 0.03 * tunnel_length_m, 0.97 * tunnel_length_m)):
+        axial_component = rng.uniform(0.25, 0.92)
+        transverse = math.sqrt(max(1.0 - axial_component**2, 1.0e-12))
+        orientation = index % 4
+        if orientation == 0:
+            normal = normalize_vector([axial_component, transverse, 0.0])
+        elif orientation == 1:
+            normal = normalize_vector([axial_component, -transverse, 0.0])
+        elif orientation == 2:
+            normal = normalize_vector([axial_component, 0.0, transverse])
+        else:
+            normal = normalize_vector([axial_component, 0.0, -transverse])
+        u_axis, v_axis = plane_basis(normal)
+        half_u = float(rng.uniform(0.28, 0.85))
+        half_v = float(rng.uniform(0.28, 0.90))
+        area = 4.0 * half_u * half_v
+        strength = area * float(normal @ axis) ** 2
+        y = float(rng.uniform(-0.42 * width_m, 0.42 * width_m))
+        z = float(rng.uniform(0.18 * height_m, 0.82 * height_m))
+        patches.append(
+            PlanePatch(
+                plane_id=f"stage1b_axial_patch_{index:02d}",
+                frame_start=0,
+                frame_end=2**31 - 1,
+                normal=normal,
+                point=np.array([x, y, z]),
+                semantic="stage1b_real_axial_structure",
+                u_axis=u_axis,
+                v_axis=v_axis,
+                half_u=half_u,
+                half_v=half_v,
+                sampling_weight=1.0,
+                is_axial_support=True,
+                axial_normal_component=abs(float(normal @ axis)),
+                projected_axial_area=strength,
+                support_strength=strength,
+            )
+        )
+    return sorted(patches, key=lambda patch: (-float(patch.support_strength or 0.0), patch.plane_id))
+
+
+def plane_patch_checksum(planes: List[PlanePatch]) -> str:
+    payload = []
+    for plane in planes:
+        payload.append(
+            {
+                "plane_id": plane.plane_id,
+                "frame_start": plane.frame_start,
+                "frame_end": plane.frame_end,
+                "normal": np.round(plane.normal, 12).tolist(),
+                "point": np.round(plane.point, 12).tolist(),
+                "u_axis": np.round(plane.u_axis, 12).tolist(),
+                "v_axis": np.round(plane.v_axis, 12).tolist(),
+                "half_u": round(plane.half_u, 12),
+                "half_v": round(plane.half_v, 12),
+                "sampling_weight": round(plane.sampling_weight, 12),
+                "is_axial_support": plane.is_axial_support,
+            }
+        )
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def master_axial_patch_pool_checksum(planes: List[PlanePatch]) -> str:
+    return plane_patch_checksum(planes)
+
+
 def set_sampling_fraction(planes: List[PlanePatch], axial_support_fraction: float) -> None:
     base = [plane for plane in planes if not plane.is_axial_support]
     axial = [plane for plane in planes if plane.is_axial_support]
@@ -595,6 +753,7 @@ def save_planes_csv(path: Path, planes: List[Plane]) -> None:
         writer.writerow([
             "plane_id", "frame_start", "frame_end", "nx", "ny", "nz", "qx", "qy", "qz", "semantic",
             "ux", "uy", "uz", "vx", "vy", "vz", "half_u", "half_v", "sampling_weight", "is_axial_support",
+            "axial_normal_component", "projected_axial_area", "support_strength",
         ])
         for plane in planes:
             n = plane.normal
@@ -621,6 +780,9 @@ def save_planes_csv(path: Path, planes: List[Plane]) -> None:
                     f"{plane.half_v:.9f}",
                     f"{plane.sampling_weight:.9f}",
                     int(plane.is_axial_support),
+                    "" if plane.axial_normal_component is None else f"{plane.axial_normal_component:.9f}",
+                    "" if plane.projected_axial_area is None else f"{plane.projected_axial_area:.9f}",
+                    "" if plane.support_strength is None else f"{plane.support_strength:.9f}",
                 ]
             )
 
