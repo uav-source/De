@@ -24,6 +24,8 @@ python3 scripts/27_run_metric_redesign_stage1b.py --quick --run-id stage1b_quick
 python3 scripts/27_run_metric_redesign_stage1b.py --full --run-id stage1b_full_v1 --workers 8 --resume
 ```
 
+Stage 1c independent confirmatory validation: [docs/metric_redesign_stage1c.md](docs/metric_redesign_stage1c.md).
+
 ## What This Repository Does
 
 - Builds a reproducible synthetic minibench for open-control and tunnel-like degeneracy cases.

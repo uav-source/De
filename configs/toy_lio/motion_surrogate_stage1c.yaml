@@ -1,0 +1,11 @@
+surrogate_type: 6dof_motion_propagation_surrogate
+motion_profile_id: stage1c_confirmatory_m1
+axis_bias_mode: none
+perturbation_profile: metric_redesign_stage1c
+noise:
+  axis_sigma: 0.012
+  cross_sigma: 0.003
+  roll_sigma: 0.0004
+  pitch_sigma: 0.0004
+  yaw_sigma: 0.0008
+notes: "Frozen standalone 6DoF motion surrogate for Stage 1c confirmatory validation; not a full IMU or full LIO."

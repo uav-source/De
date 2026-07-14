@@ -37,6 +37,8 @@ results/metric_redesign_stage1b/**/motion/
 results/metric_redesign_stage1b/**/trials/
 results/metric_redesign_stage1b/**/sensors/
 results/metric_redesign_stage1b/full/**/tables/process_trial_summary.csv
+data/metric_redesign_stage1c/
+results/metric_redesign_stage1c/
 
 # Keep directory placeholders
 !data/minibench/.gitkeep

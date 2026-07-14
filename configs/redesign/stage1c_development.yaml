@@ -1,0 +1,9 @@
+phase: development
+geometry_seeds: [101, 202, 303, 404, 505]
+sensor_seeds: [11, 22]
+process_seeds:
+  start: 1001
+  count: 30
+expected_sensor_runs: 90
+expected_process_trials: 2700
+expected_unique_noise_sequences: 900

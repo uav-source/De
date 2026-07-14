@@ -22,11 +22,27 @@ def simulate_motion_measurements(
     config: Dict[str, Any],
     axes: Optional[np.ndarray] = None,
     motion_profile_id: str = "default_motion_profile",
+    experiment_family: Optional[str] = None,
+    geometry_seed: Optional[int] = None,
+    sensor_seed: Optional[int] = None,
 ) -> Dict[str, np.ndarray]:
     poses = np.asarray(gt_poses, dtype=float)
     if poses.ndim != 2 or poses.shape[1] != 8 or poses.shape[0] < 1:
         raise ValueError("gt_poses must have shape [N, 8]")
-    resolved_noise_seed = process_noise_seed(process_seed, motion_profile_id)
+    context = [experiment_family, geometry_seed, sensor_seed]
+    if all(value is not None for value in context):
+        resolved_noise_seed = derive_process_noise_seed(
+            str(experiment_family),
+            int(geometry_seed),
+            int(sensor_seed),
+            int(process_seed),
+            motion_profile_id,
+        )
+    elif any(value is not None for value in context):
+        raise ValueError("experiment_family, geometry_seed, and sensor_seed must be provided together")
+    else:
+        # Preserve the Stage 1b random stream for old runs and tests.
+        resolved_noise_seed = process_noise_seed(process_seed, motion_profile_id)
     rng = np.random.default_rng(resolved_noise_seed)
     count = max(poses.shape[0] - 1, 0)
     translation = np.zeros((count, 3), dtype=float)
@@ -74,6 +90,10 @@ def simulate_motion_measurements(
         "delta_rotation_vector": rotation,
         "process_seed": np.asarray(int(process_seed), dtype=np.int64),
         "process_noise_seed": np.asarray(resolved_noise_seed, dtype=np.uint64),
+        "process_noise_seed_resolved": np.asarray(resolved_noise_seed, dtype=np.uint64),
+        "experiment_family": np.asarray("stage1b_legacy" if experiment_family is None else str(experiment_family)),
+        "geometry_seed": np.asarray(-1 if geometry_seed is None else int(geometry_seed), dtype=np.int64),
+        "sensor_seed": np.asarray(-1 if sensor_seed is None else int(sensor_seed), dtype=np.int64),
         "motion_profile_id": np.asarray(str(motion_profile_id)),
         "surrogate_type": np.asarray("6dof_motion_propagation_surrogate"),
     }
@@ -84,6 +104,29 @@ def process_noise_seed(process_seed: int, motion_profile_id: str) -> int:
 
     payload = f"stage1b:{int(process_seed)}:{str(motion_profile_id)}".encode("utf-8")
     # NumPy accepts a 64-bit integer seed; keep this stable across processes.
+    return int.from_bytes(hashlib.sha256(payload).digest()[:8], "big")
+
+
+def derive_process_noise_seed(
+    experiment_family: str,
+    geometry_seed: int,
+    sensor_seed: int,
+    process_seed: int,
+    motion_profile_id: str,
+) -> int:
+    """Derive a Stage 1c seed paired across levels but independent by block.
+
+    Level and sequence identifiers are deliberately absent. SHA-256 is used
+    instead of Python's randomized built-in hash, so values are stable across
+    processes and PYTHONHASHSEED settings.
+    """
+
+    if not str(experiment_family):
+        raise ValueError("experiment_family must be non-empty")
+    payload = (
+        f"{experiment_family}|{int(geometry_seed)}|{int(sensor_seed)}|"
+        f"{int(process_seed)}|{motion_profile_id}"
+    ).encode("utf-8")
     return int.from_bytes(hashlib.sha256(payload).digest()[:8], "big")
 
 

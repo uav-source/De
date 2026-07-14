@@ -1,0 +1,9 @@
+phase: test
+geometry_seeds: [606, 707, 808, 909, 1011, 1213, 1417, 1619]
+sensor_seeds: [33, 44]
+process_seeds:
+  start: 2001
+  count: 30
+expected_sensor_runs: 144
+expected_process_trials: 4320
+expected_unique_noise_sequences: 1440

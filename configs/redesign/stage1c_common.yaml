@@ -1,0 +1,45 @@
+stage: metric_redesign_stage1c
+metric_definition_version: stage1c_v1
+scene:
+  frames: 40
+  dt_s: 0.1
+  tunnel_length_m: 30.0
+  width_m: 4.0
+  height_m: 3.0
+  master_axial_patch_pool_size: 16
+  open_length_m: 30.0
+  open_bounds_m: [34.0, 18.0, 8.0]
+  open_box_count: 12
+geometry_levels:
+  L1: 12
+  L2: 7
+  L3: 3
+  L4: 1
+observation_levels:
+  O1: 1.00
+  O2: 0.40
+  O3: 0.10
+  O4: 0.02
+observation_candidate_multiplier: 8
+analysis:
+  primary_detector_metric: ODI_trans
+  primary_exposure_metric: mean_inverse_axis_information
+  primary_target: mean_final_axis_error_squared
+  low_information_quantile: 0.05
+  exposure_epsilon: 1.0e-12
+  weak_axis_alignment_threshold: 0.90
+  bootstrap_repetitions: 5000
+  bootstrap_seed: 9173
+gates:
+  detector_severity_rho_min: 0.70
+  detector_kendall_median_min: 0.67
+  detector_positive_geometry_ratio_min: 0.75
+  detector_paired_monotonic_rate_min: 0.75
+  weak_alignment_median_min: 0.90
+  open_control_false_trigger_max: 0.10
+  prediction_rho_min: 0.55
+  prediction_positive_geometry_ratio_min: 0.75
+  prediction_paired_monotonic_rate_min: 0.65
+  residual_obvious_reversal_rho: -0.20
+  mechanism_geometry_blocks_required: 7
+  mechanism_observation_blocks_required: 7
