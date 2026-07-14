@@ -93,7 +93,8 @@ def is_direction_reliable(
         return False
 
     min_index = int(np.argmin(values))
-    trans_norm = float(np.linalg.norm(vectors[3:6, min_index]))
+    trans_slice = vectors[:, min_index] if values.size == 3 else vectors[3:6, min_index]
+    trans_norm = float(np.linalg.norm(trans_slice))
     if trans_norm < float(min_translation_norm):
         return False
 
@@ -112,11 +113,29 @@ def _validate_eigensystem(eigvals: np.ndarray, eigvecs: np.ndarray) -> Tuple[np.
         raise ValueError("eigvals must be a 1-D array")
     if vectors.shape != (values.size, values.size):
         raise ValueError(f"eigvecs must have shape [{values.size}, {values.size}], got {vectors.shape}")
-    if values.size != 6:
-        raise ValueError(f"Expected 6 eigenvalues for pose block, got {values.size}")
+    if values.size not in {3, 6}:
+        raise ValueError(f"Expected 3 translation or 6 pose eigenvalues, got {values.size}")
     if not np.all(np.isfinite(values)) or not np.all(np.isfinite(vectors)):
         raise ValueError("Eigensystem contains NaN or Inf")
     return values, vectors
+
+
+def compute_weak_projector(eigvals: np.ndarray, eigvecs: np.ndarray, tau_w: float) -> np.ndarray:
+    vectors = np.asarray(eigvecs, dtype=float)
+    weak = extract_weak_subspace(eigvals, vectors, tau_w)
+    return weak @ weak.T
+
+
+def compute_subspace_axis_alignment(projector: np.ndarray, axis: np.ndarray) -> float:
+    matrix = np.asarray(projector, dtype=float)
+    direction = np.asarray(axis, dtype=float)
+    if matrix.shape != (direction.size, direction.size):
+        raise ValueError("projector shape must match axis dimension")
+    unit = _normalize_or_nan(direction) if direction.size == 3 else direction / np.linalg.norm(direction)
+    if not np.all(np.isfinite(unit)):
+        return float("nan")
+    value = float(unit.T @ matrix @ unit)
+    return float(np.sqrt(np.clip(value, 0.0, 1.0)))
 
 
 def _normalize_or_nan(values: np.ndarray) -> np.ndarray:

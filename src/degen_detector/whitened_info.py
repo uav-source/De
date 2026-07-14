@@ -66,8 +66,8 @@ def compute_lambda_min(eigvals: np.ndarray) -> float:
 
 def validate_H(H_tilde: np.ndarray) -> Dict[str, float]:
     H = np.asarray(H_tilde, dtype=float)
-    if H.shape != (6, 6):
-        raise ValueError(f"H_tilde must be 6x6, got {H.shape}")
+    if H.shape not in {(6, 6), (3, 3)}:
+        raise ValueError(f"Information matrix must be 6x6 or 3x3, got {H.shape}")
     if not np.all(np.isfinite(H)):
         raise ValueError("H_tilde contains NaN or Inf")
     symmetry_error = float(np.max(np.abs(H - H.T)))
@@ -82,6 +82,54 @@ def validate_H(H_tilde: np.ndarray) -> Dict[str, float]:
     }
 
 
+def compute_translation_schur_info(
+    H_tilde: np.ndarray,
+    damping_ratio: float = 1.0e-6,
+) -> np.ndarray:
+    """Marginalize rotation and return the 3x3 translation information."""
+
+    H = np.asarray(H_tilde, dtype=float)
+    if H.shape != (6, 6):
+        raise ValueError(f"H_tilde must be 6x6, got {H.shape}")
+    validate_H(H)
+    if damping_ratio <= 0.0:
+        raise ValueError("damping_ratio must be positive")
+    H_theta = H[:3, :3]
+    H_theta_p = H[:3, 3:]
+    H_p_theta = H[3:, :3]
+    H_p = H[3:, 3:]
+    scale = max(float(np.max(np.diag(H_theta))), float(np.trace(H_theta)) / 3.0, 1.0)
+    damping = float(damping_ratio) * scale
+    marginalized = H_p - H_p_theta @ np.linalg.solve(H_theta + damping * np.eye(3), H_theta_p)
+    marginalized = 0.5 * (marginalized + marginalized.T)
+    eigvals, eigvecs = np.linalg.eigh(marginalized)
+    tolerance = max(float(np.max(np.abs(eigvals))) * 1.0e-9, 1.0e-9)
+    if float(np.min(eigvals)) < -tolerance:
+        raise ValueError(f"Translation Schur information has a large negative eigenvalue: {np.min(eigvals)}")
+    clipped = np.maximum(eigvals, 0.0)
+    result = eigvecs @ np.diag(clipped) @ eigvecs.T
+    return 0.5 * (result + result.T)
+
+
+def compute_effective_sample_size(R_diag: np.ndarray) -> float:
+    variances = np.asarray(R_diag, dtype=float)
+    if variances.ndim != 1 or variances.size == 0:
+        raise ValueError("R_diag must be a non-empty 1-D array")
+    if np.any(variances <= 0.0) or not np.all(np.isfinite(variances)):
+        raise ValueError("R_diag must contain finite positive values")
+    weights = 1.0 / variances
+    return float(np.sum(weights) ** 2 / np.sum(weights**2))
+
+
+def normalize_information_matrix(H: np.ndarray, n_eff: float) -> np.ndarray:
+    matrix = np.asarray(H, dtype=float)
+    if matrix.ndim != 2 or matrix.shape[0] != matrix.shape[1]:
+        raise ValueError("H must be square")
+    if not np.isfinite(n_eff) or n_eff <= 0.0:
+        raise ValueError("n_eff must be finite and positive")
+    return 0.5 * ((matrix / float(n_eff)) + (matrix / float(n_eff)).T)
+
+
 def compute_epsilon(eigvals: np.ndarray, mode: str, ratio: float) -> float:
     values = np.asarray(eigvals, dtype=float)
     if mode == "relative_trace":
@@ -90,4 +138,3 @@ def compute_epsilon(eigvals: np.ndarray, mode: str, ratio: float) -> float:
     if mode == "absolute":
         return float(ratio)
     raise ValueError(f"Unsupported epsilon_mode: {mode}")
-
