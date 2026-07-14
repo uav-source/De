@@ -167,14 +167,14 @@ def generate_straight_tunnel(config: Dict[str, Any]) -> Sequence:
 
     axis = np.tile(np.array(config["axis"], dtype=float), (frames, 1))
     axis = normalize_rows(axis)
-    if "stage1b_master_pool_size" in config:
-        planes = build_rectangular_tunnel_patches(frames, length_m, width_m, height_m, prefix="st1b")
+    if "master_axial_patch_pool_size" in config:
+        planes = build_rectangular_tunnel_patches(frames, length_m, width_m, height_m, prefix="nested")
         master_pool = generate_master_axial_patch_pool(
             int(config.get("geometry_seed", config["random_seed"])),
             length_m,
             width_m,
             height_m,
-            int(config["stage1b_master_pool_size"]),
+            int(config["master_axial_patch_pool_size"]),
         )
         active_count = int(config.get("active_axial_patch_count", len(master_pool)))
         if not 0 < active_count <= len(master_pool):
@@ -315,7 +315,7 @@ def make_sequence(
         "generated_by": "scripts/00_generate_minibench.py",
         "git_commit": git_commit(),
     }
-    if "stage1b_master_pool_size" in config:
+    if "master_axial_patch_pool_size" in config:
         axis_unit = normalize_vector(config["axis"])
         axial = [plane for plane in planes if plane.is_axial_support]
         shell = [plane for plane in planes if not plane.is_axial_support]
@@ -329,7 +329,7 @@ def make_sequence(
                         float(config["tunnel_length_m"]),
                         float(config["width_m"]),
                         float(config["height_m"]),
-                        int(config["stage1b_master_pool_size"]),
+                        int(config["master_axial_patch_pool_size"]),
                     )
                 ),
                 "active_patch_ids": [plane.plane_id for plane in axial],
@@ -341,10 +341,10 @@ def make_sequence(
                 "geometry_axial_support_score": float(sum(support)),
                 "non_axial_shell_checksum": plane_patch_checksum(shell),
                 # This checksum deliberately describes the frozen policy, not
-                # the number of active planes. Every Stage 1b patch has weight 1.
-                "sampling_weight_checksum": hashlib.sha256(b"stage1b:all_sampling_weights=1.0").hexdigest(),
+                # the number of active planes. Every nested patch has weight 1.
+                "sampling_weight_checksum": hashlib.sha256(b"nested:all_sampling_weights=1.0").hexdigest(),
                 "sampling_weight_values": sorted({float(plane.sampling_weight) for plane in planes}),
-                "geometry_metadata_schema": "stage1b_real_geometry_v1",
+                "geometry_metadata_schema": "nested_real_geometry_v2",
             }
         )
     return Sequence(sequence_id, gt_poses, axis, planes, feature_points, metadata)
@@ -584,12 +584,12 @@ def generate_master_axial_patch_pool(
         z = float(rng.uniform(0.18 * height_m, 0.82 * height_m))
         patches.append(
             PlanePatch(
-                plane_id=f"stage1b_axial_patch_{index:02d}",
+                plane_id=f"axial_patch_{index:02d}",
                 frame_start=0,
                 frame_end=2**31 - 1,
                 normal=normal,
                 point=np.array([x, y, z]),
-                semantic="stage1b_real_axial_structure",
+                semantic="real_axial_structure",
                 u_axis=u_axis,
                 v_axis=v_axis,
                 half_u=half_u,

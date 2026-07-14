@@ -7,14 +7,14 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from minibench.observation_simulator import simulate_stage1b_observation_degradation  # noqa: E402
-from stage1b_helpers import make_observation_sequence, stage1b_paths  # noqa: E402
+from minibench.observation_simulator import simulate_observation_degradation  # noqa: E402
+from stage1c_helpers import make_observation_sequence, paths  # noqa: E402
 
 
 def test_observation_retention_is_nested_with_fixed_final_point_count(tmp_path):
     sequence_dir = make_observation_sequence(tmp_path)
     outputs = [
-        simulate_stage1b_observation_degradation(sequence_dir, stage1b_paths()["detector"], 11, probability, 8)
+        simulate_observation_degradation(sequence_dir, paths()["detector"], 11, probability, 8)
         for probability in [1.0, 0.4, 0.1, 0.02]
     ]
     for output in outputs[1:]:

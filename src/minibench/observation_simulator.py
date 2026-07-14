@@ -314,12 +314,12 @@ def simulate_sequence_observations(
 def candidate_retention_uniform(geometry_seed: int, sensor_seed: int, candidate_point_id: int) -> float:
     """Return a level-independent deterministic retention variate in [0, 1)."""
 
-    payload = f"stage1b:{int(geometry_seed)}:{int(sensor_seed)}:{int(candidate_point_id)}".encode("utf-8")
+    payload = f"observation:{int(geometry_seed)}:{int(sensor_seed)}:{int(candidate_point_id)}".encode("utf-8")
     value = int.from_bytes(hashlib.sha256(payload).digest()[:8], "big")
     return value / float(2**64)
 
 
-def simulate_stage1b_observation_degradation(
+def simulate_observation_degradation(
     sequence_dir: Union[str, Path],
     detector_config_path: Union[str, Path],
     sensor_seed: int,
@@ -389,7 +389,7 @@ def simulate_stage1b_observation_degradation(
         selected = np.flatnonzero(eligible)[:points_per_frame]
         if selected.size != points_per_frame:
             raise RuntimeError(
-                f"Stage 1b candidate pool could not refill frame {frame_idx}: "
+                f"Observation candidate pool could not refill frame {frame_idx}: "
                 f"needed {points_per_frame}, found {selected.size}"
             )
         chosen_lidar = lidar[selected]

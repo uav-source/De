@@ -45,7 +45,7 @@ from eval.hierarchical_statistics import (
     paired_monotonicity,
     safe_spearman,
 )
-from eval.metric_redesign_stage1b import (
+from eval.synthetic_pipeline_common import (
     aggregate_process_targets,
     generate_or_load_observations,
     generate_or_validate_sequence,

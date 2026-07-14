@@ -8,7 +8,7 @@ SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from eval.metric_redesign_stage1 import aggregate_process_trial_rows  # noqa: E402
+from eval.synthetic_pipeline_common import aggregate_process_trial_rows  # noqa: E402
 
 
 def test_five_process_trials_produce_one_independent_sensor_row():
@@ -25,4 +25,3 @@ def test_five_process_trials_produce_one_independent_sensor_row():
     aggregated = aggregate_process_trial_rows(rows)
     assert len(aggregated) == 1
     assert aggregated[("ST-L2-G01", 11)]["process_trial_count"] == 5
-
