@@ -1,0 +1,8 @@
+stress_regimes:
+  clean:
+    enabled: false
+  axial_correspondence_slip:
+    enabled: true
+    corrupted_axial_patch_fraction: 0.25
+    burst_length_frames: 8
+    slip_distance_m: 0.08
