@@ -22,10 +22,12 @@ GENERATED_DIRS = (
     "data/metric_redesign_stage1b",
     "data/metric_redesign_stage1c",
     "data/detector_stage2a",
+    "data/weak_update_stage2b",
     "results/metric_redesign_stage1",
     "results/metric_redesign_stage1b",
     "results/metric_redesign_stage1c",
     "results/detector_stage2a",
+    "results/weak_update_stage2b",
     # Explicit legacy result trees named for removal by the cleanup plan.
     "results/day14",
     "results/day30",

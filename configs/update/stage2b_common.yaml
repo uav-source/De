@@ -1,0 +1,39 @@
+stage: weak_subspace_update_stage2b
+metric_definition_version: detector_stage2a_v1
+lidar_update_iterations: 1
+initial_covariance_diag: [1.0e-6, 1.0e-6, 1.0e-6, 1.0e-6, 1.0e-6, 1.0e-6]
+huber_delta_sigma: 2.5
+attenuation_alpha_candidates: [0.0, 0.1, 0.25, 0.5, 0.75]
+primary_baseline: huber_full
+primary_method: huber_selective
+method_list: [motion_only, huber_full, huber_global, huber_selective, huber_oracle_selective]
+oracle_method: huber_oracle_selective
+odi_control_quantile: 0.95
+primary_direction_min_eigengap_ratio: 0.02
+bootstrap_repetitions: 5000
+bootstrap_seed: 14831
+scene:
+  frames: 40
+  dt_s: 0.1
+  tunnel_length_m: 30.0
+  width_m: 4.0
+  height_m: 3.0
+  master_axial_patch_pool_size: 16
+  open_length_m: 30.0
+  open_bounds_m: [34.0, 18.0, 8.0]
+  open_box_count: 12
+geometry_levels: {L1: 12, L2: 7, L3: 3, L4: 1}
+observation_levels: {O1: 1.0, O2: 0.4, O3: 0.1, O4: 0.02}
+observation_candidate_multiplier: 8
+geometry_points_per_square_meter: 0.5
+geometry_min_points_per_patch: 8
+stress_names: [clean, axial_correspondence_slip]
+gates:
+  contaminated_axis_reduction_min: 0.15
+  contaminated_ci_low_min: 0.0
+  positive_geometry_ratio_min: 0.80
+  protected_increase_max: 0.03
+  clean_increase_max: 0.03
+  open_control_increase_max: 0.02
+  open_control_update_q95_increase_max: 0.10
+  selective_vs_global_advantage_min: 0.05

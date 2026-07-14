@@ -1,0 +1,6 @@
+phase: quick
+geometry_seeds: [1709]
+sensor_seeds: [55]
+process_seeds: [3001, 3002]
+expected_sensor_stress_blocks: 18
+expected_method_trials: 180

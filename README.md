@@ -1,6 +1,6 @@
 # Degen-LIO
 
-Degen-LIO is currently a degeneration-detector research prototype.
+Degen-LIO is currently a degeneration-detector plus weak-direction research prototype.
 
 Confirmed:
 
@@ -14,14 +14,14 @@ Not confirmed:
 
 - reliable drift magnitude prediction;
 - online risk warning;
-- weak-subspace update benefit;
+- selective weak-direction update benefit (under evaluation);
 - complete LiDAR-inertial odometry method.
 
-Current active stage: **Detector Consolidation Stage 2A**.
+Current active stage: **Weak-Subspace Update Stage 2B**.
 
-Stage 2A asks only whether ODI tracks controlled degradation severity and whether the minimum-eigenvalue direction consistently identifies the known weak direction. It does not run process trials or toy-LIO risk experiments, implement a weak-subspace update, integrate FAST-LIO2, or claim a complete odometry system.
+Confirmed: the detector and weak direction. Under evaluation: a covariance-aware selective weak-direction update. Risk prediction remains paused. FAST-LIO2 integration, real IMU propagation, real data association, and a complete Degen-LIO system are not implemented.
 
-## Reproduce the active detector study
+## Reproduce the active Stage 2B study
 
 The supported environment is Python 3.11. Install the frozen dependencies with:
 
@@ -35,7 +35,7 @@ python -m pytest -q
 The container definition runs the same test suite:
 
 ```bash
-docker build -t degen-lio-stage2a .
+docker build -t degen-lio-stage2b .
 ```
 
 Run the staged workflow in this order:
@@ -44,15 +44,16 @@ Run the staged workflow in this order:
 python3 scripts/check_env.py
 python3 scripts/clean_workspace.py
 python3 scripts/clean_workspace.py --apply
-python3 scripts/30_run_detector_stage2a.py --quick --run-id detector_stage2a_quick_v1
-python3 scripts/30_run_detector_stage2a.py --development --run-id detector_stage2a_dev_v1 --workers 8 --resume
-python3 scripts/30_run_detector_stage2a.py --lock-detector --development-run-dir results/detector_stage2a/development/detector_stage2a_dev_v1
-python3 scripts/30_run_detector_stage2a.py --test --run-id detector_stage2a_test_v1 --detector-lock results/detector_stage2a/development/detector_stage2a_dev_v1/detector_lock.json --workers 8 --resume
+python3 scripts/31_run_weak_update_stage2b.py --quick --run-id weak_update_stage2b_quick_v1
+python3 scripts/31_run_weak_update_stage2b.py --development --run-id weak_update_stage2b_dev_v1 --workers 8 --resume
+python3 scripts/31_run_weak_update_stage2b.py --lock-update --development-run-dir results/weak_update_stage2b/development/weak_update_stage2b_dev_v1
+python3 scripts/31_run_weak_update_stage2b.py --test --run-id weak_update_stage2b_test_v1 --update-lock artifacts/current/weak_update_stage2b/locked/update_lock.json --workers 8 --resume
+python3 scripts/31_run_weak_update_stage2b.py --analyze-only --run-dir results/weak_update_stage2b/test/weak_update_stage2b_test_v1
 ```
 
-The test phase refuses to run unless the detector lock is tracked, source and configuration hashes match, the worktree is clean, reserved test seeds match, and current-commit full-pytest provenance is present. Generated data and results stay ignored; only compact audit summaries are exported under `artifacts/current/`.
+The lock command writes an ignored run-local copy and a compact copy under `artifacts/current/weak_update_stage2b/locked/`; commit that compact lock before Test. Test refuses to run unless the lock is committed, source/configuration/stress hashes match, the worktree is clean, reserved seeds are disjoint and unchanged, and current-commit full-pytest provenance is present. Generated data and results remain ignored.
 
-Detailed definitions, gates, and output contracts are in [docs/detector_stage2a.md](docs/detector_stage2a.md).
+Detailed definitions, gates, and output contracts are in [docs/weak_update_stage2b.md](docs/weak_update_stage2b.md). Stage 2A remains frozen and documented in [docs/detector_stage2a.md](docs/detector_stage2a.md).
 
 ## Repository scope
 
