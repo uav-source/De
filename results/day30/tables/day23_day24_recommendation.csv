@@ -1,4 +1,0 @@
-recommended_day,recommended_route,task,reason,allowed,blocking_condition
-Day 24,diagnostic benchmark consolidation,"consolidate benchmark package, claim boundaries, and negative metric validity evidence",Day 22 selected Route B and Day 23 taxonomy shows diagnostic evidence is paper-usable,true,none if method_update_gate remains false
-Day 24,metric redesign prototype review,review temporal/excitation-normalized diagnostic metric candidates without estimator update,single ODI and joint risks failed strict screens but redesign candidates are plausible,true,must not implement weak-subspace update
-Day 24,weak-subspace update implementation,implement estimator update logic,blocked by Day 22 No-Go gate,false,requires future gate with method_update_authorized=true

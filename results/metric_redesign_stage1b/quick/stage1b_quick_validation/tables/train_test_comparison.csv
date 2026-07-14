@@ -1,5 +1,0 @@
-sweep_type,metric_name,train_rho,train_ci_low,train_ci_high,test_rho,test_ci_low,test_ci_high,test_evaluated_once
-geometry,mean_inverse_axis_information,0.7999999999999999,nan,nan,nan,nan,nan,True
-geometry,ODI_trans_median,0.7999999999999999,nan,nan,nan,nan,nan,True
-observation,mean_inverse_axis_information,0.7999999999999999,nan,nan,nan,nan,nan,True
-observation,ODI_trans_median,1.0,nan,nan,nan,nan,nan,True

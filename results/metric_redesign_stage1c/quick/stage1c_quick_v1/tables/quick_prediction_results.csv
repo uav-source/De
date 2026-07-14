@@ -1,3 +1,0 @@
-sweep_type,metric_name,target,spearman_rho,bootstrap_ci_low,bootstrap_ci_high,bootstrap_blocks,bootstrap_repetitions,median_per_geometry_kendall_tau,positive_tau_geometry_ratio,per_geometry_kendall_tau,paired_monotonic_rate,independent_sensor_runs
-geometry,mean_inverse_axis_information,mean_final_axis_error_squared,0.7999999999999999,nan,nan,1,5000,0.6666666666666669,1.0,101:0.666666667,1.0,4
-observation,mean_inverse_axis_information,mean_final_axis_error_squared,0.7999999999999999,nan,nan,1,5000,0.6666666666666669,1.0,101:0.666666667,1.0,4

@@ -1,7 +1,0 @@
-metric_name,target,expected_direction,spearman_rho,bootstrap_ci_low,bootstrap_ci_high,independent_sensor_runs,direction_matches,seed_direction_stable,passes_abs_rho,passes_ci_direction,passes_metric_gate,sensor_seed_rhos
-ODI,axis_drift_rate_median,positive,0.37304347826086953,0.035292832167832175,0.5444096025951702,24,True,True,False,False,False,0.286713;0.566434
-ODI_trans,axis_drift_rate_median,positive,0.37739130434782603,-0.024731978722875702,0.5438707199297629,24,True,True,False,False,False,0.237762;0.629371
-AIS_trans_normalized,axis_drift_rate_median,negative,-0.3834782608695652,-0.5519982209283519,0.08372421127341438,24,True,True,False,False,False,-0.251748;-0.615385
-lambda_min_trans_normalized,axis_drift_rate_median,negative,-0.4017391304347826,-0.6035705533509329,0.10154823357802915,24,True,True,False,False,False,-0.244755;-0.608392
-condition_number_trans,axis_drift_rate_median,positive,0.38434782608695645,-0.10080187042983356,0.5807493338624639,24,True,True,False,False,False,0.244755;0.608392
-weak_trans_subspace_alignment,axis_drift_rate_median,positive,0.38434782608695645,-0.00879807692307692,0.5637828042747572,24,True,True,False,False,False,0.272727;0.622378

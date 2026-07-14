@@ -1,8 +1,0 @@
-route_item,description,evidence_available,missing_evidence,paper_claim_strength,implementation_cost,reviewer_risk,recommended_priority
-synthetic degeneracy benchmark,"Four-sequence minibench with GT, observations, ODI, toy trajectories, and windows",Day 1-22 generated artifacts,more scene variants and real-data sanity check,moderate,medium,synthetic-only critique,high
-weak-direction geometry analysis,Information-spectrum weak direction aligns with tunnel/local axis,Day 9 alignment summaries and figures,broader geometry families,moderate,low,not enough estimator coupling,high
-biased vs unbiased toy_lio lesson,Legacy bias audit plus unbiased protocol explains confound risk,Day 15-17 outputs,larger unbiased trial set,strong diagnostic lesson,low,toy probe is not real LIO,high
-metric validity negative result,"ODI, baselines, and joint risk fail strict controlled gate",Day 18-22 tables,more benchmark diversity,moderate but honest,low,negative-result acceptance risk,high
-claim boundary table,Allowed/forbidden claims prevent overclaiming,Day 22 and Day 23 claim tables,reviewer-facing wording polish,strong reproducibility appendix,low,may look conservative,medium
-reproducible diagnostic package,"One repository contains configs, scripts, tests, manifests, and reports",Day 13-22 manifests/tests,packaging and README,strong artifact value,medium,artifact maintenance burden,high
-no method update yet,No-Go gate prevents unvalidated estimator changes,Day 22 method_update_authorized=false,clear future-work plan,high integrity,low,less method novelty,high

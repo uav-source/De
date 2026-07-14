@@ -1,7 +1,0 @@
-archive_step,command_or_action,safe,requires_manual_confirmation,reason
-ARCH01,run python3 scripts/check_env.py,true,false,confirm environment and commit provenance
-ARCH02,run python3 -m pytest -q,true,false,full pytest must pass before packaging
-ARCH03,run python3 scripts/20_day27_release_cleanup.py --config configs/validation/day27_release_cleanup.yaml,true,false,refresh release audit tables
-ARCH04,git archive --format=tar.gz --output degen_lio_diagnostic_release.tar.gz HEAD,true,true,safe archive excludes .git by construction but requires manual review
-ARCH05,rsync -a --exclude .git --exclude .pytest_cache --exclude __pycache__ ./ release_dir/,true,true,alternative archive staging with explicit excludes
-ARCH06,do not delete local .git/.pytest_cache/__pycache__ during planning,true,false,"Day27 is an audit and plan, not destructive cleanup"

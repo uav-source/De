@@ -1,9 +1,0 @@
-metric_name,target_name,passes_grouped_validity,passes_loso_stability,passes_sign_consistency,beats_baselines,final_day19_status,reason
-ODI_median,axis_drift_rate,false,true,true,true,exploratory_not_validated,"ODI remains exploratory and is not validated for robust drift prediction. Missing: grouped_validity, best_sequence_support"
-AIS_median,axis_drift_rate,true,true,true,false,exploratory_not_validated,does not pass all Day 19 screening checks. Missing: baseline_comparison
-lambda_min_clamped_median,axis_drift_rate,true,true,false,false,exploratory_not_validated,"does not pass all Day 19 screening checks. Missing: sign_consistency, baseline_comparison"
-condition_number_median,axis_drift_rate,true,true,true,false,exploratory_not_validated,does not pass all Day 19 screening checks. Missing: baseline_comparison
-ODI_median,weak_drift_alignment,false,true,true,false,exploratory_not_validated,"ODI remains exploratory and is not validated for robust drift prediction. Missing: grouped_validity, baseline_comparison, best_sequence_support"
-AIS_median,weak_drift_alignment,true,true,true,false,exploratory_not_validated,does not pass all Day 19 screening checks. Missing: baseline_comparison
-lambda_min_clamped_median,weak_drift_alignment,false,false,false,true,exploratory_not_validated,"does not pass all Day 19 screening checks. Missing: grouped_validity, loso_stability, sign_consistency"
-condition_number_median,weak_drift_alignment,true,true,false,false,exploratory_not_validated,"does not pass all Day 19 screening checks. Missing: sign_consistency, baseline_comparison"

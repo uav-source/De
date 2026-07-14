@@ -1,6 +1,0 @@
-claim_id,forbidden_phrase,found,status,location,reason
-FC01,ODI robustly predicts drift,false,pass,none,not present as an affirmative forbidden claim
-FC02,validated Degen-LIO estimator,false,pass,none,not present as an affirmative forbidden claim
-FC03,weak-subspace update is authorized,false,pass,none,not present as an affirmative forbidden claim
-FC04,ODI is superior to AIS/lambda_min,false,pass,none,not present as an affirmative forbidden claim
-FC05,Degen-LIO estimator method is validated,false,pass,none,not present as an affirmative forbidden claim

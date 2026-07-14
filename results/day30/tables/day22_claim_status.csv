@@ -1,7 +1,0 @@
-claim_id,claim_text,status,allowed_wording,forbidden_wording,evidence_basis
-C1,ODI robustly predicts drift,forbidden,ODI remains exploratory under current synthetic validation,Do not state ODI robustly predicts drift unless controlled and grouped gates pass,Day20 ODI status: exploratory_not_validated
-C2,ODI is superior to AIS/lambda_min,forbidden,"ODI is one exploratory metric among AIS, lambda_min_clamped, and condition_number",Do not claim ODI superiority over AIS/lambda_min_clamped,Day19/20 baseline competition remains unresolved
-C3,joint risk predicts drift,forbidden,joint risk features are exploratory diagnostics,Do not present joint risk as validated drift prediction without Day21 candidate support,Day21 candidate gate: False
-C4,unbiased toy_lio protocol is established,allowed,unbiased toy_lio protocol is established for synthetic diagnostic probes,Do not call unbiased toy_lio a real LIO system,Day16 applied_axis_bias all zero: True
-C5,legacy toy_lio is diagnostic only,allowed,legacy biased toy_lio is diagnostic evidence only,Do not use legacy biased toy_lio as main evidence,Day15 bias audit confirmed scene-family-dependent axis_bias
-C6,weak-subspace update is authorized,forbidden,weak-subspace update is not authorized by Day22 gate,Do not implement weak-subspace update before gate authorization,method_update_gate=False

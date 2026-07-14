@@ -1,8 +1,0 @@
-risk_id,reviewer_attack,short_response,evidence_to_cite,remaining_limitation,planned_mitigation
-RR01,synthetic-only,"We scope the paper as a synthetic diagnostic benchmark, not real-world validation.",Day24 inventory and benchmark protocol,generalization remains limited,add real-data sanity checks only after claim scope is stable
-RR02,toy_lio not real LIO,toy_lio is presented as a synthetic probe and bias-audit instrument only.,Day15-17 audit/protocol tables,no estimator coupling claim,keep this in limitations and claim boundary
-RR03,no estimator method,The gate review explicitly blocks method update and preserves evidence integrity.,Day22 gate decision and Day24 claim map,less method novelty,position as benchmark/failure-analysis contribution
-RR04,ODI failed validity,We report the failed controlled validity screen as a central negative result.,Day20 incremental validity and Day23 taxonomy,ODI remains exploratory,propose metric redesign rather than overclaiming
-RR05,joint risk failed gate,"All joint-risk candidates are retained as exploratory_not_validated, including no-ODI comparisons.",Day21 comparison table,no validated detector yet,use as redesign motivation
-RR06,reproducibility concern,"Commands, manifests, and output inventory are explicit.",Day13/14/24/25 manifests and repro plan,environment-dependent plotting is smoke-tested in CI,document smoke vs real plot commands
-RR07,overclaiming concern,The paper includes a claim boundary table and forbidden wording.,Day22-25 claim maps,requires disciplined writing,use claim table during drafting and review

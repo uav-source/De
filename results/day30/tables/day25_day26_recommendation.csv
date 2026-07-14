@@ -1,6 +1,0 @@
-recommended_day,recommended_route,task,allowed,reason,blocking_condition
-Day 26,paper skeleton drafting,draft paper skeleton with section stubs and claim-boundary notes,true,Day25 outlines a diagnostic benchmark / failure-analysis paper route,must preserve No-Go method boundary
-Day 26,figure/table generation plan,turn Day25 figure/table plan into reproducible plotting/table scripts or placeholders,true,paper route needs concrete figure/table artifacts before prose polish,do not create misleading figures or hide negative results
-Day 26,README/release cleanup,"write release scope, commands, exclusions, and forbidden claims",true,reproducible diagnostic package needs a clean release boundary,"exclude .git, __pycache__, and .pytest_cache from package"
-Day 26,metric redesign review,review metric redesign candidates without implementing estimator update,true,secondary route after paper skeleton planning,candidates remain unvalidated until future tests
-Day 26,weak-subspace update implementation,implement estimator update,false,blocked by Day22/24/25 method boundary,requires future method_update_authorized=true

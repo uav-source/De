@@ -1,9 +1,0 @@
-sweep_type,split,metric_name,target,expected_direction,rho,bootstrap_ci_low,bootstrap_ci_high,bootstrap_method,bootstrap_blocks,bootstrap_repetitions,independent_sensor_runs
-observation,train,mean_inverse_axis_information,mean_final_axis_error_squared,positive,0.7999999999999999,nan,nan,geometry_seed_block_percentile,1,5000,4
-observation,train,harmonic_axis_information,mean_final_axis_error_squared,negative,-0.7999999999999999,nan,nan,geometry_seed_block_percentile,1,5000,4
-observation,train,low_axis_information_ratio,mean_final_axis_error_squared,positive,nan,nan,nan,geometry_seed_block_percentile,1,5000,4
-observation,train,longest_low_information_duration_s,mean_final_axis_error_squared,positive,nan,nan,nan,geometry_seed_block_percentile,1,5000,4
-observation,train,ODI_trans_median,mean_final_axis_error_squared,positive,1.0,nan,nan,geometry_seed_block_percentile,1,5000,4
-observation,train,lambda_min_trans_normalized_median,mean_final_axis_error_squared,negative,-1.0,nan,nan,geometry_seed_block_percentile,1,5000,4
-observation,train,condition_number_trans_median,mean_final_axis_error_squared,positive,1.0,nan,nan,geometry_seed_block_percentile,1,5000,4
-observation,train,axis_information_normalized_median,mean_final_axis_error_squared,negative,-0.7999999999999999,nan,nan,geometry_seed_block_percentile,1,5000,4

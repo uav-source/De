@@ -1,3 +1,0 @@
-next_day,route,task,allowed,reason
-Day 23,Route A,weak-subspace update design review,false,allowed only if method_update_gate passes
-Day 23,Route B,metric/risk redesign or diagnostic benchmark consolidation,true,selected because method_update_gate is false

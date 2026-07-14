@@ -1,5 +1,0 @@
-candidate_id,title_candidate,paper_type,positioning,strength,main_risk,recommended,reason
-T01,A Diagnostic Benchmark for LiDAR-Inertial Degeneracy in Synthetic Tunnel-Like Scenes,diagnostic benchmark,benchmark and failure-analysis package,clear scope and reproducible artifact value,synthetic-only scope,true,best matches the Day 24 consolidation route
-T02,Failure Analysis of Metric Validity under Synthetic Tunnel-Like Degeneracy,failure analysis,negative metric-validity study,foregrounds strict validation and No-Go result,may sound too negative without benchmark framing,false,strong secondary framing for discussion
-T03,A Reproducible Degeneracy Diagnosis Package for LIO Metric Stress Testing,artifact paper,reproducible diagnostic package,"emphasizes scripts, manifests, and claim boundaries",less direct paper hook,false,useful if targeting artifact-focused venue
-T04,Degen-LIO Estimator Update for Robust Tunnel Navigation,method paper,validated estimator method,none,implies a method update that is not authorized,false,reject because it overclaims current evidence

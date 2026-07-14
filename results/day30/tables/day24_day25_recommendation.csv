@@ -1,4 +1,0 @@
-recommended_day,recommended_route,task,allowed,reason,blocking_condition
-Day 25,Route B1: diagnostic benchmark paper outline / figure-table plan,"turn Day14-24 evidence into paper sections, table plan, and claim-boundary figures",true,Day24 package is a diagnostic benchmark route with explicit No-Go method boundary,none if method_update_authorized remains false
-Day 25,Route B2: metric redesign prototype review,review temporal/excitation-normalized metric candidates before any implementation,true,Day23 identified redesign candidates but none are validated metrics,must remain analysis-only until a future gate passes
-Day 25,weak-subspace update implementation,implement estimator update,false,blocked by Day22 No-Go and Day24 consolidation,requires future method_update_authorized=true

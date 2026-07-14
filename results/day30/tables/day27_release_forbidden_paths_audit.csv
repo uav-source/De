@@ -1,4 +1,0 @@
-path_pattern,found_paths,found_count,release_action,blocking_for_release,reason
-.git,.git,1,exclude from release archive,true,may exist in checkout but must not enter release archive
-.pytest_cache,.pytest_cache,1,exclude from release archive,true,may exist in checkout but must not enter release archive
-__pycache__,scripts/__pycache__;src/degen_detector/__pycache__;src/eval/__pycache__;src/minibench/__pycache__;tests/__pycache__,5,exclude from release archive,true,may exist in checkout but must not enter release archive

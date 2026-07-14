@@ -1,9 +1,0 @@
-{
-  "detector_config": "configs/detector/odi_redesign_stage1.yaml",
-  "frames": 60,
-  "geometry_seed": 101,
-  "observation_sha256": "ce8093fa5cff551cdc00da35e6d0727d6ff2d7e3b68b862ba92c77bc4eb89b66",
-  "point_count_per_frame": 640,
-  "sensor_seed": 22,
-  "sequence_id": "ST-L3-G01"
-}

@@ -1,8 +1,0 @@
-decision_item,status,authorized,reason
-diagnostic benchmark package ready,ready_for_draft,true,"artifact, figure/table, and claim-boundary audits passed"
-method update authorized,not_authorized,false,Day22 gate and subsequent Route B artifacts block method implementation
-weak-subspace update authorized,not_authorized,false,weak update remains blocked by the No-Go method gate
-ODI robust drift claim allowed,not_allowed,false,ODI remains exploratory and did not pass controlled/joint validation
-release archive ready,conditional_manual_required,false,clean archive dry-run and full local pytest must be manually confirmed before release
-paper draft route ready,ready_for_draft,true,diagnostic benchmark/failure-analysis paper route is supported if manual release checks are completed
-further metric redesign needed,recommended,true,Day20/21 results did not validate ODI or joint risk features
