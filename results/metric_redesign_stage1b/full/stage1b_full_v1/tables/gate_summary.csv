@@ -1,0 +1,16 @@
+gate,status
+engineering,ENGINEERING_PASS
+mechanism,MECHANISM_PASS
+prediction,PREDICTION_FAIL
+stage1b,STAGE1B_NO_GO
+check:sensor_count,"{""actual"": 90, ""expected"": 90, ""pass"": true}"
+check:process_trial_count,"{""actual"": 2700, ""expected"": 2700, ""pass"": true}"
+check:one_row_per_sensor_run,true
+check:process_trials_aggregated,true
+check:common_process_noise,true
+check:full_pytest,"{""branch"": ""feature/metric-redesign-stage1b"", ""command"": ""pytest -q"", ""duration_seconds"": 30.84, ""notes"": ""Exact full-suite command completed after the Stage 1b full run; no skipped or deleted Stage 1b tests."", ""status"": ""passed"", ""test_count"": 150, ""verified_date"": ""2026-07-14""}"
+check:geometry_structure,true
+check:observation_geometry_and_retention,true
+check:geometry_axis_information_pair_rates,"[1.0, 0.8333333333333334]"
+check:observation_axis_information_pair_rates,"[1.0, 1.0]"
+check:prediction_details,"{""geometry"": {""odi_rho"": 0.8294117647058824, ""primary_ci"": [0.5238095238095238, 0.9523809523809523], ""primary_monotonic_pair_rate"": 0.8333333333333334, ""primary_rho"": 0.5794117647058823, ""within_level_residual_rho"": -0.3941176470588235}, ""observation"": {""odi_rho"": 0.6911764705882353, ""primary_ci"": [0.5476190476190476, 0.6904761904761905], ""primary_monotonic_pair_rate"": 1.0, ""primary_rho"": 0.6235294117647059, ""within_level_residual_rho"": 0.7823529411764706}}"

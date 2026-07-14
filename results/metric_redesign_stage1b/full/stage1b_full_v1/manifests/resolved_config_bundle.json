@@ -1,0 +1,151 @@
+{
+  "common": {
+    "preregistered_analysis": {
+      "expected_directions": {
+        "ODI_trans_median": "positive",
+        "condition_number_trans_median": "positive",
+        "harmonic_axis_information": "negative",
+        "lambda_min_trans_normalized_median": "negative",
+        "longest_low_information_duration_s": "positive",
+        "low_axis_information_ratio": "positive",
+        "mean_inverse_axis_information": "positive"
+      },
+      "frozen_before_test": true,
+      "primary_metric": "mean_inverse_axis_information",
+      "primary_target": "mean_final_axis_error_squared",
+      "secondary_metrics": [
+        "harmonic_axis_information",
+        "low_axis_information_ratio",
+        "longest_low_information_duration_s",
+        "ODI_trans_median",
+        "lambda_min_trans_normalized_median",
+        "condition_number_trans_median"
+      ]
+    },
+    "process_seeds": {
+      "count": 30,
+      "start": 1001
+    },
+    "scene": {
+      "dt_s": 0.1,
+      "frames": 40,
+      "height_m": 3.0,
+      "master_axial_patch_pool_size": 16,
+      "open_bounds_m": [
+        34.0,
+        18.0,
+        8.0
+      ],
+      "open_box_count": 12,
+      "open_length_m": 30.0,
+      "tunnel_length_m": 30.0,
+      "width_m": 4.0
+    },
+    "sensor_seeds": [
+      11,
+      22
+    ],
+    "stage": "metric_redesign_stage1b",
+    "statistics": {
+      "bootstrap_repetitions": 5000,
+      "bootstrap_seed": 7861,
+      "exposure_epsilon": 1e-12,
+      "failure_thresholds_m": [
+        0.05,
+        0.1,
+        0.2
+      ],
+      "low_axis_information_threshold": 0.02,
+      "mechanism_pair_rate_threshold": 0.8,
+      "monotonic_tolerance": 1e-12,
+      "primary_abs_rho_threshold": 0.55,
+      "weak_axis_alignment_threshold": 0.8
+    },
+    "test_geometry_seeds": [
+      404,
+      505
+    ],
+    "train_geometry_seeds": [
+      101,
+      202,
+      303
+    ]
+  },
+  "detector": {
+    "epsilon_mode": "relative_trace",
+    "epsilon_ratio": 1e-06,
+    "point_noise_std_m": 0.02,
+    "points_per_frame": 192,
+    "s_p": 0.5,
+    "s_theta": 0.05,
+    "sensor": {
+      "dropout_probability": 0.01,
+      "horizontal_fov_deg": 360.0,
+      "max_range_m": 30.0,
+      "max_resample_attempts": 20,
+      "min_range_m": 0.5,
+      "vertical_fov_max_deg": 45.0,
+      "vertical_fov_min_deg": -45.0
+    },
+    "sensor_seed": 11,
+    "tau_w": 0.02,
+    "translation_primary_min_gap_ratio": 0.001,
+    "translation_schur_damping_ratio": 1e-06,
+    "weak_min_gap_ratio": 0.001,
+    "weak_min_translation_norm": 0.25
+  },
+  "geometry": {
+    "include_open_control": true,
+    "levels": {
+      "L1": {
+        "active_axial_patch_count": 12
+      },
+      "L2": {
+        "active_axial_patch_count": 7
+      },
+      "L3": {
+        "active_axial_patch_count": 3
+      },
+      "L4": {
+        "active_axial_patch_count": 1
+      }
+    },
+    "nested_master_pool": true,
+    "sampling_weight": 1.0,
+    "sweep_type": "geometry"
+  },
+  "motion": {
+    "axis_bias_mode": "none",
+    "motion_profile_id": "stage1b_straight_m1",
+    "noise": {
+      "axis_sigma": 0.012,
+      "cross_sigma": 0.003,
+      "pitch_sigma": 0.0004,
+      "roll_sigma": 0.0004,
+      "yaw_sigma": 0.0008
+    },
+    "notes": "Standalone noisy relative-motion surrogate; GT is used only to synthesize measurements and initialize frame 0. Not a full IMU or full LIO.",
+    "perturbation_profile": "metric_redesign_stage1b",
+    "surrogate_type": "6dof_motion_propagation_surrogate"
+  },
+  "observation": {
+    "candidate_multiplier": 8,
+    "fixed_final_point_count": true,
+    "levels": {
+      "O1": {
+        "axial_observation_keep_probability": 1.0
+      },
+      "O2": {
+        "axial_observation_keep_probability": 0.4
+      },
+      "O3": {
+        "axial_observation_keep_probability": 0.1
+      },
+      "O4": {
+        "axial_observation_keep_probability": 0.02
+      }
+    },
+    "nested_retention": true,
+    "sweep_type": "observation"
+  }
+}

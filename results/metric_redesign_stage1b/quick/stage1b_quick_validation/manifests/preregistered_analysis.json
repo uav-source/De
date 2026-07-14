@@ -1,0 +1,46 @@
+{
+  "config_hash": "754f9e44b0c712859a4fb7d40bfbb9617dcca77968426ee6c4f4f39d7608098e",
+  "epsilon": 1e-12,
+  "expected_directions": {
+    "ODI_trans_median": "positive",
+    "condition_number_trans_median": "positive",
+    "harmonic_axis_information": "negative",
+    "lambda_min_trans_normalized_median": "negative",
+    "longest_low_information_duration_s": "positive",
+    "low_axis_information_ratio": "positive",
+    "mean_inverse_axis_information": "positive"
+  },
+  "frozen_before_test": true,
+  "git_commit": "3e5ad374d24cb0fbe4657f9f6a54e629ae4e96a0",
+  "log_transform": false,
+  "normalization": "H_trans divided by effective sample size",
+  "primary_metric": "mean_inverse_axis_information",
+  "primary_target": "mean_final_axis_error_squared",
+  "secondary_metrics": [
+    "harmonic_axis_information",
+    "low_axis_information_ratio",
+    "longest_low_information_duration_s",
+    "ODI_trans_median",
+    "lambda_min_trans_normalized_median",
+    "condition_number_trans_median"
+  ],
+  "test_seeds": [
+    404,
+    505
+  ],
+  "thresholds": {
+    "failure_m": [
+      0.05,
+      0.1,
+      0.2
+    ],
+    "low_axis_information": 0.02,
+    "primary_abs_rho": 0.55,
+    "weak_axis_alignment": 0.8
+  },
+  "train_seeds": [
+    101,
+    202,
+    303
+  ]
+}

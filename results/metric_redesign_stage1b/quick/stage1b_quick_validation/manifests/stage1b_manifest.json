@@ -1,0 +1,100 @@
+{
+  "config_hash": "754f9e44b0c712859a4fb7d40bfbb9617dcca77968426ee6c4f4f39d7608098e",
+  "config_hashes": {
+    "configs/detector/odi_stage1b.yaml": "fcb7fb2eef9456145bf6fe949f69685a0629cd5ca6dc65dbe2c8a018a7178553",
+    "configs/redesign/stage1b_common.yaml": "23a02593e27a492efb82b378aff3e54d40179e8acb73884567f1e37552274946",
+    "configs/redesign/stage1b_geometry_sweep.yaml": "ce570a91606adf7e287efdcb7d6f3ebb92b80d1014d193afd88b8fa136500bf2",
+    "configs/redesign/stage1b_observation_sweep.yaml": "b8330c46109dc118a1de1ad8c8eb3f247a71d4a02110bd21e1df2079f9359ef3",
+    "configs/toy_lio/motion_surrogate_stage1b.yaml": "c5a9b895eb229bf873dd5d3b501921546884786e9d4a90f8b1c4d3762783f87e"
+  },
+  "data_run_dir": "data/metric_redesign_stage1b/quick/stage1b_quick_validation",
+  "gates": {
+    "checks": {
+      "common_process_noise": true,
+      "full_pytest": {
+        "branch": "feature/metric-redesign-stage1b",
+        "command": "pytest -q",
+        "duration_seconds": 30.84,
+        "notes": "Exact full-suite command completed after the Stage 1b full run; no skipped or deleted Stage 1b tests.",
+        "status": "passed",
+        "test_count": 150,
+        "verified_date": "2026-07-14"
+      },
+      "geometry_axis_information_pair_rates": [
+        1.0
+      ],
+      "geometry_structure": true,
+      "observation_axis_information_pair_rates": [
+        1.0
+      ],
+      "observation_geometry_and_retention": true,
+      "one_row_per_sensor_run": true,
+      "prediction_details": {
+        "geometry": {
+          "odi_rho": NaN,
+          "primary_ci": [
+            NaN,
+            NaN
+          ],
+          "primary_monotonic_pair_rate": NaN,
+          "primary_rho": NaN,
+          "within_level_residual_rho": NaN
+        },
+        "observation": {
+          "odi_rho": NaN,
+          "primary_ci": [
+            NaN,
+            NaN
+          ],
+          "primary_monotonic_pair_rate": NaN,
+          "primary_rho": NaN,
+          "within_level_residual_rho": NaN
+        }
+      },
+      "process_trial_count": {
+        "actual": 27,
+        "expected": 27,
+        "pass": true
+      },
+      "process_trials_aggregated": true,
+      "sensor_count": {
+        "actual": 9,
+        "expected": 9,
+        "pass": true
+      }
+    },
+    "engineering": "ENGINEERING_PASS",
+    "mechanism": "MECHANISM_PASS",
+    "prediction": "PREDICTION_FAIL",
+    "stage1b": "STAGE1B_NO_GO"
+  },
+  "geometry_sensor_run_count": 5,
+  "geometry_sweep_noncontrol_count": 4,
+  "git_commit": "3e5ad374d24cb0fbe4657f9f6a54e629ae4e96a0",
+  "independent_spectrum_sample_count": 9,
+  "missing_artifacts": [],
+  "mode": "quick",
+  "observation_sensor_run_count": 4,
+  "open_control_sensor_run_count": 1,
+  "output_paths": [
+    "results/metric_redesign_stage1b/quick/stage1b_quick_validation/tables/process_trial_summary.csv",
+    "results/metric_redesign_stage1b/quick/stage1b_quick_validation/tables/sensor_run_summary.csv",
+    "results/metric_redesign_stage1b/quick/stage1b_quick_validation/tables/level_summary.csv",
+    "results/metric_redesign_stage1b/quick/stage1b_quick_validation/tables/paired_monotonicity.csv",
+    "results/metric_redesign_stage1b/quick/stage1b_quick_validation/tables/geometry_sweep_correlations.csv",
+    "results/metric_redesign_stage1b/quick/stage1b_quick_validation/tables/observation_sweep_correlations.csv",
+    "results/metric_redesign_stage1b/quick/stage1b_quick_validation/tables/within_level_correlations.csv",
+    "results/metric_redesign_stage1b/quick/stage1b_quick_validation/tables/train_test_comparison.csv",
+    "results/metric_redesign_stage1b/quick/stage1b_quick_validation/tables/gate_summary.csv",
+    "results/metric_redesign_stage1b/quick/stage1b_quick_validation/reports/stage1b_gate_report.md"
+  ],
+  "process_trial_count": 27,
+  "result_run_dir": "results/metric_redesign_stage1b/quick/stage1b_quick_validation",
+  "run_id": "stage1b_quick_validation",
+  "runtime_seconds": 4.916377,
+  "sensor_run_count": 9,
+  "sequence_count": 9,
+  "stage1b_decision": "STAGE1B_NO_GO",
+  "status": "OK",
+  "workers": 1
+}

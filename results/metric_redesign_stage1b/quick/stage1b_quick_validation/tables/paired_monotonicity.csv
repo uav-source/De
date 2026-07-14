@@ -1,0 +1,9 @@
+sweep_type,split,field,kind,risk_direction,metric_monotonic_pair_rate,target_monotonic_pair_rate,median_group_kendall_tau,positive_tau_group_ratio,paired_group_count
+geometry,train,mean_inverse_axis_information,metric,1,1.0,nan,1.0,1.0,1
+geometry,train,axis_information_normalized_median,mechanism_metric,-1,1.0,nan,1.0,1.0,1
+geometry,train,ODI_trans_median,baseline_metric,1,1.0,nan,1.0,1.0,1
+geometry,train,mean_final_axis_error_squared,target,1,nan,0.6666666666666666,0.6666666666666669,1.0,1
+observation,train,mean_inverse_axis_information,metric,1,1.0,nan,1.0,1.0,1
+observation,train,axis_information_normalized_median,mechanism_metric,-1,1.0,nan,1.0,1.0,1
+observation,train,ODI_trans_median,baseline_metric,1,0.6666666666666666,nan,0.6666666666666669,1.0,1
+observation,train,mean_final_axis_error_squared,target,1,nan,0.6666666666666666,0.6666666666666669,1.0,1

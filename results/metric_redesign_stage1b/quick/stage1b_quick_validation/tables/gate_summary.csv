@@ -1,0 +1,16 @@
+gate,status
+engineering,ENGINEERING_PASS
+mechanism,MECHANISM_PASS
+prediction,PREDICTION_FAIL
+stage1b,STAGE1B_NO_GO
+check:sensor_count,"{""actual"": 9, ""expected"": 9, ""pass"": true}"
+check:process_trial_count,"{""actual"": 27, ""expected"": 27, ""pass"": true}"
+check:one_row_per_sensor_run,true
+check:process_trials_aggregated,true
+check:common_process_noise,true
+check:full_pytest,"{""branch"": ""feature/metric-redesign-stage1b"", ""command"": ""pytest -q"", ""duration_seconds"": 30.84, ""notes"": ""Exact full-suite command completed after the Stage 1b full run; no skipped or deleted Stage 1b tests."", ""status"": ""passed"", ""test_count"": 150, ""verified_date"": ""2026-07-14""}"
+check:geometry_structure,true
+check:observation_geometry_and_retention,true
+check:geometry_axis_information_pair_rates,[1.0]
+check:observation_axis_information_pair_rates,[1.0]
+check:prediction_details,"{""geometry"": {""odi_rho"": NaN, ""primary_ci"": [NaN, NaN], ""primary_monotonic_pair_rate"": NaN, ""primary_rho"": NaN, ""within_level_residual_rho"": NaN}, ""observation"": {""odi_rho"": NaN, ""primary_ci"": [NaN, NaN], ""primary_monotonic_pair_rate"": NaN, ""primary_rho"": NaN, ""within_level_residual_rho"": NaN}}"
