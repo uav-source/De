@@ -24,13 +24,46 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 @dataclass
-class Plane:
+class PlanePatch:
     plane_id: str
     frame_start: int
     frame_end: int
     normal: np.ndarray
     point: np.ndarray
     semantic: str
+    u_axis: Optional[np.ndarray] = None
+    v_axis: Optional[np.ndarray] = None
+    half_u: float = 1000.0
+    half_v: float = 1000.0
+    sampling_weight: float = 1.0
+    is_axial_support: bool = False
+
+    def __post_init__(self) -> None:
+        self.normal = normalize_vector(self.normal)
+        if self.u_axis is None or self.v_axis is None:
+            self.u_axis, self.v_axis = plane_basis(self.normal)
+        else:
+            self.u_axis = normalize_vector(self.u_axis)
+            self.u_axis = normalize_vector(self.u_axis - self.normal * float(self.normal @ self.u_axis))
+            self.v_axis = normalize_vector(np.cross(self.normal, self.u_axis))
+            if float(self.v_axis @ np.asarray(self.v_axis, dtype=float)) <= 0.0:
+                raise ValueError("Invalid plane-patch basis")
+        if abs(float(self.normal @ self.u_axis)) > 1.0e-8:
+            raise ValueError("PlanePatch normal and u_axis must be orthogonal")
+        if abs(float(self.normal @ self.v_axis)) > 1.0e-8 or abs(float(self.u_axis @ self.v_axis)) > 1.0e-8:
+            raise ValueError("PlanePatch basis must be orthogonal")
+        self.point = np.asarray(self.point, dtype=float)
+        self.half_u = float(self.half_u)
+        self.half_v = float(self.half_v)
+        self.sampling_weight = float(self.sampling_weight)
+        if self.half_u <= 0.0 or self.half_v <= 0.0:
+            raise ValueError("PlanePatch half extents must be positive")
+        if self.sampling_weight < 0.0:
+            raise ValueError("PlanePatch sampling_weight must be non-negative")
+
+
+# Backward-compatible public name used by the Day 1-14 pipeline.
+Plane = PlanePatch
 
 
 @dataclass
@@ -58,7 +91,7 @@ def load_scene_config(path: str | Path) -> Dict[str, Any]:
 
 
 def generate_open_control(config: Dict[str, Any]) -> Sequence:
-    rng = np.random.default_rng(int(config["random_seed"]))
+    rng = np.random.default_rng(int(config.get("geometry_seed", config["random_seed"])))
     frames = int(config["frames"])
     timestamps = make_timestamps(frames, float(config["dt_s"]))
 
@@ -95,6 +128,7 @@ def generate_open_control(config: Dict[str, Any]) -> Sequence:
 
 
 def generate_straight_tunnel(config: Dict[str, Any]) -> Sequence:
+    rng = np.random.default_rng(int(config.get("geometry_seed", config["random_seed"])))
     frames = int(config["frames"])
     timestamps = make_timestamps(frames, float(config["dt_s"]))
     length_m = float(config["tunnel_length_m"])
@@ -110,7 +144,23 @@ def generate_straight_tunnel(config: Dict[str, Any]) -> Sequence:
 
     axis = np.tile(np.array(config["axis"], dtype=float), (frames, 1))
     axis = normalize_rows(axis)
-    planes = rectangular_tunnel_planes(frames, width_m, height_m)
+    if "axial_support_fraction" in config:
+        planes = build_rectangular_tunnel_patches(frames, length_m, width_m, height_m, prefix="st")
+        planes.extend(
+            build_axial_support_patches(
+                length_m,
+                width_m,
+                height_m,
+                int(config.get("axial_patch_count", 8)),
+                float(config["axial_support_fraction"]),
+                rng,
+                frames=frames,
+                prefix="st",
+            )
+        )
+        set_sampling_fraction(planes, float(config["axial_support_fraction"]))
+    else:
+        planes = rectangular_tunnel_planes(frames, width_m, height_m, length_m=length_m)
     feature_points = sample_tunnel_features(
         length_m=length_m,
         width_m=width_m,
@@ -142,7 +192,7 @@ def generate_curved_tunnel(config: Dict[str, Any]) -> Sequence:
 
     # Approximate representative local planes at the middle of the arc. The Day
     # 5 simulator can later use axis.csv for framewise local Jacobians.
-    planes = rectangular_tunnel_planes(frames, width_m, height_m, prefix="ct")
+    planes = rectangular_tunnel_planes(frames, width_m, height_m, prefix="ct", length_m=arc_length)
     feature_points = sample_curved_tunnel_features(radius, arc_length, width_m, height_m)
     return make_sequence(config, gt_poses, axis, planes, feature_points)
 
@@ -163,7 +213,7 @@ def generate_repetitive_tunnel(config: Dict[str, Any]) -> Sequence:
 
     axis = np.tile(np.array(config["axis"], dtype=float), (frames, 1))
     axis = normalize_rows(axis)
-    planes = rectangular_tunnel_planes(frames, width_m, height_m, prefix="rt")
+    planes = rectangular_tunnel_planes(frames, width_m, height_m, prefix="rt", length_m=length_m)
     planes.extend(repeated_feature_planes(frames, length_m, width_m, height_m, repeat_period))
     feature_points = sample_tunnel_features(
         length_m=length_m,
@@ -209,6 +259,10 @@ def make_sequence(
         "seed_id": config["seed_id"],
         "motion_id": config["motion_id"],
         "random_seed": int(config["random_seed"]),
+        "geometry_seed": int(config.get("geometry_seed", config["random_seed"])),
+        "axial_support_fraction": float(config.get("axial_support_fraction", 0.0)),
+        "axial_patch_count": int(config.get("axial_patch_count", 0)),
+        "geometry_schema": "finite_plane_patch_v1" if "geometry_seed" in config else "legacy_plane_compatible_v1",
         "config_path": config.get("_config_path"),
         "config_sha256": config.get("_config_sha256"),
         "expected_degeneracy": config["expected_degeneracy"],
@@ -259,6 +313,16 @@ def normalize_vector(values: Iterable[float]) -> np.ndarray:
     return vector / norm
 
 
+def plane_basis(normal: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    n = normalize_vector(normal)
+    candidate = np.array([0.0, 0.0, 1.0])
+    if abs(float(n @ candidate)) > 0.9:
+        candidate = np.array([1.0, 0.0, 0.0])
+    u = normalize_vector(np.cross(n, candidate))
+    v = normalize_vector(np.cross(n, u))
+    return u, v
+
+
 def isotropic_normals() -> np.ndarray:
     raw = [
         [1, 0, 0],
@@ -288,41 +352,135 @@ def rectangular_tunnel_planes(
     width_m: float,
     height_m: float,
     prefix: str = "st",
+    length_m: float = 200.0,
 ) -> List[Plane]:
+    return build_rectangular_tunnel_patches(frames, length_m, width_m, height_m, prefix)
+
+
+def build_rectangular_tunnel_patches(
+    frames: int,
+    length_m: float,
+    width_m: float,
+    height_m: float,
+    prefix: str = "st",
+) -> List[PlanePatch]:
+    center_x = 0.5 * float(length_m)
     return [
         Plane(
             f"{prefix}_left_wall",
             0,
             frames - 1,
             np.array([0.0, -1.0, 0.0]),
-            np.array([0.0, 0.5 * width_m, 0.5 * height_m]),
+            np.array([center_x, 0.5 * width_m, 0.5 * height_m]),
             "left_wall",
+            np.array([1.0, 0.0, 0.0]),
+            np.array([0.0, 0.0, 1.0]),
+            0.5 * length_m,
+            0.5 * height_m,
         ),
         Plane(
             f"{prefix}_right_wall",
             0,
             frames - 1,
             np.array([0.0, 1.0, 0.0]),
-            np.array([0.0, -0.5 * width_m, 0.5 * height_m]),
+            np.array([center_x, -0.5 * width_m, 0.5 * height_m]),
             "right_wall",
+            np.array([1.0, 0.0, 0.0]),
+            np.array([0.0, 0.0, -1.0]),
+            0.5 * length_m,
+            0.5 * height_m,
         ),
         Plane(
             f"{prefix}_floor",
             0,
             frames - 1,
             np.array([0.0, 0.0, 1.0]),
-            np.array([0.0, 0.0, 0.0]),
+            np.array([center_x, 0.0, 0.0]),
             "floor",
+            np.array([1.0, 0.0, 0.0]),
+            np.array([0.0, 1.0, 0.0]),
+            0.5 * length_m,
+            0.5 * width_m,
         ),
         Plane(
             f"{prefix}_ceiling",
             0,
             frames - 1,
             np.array([0.0, 0.0, -1.0]),
-            np.array([0.0, 0.0, height_m]),
+            np.array([center_x, 0.0, height_m]),
             "ceiling",
+            np.array([1.0, 0.0, 0.0]),
+            np.array([0.0, -1.0, 0.0]),
+            0.5 * length_m,
+            0.5 * width_m,
         ),
     ]
+
+
+def build_axial_support_patches(
+    length_m: float,
+    width_m: float,
+    height_m: float,
+    count: int,
+    axial_support_fraction: float,
+    rng: np.random.Generator,
+    frames: int = 100,
+    prefix: str = "st",
+) -> List[PlanePatch]:
+    """Build local, finite structures whose normals contain axial support."""
+
+    fraction = float(axial_support_fraction)
+    if not 0.0 < fraction < 1.0:
+        raise ValueError("axial_support_fraction must be in (0, 1)")
+    if count <= 0:
+        raise ValueError("axial_patch_count must be positive")
+    xs = np.linspace(0.08 * length_m, 0.92 * length_m, count)
+    xs += rng.uniform(-0.025 * length_m, 0.025 * length_m, size=count)
+    patches: List[PlanePatch] = []
+    for index, x in enumerate(np.clip(xs, 0.04 * length_m, 0.96 * length_m)):
+        side = -1.0 if index % 2 == 0 else 1.0
+        # Keep support non-zero but locally oblique: the prescribed support
+        # fraction, rather than a near-end-cap normal, controls the level.
+        axial = rng.uniform(0.18, 0.32)
+        transverse = math.sqrt(max(1.0 - axial * axial, 1.0e-6))
+        orientation = index % 4
+        if orientation < 2:
+            normal = normalize_vector([axial, -transverse if orientation == 0 else transverse, 0.0])
+        else:
+            normal = normalize_vector([axial, 0.0, -transverse if orientation == 2 else transverse])
+        u_axis, v_axis = plane_basis(normal)
+        y = side * (0.5 * width_m - rng.uniform(0.05, 0.20))
+        z = rng.uniform(0.25 * height_m, 0.75 * height_m)
+        frame_center = int(round((x / max(length_m, 1.0e-9)) * (frames - 1)))
+        radius = max(2, int(math.ceil(frames * 0.10)))
+        patches.append(
+            PlanePatch(
+                plane_id=f"{prefix}_axial_patch_{index:02d}",
+                frame_start=max(0, frame_center - radius),
+                frame_end=min(frames - 1, frame_center + radius),
+                normal=normal,
+                point=np.array([x, y, z]),
+                semantic="local_axial_support",
+                u_axis=u_axis,
+                v_axis=v_axis,
+                half_u=rng.uniform(0.25, 0.55),
+                half_v=rng.uniform(0.25, 0.70),
+                sampling_weight=fraction / count,
+                is_axial_support=True,
+            )
+        )
+    return patches
+
+
+def set_sampling_fraction(planes: List[PlanePatch], axial_support_fraction: float) -> None:
+    base = [plane for plane in planes if not plane.is_axial_support]
+    axial = [plane for plane in planes if plane.is_axial_support]
+    if not base or not axial:
+        raise ValueError("Both base and axial-support patches are required")
+    for plane in base:
+        plane.sampling_weight = (1.0 - axial_support_fraction) / len(base)
+    for plane in axial:
+        plane.sampling_weight = axial_support_fraction / len(axial)
 
 
 def repeated_feature_planes(
@@ -336,23 +494,31 @@ def repeated_feature_planes(
     repeat_count = int(math.floor(length_m / repeat_period_m))
     for index in range(1, repeat_count):
         x = index * repeat_period_m
+        frame_center = int(round((x / max(length_m, 1.0e-9)) * (frames - 1)))
+        frame_radius = max(2, int(math.ceil(frames * 0.06)))
         planes.extend(
             [
                 Plane(
                     f"rt_side_patch_left_{index:02d}",
-                    0,
-                    frames - 1,
+                    max(0, frame_center - frame_radius),
+                    min(frames - 1, frame_center + frame_radius),
                     np.array([0.0, -1.0, 0.0]),
                     np.array([x, 0.5 * width_m, 0.5 * height_m]),
                     "repeated_side_patch",
+                    half_u=0.35 * repeat_period_m,
+                    half_v=0.35 * height_m,
+                    sampling_weight=0.05,
                 ),
                 Plane(
                     f"rt_ceiling_rib_{index:02d}",
-                    0,
-                    frames - 1,
+                    max(0, frame_center - frame_radius),
+                    min(frames - 1, frame_center + frame_radius),
                     np.array([0.0, 0.0, -1.0]),
                     np.array([x, 0.0, height_m]),
                     "repeated_ceiling_rib",
+                    half_u=0.35 * repeat_period_m,
+                    half_v=0.35 * width_m,
+                    sampling_weight=0.05,
                 ),
             ]
         )
@@ -426,7 +592,10 @@ def save_axis_csv(path: Path, timestamps: np.ndarray, axis: np.ndarray) -> None:
 def save_planes_csv(path: Path, planes: List[Plane]) -> None:
     with path.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.writer(handle)
-        writer.writerow(["plane_id", "frame_start", "frame_end", "nx", "ny", "nz", "qx", "qy", "qz", "semantic"])
+        writer.writerow([
+            "plane_id", "frame_start", "frame_end", "nx", "ny", "nz", "qx", "qy", "qz", "semantic",
+            "ux", "uy", "uz", "vx", "vy", "vz", "half_u", "half_v", "sampling_weight", "is_axial_support",
+        ])
         for plane in planes:
             n = plane.normal
             q = plane.point
@@ -442,6 +611,16 @@ def save_planes_csv(path: Path, planes: List[Plane]) -> None:
                     f"{q[1]:.9f}",
                     f"{q[2]:.9f}",
                     plane.semantic,
+                    f"{plane.u_axis[0]:.9f}",
+                    f"{plane.u_axis[1]:.9f}",
+                    f"{plane.u_axis[2]:.9f}",
+                    f"{plane.v_axis[0]:.9f}",
+                    f"{plane.v_axis[1]:.9f}",
+                    f"{plane.v_axis[2]:.9f}",
+                    f"{plane.half_u:.9f}",
+                    f"{plane.half_v:.9f}",
+                    f"{plane.sampling_weight:.9f}",
+                    int(plane.is_axial_support),
                 ]
             )
 
@@ -472,4 +651,3 @@ def git_commit() -> Optional[str]:
         ).strip()
     except (subprocess.CalledProcessError, FileNotFoundError):
         return None
-

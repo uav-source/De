@@ -32,12 +32,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seq", type=Path, help="Generated sequence directory.")
     parser.add_argument("--config", type=Path, required=True, help="Detector config path.")
     parser.add_argument("--all", action="store_true", help="Simulate all four Day 14 minimum sequences.")
+    parser.add_argument("--sensor-seed", type=int, help="Override the sensor sampling/noise seed.")
     return parser.parse_args()
 
 
-def simulate_one(sequence_dir: Path, config_path: Path) -> None:
+def simulate_one(sequence_dir: Path, config_path: Path, sensor_seed=None) -> None:
     output_path = sequence_dir / "observations.npz"
-    observations = simulate_sequence_observations(sequence_dir, config_path)
+    observations = simulate_sequence_observations(sequence_dir, config_path, sensor_seed=sensor_seed)
     save_observations(observations, output_path)
     packed_J = observations["packed_J"]
     print(
@@ -50,14 +51,13 @@ def main() -> int:
     args = parse_args()
     if args.all:
         for sequence_dir in DEFAULT_SEQUENCES:
-            simulate_one(sequence_dir, args.config)
+            simulate_one(sequence_dir, args.config, args.sensor_seed)
         return 0
     if args.seq is None:
         raise SystemExit("--seq is required unless --all is used")
-    simulate_one(args.seq, args.config)
+    simulate_one(args.seq, args.config, args.sensor_seed)
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
