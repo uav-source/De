@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from minibench.map_lio import propagate_covariance
-from stage2b_helpers import simple_pose
+from stage2c_helpers import simple_pose
 
 
 def test_covariance_propagation_is_symmetric_psd_and_additive():

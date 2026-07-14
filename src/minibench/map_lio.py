@@ -1,4 +1,4 @@
-"""Prior-relinearized covariance-aware synthetic MAP estimator for Stage 2B."""
+"""Prior-relinearized covariance-aware synthetic gain estimator for Stage 2C."""
 
 from __future__ import annotations
 
@@ -9,7 +9,12 @@ import numpy as np
 from degen_detector.odi_tracker import compute_metrics_for_frame
 from .motion_simulator import apply_se3_increment, compose_pose_with_body_increment
 from .observation_simulator import quat_to_rot, skew_matrix
-from .update_strategies import build_normal_equation, execute_update_strategy
+from .update_strategies import (
+    build_robust_linear_system,
+    execute_gain_strategy,
+    make_translation_direction_6d,
+    solve_full_robust_gain,
+)
 
 
 def linearize_point_to_plane(
@@ -46,7 +51,7 @@ def propagate_covariance(
 ) -> np.ndarray:
     """Propagate correction covariance with F = I controlled approximation.
 
-    F = I is a controlled first-order approximation for Stage 2B.
+    F = I is a controlled first-order approximation for Stage 2C.
     """
 
     posterior = _validate_covariance(posterior_covariance)
@@ -76,7 +81,7 @@ def run_map_lio(
         "r_list", "R_diag_list",
     ]
     if any(name not in observations for name in required):
-        raise ValueError("Stage 2B observations are incomplete")
+        raise ValueError("Stage 2C observations are incomplete")
     points = np.asarray(observations["points_lidar"], dtype=float)
     normals = np.asarray(observations["normals_world"], dtype=float)
     anchors = np.asarray(observations["plane_points_world"], dtype=float)
@@ -91,10 +96,10 @@ def run_map_lio(
     if translations.shape != (frame_count - 1, 3) or rotations.shape != (frame_count - 1, 3):
         raise ValueError("motion measurement count does not match observations")
     if int(update_config.get("lidar_update_iterations", 1)) != 1:
-        raise ValueError("Stage 2B freezes lidar_update_iterations at one")
-    if strategy == "huber_oracle_selective" and oracle_directions is None:
+        raise ValueError("Stage 2C freezes lidar_update_iterations at one")
+    if strategy == "huber_oracle_projected_gain" and oracle_directions is None:
         raise ValueError("oracle_only offline_evaluation_only direction is required")
-    if strategy != "huber_oracle_selective" and oracle_directions is not None:
+    if strategy != "huber_oracle_projected_gain" and oracle_directions is not None:
         raise ValueError("GT directions are isolated to the oracle_only path")
 
     poses = np.zeros((frame_count, 8), dtype=float)
@@ -127,20 +132,21 @@ def run_map_lio(
             [detector["primary_weak_dir_x"], detector["primary_weak_dir_y"], detector["primary_weak_dir_z"]]
         )
         direction = detected_direction
-        if strategy == "huber_oracle_selective":
+        if strategy == "huber_oracle_projected_gain":
             direction = np.asarray(oracle_directions[frame], dtype=float)
             actionable = triggered
-        normal = build_normal_equation(
+        system = build_robust_linear_system(
             J,
             residual,
             variances[frame],
             float(update_config["huber_delta_sigma"]),
         )
         try:
-            update = execute_update_strategy(
+            full = solve_full_robust_gain(covariance_prior, system)
+            update = execute_gain_strategy(
                 strategy,
                 covariance_prior,
-                normal,
+                system,
                 attenuation_alpha,
                 triggered,
                 actionable,
@@ -149,18 +155,37 @@ def run_map_lio(
         except (ValueError, RuntimeError, np.linalg.LinAlgError):
             solver_failures += 1
             update_delta = np.zeros(6, dtype=float)
+            full_delta = np.zeros(6, dtype=float)
             update_covariance = covariance_prior
             solver_condition_number = float("inf")
+            joseph_min_eigenvalue = float(np.min(np.linalg.eigvalsh(covariance_prior)))
         else:
             update_delta = update.delta
+            full_delta = full.delta
             update_covariance = update.posterior_covariance
-            solver_condition_number = update.solver_condition_number
+            solver_condition_number = update.normal_condition_number
+            joseph_min_eigenvalue = update.joseph_min_eigenvalue
         poses[frame] = apply_se3_increment(prior, update_delta)
         poses[frame, 0] = timestamps[frame]
         covariance = update_covariance
         covariance_history[frame] = covariance
-        weak_component = abs(float(detected_direction @ update_delta[3:6]))
-        strong_vector = update_delta[3:6] - detected_direction * float(detected_direction @ update_delta[3:6])
+        lifted = _diagnostic_direction(direction)
+        full_weak_signed = float(lifted @ full_delta)
+        applied_weak_signed = float(lifted @ update_delta)
+        full_strong = full_delta - lifted * full_weak_signed
+        applied_strong = update_delta - lifted * applied_weak_signed
+        if not actionable:
+            weak_ratio = 1.0
+        elif abs(full_weak_signed) > 1.0e-12:
+            weak_ratio = abs(applied_weak_signed / full_weak_signed)
+        else:
+            weak_ratio = 1.0 if abs(applied_weak_signed) <= 1.0e-12 else float("inf")
+        contamination = np.asarray(
+            observations.get("contamination_mask", np.zeros_like(base_residual, dtype=bool))
+        )[frame].astype(bool)
+        downweighted_contamination = (
+            float(np.mean(system.robust_weights[contamination] < 1.0)) if np.any(contamination) else 0.0
+        )
         diagnostics.append(
             {
                 "frame_index": frame,
@@ -168,16 +193,30 @@ def run_map_lio(
                 "degeneracy_triggered": triggered,
                 "primary_direction_stable": stable,
                 "actionable_direction": actionable,
-                "weak_update_component_abs": weak_component,
-                "strong_update_component_norm": float(np.linalg.norm(strong_vector)),
+                "full_weak_correction_abs": abs(full_weak_signed),
+                "applied_weak_correction_abs": abs(applied_weak_signed),
+                "weak_correction_ratio": weak_ratio,
+                "full_strong_correction_norm": float(np.linalg.norm(full_strong[3:6])),
+                "applied_strong_correction_norm": float(np.linalg.norm(applied_strong[3:6])),
+                "strong_correction_difference_norm": float(
+                    np.linalg.norm(applied_strong[3:6] - full_strong[3:6])
+                ),
+                "full_rotation_correction_norm": float(np.linalg.norm(full_delta[:3])),
+                "applied_rotation_correction_norm": float(np.linalg.norm(update_delta[:3])),
+                "rotation_correction_difference_norm": float(
+                    np.linalg.norm(update_delta[:3] - full_delta[:3])
+                ),
+                "weak_update_component_abs": abs(applied_weak_signed),
+                "strong_update_component_norm": float(np.linalg.norm(applied_strong[3:6])),
                 "rotation_update_norm": float(np.linalg.norm(update_delta[:3])),
                 "update_norm": float(np.linalg.norm(update_delta)),
                 "solver_condition_number": solver_condition_number,
+                "joseph_min_eigenvalue": joseph_min_eigenvalue,
                 "posterior_covariance_trace": float(np.trace(covariance)),
-                "huber_outlier_ratio": float(np.mean(normal.robust_weights < 1.0)),
-                "contaminated_measurement_ratio": float(
-                    np.mean(np.asarray(observations.get("contamination_mask", np.zeros_like(base_residual, dtype=bool)))[frame])
-                ),
+                "directional_posterior_variance": float(lifted @ covariance @ lifted),
+                "huber_outlier_ratio": float(np.mean(system.robust_weights < 1.0)),
+                "contaminated_measurement_ratio": float(np.mean(contamination)),
+                "contaminated_huber_downweighted_ratio": downweighted_contamination,
             }
         )
     return {
@@ -195,6 +234,13 @@ def _frame_covariance(values: np.ndarray, index: int) -> np.ndarray:
     if values.ndim == 3 and values.shape[1:] == (3, 3):
         return values[index]
     raise ValueError("motion covariance must be [3,3] or [N,3,3]")
+
+
+def _diagnostic_direction(direction: np.ndarray) -> np.ndarray:
+    value = np.asarray(direction, dtype=float)
+    if value.shape != (3,) or not np.all(np.isfinite(value)) or float(np.linalg.norm(value)) <= 1.0e-12:
+        return np.zeros(6, dtype=float)
+    return make_translation_direction_6d(value)
 
 
 def _validate_covariance(matrix: np.ndarray) -> np.ndarray:

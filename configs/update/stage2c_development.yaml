@@ -1,0 +1,7 @@
+phase: development
+geometry_seeds: [2801, 2903, 3011, 3121, 3251, 3371, 3499, 3613, 3733, 3863]
+sensor_seeds: [77, 88]
+process_seeds: [4001, 4002, 4003, 4004, 4005, 4006, 4007, 4008, 4009, 4010]
+stress_names: [clean, coherent_subhuber_slip, gross_outlier_control]
+expected_sensor_stress_blocks: 540
+expected_method_trials: 27000

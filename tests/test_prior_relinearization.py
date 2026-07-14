@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from minibench.map_lio import linearize_point_to_plane
-from stage2b_helpers import simple_pose
+from stage2c_helpers import simple_pose
 
 
 def test_point_to_plane_is_relinearized_at_prior_pose():

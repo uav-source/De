@@ -1,6 +1,0 @@
-phase: test
-geometry_seeds: [2801, 2903, 3011, 3121, 3251, 3371, 3499, 3613, 3733, 3863]
-sensor_seeds: [77, 88]
-process_seeds: [4001, 4002, 4003, 4004, 4005, 4006, 4007, 4008, 4009, 4010, 4011, 4012, 4013, 4014, 4015, 4016, 4017, 4018, 4019, 4020]
-expected_sensor_stress_blocks: 360
-expected_method_trials: 36000

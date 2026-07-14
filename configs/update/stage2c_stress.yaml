@@ -1,0 +1,17 @@
+stress_regimes:
+  clean:
+    enabled: false
+  coherent_subhuber_slip:
+    enabled: true
+    corrupted_axial_patch_fraction: 1.0
+    burst_length_frames: 20
+    slip_sigma: 1.5
+    shared_burst_start: true
+    shared_sign: true
+  gross_outlier_control:
+    enabled: true
+    corrupted_axial_patch_fraction: 0.25
+    burst_length_frames: 8
+    slip_sigma: 4.0
+    shared_burst_start: true
+    shared_sign: true

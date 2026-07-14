@@ -14,16 +14,16 @@ Not confirmed:
 
 - reliable drift magnitude prediction;
 - online risk warning;
-- selective weak-direction update benefit under the locked Stage 2B benchmark;
+- projected-gain weak-direction update benefit under the Stage 2C benchmark;
 - complete LiDAR-inertial odometry method.
 
-Current active stage: **Weak-Subspace Update Stage 2B**.
+Current active stage: **Weak-Subspace Update Stage 2C**.
 
-Confirmed: the detector and weak direction. Evaluated without authorization: the covariance-aware selective weak-direction update. Risk prediction remains paused. FAST-LIO2 integration, real IMU propagation, real data association, and a complete Degen-LIO system are not implemented.
+Confirmed: the detector and weak direction. Stage 2C evaluates a covariance-consistent projected-gain update. Risk prediction remains paused. FAST-LIO2 integration, real IMU propagation, real data association, and a complete Degen-LIO system are not implemented.
 
-Locked Stage 2B outcome: **Selective update did not outperform robust full update under the locked benchmark.** Engineering, stress-mechanism, clean non-inferiority, and Open-Control safety checks passed, but both severe-contamination performance gates failed. Integration is not authorized, and the reserved Test seeds must not be reused for tuning.
+Frozen Stage 2B outcome: **the column-scaled update is a mathematical and empirical NO-GO.** Its compact evidence is archived under `artifacts/history/stage2b_column_scaling_no_go/`. Stage 2C must pass Development before any new reserved Test seed may be consumed.
 
-## Reproduce the active Stage 2B study
+## Reproduce the active Stage 2C study
 
 The supported environment is Python 3.11. Install the frozen dependencies with:
 
@@ -37,7 +37,7 @@ python -m pytest -q
 The container definition runs the same test suite:
 
 ```bash
-docker build -t degen-lio-stage2b .
+docker build -t degen-lio-stage2c .
 ```
 
 Run the staged workflow in this order:
@@ -46,16 +46,16 @@ Run the staged workflow in this order:
 python3 scripts/check_env.py
 python3 scripts/clean_workspace.py
 python3 scripts/clean_workspace.py --apply
-python3 scripts/31_run_weak_update_stage2b.py --quick --run-id weak_update_stage2b_quick_v1
-python3 scripts/31_run_weak_update_stage2b.py --development --run-id weak_update_stage2b_dev_v1 --workers 8 --resume
-python3 scripts/31_run_weak_update_stage2b.py --lock-update --development-run-dir results/weak_update_stage2b/development/weak_update_stage2b_dev_v1
-python3 scripts/31_run_weak_update_stage2b.py --test --run-id weak_update_stage2b_test_v1 --update-lock artifacts/current/weak_update_stage2b/locked/update_lock.json --workers 8 --resume
-python3 scripts/31_run_weak_update_stage2b.py --analyze-only --run-dir results/weak_update_stage2b/test/weak_update_stage2b_test_v1
+python3 scripts/32_run_weak_update_stage2c.py --quick --run-id weak_update_stage2c_quick_v1
+python3 scripts/32_run_weak_update_stage2c.py --development --run-id weak_update_stage2c_dev_v1 --workers 8 --resume
+python3 scripts/32_run_weak_update_stage2c.py --lock-update --development-run-dir results/weak_update_stage2c/development/weak_update_stage2c_dev_v1
+python3 scripts/32_run_weak_update_stage2c.py --test --run-id weak_update_stage2c_test_v1 --update-lock artifacts/current/weak_update_stage2c/locked/update_lock.json --workers 8 --resume
+python3 scripts/32_run_weak_update_stage2c.py --analyze-only --run-dir results/weak_update_stage2c/test/weak_update_stage2c_test_v1
 ```
 
-The lock command writes an ignored run-local copy and a compact copy under `artifacts/current/weak_update_stage2b/locked/`; commit that compact lock before Test. Test refuses to run unless the lock is committed, source/configuration/stress hashes match, the worktree is clean, reserved seeds are disjoint and unchanged, and current-commit full-pytest provenance is present. Generated data and results remain ignored.
+The lock command is allowed only after Development passes. It writes an ignored run-local copy and a compact copy under `artifacts/current/weak_update_stage2c/locked/`; commit that compact lock before Test. Test refuses to run unless the lock is committed, source/configuration/stress and historical-artifact hashes match, the worktree is clean, reserved seeds are disjoint and unchanged, and current-commit full-pytest provenance is present. Generated data and results remain ignored.
 
-Detailed definitions, gates, and output contracts are in [docs/weak_update_stage2b.md](docs/weak_update_stage2b.md). Stage 2A remains frozen and documented in [docs/detector_stage2a.md](docs/detector_stage2a.md).
+Detailed definitions, gates, and output contracts are in [docs/weak_update_stage2c.md](docs/weak_update_stage2c.md). Stage 2A remains frozen and documented in [docs/detector_stage2a.md](docs/detector_stage2a.md).
 
 ## Repository scope
 

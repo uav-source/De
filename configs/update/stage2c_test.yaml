@@ -1,0 +1,7 @@
+phase: test
+geometry_seeds: [4003, 4127, 4253, 4373, 4493, 4621, 4751, 4877, 5003, 5147]
+sensor_seeds: [99, 111]
+process_seeds: [6001, 6002, 6003, 6004, 6005, 6006, 6007, 6008, 6009, 6010, 6011, 6012, 6013, 6014, 6015, 6016, 6017, 6018, 6019, 6020]
+stress_names: [clean, coherent_subhuber_slip]
+expected_sensor_stress_blocks: 360
+expected_method_trials: 36000

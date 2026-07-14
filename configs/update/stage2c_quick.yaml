@@ -1,0 +1,7 @@
+phase: quick
+geometry_seeds: [2801]
+sensor_seeds: [77]
+process_seeds: [4001, 4002]
+stress_names: [clean, coherent_subhuber_slip, gross_outlier_control]
+expected_sensor_stress_blocks: 27
+expected_method_trials: 270
