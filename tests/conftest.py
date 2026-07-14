@@ -135,3 +135,34 @@ def print_tail(label: str, content) -> None:
     print(f"--- {label} last {min(100, len(lines))} lines ---")
     for line in lines[-100:]:
         print(line)
+
+
+@pytest.fixture(scope="session")
+def nested_geometry_outputs(tmp_path_factory):
+    sys.path.insert(0, str(ROOT / "src"))
+    from eval.synthetic_pipeline_common import generate_or_validate_sequence, load_yaml, make_spec
+    from minibench.nested_geometry_observations import simulate_nested_geometry_observations
+
+    base = tmp_path_factory.mktemp("nested_geometry")
+    common = load_yaml(ROOT / "configs/redesign/detector_stage2a_common.yaml")
+    outputs = {}
+    for level, count in common["geometry_levels"].items():
+        spec = make_spec(
+            common["scene"],
+            "geometry",
+            level,
+            101,
+            "quick",
+            active_patch_count=int(count),
+        )
+        sequence_dir = base / level
+        generate_or_validate_sequence(sequence_dir, spec)
+        outputs[level] = simulate_nested_geometry_observations(
+            sequence_dir,
+            ROOT / "configs/detector/odi_stage2a.yaml",
+            geometry_seed=101,
+            sensor_seed=11,
+            points_per_square_meter=float(common["geometry_points_per_square_meter"]),
+            min_points_per_patch=int(common["geometry_min_points_per_patch"]),
+        )
+    return outputs
