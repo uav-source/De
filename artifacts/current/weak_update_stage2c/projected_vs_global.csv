@@ -1,0 +1,3 @@
+sweep,candidate_method,baseline_method,pair_count,axis_rmse_relative_change,strong_translation_rmse_relative_change,orientation_rmse_rad_relative_change,trajectory_rmse_3d_relative_change
+geometry,huber_projected_gain,huber_global_gain,800,-3.795217040795327e-05,-0.011484111743701463,-0.007340801432220646,-0.0001958446027188424
+observation,huber_projected_gain,huber_global_gain,800,-3.6282132260522286e-05,-0.02154189120822364,0.001332624931255274,-0.00015526963921448503

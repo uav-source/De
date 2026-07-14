@@ -1,0 +1,2 @@
+phase,development_go,selected_attenuation_alpha,selection_rule
+development,True,0.9,maximize minimum geometry/observation severe-axis reduction; within 1 percentage point choose largest alpha

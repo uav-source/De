@@ -1,0 +1,6 @@
+method,trial_count,solver_failure_count,minimum_joseph_eigenvalue,maximum_mean_weak_ratio_error,maximum_mean_strong_difference,maximum_mean_rotation_difference
+huber_full,7200,0,7.477357541753764e-09,0.0,0.0,0.0
+huber_global_gain,7200,0,7.744294658473827e-09,0.0,0.001035807518620955,0.00011062805727678475
+huber_directional_mode,7200,0,7.5579655216729e-09,0.0,9.296172502814549e-06,3.816277602210297e-06
+huber_projected_gain,7200,0,7.549426726535716e-09,7.082112674083874e-13,3.268586965188768e-18,0.0
+huber_oracle_projected_gain,7200,0,7.477456480588067e-09,1.617594946878853e-13,0.0,0.0

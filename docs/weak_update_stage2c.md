@@ -67,3 +67,17 @@ The Test command additionally requires a committed immutable lock, clean source
 and config hashes, unchanged Stage 2A and Stage 2B evidence, the reserved seed
 set, and full-pytest provenance for the current commit.
 
+## Locked result
+
+Development selected alpha 0.9 as the only feasible candidate. The reserved
+Test completed 360 blocks and 36,000 method trials with zero pairing violations
+and zero solver failures. Geometry and Observation coherent-stress axis-RMSE
+reductions were 0.3720% and 0.4926%, respectively, versus the locked 15%
+threshold. Both primary performance gates therefore failed, while engineering,
+formulation, stress-mechanism, clean non-inferiority, and Open-Control safety
+passed.
+
+Consequently, `PROJECTED_GAIN_UPDATE_PASS=false`,
+`FAST_LIO2_INTEGRATION_AUTHORIZED=false`, and
+`RISK_WARNING_AUTHORIZED=false`. The complete compact audit is stored in
+`artifacts/current/weak_update_stage2c/`.

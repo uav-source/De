@@ -21,7 +21,9 @@ Current active stage: **Weak-Subspace Update Stage 2C**.
 
 Confirmed: the detector and weak direction. Stage 2C evaluates a covariance-consistent projected-gain update. Risk prediction remains paused. FAST-LIO2 integration, real IMU propagation, real data association, and a complete Degen-LIO system are not implemented.
 
-Frozen Stage 2B outcome: **the column-scaled update is a mathematical and empirical NO-GO.** Its compact evidence is archived under `artifacts/history/stage2b_column_scaling_no_go/`. Stage 2C must pass Development before any new reserved Test seed may be consumed.
+Frozen Stage 2B outcome: **the column-scaled update is a mathematical and empirical NO-GO.** Its compact evidence is archived under `artifacts/history/stage2b_column_scaling_no_go/`.
+
+Locked Stage 2C outcome: **the projected-gain formulation is mathematically correct but fails the reserved Test performance gate.** Geometry and Observation axis-RMSE reductions were positive but only 0.3720% and 0.4926%, far below the locked 15% threshold. Engineering, formulation, stress, clean, and Open-Control gates passed; both coherent-stress performance gates failed. FAST-LIO2 integration and risk warning remain unauthorized. The compact audit is in `artifacts/current/weak_update_stage2c/`.
 
 ## Reproduce the active Stage 2C study
 
