@@ -1,0 +1,7 @@
+{
+  "calibration_data_sha256": "8e0bb6ce56469e29a580f8f0b27b546ec5932ae6c198880590aadd749cc47152",
+  "calibration_frame_count": 2080,
+  "calibration_source": "development_open_control_only",
+  "odi_trigger_threshold": 0.035199792993590634,
+  "trigger_control_quantile": 0.95
+}

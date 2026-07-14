@@ -1,0 +1,28 @@
+{
+  "analysis_git_commit": "974176d0d67a4ca8b40389bc8469d8162a92aa8e",
+  "analysis_history": [
+    {
+      "analysis_git_commit": "974176d0d67a4ca8b40389bc8469d8162a92aa8e",
+      "analysis_source_tree_sha256": "77ca979c1e3c07d98e5cef90f885eb315f61d86f2793ce1a1298faadd3acae78",
+      "analysis_timestamp": "2026-07-14T07:00:04.928304+00:00"
+    }
+  ],
+  "config_bundle_sha256": "850c40eb799bb65b2cd40781c6bf207183cc03856717530f6df274149db748db",
+  "data_generation_git_commit": "974176d0d67a4ca8b40389bc8469d8162a92aa8e",
+  "data_run_dir": "data/detector_stage2a/development/detector_stage2a_dev_v1",
+  "detector_lock_path": null,
+  "detector_lock_sha256": null,
+  "expected_sensor_runs": 468,
+  "git_status_clean_at_start": true,
+  "odi_trigger_threshold": 0.035199792993590634,
+  "phase": "development",
+  "process_trial_count": 0,
+  "pytest_provenance": null,
+  "result_run_dir": "results/detector_stage2a/development/detector_stage2a_dev_v1",
+  "run_id": "detector_stage2a_dev_v1",
+  "runtime_seconds": 259.426014,
+  "sensor_run_count": 468,
+  "source_tree_sha256": "77ca979c1e3c07d98e5cef90f885eb315f61d86f2793ce1a1298faadd3acae78",
+  "stage": "detector_consolidation_stage2a",
+  "status": "OK"
+}

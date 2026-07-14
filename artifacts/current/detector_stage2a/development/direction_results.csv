@@ -1,0 +1,3 @@
+sweep_type,severe_levels,primary_direction_axis_alignment_median,primary_direction_axis_alignment_p10,primary_direction_stable_rate,degeneracy_trigger_rate,actionable_direction_rate,L3_trigger_rate,L4_trigger_rate,O3_trigger_rate,O4_trigger_rate
+geometry,"L3,L4",0.998623505842344,0.9683181229521759,1.0,0.9987980769230769,0.9987980769230769,0.9975961538461539,1.0,,
+observation,"O3,O4",0.9997361785537828,0.9969963251321093,1.0,1.0,1.0,,,1.0,1.0
