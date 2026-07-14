@@ -1,0 +1,113 @@
+{
+  "analysis_git_commit": "134fb68bd69bcdfcbc2579648490309671c289f9",
+  "analysis_history": [
+    {
+      "analysis_git_commit": "134fb68bd69bcdfcbc2579648490309671c289f9",
+      "analysis_source_tree_sha256": "5ae3b8123fa353efbe927fcbc1a1ffe6a002e36e12df15be20b6c8127619ffe8",
+      "analysis_timestamp": "2026-07-14T05:24:14.985274+00:00"
+    },
+    {
+      "analysis_git_commit": "134fb68bd69bcdfcbc2579648490309671c289f9",
+      "analysis_source_tree_sha256": "5ae3b8123fa353efbe927fcbc1a1ffe6a002e36e12df15be20b6c8127619ffe8",
+      "analysis_timestamp": "2026-07-14T05:24:32.267871+00:00"
+    }
+  ],
+  "analysis_lock_path": "results/metric_redesign_stage1c/development/stage1c_dev_v1/analysis_lock.json",
+  "analysis_lock_sha256": "1d1cf631c4cd90c9a22f23d3017fde4faec1c0de2e6f70100ea88d8fd8bc1072",
+  "analysis_source_tree_sha256": "5ae3b8123fa353efbe927fcbc1a1ffe6a002e36e12df15be20b6c8127619ffe8",
+  "authorizations": {
+    "RISK_WARNING_AUTHORIZED": false,
+    "WEAK_UPDATE_AUTHORIZED": false
+  },
+  "config_bundle_sha256": "abafcadbef5936a4cf47a9c709af6fdf80e57174228520f55cdb5630c827149a",
+  "data_generation": {
+    "config_bundle_sha256": "abafcadbef5936a4cf47a9c709af6fdf80e57174228520f55cdb5630c827149a",
+    "data_generation_git_commit": "134fb68bd69bcdfcbc2579648490309671c289f9",
+    "data_generation_source_tree_sha256": "5ae3b8123fa353efbe927fcbc1a1ffe6a002e36e12df15be20b6c8127619ffe8",
+    "finished_at": "2026-07-14T05:24:05.841605+00:00",
+    "git_status_clean_at_start": true,
+    "started_at": "2026-07-14T05:22:11.176623+00:00"
+  },
+  "data_generation_git_commit": "134fb68bd69bcdfcbc2579648490309671c289f9",
+  "data_generation_source_tree_sha256": "5ae3b8123fa353efbe927fcbc1a1ffe6a002e36e12df15be20b6c8127619ffe8",
+  "data_run_dir": "data/metric_redesign_stage1c/test/stage1c_test_v1",
+  "gates": {
+    "checks": {
+      "detector": {
+        "geometry": false,
+        "observation": false,
+        "open_control": {
+          "sensor_run_count": 16,
+          "weak_alignment_median": 0.0,
+          "weak_axis_aligned_false_trigger_rate": 0.0
+        }
+      },
+      "engineering": {
+        "combined_process_trials": 7020,
+        "combined_sensor_runs": 234,
+        "config_matches_lock": true,
+        "development_test_isolated": true,
+        "git_status_clean": true,
+        "longest_low_information_duration_unique_count": 14,
+        "low_information_ratio_unique_count": 16,
+        "manifest_version_tracking": true,
+        "no_gt_leakage_regression": true,
+        "process_noise_independence_violations": 0,
+        "process_noise_pairing_violations": 0,
+        "source_tree_matches_lock": true,
+        "test_provenance_current_commit": true,
+        "test_unique_noise_sequences": 1440,
+        "thirty_trials_per_sensor": true,
+        "trajectories_complete": true,
+        "verified_pytest_twice": true
+      },
+      "mechanism": {
+        "geometry_axis_information_ordered_blocks": 6,
+        "geometry_block_count": 8,
+        "geometry_structure_pass": true,
+        "observation_axis_information_ordered_blocks": 8,
+        "observation_block_count": 8,
+        "observation_retention_nested": true,
+        "observation_structure_pass": true
+      },
+      "prediction": {
+        "geometry": false,
+        "observation": false
+      }
+    },
+    "detector": "DETECTOR_FAIL",
+    "engineering": "ENGINEERING_PASS",
+    "mechanism": "MECHANISM_FAIL",
+    "prediction": "PREDICTION_FAIL"
+  },
+  "longest_low_information_duration_unique_count": 14,
+  "low_information_ratio_unique_count": 16,
+  "phase": "test",
+  "process_noise_independence_violations": 0,
+  "process_noise_pairing_violations": 0,
+  "process_trial_count": 4320,
+  "result_run_dir": "results/metric_redesign_stage1c/test/stage1c_test_v1",
+  "run_id": "stage1c_test_v1",
+  "runtime_seconds": 123.815878,
+  "sensor_run_count": 144,
+  "stage": "metric_redesign_stage1c",
+  "status": "OK",
+  "test_execution_git_commit": "134fb68bd69bcdfcbc2579648490309671c289f9",
+  "test_provenance": {
+    "analysis_lock_commit": "134fb68bd69bcdfcbc2579648490309671c289f9",
+    "analysis_source_commit_at_lock": "05c44477433b157fdc766c6dbf9b58d94b05d18c",
+    "config_hash_matched": true,
+    "pytest_provenance": {
+      "all_valid": true,
+      "record_checks": [
+        true,
+        true
+      ],
+      "record_count": 2
+    },
+    "source_hash_matched": true,
+    "test_execution_commit": "134fb68bd69bcdfcbc2579648490309671c289f9"
+  },
+  "test_source_tree_sha256": "5ae3b8123fa353efbe927fcbc1a1ffe6a002e36e12df15be20b6c8127619ffe8",
+  "unique_process_noise_sequences": 1440
+}

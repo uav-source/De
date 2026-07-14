@@ -1,0 +1,3 @@
+sweep_type,metric_name,within_level_residual_spearman,bootstrap_ci_low,bootstrap_ci_high,centering_source,independent_sensor_runs
+geometry,mean_inverse_axis_information,0.08974358974358973,-0.22736021998166825,0.3537601949646392,development_level_medians_from_analysis_lock,64
+observation,mean_inverse_axis_information,-0.2076465201465201,-0.3489631124977059,-0.013649961348038576,development_level_medians_from_analysis_lock,64

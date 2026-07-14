@@ -1,0 +1,8 @@
+{
+  "calibration_data_hash": "549cf0bb97af33b47c9a61420e4b221f8c46cd60b0be463cdc87464434f69f75",
+  "calibration_frame_count": 40,
+  "calibration_source": "development_open_control_only",
+  "low_axis_information_threshold": 232.7182817530372,
+  "low_information_quantile": 0.05,
+  "metric_definition_version": "stage1c_v1"
+}

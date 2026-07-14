@@ -1,0 +1,30 @@
+{
+  "collected_test_count": 166,
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "pytest",
+    "-q"
+  ],
+  "command_display": "/usr/bin/python3 -m pytest -q",
+  "duration_s": 32.365886,
+  "failed_test_count": 0,
+  "finished_at": "2026-07-14T05:21:15.275829+00:00",
+  "git_commit": "134fb68bd69bcdfcbc2579648490309671c289f9",
+  "git_status_clean": true,
+  "hostname": "lj",
+  "passed_test_count": 166,
+  "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
+  "pytest_version": "8.3.5",
+  "python_executable": "/usr/bin/python3",
+  "python_version": "3.8.10 (default, Mar 18 2025, 20:04:55) \n[GCC 9.4.0]",
+  "pythonhashseed": null,
+  "return_code": 0,
+  "skipped_test_count": 0,
+  "source_tree_sha256": "5ae3b8123fa353efbe927fcbc1a1ffe6a002e36e12df15be20b6c8127619ffe8",
+  "started_at": "2026-07-14T05:20:42.910270+00:00",
+  "status": "passed",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "aba997470ae2f7398cabcecee349b58d50817167e2f943506f9a4011d4a993e4",
+  "xfailed_test_count": 0
+}

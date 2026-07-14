@@ -1,0 +1,11 @@
+gate,status
+engineering,ENGINEERING_PASS
+mechanism,MECHANISM_FAIL
+detector,DETECTOR_FAIL
+prediction,PREDICTION_FAIL
+check:engineering,"{""combined_process_trials"": 7020, ""combined_sensor_runs"": 234, ""config_matches_lock"": true, ""development_test_isolated"": true, ""git_status_clean"": true, ""longest_low_information_duration_unique_count"": 14, ""low_information_ratio_unique_count"": 16, ""manifest_version_tracking"": true, ""no_gt_leakage_regression"": true, ""process_noise_independence_violations"": 0, ""process_noise_pairing_violations"": 0, ""source_tree_matches_lock"": true, ""test_provenance_current_commit"": true, ""test_unique_noise_sequences"": 1440, ""thirty_trials_per_sensor"": true, ""trajectories_complete"": true, ""verified_pytest_twice"": true}"
+check:mechanism,"{""geometry_axis_information_ordered_blocks"": 6, ""geometry_block_count"": 8, ""geometry_structure_pass"": true, ""observation_axis_information_ordered_blocks"": 8, ""observation_block_count"": 8, ""observation_retention_nested"": true, ""observation_structure_pass"": true}"
+check:detector,"{""geometry"": false, ""observation"": false, ""open_control"": {""sensor_run_count"": 16, ""weak_alignment_median"": 0.0, ""weak_axis_aligned_false_trigger_rate"": 0.0}}"
+check:prediction,"{""geometry"": false, ""observation"": false}"
+WEAK_UPDATE_AUTHORIZED,False
+RISK_WARNING_AUTHORIZED,False
