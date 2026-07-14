@@ -15,6 +15,15 @@ The current route is Route B: diagnostic benchmark / failure-analysis. It is not
 
 The incremental Stage 1 workflow replaces infinite tunnel planes with finite patches, separates geometry/sensor/process randomness, removes estimator ground-truth leakage, and evaluates translation-marginal spectra on independent sensor runs. See [docs/metric_redesign_stage1.md](docs/metric_redesign_stage1.md). This workflow does not authorize a weak-subspace update or validate a complete Degen-LIO method.
 
+## Metric Redesign Stage 1b
+
+Stage 1b separates real geometry removal from fixed-geometry observation loss, adds directional and cumulative weak-constraint exposure metrics, pairs process noise across levels, and evaluates train/test results with geometry-block statistics. See [docs/metric_redesign_stage1b.md](docs/metric_redesign_stage1b.md). Quick and full runs are isolated by mode and run ID; Stage 1 outputs are not overwritten.
+
+```bash
+python3 scripts/27_run_metric_redesign_stage1b.py --quick --run-id stage1b_quick_validation
+python3 scripts/27_run_metric_redesign_stage1b.py --full --run-id stage1b_full_v1 --workers 8 --resume
+```
+
 ## What This Repository Does
 
 - Builds a reproducible synthetic minibench for open-control and tunnel-like degeneracy cases.
