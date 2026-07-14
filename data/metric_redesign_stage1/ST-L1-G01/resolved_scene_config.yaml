@@ -1,0 +1,22 @@
+sequence_id: ST-L1-G01
+scene_family: ST
+difficulty: L1
+seed_id: G01
+motion_id: M1
+random_seed: 101
+geometry_seed: 101
+axis:
+- 1.0
+- 0.0
+- 0.0
+tunnel_length_m: 30.0
+width_m: 4.0
+height_m: 3.0
+frames: 60
+dt_s: 0.1
+axial_support_fraction: 0.25
+axial_patch_count: 8
+expected_degeneracy: continuous_axial_support_L1
+scientific_role: stage1_continuous_st_sweep
+scene:
+  finite_plane_patches: true

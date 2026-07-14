@@ -1,0 +1,31 @@
+{
+  "axial_patch_count": 8,
+  "axial_support_fraction": 0.03,
+  "axis_shape": [
+    60,
+    3
+  ],
+  "config_path": "/home/lj/Degen-LIO/data/metric_redesign_stage1/ST-L3-G01/resolved_scene_config.yaml",
+  "config_sha256": "8b52532cec393c7e53534088a798a933544966c136a852dee64f3bb23a6671b0",
+  "difficulty": "L3",
+  "dt_s": 0.1,
+  "expected_degeneracy": "continuous_axial_support_L3",
+  "feature_point_count": 320,
+  "frames": 60,
+  "generated_by": "scripts/00_generate_minibench.py",
+  "geometry_schema": "finite_plane_patch_v1",
+  "geometry_seed": 101,
+  "git_commit": "a91c55a",
+  "gt_pose_columns": "timestamp tx ty tz qx qy qz qw",
+  "gt_pose_shape": [
+    60,
+    8
+  ],
+  "motion_id": "M1",
+  "plane_count": 12,
+  "random_seed": 101,
+  "scene_family": "ST",
+  "scientific_role": "stage1_continuous_st_sweep",
+  "seed_id": "G01",
+  "sequence_id": "ST-L3-G01"
+}

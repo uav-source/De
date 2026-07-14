@@ -1,0 +1,55 @@
+{
+  "config_hashes": {
+    "configs/detector/odi_redesign_stage1.yaml": "e818bde62a27907bbfb1a93788bdd56ee56d5bd96d28a9c56abead5772990dc8",
+    "configs/redesign/stage1_st_sweep.yaml": "38aaf978911b2c95acd8647b45349830b97de3411a5c6cf8698db2461602ad0b",
+    "configs/toy_lio/motion_surrogate_stage1.yaml": "99399b9c5a085d23d3a0a7fc842b32084a26a2bbe3a8efc3e668ac3f85999ae6"
+  },
+  "gate_checks": {
+    "ODI_trans_increases": true,
+    "all_levels_present": true,
+    "at_least_one_redesigned_metric_passes": false,
+    "lambda_not_all_zero": true,
+    "lambda_strictly_decreases": true,
+    "oc_false_trigger_pass": true,
+    "oc_false_trigger_ratio": 0.0,
+    "weak_alignment_L2_L4": true
+  },
+  "geometry_seeds": [
+    101,
+    202,
+    303
+  ],
+  "git_commit": "a91c55a6acf0006a4e399a406054dbf8af76686c",
+  "input_paths": [
+    "configs/redesign/stage1_st_sweep.yaml",
+    "configs/detector/odi_redesign_stage1.yaml",
+    "configs/toy_lio/motion_surrogate_stage1.yaml"
+  ],
+  "missing_artifacts": [],
+  "mode": "full",
+  "output_paths": [
+    "results/metric_redesign_stage1/tables/sensor_run_summary.csv",
+    "results/metric_redesign_stage1/tables/process_trial_summary.csv",
+    "results/metric_redesign_stage1/tables/window_aggregate.csv",
+    "results/metric_redesign_stage1/tables/level_summary.csv",
+    "results/metric_redesign_stage1/tables/correlation_summary.csv",
+    "results/metric_redesign_stage1/reports/stage1_gate_report.md"
+  ],
+  "process_seeds": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005
+  ],
+  "process_trial_count": 150,
+  "runtime_seconds": 25.436757,
+  "scientific_gate": "NO-GO",
+  "sensor_run_count": 30,
+  "sensor_seeds": [
+    11,
+    22
+  ],
+  "sequence_count": 15,
+  "status": "OK"
+}
