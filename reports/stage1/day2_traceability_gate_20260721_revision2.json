@@ -1,0 +1,93 @@
+{
+  "stage": "Stage 1 Day 2 Revision 2",
+  "execution_date": "2026-07-21",
+  "observed_local_timestamp": "2026-07-15T13:09:24+08:00",
+  "source_patent": {
+    "path": "/home/lj/文档/WPS Cloud Files/.797344510/cachedata/72D3CC71690F4C458961BD03DB60CF46/一种隧道退化环境下激光惯性里程计退化检测与弱方向识别方法_专利技术交底书_V1.1_公式一致性修订.docx",
+    "filename": "一种隧道退化环境下激光惯性里程计退化检测与弱方向识别方法_专利技术交底书_V1.1_公式一致性修订.docx",
+    "sha256": "62dcd24baf3c75e74562524633883a01045cc3b9f7dee06ed103afb5d6767777",
+    "modified_time": "2026-07-15T12:25:57+08:00",
+    "omml_formula_count": 113
+  },
+  "patent_revision": {
+    "available": true,
+    "path": "/home/lj/Degen-LIO-private-IP/patent1/patent1_degen_lio_v1_2_agent_review.docx",
+    "required_name_copy_path": "/home/lj/Degen-LIO-private-IP/patent1/一种隧道退化环境下激光惯性里程计退化检测与弱方向识别方法_专利技术交底书_V1.2_代理人送审版.docx",
+    "sha256": "2f63a53c01eb8c86e3c8003d48453698fe78867cb6b4e31b8ddc5ca55828d5f4",
+    "omml_formula_count": 113,
+    "omml_canonical_sequence_identical": true,
+    "word_native_formulas_editable": true,
+    "repository_external": true
+  },
+  "f13": {
+    "formula_match": true,
+    "patent_formula": "(lambda_2,k - lambda_3,k) / max(lambda_1,k, epsilon_g)",
+    "epsilon_g": 1e-12,
+    "code_formula": "(lambda_next - lambda_min) / max(lambda_max, 1e-12)",
+    "eigenvalue_mapping": {
+      "lambda_1": "lambda_max",
+      "lambda_2": "lambda_next",
+      "lambda_3": "lambda_min"
+    },
+    "epsilon_k_and_g_separated": true
+  },
+  "cleanup": {
+    "schur_wording_fixed": true,
+    "noise_whitening_core": true,
+    "robust_weight_optional": true,
+    "alternative_residuals_optional": true,
+    "temporal_continuity_optional": true,
+    "hysteresis_optional": true,
+    "quality_flags_optional": true,
+    "realtime_overclaim_fixed": true,
+    "framework_overclaim_fixed": true,
+    "placeholder_count": 0,
+    "duplicate_step_numbering_fixed": true,
+    "figure1_pagebreak_fixed": true,
+    "figure4_optional_output_clarified": true
+  },
+  "visual_verification": {
+    "renderer": "LibreOffice Writer 6.4",
+    "page_size": "A4",
+    "rendered_page_count": 20,
+    "formula_truncation_found": false,
+    "table_overflow_found": false,
+    "image_blur_or_clipping_found": false,
+    "orphan_heading_or_figure_found": false,
+    "blank_page_count": 0,
+    "result": "PASS"
+  },
+  "issues": {
+    "p0_count": 0,
+    "p1_count": 5,
+    "p2_count": 1,
+    "p1": [
+      "Formal detector evidence remains controlled/synthetic; real current-prior acquisition, dewarping, and correspondence integration is not demonstrated.",
+      "No direct duplicate-measurement or point-count scaling-invariance regression exists.",
+      "Direct regressions for descending eigenpair binding and below-threshold primary-eigengap rejection remain missing.",
+      "Optional robust weighting, alternative residuals, temporal continuity, hysteresis, fallback, and quality flags remain unimplemented or not formally validated.",
+      "Real target-platform integration and latency/real-time performance remain unvalidated."
+    ],
+    "p2": [
+      "Legacy six-dimensional ODI/AIS fields coexist with primary translation metrics in frozen code."
+    ]
+  },
+  "pytest": {
+    "command": "python3 -m pytest -q",
+    "pass": true,
+    "passed": 185,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 1,
+    "duration_seconds": 17.51,
+    "exit_code": 0
+  },
+  "tracked_log_file_count": 0,
+  "safety": {
+    "scientific_code_modified": false,
+    "historical_artifacts_modified": false,
+    "formal_experiments_rerun": false,
+    "git_push_performed": false
+  },
+  "day2_gate": "TRACEABILITY_PASS_WITH_WARNINGS"
+}
