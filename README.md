@@ -17,9 +17,30 @@ Not confirmed:
 - projected-gain weak-direction update benefit under the Stage 2C benchmark;
 - complete LiDAR-inertial odometry method.
 
-Current active stage: **Weak-Subspace Update Stage 2C**.
+Current active task: **Stage 2 Failure-Mechanism Diagnosis — Day 8**.
 
-Confirmed: the detector and weak direction. Stage 2C evaluates a covariance-consistent projected-gain update. Risk prediction remains paused. FAST-LIO2 integration, real IMU propagation, real data association, and a complete Degen-LIO system are not implemented.
+Confirmed:
+
+- controlled degeneracy detection;
+- controlled weak-direction identification.
+
+Negative results:
+
+- Stage 2B column-scaling selective update;
+- Stage 2C projected-gain update.
+
+Under diagnosis:
+
+- weak-direction coherent innovation and update-error causality.
+
+Not implemented:
+
+- innovation monitor;
+- bias-state estimator;
+- FAST-LIO2 integration;
+- real IMU propagation;
+- real data association;
+- complete Degen-LIO.
 
 Frozen Stage 2B outcome: **the column-scaled update is a mathematical and empirical NO-GO.** Its compact evidence is archived under `artifacts/history/stage2b_column_scaling_no_go/`.
 

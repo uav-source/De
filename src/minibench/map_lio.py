@@ -75,6 +75,7 @@ def run_map_lio(
     online_odi_threshold: float,
     attenuation_alpha: float,
     oracle_directions: Optional[np.ndarray] = None,
+    failure_logger: Optional[Any] = None,
 ) -> Dict[str, Any]:
     required = [
         "timestamps", "points_lidar", "normals_world", "plane_points_world",
@@ -104,6 +105,12 @@ def run_map_lio(
 
     poses = np.zeros((frame_count, 8), dtype=float)
     poses[0] = np.asarray(motion_measurements["initial_pose"], dtype=float)
+    prior_poses = np.zeros((frame_count, 8), dtype=float)
+    prior_poses[0] = poses[0]
+    applied_deltas = np.zeros((frame_count, 6), dtype=float)
+    full_deltas = np.zeros((frame_count, 6), dtype=float)
+    detector_triggered_history = np.zeros(frame_count, dtype=bool)
+    actionable_history = np.zeros(frame_count, dtype=bool)
     covariance = np.diag(np.asarray(update_config["initial_covariance_diag"], dtype=float))
     covariance = _validate_covariance(covariance)
     covariance_history = np.zeros((frame_count, 6, 6), dtype=float)
@@ -115,6 +122,7 @@ def run_map_lio(
     for frame in range(1, frame_count):
         prior = compose_pose_with_body_increment(poses[frame - 1], translations[frame - 1], rotations[frame - 1])
         prior[0] = timestamps[frame]
+        prior_poses[frame] = prior
         covariance_prior = propagate_covariance(
             covariance,
             prior,
@@ -143,32 +151,64 @@ def run_map_lio(
         )
         try:
             full = solve_full_robust_gain(covariance_prior, system)
-            update = execute_gain_strategy(
-                strategy,
-                covariance_prior,
-                system,
-                attenuation_alpha,
-                triggered,
-                actionable,
-                direction,
+            update = (
+                full
+                if strategy == "huber_full"
+                else execute_gain_strategy(
+                    strategy,
+                    covariance_prior,
+                    system,
+                    attenuation_alpha,
+                    triggered,
+                    actionable,
+                    direction,
+                )
             )
         except (ValueError, RuntimeError, np.linalg.LinAlgError):
             solver_failures += 1
+            solver_failed = True
             update_delta = np.zeros(6, dtype=float)
             full_delta = np.zeros(6, dtype=float)
             update_covariance = covariance_prior
             solver_condition_number = float("inf")
+            full_solver_condition_number = float("inf")
+            full_posterior_covariance_trace = float("nan")
             joseph_min_eigenvalue = float(np.min(np.linalg.eigvalsh(covariance_prior)))
         else:
+            solver_failed = False
             update_delta = update.delta
             full_delta = full.delta
             update_covariance = update.posterior_covariance
             solver_condition_number = update.normal_condition_number
+            full_solver_condition_number = full.normal_condition_number
+            full_posterior_covariance_trace = float(np.trace(full.posterior_covariance))
             joseph_min_eigenvalue = update.joseph_min_eigenvalue
         poses[frame] = apply_se3_increment(prior, update_delta)
         poses[frame, 0] = timestamps[frame]
         covariance = update_covariance
         covariance_history[frame] = covariance
+        applied_deltas[frame] = update_delta
+        full_deltas[frame] = full_delta
+        detector_triggered_history[frame] = triggered
+        actionable_history[frame] = actionable
+        if failure_logger is not None:
+            failure_logger.log_frame(
+                frame_index=frame,
+                timestamp=float(timestamps[frame]),
+                jacobian=J,
+                residual=residual,
+                variance=variances[frame],
+                robust_system=system,
+                detected_direction_world=detected_direction,
+                direction_reliable=stable,
+                detector_metrics=detector,
+                full_delta=full_delta,
+                full_solver_condition_number=full_solver_condition_number,
+                full_posterior_covariance_trace=full_posterior_covariance_trace,
+                applied_delta=update_delta,
+                applied_strategy=strategy,
+                solver_failure=solver_failed,
+            )
         lifted = _diagnostic_direction(direction)
         full_weak_signed = float(lifted @ full_delta)
         applied_weak_signed = float(lifted @ update_delta)
@@ -221,8 +261,14 @@ def run_map_lio(
         )
     return {
         "poses": poses,
+        "prior_poses": prior_poses,
         "covariances": covariance_history,
+        "applied_deltas": applied_deltas,
+        "full_deltas": full_deltas,
+        "detector_triggered": detector_triggered_history,
+        "actionable_direction": actionable_history,
         "frame_diagnostics": diagnostics,
+        "failure_frame_records": [] if failure_logger is None else list(failure_logger.records),
         "solver_failure_count": solver_failures,
         "strategy": strategy,
     }

@@ -1,0 +1,25 @@
+mode: day8_quick
+schema_version: stage2_failure_online_v1
+
+use_reserved_test: false
+formal_experiment: false
+
+methods:
+  - huber_full
+  - huber_projected_gain
+
+frame_limit: 8
+directional_information_epsilon: 1.0e-12
+
+# Frozen Stage 2C values; Day 8 does not recalibrate or tune them.
+online_odi_threshold: 0.034680103235327255
+attenuation_alpha: 0.9
+
+write_online_log: true
+write_gt_evaluation_log: true
+run_logging_equivalence_check: true
+
+# Dedicated fixture identifiers, disjoint from Development and Reserved Test.
+geometry_seed: 80817
+sensor_seed: 80818
+process_seed: 80819
