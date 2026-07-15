@@ -1,0 +1,97 @@
+{
+  "errors": [],
+  "file_count": 16,
+  "files": [
+    {
+      "relative_path": "artifacts/current/detector_stage2a/detector_lock.json",
+      "sha256": "075f14217f5e9c782bc1ab4051e6533f34d4932399c7f4b8cbc60a03d62fe358",
+      "size_bytes": 11571
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/detector_results.csv",
+      "sha256": "8f3b7cdb84811b090fb4a19215fcafa73ffb2124491a2ee896a1527023e02ec8",
+      "size_bytes": 727
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/detector_stage2a_gate_report.md",
+      "sha256": "585da98eb3b335da2fcb58232d412e8fefc7353d3fbae65bd8552b2250608660",
+      "size_bytes": 1054
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/detector_stage2a_reproducibility_report.md",
+      "sha256": "fcd450c804ba91173ff0b128a6efe6bb7eb8561c41fa9d7bdaea8a84dcc1e4b3",
+      "size_bytes": 186
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/development/detector_results.csv",
+      "sha256": "f2421d3560bb581390212fce3d033dee5b01a98198d24236192edeac26a43c3c",
+      "size_bytes": 850
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/development/development_manifest.json",
+      "sha256": "a4b06e3ceb55afe62dc057f0619b4e146ed2f9cdeb935cfbb733a50c76c35e20",
+      "size_bytes": 1203
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/development/development_report.md",
+      "sha256": "5e61b00fc6cc643c6a92554dea6a75d9dde05d6e3e8210099a1a85e7ffea3688",
+      "size_bytes": 319
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/development/direction_results.csv",
+      "sha256": "ed8afb601d7bb0f3117574a47be27e3d0a3f3529f474dc1fd89605156ab1b054",
+      "size_bytes": 450
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/development/mechanism_summary.csv",
+      "sha256": "54fd9f29fa4c878fe2cdaa8b4063d6ca37938f76051e7a43606139a6e7f7417e",
+      "size_bytes": 286
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/development/odi_threshold_calibration.json",
+      "sha256": "8648d64a8e2228e913bd9debcef3bae2ba8bb5aeb23ba73f89a9abb354c176af",
+      "size_bytes": 277
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/direction_results.csv",
+      "sha256": "d6e4bbb74779a8008fb3745e8b670278e3dbca69fa4f902b458fcd1a8ef88d3c",
+      "size_bytes": 449
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/environment_validation.json",
+      "sha256": "f0356d8a937cb4fd22e0ff3bf5874416f2803b8f40f33540bb1699acf3b5855c",
+      "size_bytes": 445
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/gate_summary.csv",
+      "sha256": "3fefb4f710171ff9a80a56aa9b5e2833af856d2df206264434153bd42fef1c3c",
+      "size_bytes": 221
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/locked/detector_lock.json",
+      "sha256": "075f14217f5e9c782bc1ab4051e6533f34d4932399c7f4b8cbc60a03d62fe358",
+      "size_bytes": 11571
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/mechanism_summary.csv",
+      "sha256": "73880e75ebce87d9efdd4df23fa891698ed904ee7fdd4bf13029907370334a8d",
+      "size_bytes": 287
+    },
+    {
+      "relative_path": "artifacts/current/detector_stage2a/test_manifest.json",
+      "sha256": "23a0a3fef3c71ce3f291402b59da210f49e6830877ccda064e0e91ccac6d0f6e",
+      "size_bytes": 4074
+    }
+  ],
+  "inputs": [
+    {
+      "file_count": 16,
+      "missing": false,
+      "relative_path": "artifacts/current/detector_stage2a",
+      "size_bytes": 33970
+    }
+  ],
+  "manifest_version": 1,
+  "repository_root": "/home/lj/Degen-LIO",
+  "total_size_bytes": 33970
+}

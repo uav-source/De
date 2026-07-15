@@ -1,0 +1,21 @@
+{
+  "execution_date": "2026-07-20",
+  "observed_local_timestamp": "2026-07-15T11:01:24+08:00",
+  "observed_utc_timestamp": "2026-07-15T03:01:24+00:00",
+  "python": "3.8.10 (default, Mar 18 2025, 20:04:55) \n[GCC 9.4.0]",
+  "executable": "/usr/bin/python3",
+  "python_3_11_available": false,
+  "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
+  "uname": "Linux lj 5.15.0-139-generic #149~20.04.1-Ubuntu SMP Wed Apr 16 08:29:56 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux",
+  "machine": "x86_64",
+  "processor": "x86_64",
+  "cwd": "/home/lj/Degen-LIO",
+  "packages": {
+    "numpy": "1.24.4",
+    "scipy": "1.10.1",
+    "pandas": "2.0.3",
+    "matplotlib": "3.7.5",
+    "pytest": "8.3.5",
+    "yaml": "6.0.3"
+  }
+}

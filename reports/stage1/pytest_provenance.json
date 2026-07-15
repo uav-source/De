@@ -1,0 +1,30 @@
+{
+  "command": "python3 -m pytest -q",
+  "python_executable": "/usr/bin/python3",
+  "python_version": "3.8.10 (default, Mar 18 2025, 20:04:55) \n[GCC 9.4.0]",
+  "git_commit": "ae90aaad51e72aa53ee0344047f9475fb51650a9",
+  "git_branch": "feature/weak-update-stage2c",
+  "worktree_clean": false,
+  "exit_code": 0,
+  "passed": 185,
+  "failed": 0,
+  "skipped": 0,
+  "xfailed": 0,
+  "xpassed": 0,
+  "warnings": 1,
+  "duration": 13.52,
+  "duration_unit": "seconds",
+  "log_path": "reports/stage1/pytest_full_20260720.log",
+  "run_date": "2026-07-20",
+  "observed_run_date": "2026-07-15",
+  "initial_baseline_run": {
+    "command": "python3 -m pytest -q",
+    "exit_code": 0,
+    "passed": 176,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 1,
+    "duration": 15.45,
+    "log_path": "reports/stage1/pytest_full_initial_20260720.log"
+  }
+}

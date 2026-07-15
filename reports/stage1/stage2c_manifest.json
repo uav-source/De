@@ -1,0 +1,102 @@
+{
+  "errors": [],
+  "file_count": 17,
+  "files": [
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/README.md",
+      "sha256": "8c126e0acc79224b6c9ee709cb1385a1c937e3d6fd70fabfc29a0ac0aae72408",
+      "size_bytes": 3115
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/SHA256SUMS",
+      "sha256": "25a13b5613841b9f25b8b9fd1171720709decbdc9d06c8ad0a4713d0609a52bd",
+      "size_bytes": 1489
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/alpha_selection.csv",
+      "sha256": "815be35eb847a040d8f0992d6d07ff91209836a46857170d6da74d41ec758e2d",
+      "size_bytes": 2830
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/clean_noninferiority.csv",
+      "sha256": "56679e681d270084cb0366845a26d0231c11e30b3f68921f9825a3cac5afbed7",
+      "size_bytes": 243
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/coherent_stress_results.csv",
+      "sha256": "1240cf855b772574d4a854d90f2dca6c491b3088b1a00fed50f7f401abc6f15e",
+      "size_bytes": 809
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/development_go_summary.csv",
+      "sha256": "b74752e52e14ef4cb7a8df17d3a4efe88800c634c1c799c266eae08ae0c1d112",
+      "size_bytes": 194
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/formulation_audit.csv",
+      "sha256": "74a3011f18a4a5a6156d894219229265de28703c039554cd2edcafdd427ea436",
+      "size_bytes": 596
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/gate_summary.csv",
+      "sha256": "dd980e8e6f39a02fa2e2907e2baef82df1d2f430ec5ae9a52f2b065b8e6d3202",
+      "size_bytes": 510
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/locked/update_lock.json",
+      "sha256": "e19a1d9b84a597aeb6071cd8d8c3fa904829f9b671eff2e3bf031cc905e82fb1",
+      "size_bytes": 27613
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/open_control_safety.csv",
+      "sha256": "e5df72dbe652477cc77a04240a169034e1817804ce259478df2ca295a3d0c764",
+      "size_bytes": 368
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/oracle_gap_full_coverage.csv",
+      "sha256": "e94c9bf35ee4063d5e7f44fc6e7ccaae76533a8e7542fb63c20a395805f3a417",
+      "size_bytes": 517
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/projected_vs_directional_mode.csv",
+      "sha256": "b59c443f4a945e303c40bc44b0113f05ba71df4b08a2d1100ee00f693eb5dbf2",
+      "size_bytes": 491
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/projected_vs_global.csv",
+      "sha256": "9a3cb038bdd31cab1dc70a9c6c019f1b471a6fdb0bfcbfb2ccd7afdffe1160d5",
+      "size_bytes": 478
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/stress_audit.csv",
+      "sha256": "f7eb07a67f532e05627044902f92d1ca3b458c2cca9fae360f0dd272024cd37b",
+      "size_bytes": 72549
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/test_manifest.json",
+      "sha256": "355c4bcd82bb737462911bdc31156f087a65dd2043517a8cf5d225f17794ffde",
+      "size_bytes": 11623
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/weak_update_stage2c_gate_report.md",
+      "sha256": "120a682142b9b2128234de897205be170821b2a0f08b43954b9eaca06034edd1",
+      "size_bytes": 778
+    },
+    {
+      "relative_path": "artifacts/current/weak_update_stage2c/weak_update_stage2c_reproducibility_report.md",
+      "sha256": "a1323592dc58542f8625b53742eb0bc6459774d03fbec824884566a954679d82",
+      "size_bytes": 139
+    }
+  ],
+  "inputs": [
+    {
+      "file_count": 17,
+      "missing": false,
+      "relative_path": "artifacts/current/weak_update_stage2c",
+      "size_bytes": 124342
+    }
+  ],
+  "manifest_version": 1,
+  "repository_root": "/home/lj/Degen-LIO",
+  "total_size_bytes": 124342
+}

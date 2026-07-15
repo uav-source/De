@@ -1,0 +1,189 @@
+{
+  "stage": "Stage 1 Day 1",
+  "execution_date": "2026-07-20",
+  "observed_local_timestamp": "2026-07-15T11:01:24+08:00",
+  "repository": {
+    "verified": true,
+    "root": "/home/lj/Degen-LIO",
+    "branch": "feature/weak-update-stage2c",
+    "baseline_head": "ae90aaad51e72aa53ee0344047f9475fb51650a9",
+    "initial_worktree_clean": true,
+    "initial_tracked_modified_count": 0,
+    "initial_staged_count": 0,
+    "initial_untracked_count": 0,
+    "remote_urls": [],
+    "verified_commits": {
+      "d812c39": "d812c3934667ed471323c1788c6c193650d2d0f5",
+      "921ea5a": "921ea5a209e7b4304d428f44bb2625ad075b6727",
+      "e6b0eb4": "e6b0eb4f697c57df9c2b5808ba03e6b605e43564",
+      "ae90aaa": "ae90aaad51e72aa53ee0344047f9475fb51650a9"
+    },
+    "existing_archive_tags_at_start": [
+      "archive/stage1c-confirmatory-no-go",
+      "archive/detector-stage2a-pass",
+      "archive/weak-update-stage2b-no-go"
+    ]
+  },
+  "environment": {
+    "provenance_path": "reports/stage1/environment_provenance.json",
+    "python_executable": "/usr/bin/python3",
+    "python_version": "3.8.10",
+    "python_3_11_available": false,
+    "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
+    "numpy": "1.24.4",
+    "scipy": "1.10.1",
+    "pytest": "8.3.5"
+  },
+  "pytest": {
+    "command": "python3 -m pytest -q",
+    "python_executable": "/usr/bin/python3",
+    "exit_code": 0,
+    "passed": 185,
+    "failed": 0,
+    "skipped": 0,
+    "xfailed": 0,
+    "xpassed": 0,
+    "duration_seconds": 13.52,
+    "log_path": "reports/stage1/pytest_full_20260720.log",
+    "provenance_path": "reports/stage1/pytest_provenance.json",
+    "initial_baseline_passed": 176,
+    "initial_baseline_exit_code": 0
+  },
+  "scientific_status": {
+    "stage1c_risk_prediction": {
+      "status": "REJECTED",
+      "gate": "PREDICTION_FAIL",
+      "authorization": false,
+      "evidence": [
+        "artifacts/history/stage1c_confirmatory_no_go/test/stage1c_gate_report.md",
+        "artifacts/history/stage1c_confirmatory_no_go/test/test_manifest.json"
+      ]
+    },
+    "stage2a_detector": {
+      "status": "CONFIRMED",
+      "gate": "DETECTOR_PASS",
+      "evidence": [
+        "artifacts/current/detector_stage2a/detector_stage2a_gate_report.md",
+        "artifacts/current/detector_stage2a/test_manifest.json"
+      ]
+    },
+    "stage2b_column_scaling": {
+      "status": "REJECTED",
+      "gate": "SELECTIVE_UPDATE_FAIL",
+      "authorization": false,
+      "evidence": [
+        "artifacts/history/stage2b_column_scaling_no_go/weak_update_stage2b_gate_report.md",
+        "artifacts/history/stage2b_column_scaling_no_go/test_manifest.json"
+      ]
+    },
+    "stage2c_projected_gain": {
+      "status": "REJECTED",
+      "gate": "PROJECTED_GAIN_UPDATE_FAIL",
+      "authorization": false,
+      "evidence": [
+        "artifacts/current/weak_update_stage2c/weak_update_stage2c_gate_report.md",
+        "artifacts/current/weak_update_stage2c/test_manifest.json"
+      ]
+    },
+    "fast_lio2_integration": {
+      "status": "NOT_IMPLEMENTED",
+      "authorized": false,
+      "evidence": ["README.md", "docs/weak_update_stage2c.md"]
+    },
+    "real_imu_propagation": {
+      "status": "NOT_IMPLEMENTED",
+      "evidence": ["README.md", "src/minibench/motion_simulator.py"]
+    },
+    "real_data_association": {
+      "status": "NOT_IMPLEMENTED",
+      "evidence": ["README.md", "docs/weak_update_stage2c.md"]
+    },
+    "complete_degen_lio": {
+      "status": "NOT_IMPLEMENTED",
+      "evidence": ["README.md", "docs/problem_statement.md"]
+    }
+  },
+  "artifacts": {
+    "source_config_tests": {
+      "paths_present": true,
+      "file_count": 162,
+      "total_size_bytes": 564763,
+      "manifest_path": "reports/stage1/source_manifest.json",
+      "manifest_sha256": "7a23fdfba5a68659c6721699f23e94a31b8abe3875d2edbb20b065e92b6fd14d",
+      "sha256_list_path": "reports/stage1/source_sha256.txt"
+    },
+    "stage2a": {
+      "path": "artifacts/current/detector_stage2a",
+      "present": true,
+      "file_count": 16,
+      "total_size_bytes": 33970,
+      "manifest_path": "reports/stage1/stage2a_manifest.json",
+      "manifest_sha256": "6bf3759a7d8c7a5630df9cb50c559dc4748271491e7ec8c4d248b978d8f9a80b",
+      "sha256_list_path": "reports/stage1/stage2a_sha256.txt"
+    },
+    "stage1c": {
+      "path": "artifacts/history/stage1c_confirmatory_no_go",
+      "present": true,
+      "file_count": 24,
+      "total_size_bytes": 1269181,
+      "manifest_path": "reports/stage1/stage1c_manifest.json",
+      "manifest_sha256": "70d334915c3cde1a6baca4f3631445915786ee7f39e2c02bf288e3fd776d987e",
+      "sha256_list_path": "reports/stage1/stage1c_sha256.txt"
+    },
+    "stage2b": {
+      "path": "artifacts/history/stage2b_column_scaling_no_go",
+      "present": true,
+      "file_count": 11,
+      "total_size_bytes": 35789,
+      "manifest_path": "reports/stage1/stage2b_manifest.json",
+      "manifest_sha256": "846be5c2fbc36ab8bfc196e8eb5b69ebad6240f28fbd9ecd9dc06c48272e2bd5",
+      "sha256_list_path": "reports/stage1/stage2b_sha256.txt"
+    },
+    "stage2c": {
+      "path": "artifacts/current/weak_update_stage2c",
+      "present": true,
+      "file_count": 17,
+      "total_size_bytes": 124342,
+      "manifest_path": "reports/stage1/stage2c_manifest.json",
+      "manifest_sha256": "74645e1f7df20ea67cc6d9486af611103caed003c23e2cfb0933baccd545c574",
+      "sha256_list_path": "reports/stage1/stage2c_sha256.txt"
+    },
+    "stable_two_run_check": true,
+    "missing_path_count": 0,
+    "read_error_count": 0
+  },
+  "archive_tag": {
+    "name": "archive/stage2c-projected-gain-no-go",
+    "created": true,
+    "tag_object": "e4186654c31a5851beae7d4169378e1683c77edb",
+    "target_commit": "ae90aaad51e72aa53ee0344047f9475fb51650a9",
+    "conflict": false
+  },
+  "git_bundle": {
+    "absolute_path": "/tmp/degen_lio_stage1_day1/Degen-LIO-stage1-baseline-20260720.bundle",
+    "size_bytes": 7014441,
+    "sha256": "5386e1a425aa72caf4b3e452fbce334fbedd8b42d542d79fec20fe77013d30f2",
+    "verify_result": "success; complete history",
+    "sha256_record_path": "reports/stage1/git_bundle_sha256.txt"
+  },
+  "safety": {
+    "scientific_code_modified": false,
+    "historical_artifacts_modified": false,
+    "formal_experiments_rerun": false,
+    "git_push_performed": false,
+    "readme_modified": false,
+    "initial_worktree_changes_discarded": false
+  },
+  "anomalies": {
+    "P0": [],
+    "P1": [
+      "Task execution date is 2026-07-20 but the observed host date is 2026-07-15.",
+      "Python 3.11 is unavailable; the allowed /usr/bin/python3 3.8.10 fallback was used."
+    ],
+    "P2": [
+      "The full pytest suite emits one existing DeprecationWarning.",
+      "No Git remote is configured; archives are local-only."
+    ]
+  },
+  "final_gate": "BASELINE_FREEZE_PASS_WITH_WARNINGS"
+}

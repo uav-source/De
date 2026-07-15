@@ -1,0 +1,72 @@
+{
+  "errors": [],
+  "file_count": 11,
+  "files": [
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/README.md",
+      "sha256": "efc5a6431adfa838d5e699052c528c275f5d3b3362b9b7f7b09b8ca5d873398a",
+      "size_bytes": 1234
+    },
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/SHA256SUMS",
+      "sha256": "6662fbb9a3d1af64053182bcef06897040f9381c6e56f07328868cb0dcde91cd",
+      "size_bytes": 920
+    },
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/clean_noninferiority.csv",
+      "sha256": "8b211dc5bc324a351fc8864024d0883e1408f49ddde144b1fb82a7a0c7e8173a",
+      "size_bytes": 240
+    },
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/contaminated_severe_results.csv",
+      "sha256": "8f4016ff703a4fa62faa2569a71a6348723da1537ece3db0a9539e890e16cfa4",
+      "size_bytes": 724
+    },
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/gate_summary.csv",
+      "sha256": "5a167c8ce0769e9aaac5a8b77f28fef2ff44acc8c5d1581f965b99e5e3943309",
+      "size_bytes": 349
+    },
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/open_control_safety.csv",
+      "sha256": "4ae831706fa0d675f11e5b3d3f34c0fb3d34eea7105e366d7842164b7e4775db",
+      "size_bytes": 348
+    },
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/oracle_gap.csv",
+      "sha256": "02e8c4e63d465c98b119d569bc5b1d194e594da4212a3efd40781b5a941e4bf7",
+      "size_bytes": 72
+    },
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/test_manifest.json",
+      "sha256": "b5906c42e6aa49d3ed2dd3b3e3911740758123a3f0b71aaa3b72670fd3ceccc2",
+      "size_bytes": 8930
+    },
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/update_lock.json",
+      "sha256": "46f49bf409137f4582b54f48360edb75df66b21f0ca34933d77feb2fdca4d23e",
+      "size_bytes": 22228
+    },
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/weak_update_stage2b_gate_report.md",
+      "sha256": "853c0bfc83de5272775676d1dc2106dbc4867cf662e7fc47e2460dd13d8ed770",
+      "size_bytes": 605
+    },
+    {
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go/weak_update_stage2b_reproducibility_report.md",
+      "sha256": "02c53edf7bcd6ba7d15c8cb22950f7cc4e20243e1bdb4700ba5b01d69f9aa4c0",
+      "size_bytes": 139
+    }
+  ],
+  "inputs": [
+    {
+      "file_count": 11,
+      "missing": false,
+      "relative_path": "artifacts/history/stage2b_column_scaling_no_go",
+      "size_bytes": 35789
+    }
+  ],
+  "manifest_version": 1,
+  "repository_root": "/home/lj/Degen-LIO",
+  "total_size_bytes": 35789
+}
