@@ -1,0 +1,34 @@
+mode: day11b_locked_deterministic_replay
+schema_version: stage2_failure_day11b_run_v1
+day11a_checkpoint: checkpoint/day11a-deterministic-case-lock-pass
+expected_day11a_commit: 4f229e4152da84f2a7fafe1f0e21fd4d43fcbc7f
+stage2c_tag: archive/stage2c-projected-gain-no-go
+expected_stage2c_commit: ae90aaad51e72aa53ee0344047f9475fb51650a9
+candidate_pool_sha256: ad43d50c07c9c56e8d87e40e80abc17faf2a8e7b38724959ac4e2e641567207f
+case_lock_sha256: c80faeea2656d6725dee7a6dc238d940d7492e417fd3968adbe3c78c5b8c90a2
+protocol_revision_manifest_sha256: 02a43d7afcf076fe61d7acc2e5da6b9a919cc89c830d7adb13d5e6279d6beb6d
+methods:
+  - huber_full
+  - huber_projected_gain
+replay_stress_regimes:
+  - clean
+  - coherent_subhuber_slip
+allowed_stage2c_stress_regimes:
+  - clean
+  - coherent_subhuber_slip
+  - gross_outlier_control
+expected_replay_count: 8
+logging_equivalence_tolerance: 1.0e-12
+day9_window_config: configs/stage2_failure/day9_quick.yaml
+replay_for_diagnosis_only: true
+replay_is_independent_test: false
+replay_is_representative: false
+replay_used_for_threshold_selection: false
+replay_used_for_stage2_gate: false
+generate_figures: false
+create_threshold: false
+compute_auroc: false
+compute_fpr: false
+compute_f1: false
+compute_detection_delay: false
+fast_lio2_integrated: false
