@@ -10,16 +10,19 @@ migration from the legacy external/private locations before packaging.
 from __future__ import annotations
 
 import argparse
+import csv
 import fnmatch
 import hashlib
 import json
 import os
+import platform
 import re
 import shutil
 import subprocess
 import sys
 import tempfile
 import zipfile
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -96,6 +99,30 @@ TEXT_SCAN_SUFFIXES = {
     ".yml",
 }
 MIGRATION_REPORT = "_backups/manifests/single_root_migration_20260722.json"
+REVIEW_EXPORT_NAMES = (
+    "day1_baseline_audit.md",
+    "day2_traceability_gate.md",
+    "day3_prior_art_gate.md",
+    "closest_prior_art_matrix.md",
+    "combination_attack_matrix.md",
+    "novelty_inventiveness_risk.md",
+    "recommended_claim_boundary.md",
+    "patent1_current_text.md",
+    "patent1_formula_inventory.csv",
+    "patent1_revision_report.md",
+    "project_state.md",
+    "packaging_report.md",
+    "critical_file_hashes.csv",
+)
+REVIEW_ROOT_FILES = (
+    "PACKAGE_AUDIT.md",
+    "PACKAGE_CONTENTS.txt",
+    "REVIEW_INDEX.md",
+    "REVIEW_MANIFEST.csv",
+)
+W_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+M_NS = "http://schemas.openxmlformats.org/officeDocument/2006/math"
+XML_NAMESPACES = {"w": W_NS, "m": M_NS}
 
 
 class PackagingError(RuntimeError):
@@ -182,6 +209,29 @@ def assert_private_untracked(root: Path) -> None:
     if tracked:
         raise PackagingError(
             "private/package paths are Git-tracked; refusing to continue:\n"
+            + "\n".join(tracked)
+        )
+
+
+def review_tracked_files(root: Path) -> list[str]:
+    result = run(
+        [
+            "git",
+            "ls-files",
+            "-z",
+            "review_exports/**",
+            *REVIEW_ROOT_FILES,
+        ],
+        cwd=root,
+    )
+    return sorted(item for item in result.stdout.split("\0") if item)
+
+
+def assert_review_untracked(root: Path) -> None:
+    tracked = review_tracked_files(root)
+    if tracked:
+        raise PackagingError(
+            "readable review exports are Git-tracked; refusing to continue:\n"
             + "\n".join(tracked)
         )
 
@@ -549,6 +599,1049 @@ def included_files(root: Path) -> list[Path]:
     return sorted(result, key=lambda item: item.relative_to(root).as_posix())
 
 
+def xml_local_name(element: ET.Element) -> str:
+    return element.tag.rsplit("}", 1)[-1]
+
+
+def xml_attribute(element: ET.Element | None, namespace: str, name: str) -> str | None:
+    if element is None:
+        return None
+    return element.get(f"{{{namespace}}}{name}") or element.get(name)
+
+
+def math_child(element: ET.Element, name: str) -> ET.Element | None:
+    return next((child for child in element if xml_local_name(child) == name), None)
+
+
+def omml_to_text(element: ET.Element) -> str:
+    """Render Word OMML as readable, deliberately plain mathematical text."""
+
+    name = xml_local_name(element)
+    if name == "t":
+        return element.text or ""
+    if name.endswith("Pr") or name in {
+        "ctrlPr",
+        "count",
+        "jc",
+        "limLoc",
+        "mcJc",
+        "plcHide",
+        "scr",
+        "sepChr",
+        "sty",
+    }:
+        return ""
+
+    def rendered(child_name: str) -> str:
+        child = math_child(element, child_name)
+        return omml_to_text(child) if child is not None else ""
+
+    if name == "f":
+        return f"({rendered('num')})/({rendered('den')})"
+    if name == "sSub":
+        return f"{rendered('e')}_{{{rendered('sub')}}}"
+    if name == "sSup":
+        return f"{rendered('e')}^{{{rendered('sup')}}}"
+    if name == "sSubSup":
+        return (
+            f"{rendered('e')}_{{{rendered('sub')}}}^{{{rendered('sup')}}}"
+        )
+    if name == "d":
+        properties = math_child(element, "dPr")
+        beginning = "("
+        ending = ")"
+        if properties is not None:
+            beginning = xml_attribute(
+                math_child(properties, "begChr"), M_NS, "val"
+            ) or beginning
+            ending = xml_attribute(
+                math_child(properties, "endChr"), M_NS, "val"
+            ) or ending
+        return f"{beginning}{rendered('e')}{ending}"
+    if name == "acc":
+        properties = math_child(element, "accPr")
+        accent = "^"
+        if properties is not None:
+            accent = xml_attribute(math_child(properties, "chr"), M_NS, "val") or accent
+        return f"{accent}({rendered('e')})"
+    if name == "nary":
+        properties = math_child(element, "naryPr")
+        operator = "Σ"
+        if properties is not None:
+            operator = xml_attribute(math_child(properties, "chr"), M_NS, "val") or operator
+        subscript = rendered("sub")
+        superscript = rendered("sup")
+        bounds = f"_{{{subscript}}}" if subscript else ""
+        bounds += f"^{{{superscript}}}" if superscript else ""
+        return f"{operator}{bounds} {rendered('e')}"
+    if name == "limLow":
+        return f"{rendered('e')}_{{{rendered('lim')}}}"
+    if name == "limUpp":
+        return f"{rendered('e')}^{{{rendered('lim')}}}"
+    if name == "m":
+        rows = []
+        for row in (child for child in element if xml_local_name(child) == "mr"):
+            cells = [
+                omml_to_text(child)
+                for child in row
+                if xml_local_name(child) == "e"
+            ]
+            rows.append("[" + ", ".join(cells) + "]")
+        return "[" + "; ".join(rows) + "]"
+    if name == "rad":
+        degree = rendered("deg")
+        prefix = f"root[{degree}]" if degree else "sqrt"
+        return f"{prefix}({rendered('e')})"
+    if name == "func":
+        return f"{rendered('fName')}({rendered('e')})"
+
+    return "".join(omml_to_text(child) for child in element)
+
+
+def normalize_inline_text(text: str) -> str:
+    text = text.replace("\u00a0", " ").replace("\r", "")
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r" *\n *", "\n", text)
+    return text.strip()
+
+
+def paragraph_text(paragraph: ET.Element) -> str:
+    parts: list[str] = []
+
+    def visit(element: ET.Element) -> None:
+        name = xml_local_name(element)
+        if element.tag == f"{{{M_NS}}}oMath":
+            parts.append(omml_to_text(element))
+            return
+        if element.tag in {f"{{{W_NS}}}t", f"{{{M_NS}}}t"}:
+            parts.append(element.text or "")
+            return
+        if element.tag == f"{{{W_NS}}}tab":
+            parts.append("\t")
+            return
+        if element.tag == f"{{{W_NS}}}br":
+            parts.append("\n")
+            return
+        if name in {"pPr", "rPr", "oMathParaPr"}:
+            return
+        for child in element:
+            visit(child)
+
+    visit(paragraph)
+    return normalize_inline_text("".join(parts))
+
+
+def docx_style_map(styles_root: ET.Element) -> dict[str, dict[str, Any]]:
+    styles: dict[str, dict[str, Any]] = {}
+    for style in styles_root.findall("w:style", XML_NAMESPACES):
+        style_id = xml_attribute(style, W_NS, "styleId") or ""
+        name_node = style.find("w:name", XML_NAMESPACES)
+        outline_node = style.find("w:pPr/w:outlineLvl", XML_NAMESPACES)
+        outline = xml_attribute(outline_node, W_NS, "val")
+        styles[style_id] = {
+            "name": xml_attribute(name_node, W_NS, "val") or "",
+            "outline": int(outline) if outline and outline.isdigit() else None,
+        }
+    return styles
+
+
+def paragraph_style(
+    paragraph: ET.Element, styles: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
+    style_node = paragraph.find("w:pPr/w:pStyle", XML_NAMESPACES)
+    style_id = xml_attribute(style_node, W_NS, "val") or ""
+    return styles.get(style_id, {"name": "", "outline": None})
+
+
+def formula_parse_status(formula: ET.Element, rendered: str) -> tuple[str, list[str]]:
+    known_math_tags = {
+        "acc",
+        "accPr",
+        "begChr",
+        "chr",
+        "count",
+        "ctrlPr",
+        "d",
+        "dPr",
+        "deg",
+        "den",
+        "e",
+        "endChr",
+        "f",
+        "fName",
+        "fPr",
+        "func",
+        "jc",
+        "lim",
+        "limLoc",
+        "limLow",
+        "limLowPr",
+        "limUpp",
+        "m",
+        "mc",
+        "mcJc",
+        "mcPr",
+        "mcs",
+        "mPr",
+        "mr",
+        "nary",
+        "naryPr",
+        "num",
+        "oMath",
+        "oMathPara",
+        "oMathParaPr",
+        "plcHide",
+        "r",
+        "rad",
+        "rPr",
+        "sSub",
+        "sSubPr",
+        "sSubSup",
+        "sSubSupPr",
+        "sSup",
+        "sSupPr",
+        "scr",
+        "sepChr",
+        "sty",
+        "sub",
+        "sup",
+        "t",
+    }
+    unknown = sorted(
+        {
+            xml_local_name(item)
+            for item in formula.iter()
+            if item.tag.startswith(f"{{{M_NS}}}")
+            and xml_local_name(item) not in known_math_tags
+        }
+    )
+    if not rendered or unknown:
+        return "FORMULA_PARSE_PARTIAL", unknown
+    return "PARSED_TEXT", []
+
+
+def markdown_table(table: ET.Element) -> list[str]:
+    rows = []
+    for row in table.findall("w:tr", XML_NAMESPACES):
+        cells = []
+        for cell in row.findall("w:tc", XML_NAMESPACES):
+            value = "<br>".join(
+                filter(None, (paragraph_text(p) for p in cell.findall("w:p", XML_NAMESPACES)))
+            )
+            cells.append(value.replace("|", "\\|").replace("\n", "<br>"))
+        if cells:
+            rows.append(cells)
+    if not rows:
+        return []
+    width = max(len(row) for row in rows)
+    rows = [row + [""] * (width - len(row)) for row in rows]
+    output = ["| " + " | ".join(rows[0]) + " |"]
+    output.append("| " + " | ".join(["---"] * width) + " |")
+    output.extend("| " + " | ".join(row) + " |" for row in rows[1:])
+    return output
+
+
+def extract_patent_docx(
+    source: Path, markdown_output: Path, formula_output: Path
+) -> dict[str, Any]:
+    with zipfile.ZipFile(source) as archive:
+        document = ET.fromstring(archive.read("word/document.xml"))
+        styles_root = ET.fromstring(archive.read("word/styles.xml"))
+    styles = docx_style_map(styles_root)
+    body = document.find("w:body", XML_NAMESPACES)
+    if body is None:
+        raise PackagingError(f"DOCX has no document body: {source}")
+
+    paragraphs = list(body.iter(f"{{{W_NS}}}p"))
+    paragraph_indices = {id(item): index for index, item in enumerate(paragraphs, 1)}
+    texts = [paragraph_text(item) for item in paragraphs]
+    sections: list[str] = []
+    current_section = "Document preamble"
+    for paragraph, text in zip(paragraphs, texts):
+        style = paragraph_style(paragraph, styles)
+        if style["outline"] is not None and style["outline"] <= 3 and text:
+            current_section = text
+        sections.append(current_section)
+
+    title = ""
+    for table in body.findall("w:tbl", XML_NAMESPACES):
+        for row in table.findall("w:tr", XML_NAMESPACES):
+            cells = row.findall("w:tc", XML_NAMESPACES)
+            cell_text = [
+                " ".join(filter(None, (paragraph_text(p) for p in cell.findall("w:p", XML_NAMESPACES))))
+                for cell in cells
+            ]
+            if cell_text and cell_text[0].strip() == "专利名称" and len(cell_text) > 1:
+                title = cell_text[1].strip()
+                break
+        if title:
+            break
+    if not title:
+        title = next((text for text in texts if text), source.stem)
+
+    formula_rows: list[dict[str, Any]] = []
+    paragraph_formulas: dict[int, list[dict[str, Any]]] = {}
+    formula_index = 0
+    for zero_index, paragraph in enumerate(paragraphs):
+        formulas = paragraph.findall(".//m:oMath", XML_NAMESPACES)
+        for local_index, formula in enumerate(formulas, 1):
+            formula_index += 1
+            rendered = normalize_inline_text(omml_to_text(formula))
+            status, unknown = formula_parse_status(formula, rendered)
+            preceding = next(
+                (texts[index] for index in range(zero_index - 1, -1, -1) if texts[index]),
+                "",
+            )
+            following = next(
+                (
+                    texts[index]
+                    for index in range(zero_index + 1, len(texts))
+                    if texts[index]
+                ),
+                "",
+            )
+            row = {
+                "formula_id": f"F{formula_index:03d}",
+                "section": sections[zero_index],
+                "paragraph_index": zero_index + 1,
+                "formula_text_or_summary": rendered or "FORMULA_PARSE_PARTIAL",
+                "parse_status": status,
+                "omml_object_index": formula_index,
+                "notes": (
+                    f"omml_objects_in_paragraph={len(formulas)}; "
+                    f"paragraph_object_index={local_index}; "
+                    f"preceding={preceding[:180]}; following={following[:180]}; "
+                    f"unknown_math_tags={','.join(unknown) or 'none'}"
+                ),
+            }
+            formula_rows.append(row)
+            paragraph_formulas.setdefault(zero_index + 1, []).append(row)
+
+    markdown_lines = [
+        "# Patent 1 current readable text export",
+        "",
+        f"- Patent title: {title}",
+        f"- Source file: `{source}`",
+        f"- Source SHA-256: `{sha256_file(source)}`",
+        f"- Body paragraph count: {len(paragraphs)}",
+        f"- Table count: {len(body.findall('w:tbl', XML_NAMESPACES))}",
+        f"- OMML formula object count: {len(formula_rows)}",
+        "- Conversion: read-only WordprocessingML/OMML to plain Markdown; the DOCX was not modified.",
+        "",
+        f"# {title}",
+        "",
+    ]
+    for child in body:
+        name = xml_local_name(child)
+        if name == "p":
+            text = paragraph_text(child)
+            index = paragraph_indices[id(child)]
+            style = paragraph_style(child, styles)
+            if text:
+                if style["outline"] is not None and style["outline"] <= 3:
+                    markdown_lines.extend(
+                        [f"{'#' * (style['outline'] + 1)} {text}", ""]
+                    )
+                elif style["name"] == "Title":
+                    markdown_lines.extend([f"**{text}**", ""])
+                elif style["name"] == "Subtitle":
+                    markdown_lines.extend([f"*{text}*", ""])
+                elif style["name"] == "Compact":
+                    markdown_lines.extend([f"- {text}", ""])
+                else:
+                    markdown_lines.extend([text, ""])
+            elif child.find(".//w:drawing", XML_NAMESPACES) is not None:
+                markdown_lines.extend(
+                    ["[Embedded figure omitted from plain-text export; caption retained below.]", ""]
+                )
+            for formula in paragraph_formulas.get(index, []):
+                markdown_lines.extend(
+                    [
+                        f"> {formula['formula_id']} | section: {formula['section']} | "
+                        f"OMML object: {formula['omml_object_index']} | "
+                        f"status: {formula['parse_status']}",
+                        f"> `{formula['formula_text_or_summary']}`",
+                        "",
+                    ]
+                )
+        elif name == "tbl":
+            markdown_lines.extend(markdown_table(child))
+            markdown_lines.append("")
+
+    markdown_lines.extend(
+        [
+            "# Formula location inventory",
+            "",
+            "The adjacent text is retained in the CSV `notes` field. Any formula that cannot be rendered reliably is explicitly marked `FORMULA_PARSE_PARTIAL`.",
+            "",
+        ]
+    )
+    for formula in formula_rows:
+        markdown_lines.extend(
+            [
+                f"- {formula['formula_id']} — section `{formula['section']}`, "
+                f"paragraph {formula['paragraph_index']}, OMML object "
+                f"{formula['omml_object_index']}, `{formula['parse_status']}`: "
+                f"`{formula['formula_text_or_summary']}`"
+            ]
+        )
+    markdown_output.write_text("\n".join(markdown_lines) + "\n", encoding="utf-8")
+
+    fieldnames = (
+        "formula_id",
+        "section",
+        "paragraph_index",
+        "formula_text_or_summary",
+        "parse_status",
+        "omml_object_index",
+        "notes",
+    )
+    with formula_output.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(formula_rows)
+    return {
+        "title": title,
+        "sha256": sha256_file(source),
+        "paragraph_count": len(paragraphs),
+        "table_count": len(body.findall("w:tbl", XML_NAMESPACES)),
+        "formula_count": len(formula_rows),
+        "partial_formula_count": sum(
+            row["parse_status"] == "FORMULA_PARSE_PARTIAL" for row in formula_rows
+        ),
+    }
+
+
+def candidate_files(root: Path, filename: str) -> list[Path]:
+    candidates = []
+    for path in root.rglob(filename):
+        relative = path.relative_to(root)
+        if not path.is_file() or excluded_parts(relative):
+            continue
+        if relative.parts and relative.parts[0] == "review_exports":
+            continue
+        candidates.append(path)
+    return sorted(candidates)
+
+
+def select_identical_candidate(
+    candidates: list[Path], *, prefer_ascii: bool = False
+) -> tuple[Path | None, str, list[dict[str, str]]]:
+    records = [
+        {"path": str(path), "sha256": sha256_file(path)} for path in candidates
+    ]
+    if not candidates:
+        return None, "MISSING", records
+    if len({record["sha256"] for record in records}) > 1:
+        return None, "CONFLICT", records
+    ordered = candidates
+    if prefer_ascii:
+        ordered = sorted(
+            candidates,
+            key=lambda path: (
+                not path.name.isascii(),
+                len(path.name),
+                path.as_posix(),
+            ),
+        )
+    status = "BYTE_IDENTICAL" if len(candidates) > 1 else "COPIED"
+    return ordered[0], status, records
+
+
+def copy_review_source(root: Path, source: Path, export_name: str) -> dict[str, Any]:
+    destination = root / "review_exports" / export_name
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, destination)
+    source_hash = sha256_file(source)
+    if sha256_file(destination) != source_hash:
+        raise PackagingError(f"review export copy verification failed: {source}")
+    return {
+        "export_name": export_name,
+        "source_path": str(source),
+        "source_sha256": source_hash,
+        "export_path": destination.relative_to(root).as_posix(),
+        "export_sha256": source_hash,
+        "size_bytes": destination.stat().st_size,
+        "exists": True,
+        "status": "COPIED",
+        "notes": "",
+    }
+
+
+def parse_report_fields(path: Path) -> dict[str, str]:
+    text = path.read_text(encoding="utf-8", errors="replace") if path.is_file() else ""
+    fields: dict[str, str] = {}
+    for line in text.splitlines():
+        match = re.match(r"^([A-Z][A-Z0-9_]+):\s*(.*?)\s*$", line.strip())
+        if match:
+            fields[match.group(1)] = match.group(2)
+    if "BASELINE_FREEZE_PASS_WITH_WARNINGS" in text:
+        fields["DAY1_GATE"] = "BASELINE_FREEZE_PASS_WITH_WARNINGS"
+    return fields
+
+
+def write_review_manifest(root: Path, records: list[dict[str, Any]]) -> None:
+    fields = (
+        "export_name",
+        "source_path",
+        "source_sha256",
+        "export_path",
+        "export_sha256",
+        "size_bytes",
+        "exists",
+        "status",
+        "notes",
+    )
+    by_name = {record["export_name"]: record for record in records}
+    with (root / "REVIEW_MANIFEST.csv").open(
+        "w", encoding="utf-8", newline=""
+    ) as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        for name in REVIEW_EXPORT_NAMES:
+            record = by_name.get(
+                name,
+                {
+                    "export_name": name,
+                    "source_path": "",
+                    "source_sha256": "",
+                    "export_path": f"review_exports/{name}",
+                    "export_sha256": "",
+                    "size_bytes": 0,
+                    "exists": False,
+                    "status": "MISSING",
+                    "notes": "required export was not generated",
+                },
+            )
+            writer.writerow(record)
+
+
+def write_critical_hashes(root: Path, records: list[dict[str, Any]]) -> dict[str, Any]:
+    destination = root / "review_exports/critical_file_hashes.csv"
+    rows = []
+    seen = set()
+    for record in records:
+        for role, path_key, hash_key in (
+            ("SOURCE", "source_path", "source_sha256"),
+            ("REVIEW_EXPORT", "export_path", "export_sha256"),
+        ):
+            value = record.get(path_key)
+            digest = record.get(hash_key)
+            if not value or not digest or (role, value) in seen:
+                continue
+            seen.add((role, value))
+            path = Path(value) if role == "SOURCE" else root / value
+            rows.append(
+                {
+                    "role": role,
+                    "path": value,
+                    "size_bytes": path.stat().st_size if path.is_file() else 0,
+                    "sha256": digest,
+                    "notes": record.get("status", ""),
+                }
+            )
+    with destination.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(
+            handle, fieldnames=("role", "path", "size_bytes", "sha256", "notes")
+        )
+        writer.writeheader()
+        writer.writerows(sorted(rows, key=lambda item: (item["role"], item["path"])))
+    return {
+        "export_name": destination.name,
+        "source_path": "generated from REVIEW_MANIFEST source/export mappings",
+        "source_sha256": "",
+        "export_path": destination.relative_to(root).as_posix(),
+        "export_sha256": sha256_file(destination),
+        "size_bytes": destination.stat().st_size,
+        "exists": True,
+        "status": "GENERATED",
+        "notes": "self-entry intentionally omitted to avoid recursive hashing",
+    }
+
+
+def generated_export_record(
+    root: Path,
+    export_name: str,
+    source_path: str,
+    source_sha256: str,
+    *,
+    status: str = "GENERATED",
+    notes: str = "",
+) -> dict[str, Any]:
+    destination = root / "review_exports" / export_name
+    return {
+        "export_name": export_name,
+        "source_path": source_path,
+        "source_sha256": source_sha256,
+        "export_path": destination.relative_to(root).as_posix(),
+        "export_sha256": sha256_file(destination) if destination.is_file() else "",
+        "size_bytes": destination.stat().st_size if destination.is_file() else 0,
+        "exists": destination.is_file(),
+        "status": status if destination.is_file() else "MISSING",
+        "notes": notes,
+    }
+
+
+def missing_export_record(
+    export_name: str, source_description: str, status: str, notes: str
+) -> dict[str, Any]:
+    return {
+        "export_name": export_name,
+        "source_path": source_description,
+        "source_sha256": "",
+        "export_path": f"review_exports/{export_name}",
+        "export_sha256": "",
+        "size_bytes": 0,
+        "exists": False,
+        "status": status,
+        "notes": notes,
+    }
+
+
+def write_review_index(
+    root: Path,
+    git: dict[str, Any],
+    pytest: dict[str, Any],
+    patent: dict[str, Any],
+    day2: dict[str, str],
+    day3: dict[str, str],
+    records: list[dict[str, Any]],
+    missing: list[str],
+    conflicts: list[str],
+    package_complete: bool,
+    package_status: str,
+    zip_sha256: str,
+    packaging_time: str,
+) -> None:
+    purposes = {
+        "day1_baseline_audit.md": "Day 1 baseline and frozen scientific-status audit",
+        "day2_traceability_gate.md": "Day 2 patent/formula/code traceability gate",
+        "day3_prior_art_gate.md": "Day 3 prior-art search gate and retained warnings",
+        "closest_prior_art_matrix.md": "closest-reference element comparison",
+        "combination_attack_matrix.md": "combined-reference inventive-step attacks",
+        "novelty_inventiveness_risk.md": "novelty and inventiveness risk analysis",
+        "recommended_claim_boundary.md": "recommended claim boundary",
+        "patent1_current_text.md": "plain-text export of the current patent DOCX",
+        "patent1_formula_inventory.csv": "OMML formula locations and readable renderings",
+        "patent1_revision_report.md": "V1.2 revision report plus change summary",
+        "project_state.md": "current repository and frozen project state",
+        "packaging_report.md": "canonical package generation report",
+        "critical_file_hashes.csv": "SHA-256 inventory for critical sources and exports",
+    }
+    direct_files = "\n".join(
+        f"- `review_exports/{name}` — {purposes[name]}" for name in REVIEW_EXPORT_NAMES
+    )
+    missing_text = (
+        "\n".join(f"- MISSING: `{item}`" for item in missing)
+        or "- Missing files: none"
+    )
+    conflict_text = (
+        "\n".join(f"- CONFLICT: `{item}`" for item in conflicts)
+        or "- Conflicting files: none"
+    )
+    worktree = "clean" if git["worktree_clean"] else "not clean"
+    text = f"""# Degen-LIO Review Index
+
+## Current repository
+
+- Branch: `{git['branch']}`
+- HEAD: `{git['head']}`
+- Worktree status: `{worktree}`
+- Python version: `{platform.python_version()}`
+- pytest result: `{pytest['passed_count']} passed, {pytest['failed_count']} failed, {pytest['skipped_count']} skipped` (exit `{pytest['exit_code']}`)
+
+## Scientific status
+
+- Stage 1C: `REJECTED`; confirmatory risk-prediction gate is NO-GO.
+- Stage 2A: `CONFIRMED`; detector and weak-direction gate passed.
+- Stage 2B: `REJECTED`; column-scaled update is a frozen NO-GO.
+- Stage 2C: `REJECTED`; projected gain failed the reserved performance gate.
+- FAST-LIO2: `NOT_IMPLEMENTED` and unauthorized.
+- Real IMU: `NOT_IMPLEMENTED`; only the documented deterministic surrogate exists.
+- Real association: `NOT_IMPLEMENTED`; controlled correspondence generation is not a deployed association system.
+- Complete Degen-LIO: `NOT_IMPLEMENTED`; the repository contains prototype components, not a complete deployed system.
+
+RISK_WARNING_AUTHORIZED=false
+DETECTOR_PASS=true
+SELECTIVE_UPDATE_PASS=false
+PROJECTED_GAIN_UPDATE_PASS=false
+FAST_LIO2_INTEGRATION_AUTHORIZED=false
+
+## Patent status
+
+- Current patent file: `{patent.get('source_path', '')}`
+- Patent SHA-256: `{patent.get('sha256', '')}`
+- Day 2 Gate: `{day2.get('DAY2_GATE', 'MISSING')}`
+- Day 2 P0/P1/P2: `{day2.get('P0_ISSUE_COUNT', 'MISSING')}/{day2.get('P1_ISSUE_COUNT', 'MISSING')}/{day2.get('P2_ISSUE_COUNT', 'MISSING')}`
+- Formula count: `{patent.get('formula_count', 'MISSING')}` OMML objects
+- F13 formula status: `{'MATCH' if day2.get('F13_FORMULA_MATCH', '').lower() == 'true' else 'NOT_VERIFIED'}`
+
+## Prior-art status
+
+- Day 3 Gate: `{day3.get('DAY3_GATE', 'MISSING')}`
+- Candidate patent family count: `{day3.get('PATENT_FAMILY_CANDIDATE_COUNT', 'MISSING')}`
+- High-relevance patent count: `{day3.get('HIGH_RELEVANCE_PATENT_COUNT', 'MISSING')}`
+- Deep-review patent count: `{day3.get('DEEP_REVIEW_PATENT_COUNT', 'MISSING')}`
+- Candidate paper count: `{day3.get('NON_PATENT_CANDIDATE_COUNT', 'MISSING')}`
+- High-relevance paper count: `{day3.get('HIGH_RELEVANCE_PAPER_COUNT', 'MISSING')}`
+- Deep-review paper count: `{day3.get('DEEP_REVIEW_PAPER_COUNT', 'MISSING')}`
+- Closest reference: `{day3.get('PRIMARY_CLOSEST_REFERENCE', 'MISSING')}`
+- Combination risk: `{day3.get('COMBINATION_INVENTIVENESS_RISK', 'MISSING')}`
+
+## Directly readable files
+
+{direct_files}
+
+## Missing or conflicting files
+
+{missing_text}
+{conflict_text}
+
+## Package status
+
+- Package complete: `{str(package_complete).lower()}`
+- Final status: `{package_status}`
+- ZIP SHA-256: `{zip_sha256}`
+- Packaging time: `{packaging_time}`
+
+The ZIP digest is detached in the archived copy because an archive cannot contain its own final digest without changing that digest. The live file and packaging report are refreshed with the final value after atomic replacement.
+"""
+    (root / "REVIEW_INDEX.md").write_text(text, encoding="utf-8")
+
+
+def write_package_audit(
+    root: Path,
+    git: dict[str, Any],
+    pytest: dict[str, Any],
+    bundle: dict[str, Any],
+    patent: dict[str, Any],
+    day1: dict[str, str],
+    day2: dict[str, str],
+    day3: dict[str, str],
+    records: list[dict[str, Any]],
+    missing: list[str],
+    conflicts: list[str],
+    candidate_audit: dict[str, Any],
+    package_complete: bool,
+    package_status: str,
+    zip_sha256: str,
+) -> None:
+    by_name = {record["export_name"]: record for record in records}
+
+    def exists(name: str) -> bool:
+        return bool(by_name.get(name, {}).get("exists"))
+
+    private_count = len(private_tracked_files(root))
+    patent_tracked = run(
+        ["git", "ls-files", "_private/patent1/**"], cwd=root
+    ).stdout.splitlines()
+    worktree = str(git["worktree_clean"]).lower()
+    lines = [
+        "# Degen-LIO Package Audit",
+        "",
+        f"PROJECT_ROOT: {root}",
+        f"GIT_BRANCH: {git['branch']}",
+        f"GIT_HEAD: {git['head']}",
+        f"WORKTREE_CLEAN: {worktree}",
+        "",
+        f"PYTHON_VERSION: {platform.python_version()}",
+        f"PYTEST_COMMAND: {pytest['command']}",
+        f"PYTEST_PASS: {str(pytest['pass']).lower()}",
+        f"PYTEST_PASSED_COUNT: {pytest['passed_count']}",
+        f"PYTEST_FAILED_COUNT: {pytest['failed_count']}",
+        f"PYTEST_SKIPPED_COUNT: {pytest['skipped_count']}",
+        "",
+        f"DAY1_GATE: {day1.get('DAY1_GATE', 'MISSING')}",
+        f"DAY2_GATE: {day2.get('DAY2_GATE', 'MISSING')}",
+        f"DAY3_GATE: {day3.get('DAY3_GATE', 'MISSING')}",
+        "",
+        f"PATENT_CURRENT_PATH: {patent.get('source_path', 'MISSING')}",
+        f"PATENT_CURRENT_SHA256: {patent.get('sha256', 'MISSING')}",
+        f"PATENT_TEXT_EXPORT_EXISTS: {str(exists('patent1_current_text.md')).lower()}",
+        f"PATENT_FORMULA_INVENTORY_EXISTS: {str(exists('patent1_formula_inventory.csv')).lower()}",
+        "",
+        f"CLOSEST_PRIOR_ART_EXISTS: {str(exists('closest_prior_art_matrix.md')).lower()}",
+        f"COMBINATION_ATTACK_EXISTS: {str(exists('combination_attack_matrix.md')).lower()}",
+        f"NOVELTY_RISK_EXISTS: {str(exists('novelty_inventiveness_risk.md')).lower()}",
+        f"CLAIM_BOUNDARY_EXISTS: {str(exists('recommended_claim_boundary.md')).lower()}",
+        "",
+        f"PRIVATE_GIT_TRACKED_COUNT: {private_count}",
+        f"PATENT_GIT_TRACKED_COUNT: {len(patent_tracked)}",
+        f"BUNDLE_EXISTS: {str((root / bundle['path']).is_file()).lower()}",
+        f"BUNDLE_SHA256: {bundle['sha256']}",
+        f"BUNDLE_VERIFY_PASS: {str(bundle['verify_pass']).lower()}",
+        "",
+        f"REVIEW_EXPORT_FILE_COUNT: {sum(record.get('exists', False) for record in records)}",
+        f"MISSING_CRITICAL_FILE_COUNT: {len(missing)}",
+        f"CONFLICT_CRITICAL_FILE_COUNT: {len(conflicts)}",
+        f"MISSING_CRITICAL_FILES: {json.dumps(missing, ensure_ascii=False)}",
+        f"CONFLICT_CRITICAL_FILES: {json.dumps(conflicts, ensure_ascii=False)}",
+        "",
+        f"PACKAGE_COMPLETE: {str(package_complete).lower()}",
+        f"FINAL_STATUS: {package_status}",
+        f"CANONICAL_ZIP_SHA256: {zip_sha256}",
+        f"PACKAGING_TIME: {now_iso()}",
+        "",
+        "## Candidate resolution audit",
+        "",
+        "```json",
+        json.dumps(candidate_audit, ensure_ascii=False, indent=2),
+        "```",
+    ]
+    (root / "PACKAGE_AUDIT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_package_contents(root: Path) -> None:
+    files = [
+        path
+        for path in included_files(root)
+        if path.relative_to(root).as_posix() != "PACKAGE_CONTENTS.txt"
+    ]
+    lines = [
+        "Degen-LIO canonical package contents",
+        f"Generated: {now_iso()}",
+        f"Project root: {root}",
+        "Historical ZIPs under _archives/legacy_packages/ are intentionally excluded.",
+        "The .git directory, caches, virtual environments, pyc, and pyo files are excluded.",
+        "",
+        "relative_path",
+        "PACKAGE_CONTENTS.txt",
+    ]
+    lines.extend(
+        path.relative_to(root).as_posix()
+        for path in files
+    )
+    (root / "PACKAGE_CONTENTS.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def generate_review_exports(
+    root: Path,
+    git: dict[str, Any],
+    pytest: dict[str, Any],
+    bundle: dict[str, Any],
+    *,
+    archive_verified: bool,
+    zip_sha256: str,
+) -> dict[str, Any]:
+    review_dir = root / "review_exports"
+    review_dir.mkdir(parents=True, exist_ok=True)
+    records: list[dict[str, Any]] = []
+    missing: list[str] = []
+    conflicts: list[str] = []
+    candidate_audit: dict[str, Any] = {}
+
+    fixed_sources = {
+        "day1_baseline_audit.md": root / "reports/stage1/baseline_audit_20260720.md",
+        "day2_traceability_gate.md": root
+        / "reports/stage1/day2_traceability_gate_20260721_revision2.md",
+        "day3_prior_art_gate.md": root
+        / "reports/stage1/day3_prior_art_gate_20260722.md",
+    }
+    for export_name, source in fixed_sources.items():
+        if source.is_file():
+            records.append(copy_review_source(root, source, export_name))
+        else:
+            missing.append(export_name)
+            records.append(
+                missing_export_record(export_name, str(source), "MISSING", "source absent")
+            )
+
+    prior_art_mapping = {
+        "06_closest_prior_art_matrix.md": "closest_prior_art_matrix.md",
+        "07_combination_attack_matrix.md": "combination_attack_matrix.md",
+        "08_novelty_inventiveness_risk.md": "novelty_inventiveness_risk.md",
+        "09_recommended_claim_boundary.md": "recommended_claim_boundary.md",
+    }
+    for source_name, export_name in prior_art_mapping.items():
+        candidates = candidate_files(root, source_name)
+        chosen, status, audit = select_identical_candidate(candidates)
+        candidate_audit[source_name] = {"status": status, "candidates": audit}
+        if chosen is None:
+            target = conflicts if status == "CONFLICT" else missing
+            target.append(export_name)
+            records.append(
+                missing_export_record(
+                    export_name,
+                    source_name,
+                    status,
+                    json.dumps(audit, ensure_ascii=False),
+                )
+            )
+            continue
+        record = copy_review_source(root, chosen, export_name)
+        record["status"] = status
+        record["notes"] = json.dumps(audit, ensure_ascii=False)
+        records.append(record)
+
+    patent_candidates = sorted(
+        {
+            *candidate_files(root, "patent1_degen_lio_v1_2_agent_review.docx"),
+            *[
+                path
+                for path in root.rglob("*V1.2*代理人送审版.docx")
+                if path.is_file() and not excluded_parts(path.relative_to(root))
+            ],
+        }
+    )
+    patent_source, patent_status, patent_audit = select_identical_candidate(
+        patent_candidates, prefer_ascii=True
+    )
+    candidate_audit["current_patent_docx"] = {
+        "status": patent_status,
+        "candidates": patent_audit,
+    }
+    patent_info: dict[str, Any] = {"source_path": "MISSING", "sha256": ""}
+    if patent_source is None:
+        target = conflicts if patent_status == "CONFLICT" else missing
+        target.extend(["patent1_current_text.md", "patent1_formula_inventory.csv"])
+        for export_name in ("patent1_current_text.md", "patent1_formula_inventory.csv"):
+            records.append(
+                missing_export_record(
+                    export_name,
+                    "current patent DOCX",
+                    patent_status,
+                    json.dumps(patent_audit, ensure_ascii=False),
+                )
+            )
+    else:
+        patent_info = extract_patent_docx(
+            patent_source,
+            review_dir / "patent1_current_text.md",
+            review_dir / "patent1_formula_inventory.csv",
+        )
+        patent_info["source_path"] = str(patent_source)
+        for export_name in ("patent1_current_text.md", "patent1_formula_inventory.csv"):
+            records.append(
+                generated_export_record(
+                    root,
+                    export_name,
+                    str(patent_source),
+                    patent_info["sha256"],
+                    status=patent_status,
+                    notes=(
+                        f"formula_count={patent_info['formula_count']}; "
+                        f"partial_formula_count={patent_info['partial_formula_count']}; "
+                        f"candidates={json.dumps(patent_audit, ensure_ascii=False)}"
+                    ),
+                )
+            )
+
+    revision = root / "_private/patent1/current/patent1_v1_2_revision_report.md"
+    summary = root / "_private/patent1/current/patent1_v1_2_change_summary.md"
+    revision_output = review_dir / "patent1_revision_report.md"
+    if revision.is_file():
+        content = revision.read_text(encoding="utf-8")
+        source_paths = [str(revision)]
+        source_hashes = [sha256_file(revision)]
+        if summary.is_file():
+            content = (
+                content.rstrip()
+                + "\n\n# Change Summary\n\n"
+                + summary.read_text(encoding="utf-8").lstrip()
+            )
+            source_paths.append(str(summary))
+            source_hashes.append(sha256_file(summary))
+        revision_output.write_text(content.rstrip() + "\n", encoding="utf-8")
+        records.append(
+            generated_export_record(
+                root,
+                revision_output.name,
+                " | ".join(source_paths),
+                " | ".join(source_hashes),
+                notes="full revision report with complete change summary appended",
+            )
+        )
+    else:
+        missing.append(revision_output.name)
+        records.append(
+            missing_export_record(
+                revision_output.name, str(revision), "MISSING", "revision report absent"
+            )
+        )
+
+    for source_relative, export_name in (
+        ("_package/project_state.md", "project_state.md"),
+        ("_package/packaging_report.md", "packaging_report.md"),
+    ):
+        source = root / source_relative
+        if source.is_file():
+            records.append(copy_review_source(root, source, export_name))
+        else:
+            missing.append(export_name)
+            records.append(
+                missing_export_record(export_name, str(source), "MISSING", "source absent")
+            )
+
+    hash_record = write_critical_hashes(root, records)
+    records.append(hash_record)
+    write_review_manifest(root, records)
+
+    day1 = parse_report_fields(fixed_sources["day1_baseline_audit.md"])
+    day2 = parse_report_fields(fixed_sources["day2_traceability_gate.md"])
+    day3 = parse_report_fields(fixed_sources["day3_prior_art_gate.md"])
+    all_exports_exist = all(
+        (review_dir / name).is_file() for name in REVIEW_EXPORT_NAMES
+    )
+    package_complete = bool(
+        archive_verified
+        and all_exports_exist
+        and not missing
+        and not conflicts
+        and pytest["pass"]
+        and bundle["verify_pass"]
+        and not private_tracked_files(root)
+    )
+    package_status = (
+        "SINGLE_ROOT_PACKAGE_PASS_WITH_WARNINGS"
+        if package_complete
+        else "SINGLE_ROOT_PACKAGE_INCOMPLETE"
+    )
+    generated = now_iso()
+    write_review_index(
+        root,
+        git,
+        pytest,
+        patent_info,
+        day2,
+        day3,
+        records,
+        missing,
+        conflicts,
+        package_complete,
+        package_status,
+        zip_sha256,
+        generated,
+    )
+    write_package_audit(
+        root,
+        git,
+        pytest,
+        bundle,
+        patent_info,
+        day1,
+        day2,
+        day3,
+        records,
+        missing,
+        conflicts,
+        candidate_audit,
+        package_complete,
+        package_status,
+        zip_sha256,
+    )
+    write_package_contents(root)
+    return {
+        "records": records,
+        "missing": sorted(set(missing)),
+        "conflicts": sorted(set(conflicts)),
+        "candidate_audit": candidate_audit,
+        "patent": patent_info,
+        "file_count": sum((review_dir / name).is_file() for name in REVIEW_EXPORT_NAMES),
+        "complete": package_complete,
+        "status": package_status,
+    }
+
+
 def scan_sensitive_files(root: Path) -> list[dict[str, str]]:
     filename_patterns = (
         ".env",
@@ -758,6 +1851,8 @@ def category_for(relative: Path) -> str:
         return "backup"
     if parts[0] == "_package":
         return "package_metadata"
+    if parts[0] == "review_exports" or relative.name in REVIEW_ROOT_FILES:
+        return "readable_review_export"
     mapping = {
         "src": "scientific_code",
         "configs": "configuration",
@@ -811,7 +1906,8 @@ def manifest_entry(
         "source_origin": origins.get(
             relative_string,
             "generated_packaging_workflow"
-            if relative.parts[0] in {"_package", "_backups"}
+            if relative.parts[0] in {"_package", "_backups", "review_exports"}
+            or relative.name in REVIEW_ROOT_FILES
             else "git_worktree"
             if relative_string in tracked
             else "existing_untracked_worktree",
@@ -1079,6 +2175,14 @@ def verify_zip(root: Path, archive_path: Path) -> dict[str, Any]:
             path for path in REQUIRED_FILE_PATHS if f"{prefix}{path}" not in names
         ]
         missing.extend(
+            path for path in REVIEW_ROOT_FILES if f"{prefix}{path}" not in names
+        )
+        missing.extend(
+            f"review_exports/{name}"
+            for name in REVIEW_EXPORT_NAMES
+            if f"{prefix}review_exports/{name}" not in names
+        )
+        missing.extend(
             path
             for path in REQUIRED_PREFIXES
             if not any(name.startswith(f"{prefix}{path}") for name in names)
@@ -1130,6 +2234,7 @@ def verify_zip(root: Path, archive_path: Path) -> dict[str, Any]:
 def package(root: Path) -> dict[str, Any]:
     ensure_layout(root)
     assert_private_untracked(root)
+    assert_review_untracked(root)
     migration = load_migration(root)
     security_findings = scan_sensitive_files(root)
     if security_findings:
@@ -1161,25 +2266,79 @@ def package(root: Path) -> dict[str, Any]:
     report["DATA_SIZE_WARNINGS"] = size_warnings
     write_report(root, report)
 
+    # Generate a pre-verification readable set, then scan the generated plain
+    # text as part of the exact payload that will enter the ZIP.
+    review = generate_review_exports(
+        root,
+        current_git,
+        pytest_result,
+        bundle,
+        archive_verified=False,
+        zip_sha256="PENDING_ARCHIVE_VERIFICATION",
+    )
+    security_findings = scan_sensitive_files(root)
+    if security_findings:
+        failure_report = {
+            **report,
+            "SECURITY_SCAN_PASS": False,
+            "SECURITY_SCAN_FINDINGS": security_findings,
+            "PACKAGE_COMPLETE": False,
+            "FINAL_STATUS": "SINGLE_ROOT_PACKAGE_FAIL",
+            "GENERATED_AT": now_iso(),
+        }
+        write_report(root, failure_report)
+        raise PackagingError(
+            "SECURITY_SCAN_FAIL after readable export; canonical ZIP was not created"
+        )
+    report.update(
+        {
+            "REVIEW_EXPORT_FILE_COUNT": review["file_count"],
+            "REVIEW_MISSING_CRITICAL_FILES": review["missing"],
+            "REVIEW_CONFLICT_CRITICAL_FILES": review["conflicts"],
+            "PATENT_TEXT_FORMULA_COUNT": review["patent"].get("formula_count"),
+            "PATENT_TEXT_PARTIAL_FORMULA_COUNT": review["patent"].get(
+                "partial_formula_count"
+            ),
+        }
+    )
+    write_report(root, report)
+    review = generate_review_exports(
+        root,
+        current_git,
+        pytest_result,
+        bundle,
+        archive_verified=False,
+        zip_sha256="PENDING_ARCHIVE_VERIFICATION",
+    )
+
     generated_at = now_iso()
     entries = write_manifest(root, migration, generated_at)
     report["MANIFEST_ENTRY_COUNT"] = len(entries)
     write_report(root, report)
+    review = generate_review_exports(
+        root,
+        current_git,
+        pytest_result,
+        bundle,
+        archive_verified=False,
+        zip_sha256="PENDING_ARCHIVE_VERIFICATION",
+    )
     entries = write_manifest(root, migration, generated_at)
 
     final_zip = root.parent / CANONICAL_ZIP_NAME
     temporary_zip = final_zip.with_name(f"{final_zip.name}.tmp")
     create_zip(root, temporary_zip)
-    verification = verify_zip(root, temporary_zip)
-    os.replace(temporary_zip, final_zip)
+    draft_verification = verify_zip(root, temporary_zip)
 
     package_complete = (
-        verification["verified"]
-        and not verification["missing_required"]
+        draft_verification["verified"]
+        and not draft_verification["missing_required"]
         and pytest_result["pass"]
         and not security_findings
         and not private_tracked_files(root)
         and bundle["verify_pass"]
+        and not review["missing"]
+        and not review["conflicts"]
         and not report["EXTERNAL_PRIVATE_IP_REMAINS"]
         and not report["EXTERNAL_BACKUPS_REMAINS"]
         and not report["OLD_PRIVATE_STAGE1_REMAINS"]
@@ -1199,25 +2358,80 @@ def package(root: Path) -> dict[str, Any]:
             if warnings
             else "SINGLE_ROOT_PACKAGE_PASS"
         )
-    elif verification["verified"]:
+    elif draft_verification["verified"]:
         final_status = "SINGLE_ROOT_PACKAGE_INCOMPLETE"
     else:
         final_status = "SINGLE_ROOT_PACKAGE_FAIL"
 
+    # The verified draft proves that this exact file set is packageable. Write
+    # final readable status with a detached digest marker, then build and verify
+    # the final archive from that status-bearing payload.
     report.update(
         {
-            "CANONICAL_ZIP_SIZE": final_zip.stat().st_size,
-            "CANONICAL_ZIP_SHA256": sha256_file(final_zip),
-            "CANONICAL_ZIP_VERIFIED": verification["verified"],
-            "ZIP_MISSING_REQUIRED_FILES": verification["missing_required"],
+            "CANONICAL_ZIP_SIZE": temporary_zip.stat().st_size,
+            "CANONICAL_ZIP_SHA256": "DETACHED_AFTER_FINALIZATION",
+            "CANONICAL_ZIP_VERIFIED": draft_verification["verified"],
+            "ZIP_MISSING_REQUIRED_FILES": draft_verification["missing_required"],
             "PACKAGE_COMPLETE": package_complete,
             "FINAL_STATUS": final_status,
             "GENERATED_AT": now_iso(),
         }
     )
-    # The live report records the detached final archive digest. The archived
-    # report necessarily contains the pre-finalization marker; see README_PACKAGE.
     write_report(root, report)
+    review = generate_review_exports(
+        root,
+        current_git,
+        pytest_result,
+        bundle,
+        archive_verified=draft_verification["verified"],
+        zip_sha256="DETACHED_AFTER_FINALIZATION",
+    )
+    write_manifest(root, migration, generated_at)
+    create_zip(root, temporary_zip)
+    verification = verify_zip(root, temporary_zip)
+    os.replace(temporary_zip, final_zip)
+
+    package_complete = bool(
+        package_complete
+        and verification["verified"]
+        and not verification["missing_required"]
+        and review["complete"]
+    )
+    final_status = (
+        "SINGLE_ROOT_PACKAGE_PASS_WITH_WARNINGS"
+        if package_complete and warnings
+        else "SINGLE_ROOT_PACKAGE_PASS"
+        if package_complete
+        else "SINGLE_ROOT_PACKAGE_INCOMPLETE"
+        if verification["verified"]
+        else "SINGLE_ROOT_PACKAGE_FAIL"
+    )
+    final_digest = sha256_file(final_zip)
+    report.update(
+        {
+            "CANONICAL_ZIP_SIZE": final_zip.stat().st_size,
+            "CANONICAL_ZIP_SHA256": final_digest,
+            "CANONICAL_ZIP_VERIFIED": verification["verified"],
+            "ZIP_MISSING_REQUIRED_FILES": verification["missing_required"],
+            "REVIEW_EXPORT_FILE_COUNT": review["file_count"],
+            "REVIEW_MISSING_CRITICAL_FILES": review["missing"],
+            "REVIEW_CONFLICT_CRITICAL_FILES": review["conflicts"],
+            "PACKAGE_COMPLETE": package_complete,
+            "FINAL_STATUS": final_status,
+            "GENERATED_AT": now_iso(),
+        }
+    )
+    # Live files receive the detached final digest after atomic replacement.
+    # The archive necessarily retains DETACHED_AFTER_FINALIZATION internally.
+    write_report(root, report)
+    generate_review_exports(
+        root,
+        current_git,
+        pytest_result,
+        bundle,
+        archive_verified=verification["verified"],
+        zip_sha256=final_digest,
+    )
     write_manifest(root, migration, generated_at)
     return report
 
