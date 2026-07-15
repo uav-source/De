@@ -144,6 +144,8 @@ def run_stage2_failure_day9(
         and ordering_violation_count == 0
         and frame_key_one_to_one
         and nonfinite_violation_count == 0
+        and valid_count > 0
+        and ready_count > 0
         and causal_prefix_pass
         and group_isolation_pass
         and raw_huber_isolated
@@ -366,10 +368,19 @@ def audit_causal_prefix_equivalence(
     config: WindowStatisticConfig,
     full_records: Sequence[Mapping[str, Any]],
 ) -> bool:
-    if len(input_rows) <= 1:
-        return True
-    prefix_records = compute_window_records(input_rows[:-1], config)
-    return _record_sequences_equal(prefix_records, full_records[:-1])
+    if len(input_rows) != len(full_records):
+        return False
+    for prefix_length in range(1, len(input_rows) + 1):
+        prefix_records = compute_window_records(
+            input_rows[:prefix_length],
+            config,
+        )
+        if not _record_sequences_equal(
+            prefix_records,
+            full_records[:prefix_length],
+        ):
+            return False
+    return True
 
 
 def audit_group_isolation(
@@ -585,6 +596,10 @@ def _validate_day9_quick_config(config: Mapping[str, Any]) -> None:
         raise ValueError("Day 9 Quick window size is frozen at five")
     if float(config.get("cusum_reference_sigma", -1.0)) != 0.5:
         raise ValueError("Day 9 Quick CUSUM reference is frozen at 0.5")
+    if float(config.get("sign_zero_epsilon", -1.0)) != 1.0e-12:
+        raise ValueError("Day 9 Quick sign-zero epsilon is frozen at 1.0e-12")
+    if float(config.get("moment_epsilon", -1.0)) != 1.0e-12:
+        raise ValueError("Day 9 Quick moment epsilon is frozen at 1.0e-12")
     if not bool(config.get("require_primary_direction_stable")):
         raise ValueError("Day 9 requires a stable primary direction")
     if not bool(config.get("reset_on_invalid_frame")):

@@ -118,6 +118,13 @@ def validate_window_record(record: Mapping[str, Any]) -> None:
     reason = str(record["stat_reset_reason"])
     if reason not in RESET_REASONS:
         raise ValueError(f"unsupported stat_reset_reason: {reason}")
+    expected_valid, expected_reason = _expected_stat_input_state(record)
+    if bool(record["stat_input_valid"]) != expected_valid:
+        raise ValueError("stat_input_valid does not match its input conditions")
+    if reason != expected_reason:
+        raise ValueError(
+            "stat_reset_reason does not match the highest-priority input failure"
+        )
     window_size = int(record["window_size"])
     count = int(record["window_count"])
     consecutive = int(record["consecutive_valid_count"])
@@ -162,6 +169,20 @@ def write_window_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
 
 def window_frame_key(record: Mapping[str, Any]) -> tuple:
     return tuple(record[name] for name in FRAME_KEY_FIELDS)
+
+
+def _expected_stat_input_state(record: Mapping[str, Any]) -> tuple[bool, str]:
+    if not bool(record["weak_direction_valid"]):
+        return False, "invalid_direction"
+    if not bool(record["weak_innovation_valid"]):
+        return False, "invalid_innovation"
+    if not bool(record["primary_direction_stable"]):
+        return False, "unstable_direction"
+    raw = float(record["weak_innovation_z_raw"])
+    huber = float(record["weak_innovation_z_huber"])
+    if not math.isfinite(raw) or not math.isfinite(huber):
+        return False, "nonfinite_signal"
+    return True, "none"
 
 
 def _validate_invalid_signal(record: Mapping[str, Any], prefix: str) -> None:

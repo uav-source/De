@@ -2,6 +2,7 @@ import json
 
 import pytest
 
+from eval import stage2_failure_day9 as day9
 from eval.stage2_failure_day9 import compute_window_records
 from eval.stage2_failure_schema import ONLINE_SCHEMA_VERSION
 from eval.stage2_failure_window_stats import WindowStatisticConfig
@@ -52,6 +53,26 @@ def test_every_prefix_is_unchanged_when_future_rows_are_appended():
     for prefix_length in range(1, len(rows) + 1):
         prefix = compute_window_records(rows[:prefix_length], CONFIG)
         assert _canonical(prefix) == _canonical(extended[:prefix_length])
+
+
+def test_runtime_causal_audit_checks_every_prefix(monkeypatch):
+    rows = [
+        _row(1, 0.1, 1.0, 0.8),
+        _row(2, 0.2, 2.0, 1.5),
+        _row(3, 0.3, 3.0, 2.1),
+        _row(4, 0.4, 4.0, 2.8),
+    ]
+    full_records = compute_window_records(rows, CONFIG)
+    audited_prefix_lengths = []
+    original_compute = day9.compute_window_records
+
+    def recording_compute(prefix_rows, config):
+        audited_prefix_lengths.append(len(prefix_rows))
+        return original_compute(prefix_rows, config)
+
+    monkeypatch.setattr(day9, "compute_window_records", recording_compute)
+    assert day9.audit_causal_prefix_equivalence(rows, CONFIG, full_records)
+    assert audited_prefix_lengths == [1, 2, 3, 4]
 
 
 def test_duplicate_and_out_of_order_rows_raise_instead_of_being_sorted():

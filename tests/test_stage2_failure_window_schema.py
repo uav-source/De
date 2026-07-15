@@ -75,3 +75,29 @@ def test_schema_rejects_infinite_statistics():
     record["raw_window_energy"] = float("inf")
     with pytest.raises(ValueError, match="infinite"):
         validate_window_record(record)
+
+
+@pytest.mark.parametrize(
+    ("stat_input_valid", "direction_valid"),
+    [(True, False), (False, True)],
+)
+def test_schema_rejects_stat_input_valid_condition_contradictions(
+    stat_input_valid,
+    direction_valid,
+):
+    record = dict(compute_window_records([_row()], CONFIG)[0])
+    record["stat_input_valid"] = stat_input_valid
+    record["weak_direction_valid"] = direction_valid
+    if not stat_input_valid:
+        record["stat_reset_reason"] = "invalid_direction"
+    with pytest.raises(ValueError, match="stat_input_valid"):
+        validate_window_record(record)
+
+
+def test_schema_rejects_reset_reason_that_disagrees_with_failure_priority():
+    record = dict(compute_window_records([_row(valid=False)], CONFIG)[0])
+    record["weak_innovation_valid"] = False
+    record["primary_direction_stable"] = False
+    record["stat_reset_reason"] = "invalid_innovation"
+    with pytest.raises(ValueError, match="stat_reset_reason"):
+        validate_window_record(record)
