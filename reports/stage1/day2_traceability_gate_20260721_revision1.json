@@ -1,0 +1,77 @@
+{
+  "stage": "Stage 1 Day 2 Revision 1",
+  "execution_date": "2026-07-21",
+  "patent_revision": {
+    "available": true,
+    "path": "/home/lj/文档/WPS Cloud Files/797344510/0-专利/一种隧道退化环境下激光惯性里程计退化检测与弱方向识别方法_专利技术交底书_V1.1_公式一致性修订.docx",
+    "sha256": "62dcd24baf3c75e74562524633883a01045cc3b9f7dee06ed103afb5d6767777",
+    "repository_external": true,
+    "modified": false
+  },
+  "f13": {
+    "formula_match": true,
+    "issue_level": "RESOLVED",
+    "patent_formula": "(lambda_2,k - lambda_3,k) / max(lambda_1,k, epsilon_g)",
+    "epsilon_g": 1e-12,
+    "code_formula": "(lambda_next - lambda_min) / max(lambda_max, 1e-12)",
+    "eigenvalue_mapping": {
+      "lambda_1": "lambda_max",
+      "lambda_2": "lambda_next",
+      "lambda_3": "lambda_min"
+    },
+    "epsilon_g_separate_from_odi_epsilon_k": true
+  },
+  "issues": {
+    "p0_count": 0,
+    "p1_count": 9,
+    "p2_count": 3,
+    "p1": [
+      "Formal detector evidence remains controlled/synthetic; real current-prior acquisition, dewarping, and correspondence are not integrated.",
+      "The target-system adaptation of the now-explicit right-rotation/world-translation convention is not validated.",
+      "Optional robust detector weighting remains unfrozen and must not be conflated with the updater normal equation.",
+      "Other epsilon modes or parameterizations remain outside the formal evidence even though V1.1 now discloses the frozen epsilon_a value.",
+      "No direct point-count or duplicate-measurement scaling-invariance regression exists.",
+      "Direct regressions for descending eigenpair binding and below-threshold primary eigengap rejection are missing.",
+      "Optional temporal continuity and persistence are not implemented or tested.",
+      "Optional quality flags, fallback, hysteresis, and per-frame runtime outputs are not frozen detector outputs.",
+      "Broad platform applicability, independent real deployment, and real-time suitability lack real-system and latency evidence."
+    ],
+    "p2": [
+      "Normalized/raw AIS naming is clarified in V1.1 but requires care when mapping historical material and legacy fields.",
+      "V1.1 corrects S106A/S106B while the preserved V1.0 audit retains the historical numbering discrepancy.",
+      "Legacy six-dimensional ODI/AIS and primary translation metric names coexist in code."
+    ]
+  },
+  "pytest": {
+    "command": "python3 -m pytest -q",
+    "pass": true,
+    "passed": 185,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 1,
+    "exit_code": 0,
+    "summary_path": "reports/stage1/pytest_revision1_20260721.json"
+  },
+  "logs": {
+    "backed_up": true,
+    "backup_directory": "/home/lj/Degen-LIO-backups/stage1/day1-logs",
+    "untracked": true,
+    "tracked_log_file_count": 0
+  },
+  "claim_boundaries": {
+    "temporal_continuity_optional": true,
+    "hysteresis_optional": true,
+    "quality_flags_optional": true,
+    "stage2b_or_stage2c_update_success_claimed": false,
+    "risk_prediction_success_claimed": false,
+    "fast_lio2_completion_claimed": false,
+    "real_time_operation_proved_claimed": false
+  },
+  "safety": {
+    "scientific_code_modified": false,
+    "historical_artifacts_modified": false,
+    "formal_experiments_rerun": false,
+    "git_push_performed": false
+  },
+  "day2_gate": "TRACEABILITY_PASS_WITH_WARNINGS"
+}
