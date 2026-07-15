@@ -17,7 +17,7 @@ Not confirmed:
 - projected-gain weak-direction update benefit under the Stage 2C benchmark;
 - complete LiDAR-inertial odometry method.
 
-Current active task: **Stage 2 Failure-Mechanism Diagnosis — Day 10**.
+Current active task: **Stage 2 Failure-Mechanism Diagnosis — Day 11A**.
 
 Confirmed:
 
@@ -32,7 +32,14 @@ Negative results:
 
 Under audit:
 
-- strict no-GT online dependency.
+- preregistered deterministic diagnostic-case locking after the historical
+  Stage 2C trial-level outputs were found to be unavailable.
+
+Day 11A selects no historical "representative seed." It locks one Geometry and
+one Observation diagnostic case from the frozen Test seed namespace using a
+result-independent SHA-256 rule. It runs no estimator or replay. The frozen
+Stage 2C stress name is `coherent_subhuber_slip`; the earlier Stage 2B name
+`axial_correspondence_slip` is not aliased into Stage 2C.
 
 Not yet evaluated:
 

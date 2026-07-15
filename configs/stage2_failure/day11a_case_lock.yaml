@@ -1,0 +1,38 @@
+mode: day11a_deterministic_case_lock
+schema_version: stage2_failure_day11a_case_lock_v1
+stage2c_tag: archive/stage2c-projected-gain-no-go
+expected_stage2c_commit: ae90aaad51e72aa53ee0344047f9475fb51650a9
+history_recovery_pass: false
+selection_algorithm_version: degen_lio_day11r1_sha256_mod_v1
+geometry_hash_label: Degen-LIO-Day11R1|ae90aaad51e72aa53ee0344047f9475fb51650a9|geometry
+observation_hash_label: Degen-LIO-Day11R1|ae90aaad51e72aa53ee0344047f9475fb51650a9|observation
+geometry_candidate_levels:
+  - L3
+  - L4
+observation_candidate_levels:
+  - O3
+  - O4
+required_methods:
+  - huber_full
+  - huber_projected_gain
+required_replay_stress_regimes:
+  - clean
+  - coherent_subhuber_slip
+allowed_stage2c_stress_regimes:
+  - clean
+  - coherent_subhuber_slip
+  - gross_outlier_control
+expected_day11b_method_replay_count: 8
+selection_uses_metrics: false
+selection_uses_innovation: false
+selection_uses_cusum: false
+selection_uses_gt_error: false
+selection_uses_plot_visibility: false
+selection_uses_manual_override: false
+run_replay: false
+generate_figures: false
+create_detection_threshold: false
+compute_auroc: false
+compute_fpr: false
+compute_f1: false
+fast_lio2_integrated: false
