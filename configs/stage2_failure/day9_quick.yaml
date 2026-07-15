@@ -1,0 +1,21 @@
+mode: day9_quick
+schema_version: stage2_failure_window_v1
+
+use_reserved_test: false
+formal_experiment: false
+replay_stage2c_representative_seed: false
+compute_detection_threshold: false
+compute_auroc: false
+compute_fpr: false
+
+primary_signal: weak_innovation_z_huber
+diagnostic_signal: weak_innovation_z_raw
+
+window_size: 5
+cusum_reference_sigma: 0.5
+sign_zero_epsilon: 1.0e-12
+moment_epsilon: 1.0e-12
+
+require_primary_direction_stable: true
+reset_on_invalid_frame: true
+allow_partial_window_statistics: true
