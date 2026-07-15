@@ -1,0 +1,34 @@
+mode: day10_quick
+schema_version: stage2_failure_no_gt_audit_v1
+
+use_reserved_test: false
+formal_experiment: false
+replay_stage2c_representative_seed: false
+
+create_detection_threshold: false
+compute_auroc: false
+compute_fpr: false
+compute_f1: false
+compute_detection_delay: false
+
+inherit_day8_methods: true
+frame_limit: 8
+
+offline_field_names:
+  - pose_gt
+  - axis_per_frame
+
+runtime_variants:
+  - gt_present_control
+  - gt_removed
+  - gt_access_sentinel
+  - gt_poisoned
+  - gt_permuted
+
+continuous_comparison_tolerance: 1.0e-12
+require_exact_array_checksum_match: true
+require_exact_online_record_match: true
+require_exact_window_record_match: true
+
+run_filesystem_sandbox: true
+run_invalid_reset_end_to_end: true

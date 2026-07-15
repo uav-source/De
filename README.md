@@ -17,25 +17,32 @@ Not confirmed:
 - projected-gain weak-direction update benefit under the Stage 2C benchmark;
 - complete LiDAR-inertial odometry method.
 
-Current active task: **Stage 2 Failure-Mechanism Diagnosis — Day 9**.
+Current active task: **Stage 2 Failure-Mechanism Diagnosis — Day 10**.
 
 Confirmed:
 
 - controlled degeneracy detection;
-- controlled weak-direction identification.
+- controlled weak-direction identification;
+- causal frame and window diagnostics.
 
 Negative results:
 
 - Stage 2B column-scaling selective update;
 - Stage 2C projected-gain update.
 
-Under diagnosis:
+Under audit:
 
-- weak-direction coherent innovation and update-error causality.
+- strict no-GT online dependency.
+
+Not yet evaluated:
+
+- coherent-bias separability;
+- AUROC/FPR;
+- causal error association.
 
 Not implemented:
 
-- innovation monitor;
+- Stage 3 innovation gate;
 - bias-state estimator;
 - FAST-LIO2 integration;
 - real IMU propagation;
