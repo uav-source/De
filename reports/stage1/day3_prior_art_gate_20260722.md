@@ -10,12 +10,12 @@ SEARCH_INTERNET_AVAILABLE: true
 PATENT_DATABASE_COUNT: 3
 NON_PATENT_DATABASE_COUNT: 5
 
-CHINESE_QUERY_COUNT: 20
-ENGLISH_QUERY_COUNT: 25
+CHINESE_QUERY_COUNT: 21
+ENGLISH_QUERY_COUNT: 42
 
-PATENT_FAMILY_CANDIDATE_COUNT: 30
-HIGH_RELEVANCE_PATENT_COUNT: 10
-DEEP_REVIEW_PATENT_COUNT: 6
+PATENT_FAMILY_CANDIDATE_COUNT: 31
+HIGH_RELEVANCE_PATENT_COUNT: 11
+DEEP_REVIEW_PATENT_COUNT: 7
 
 NON_PATENT_CANDIDATE_COUNT: 22
 HIGH_RELEVANCE_PAPER_COUNT: 11
@@ -25,8 +25,8 @@ PRIMARY_CLOSEST_REFERENCE_IDENTIFIED: true
 SECONDARY_CLOSEST_REFERENCE_IDENTIFIED: true
 STRONGEST_NON_PATENT_REFERENCE_IDENTIFIED: true
 
-PRIMARY_CLOSEST_REFERENCE: CN120599047A
-SECONDARY_CLOSEST_REFERENCE: CN114964212A
+PRIMARY_CLOSEST_REFERENCE: CN120991843A
+SECONDARY_CLOSEST_REFERENCE: CN120599047A
 STRONGEST_NON_PATENT_REFERENCE: X-ICP, DOI 10.1109/TRO.2023.3335691
 
 SINGLE_REFERENCE_NOVELTY_RISK: MEDIUM
@@ -66,7 +66,7 @@ No reviewed single reference was verified to disclose the complete frozen C01-C0
 
 1. The final filing/priority date is unknown, so legal prior-art applicability remains for patent counsel.
 2. Public CNIPA/Espacenet access limitations prevented independent official-register validation of every high-relevance Chinese family and legal-status field.
-3. Two required Chinese seed phrases were not verified as exact publication titles; technically related records were reviewed without inventing a match.
+3. One required Chinese seed phrase remains unresolved as an exact publication title; the dual-threshold/adaptive-compensation seed was resolved as CN120991843A and fully reviewed.
 4. Combination inventive-step risk is HIGH; professional claim drafting and professional family/legal-status searching are recommended.
 
 ### P2
