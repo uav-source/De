@@ -4,6 +4,7 @@ from pathlib import Path
 
 from eval.stage2_failure_day8 import build_day8_unit_fixture
 from eval.stage2_failure_no_gt_audit import (
+    audit_invalid_reset_rows,
     execute_online_variant,
     run_invalid_reset_end_to_end,
 )
@@ -50,6 +51,9 @@ def test_valid_invalid_valid_runs_through_complete_day9_file_flow(tmp_path):
     assert audit["observed_window_counts"] == [1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5]
     assert audit["invalid_reset_expected_counts_match"] is True
     assert audit["invalid_reset_cusum_reset_match"] is True
+    assert audit["invalid_reset_raw_cusum_match"] is True
+    assert audit["invalid_reset_huber_cusum_match"] is True
+    assert audit["invalid_reset_sign_run_match"] is True
     assert audit["invalid_reset_end_to_end_pass"] is True
     with output_path.open("r", encoding="utf-8", newline="") as handle:
         rows = list(csv.DictReader(handle))
@@ -59,3 +63,38 @@ def test_valid_invalid_valid_runs_through_complete_day9_file_flow(tmp_path):
     assert float(rows[6]["huber_window_mean"]) == -0.8
     assert float(rows[6]["raw_cusum_positive"]) == 0.0
     assert float(rows[6]["raw_cusum_negative"]) == 0.5
+    assert float(rows[6]["huber_cusum_positive"]) == 0.0
+    assert math.isclose(float(rows[6]["huber_cusum_negative"]), 0.3)
+    assert int(rows[6]["raw_current_same_sign_run_length"]) == 1
+    assert int(rows[6]["huber_current_same_sign_run_length"]) == 1
+    assert int(rows[6]["raw_max_same_sign_run_length"]) == 1
+    assert int(rows[6]["huber_max_same_sign_run_length"]) == 1
+    assert int(rows[6]["consecutive_valid_count"]) == 1
+
+
+def test_invalid_reset_audit_rejects_huber_cusum_that_did_not_reset(tmp_path):
+    _, output_path = run_invalid_reset_end_to_end(
+        ROOT,
+        tmp_path / "bad_huber_cusum",
+        _template_record(),
+    )
+    with output_path.open("r", encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    rows[6]["huber_cusum_negative"] = "1.3"
+    audit = audit_invalid_reset_rows(rows)
+    assert audit["invalid_reset_huber_cusum_match"] is False
+    assert audit["invalid_reset_end_to_end_pass"] is False
+
+
+def test_invalid_reset_audit_rejects_sign_run_that_did_not_reset(tmp_path):
+    _, output_path = run_invalid_reset_end_to_end(
+        ROOT,
+        tmp_path / "bad_sign_run",
+        _template_record(),
+    )
+    with output_path.open("r", encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    rows[6]["raw_current_same_sign_run_length"] = "6"
+    audit = audit_invalid_reset_rows(rows)
+    assert audit["invalid_reset_sign_run_match"] is False
+    assert audit["invalid_reset_end_to_end_pass"] is False

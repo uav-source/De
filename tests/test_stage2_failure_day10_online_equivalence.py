@@ -1,3 +1,4 @@
+import copy
 from pathlib import Path
 
 import numpy as np
@@ -5,7 +6,9 @@ import pytest
 
 from eval.stage2_failure_day8 import build_day8_unit_fixture
 from eval.stage2_failure_no_gt_audit import (
+    audit_runtime_output_integrity,
     compare_array_field,
+    compare_online_runs,
     compare_record_sequences,
     execute_online_variant,
 )
@@ -16,7 +19,7 @@ from eval.synthetic_pipeline_common import load_yaml
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def _online_record():
+def _online_runs():
     observations, motion = build_day8_unit_fixture(8)
     day8 = load_yaml(ROOT / "configs/stage2_failure/day8_quick.yaml")
     runs = execute_online_variant(
@@ -39,7 +42,11 @@ def _online_record():
         },
         day8["directional_information_epsilon"],
     )
-    return dict(runs["huber_full"]["records"][0])
+    return runs
+
+
+def _online_record():
+    return dict(_online_runs()["huber_full"]["records"][0])
 
 
 @pytest.mark.parametrize(
@@ -115,3 +122,42 @@ def test_online_record_comparator_detects_schema_key_nan_numeric_and_bool_change
         candidate["actionable_direction"] = not candidate["actionable_direction"]
     result = compare_record_sequences([control], [candidate], ONLINE_FIELDS)
     assert result["pass"] is False
+
+
+def test_frame_diagnostics_comparison_detects_one_value_change():
+    control = _online_runs()
+    candidate = copy.deepcopy(control)
+    candidate["huber_full"]["result"]["frame_diagnostics"][0]["ODI_trans"] += 1.0e-11
+    rows = compare_online_runs("gt_removed", control, candidate, 1.0e-12)
+    diagnostic = next(row for row in rows if row["field"] == "frame_diagnostics")
+    assert diagnostic["pass"] is False
+    assert diagnostic["control_sha256"] != diagnostic["variant_sha256"]
+
+
+def test_solver_failure_count_and_strategy_changes_are_rejected():
+    control = _online_runs()
+    candidate = copy.deepcopy(control)
+    candidate["huber_full"]["result"]["solver_failure_count"] = 1
+    candidate["huber_full"]["result"]["strategy"] = "changed"
+    rows = compare_online_runs("gt_removed", control, candidate, 1.0e-12)
+    assert next(row for row in rows if row["field"] == "solver_failure_count")[
+        "pass"
+    ] is False
+    assert next(row for row in rows if row["field"] == "strategy")["pass"] is False
+    integrity = audit_runtime_output_integrity(
+        {"gt_present_control": control, "gt_removed": candidate},
+        ["huber_full"],
+    )
+    assert integrity["solver_failure_count_variant_total"] == 1
+    assert integrity["strategy_mismatch_count"] == 1
+
+
+def test_returned_failure_frame_records_must_equal_logger_records():
+    control = _online_runs()
+    candidate = copy.deepcopy(control)
+    candidate["huber_full"]["result"]["failure_frame_records"].pop()
+    integrity = audit_runtime_output_integrity(
+        {"gt_present_control": control, "gt_removed": candidate},
+        ["huber_full"],
+    )
+    assert integrity["failure_frame_record_mismatch_count"] == 1

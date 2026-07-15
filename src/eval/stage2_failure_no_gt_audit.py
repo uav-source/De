@@ -60,6 +60,33 @@ ONLINE_DISCRETE_RESULT_FIELDS = (
     "actionable_direction",
     "solver_failure",
 )
+FRAME_DIAGNOSTIC_FIELDS = (
+    "frame_index",
+    "ODI_trans",
+    "degeneracy_triggered",
+    "primary_direction_stable",
+    "actionable_direction",
+    "full_weak_correction_abs",
+    "applied_weak_correction_abs",
+    "weak_correction_ratio",
+    "full_strong_correction_norm",
+    "applied_strong_correction_norm",
+    "strong_correction_difference_norm",
+    "full_rotation_correction_norm",
+    "applied_rotation_correction_norm",
+    "rotation_correction_difference_norm",
+    "weak_update_component_abs",
+    "strong_update_component_norm",
+    "rotation_update_norm",
+    "update_norm",
+    "solver_condition_number",
+    "joseph_min_eigenvalue",
+    "posterior_covariance_trace",
+    "directional_posterior_variance",
+    "huber_outlier_ratio",
+    "contaminated_measurement_ratio",
+    "contaminated_huber_downweighted_ratio",
+)
 ONLINE_EQUIVALENCE_FIELDS = (
     "variant",
     "method",
@@ -435,7 +462,166 @@ def compare_online_runs(
                 "pass": bool(record_result["pass"]),
             }
         )
+        diagnostic_result = compare_record_sequences(
+            control["result"]["frame_diagnostics"],
+            candidate["result"]["frame_diagnostics"],
+            FRAME_DIAGNOSTIC_FIELDS,
+            require_exact_records,
+        )
+        diagnostics_finite = bool(
+            _record_sequence_is_finite(
+                control["result"]["frame_diagnostics"],
+                FRAME_DIAGNOSTIC_FIELDS,
+            )
+            and _record_sequence_is_finite(
+                candidate["result"]["frame_diagnostics"],
+                FRAME_DIAGNOSTIC_FIELDS,
+            )
+        )
+        rows.append(
+            _record_audit_row(
+                variant,
+                method,
+                "frame_diagnostics",
+                "frame_diagnostics",
+                diagnostic_result,
+                diagnostics_finite,
+            )
+        )
+        failure_record_result = compare_record_sequences(
+            control["result"]["failure_frame_records"],
+            candidate["result"]["failure_frame_records"],
+            ONLINE_FIELDS,
+            require_exact_records,
+        )
+        rows.append(
+            _record_audit_row(
+                variant,
+                method,
+                "failure_frame_records",
+                "failure_frame_records",
+                failure_record_result,
+                True,
+            )
+        )
+        rows.append(
+            _scalar_audit_row(
+                variant,
+                method,
+                "solver_failure_count",
+                control["result"]["solver_failure_count"],
+                candidate["result"]["solver_failure_count"],
+                expected=0,
+            )
+        )
+        rows.append(
+            _scalar_audit_row(
+                variant,
+                method,
+                "strategy",
+                control["result"]["strategy"],
+                candidate["result"]["strategy"],
+                expected=method,
+            )
+        )
     return rows
+
+
+def audit_runtime_output_integrity(
+    runtime_runs: Mapping[str, Mapping[str, Mapping[str, Any]]],
+    methods: Sequence[str],
+) -> Mapping[str, int]:
+    """Verify scalar outputs and returned failure records for every online run."""
+
+    control_solver_failures = 0
+    variant_solver_failures = 0
+    strategy_mismatches = 0
+    failure_record_mismatches = 0
+    for variant, runs in runtime_runs.items():
+        for method in methods:
+            run = runs[method]
+            result = run["result"]
+            failures = int(result["solver_failure_count"])
+            if variant == "gt_present_control":
+                control_solver_failures += failures
+            else:
+                variant_solver_failures += failures
+            strategy_mismatches += int(str(result["strategy"]) != str(method))
+            comparison = compare_record_sequences(
+                result["failure_frame_records"],
+                run["records"],
+                ONLINE_FIELDS,
+                True,
+            )
+            failure_record_mismatches += int(not bool(comparison["pass"]))
+    return {
+        "solver_failure_count_control": control_solver_failures,
+        "solver_failure_count_variant_total": variant_solver_failures,
+        "strategy_mismatch_count": strategy_mismatches,
+        "failure_frame_record_mismatch_count": failure_record_mismatches,
+    }
+
+
+def _record_audit_row(
+    variant: str,
+    method: str,
+    field: str,
+    field_type: str,
+    comparison: Mapping[str, Any],
+    finite: bool,
+) -> Mapping[str, Any]:
+    passed = bool(comparison["pass"] and finite)
+    return {
+        "variant": str(variant),
+        "method": str(method),
+        "field": str(field),
+        "field_type": str(field_type),
+        "shape_control": _shape_text((comparison["control_row_count"],)),
+        "shape_variant": _shape_text((comparison["variant_row_count"],)),
+        "dtype_control": "record",
+        "dtype_variant": "record",
+        "max_abs_difference": 0.0 if passed else float("inf"),
+        "exact_array_equal": bool(comparison["records_equal"]),
+        "control_sha256": comparison["control_sha256"],
+        "variant_sha256": comparison["variant_sha256"],
+        "finite_control": bool(finite),
+        "finite_variant": bool(finite),
+        "pass": passed,
+    }
+
+
+def _scalar_audit_row(
+    variant: str,
+    method: str,
+    field: str,
+    control: Any,
+    candidate: Any,
+    expected: Any,
+) -> Mapping[str, Any]:
+    control_hash = hashlib.sha256(_canonical_scalar(control)).hexdigest()
+    candidate_hash = hashlib.sha256(_canonical_scalar(candidate)).hexdigest()
+    equal = _scalar_values_equal(control, candidate)
+    expected_match = _scalar_values_equal(control, expected) and _scalar_values_equal(
+        candidate, expected
+    )
+    passed = bool(equal and expected_match and control_hash == candidate_hash)
+    return {
+        "variant": str(variant),
+        "method": str(method),
+        "field": str(field),
+        "field_type": "scalar",
+        "shape_control": "scalar",
+        "shape_variant": "scalar",
+        "dtype_control": type(control).__name__,
+        "dtype_variant": type(candidate).__name__,
+        "max_abs_difference": 0.0 if passed else float("inf"),
+        "exact_array_equal": bool(equal),
+        "control_sha256": control_hash,
+        "variant_sha256": candidate_hash,
+        "finite_control": _scalar_is_finite(control),
+        "finite_variant": _scalar_is_finite(candidate),
+        "pass": passed,
+    }
 
 
 def canonical_record_sha256(
@@ -608,6 +794,7 @@ def audit_static_dependencies(
         and not missing_targets
     )
     return {
+        "schema_version": NO_GT_AUDIT_SCHEMA_VERSION,
         "audited_files": list(STATIC_AUDIT_FILES),
         "parse_failures": parse_failures,
         "forbidden_imports": forbidden_imports,
@@ -679,6 +866,7 @@ def run_filesystem_sandbox_audit(
         and identical
     )
     return {
+        "schema_version": NO_GT_AUDIT_SCHEMA_VERSION,
         "no_gt_subprocess_return_code": int(no_gt_run.returncode),
         "fake_gt_subprocess_return_code": int(fake_gt_run.returncode),
         "no_gt_output_sha256": no_gt_hash,
@@ -761,6 +949,14 @@ def run_invalid_reset_end_to_end(
     )
     with output_path.open("r", encoding="utf-8", newline="") as handle:
         output_rows = list(csv.DictReader(handle))
+    return audit_invalid_reset_rows(output_rows), output_path
+
+
+def audit_invalid_reset_rows(
+    output_rows: Sequence[Mapping[str, Any]],
+) -> Mapping[str, Any]:
+    """Validate every reset, CUSUM, and sign-run invariant in the 11-row fixture."""
+
     counts = [int(row["window_count"]) for row in output_rows]
     ready = [str(row["window_ready"]).lower() == "true" for row in output_rows]
     expected_counts = [1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5]
@@ -784,10 +980,22 @@ def run_invalid_reset_end_to_end(
         and math.isclose(float(restarted["raw_window_mean"]), -1.0, abs_tol=1.0e-12)
         and math.isclose(float(restarted["huber_window_mean"]), -0.8, abs_tol=1.0e-12)
     )
-    cusum_reset = bool(
+    raw_cusum_match = bool(
         math.isclose(float(restarted["raw_cusum_positive"]), 0.0, abs_tol=1.0e-12)
         and math.isclose(float(restarted["raw_cusum_negative"]), 0.5, abs_tol=1.0e-12)
     )
+    huber_cusum_match = bool(
+        math.isclose(float(restarted["huber_cusum_positive"]), 0.0, abs_tol=1.0e-12)
+        and math.isclose(float(restarted["huber_cusum_negative"]), 0.3, abs_tol=1.0e-12)
+    )
+    sign_run_match = bool(
+        int(restarted["raw_current_same_sign_run_length"]) == 1
+        and int(restarted["huber_current_same_sign_run_length"]) == 1
+        and int(restarted["raw_max_same_sign_run_length"]) == 1
+        and int(restarted["huber_max_same_sign_run_length"]) == 1
+        and int(restarted["consecutive_valid_count"]) == 1
+    )
+    cusum_reset = raw_cusum_match and huber_cusum_match
     invalid_reset_count = sum(
         int(row["stat_reset_reason"] != "none") for row in output_rows
     )
@@ -798,9 +1006,12 @@ def run_invalid_reset_end_to_end(
         and expected_counts_match
         and invalid_state_reset
         and restarted_from_empty
-        and cusum_reset
+        and raw_cusum_match
+        and huber_cusum_match
+        and sign_run_match
     )
     audit = {
+        "schema_version": NO_GT_AUDIT_SCHEMA_VERSION,
         "fixture_row_count": len(output_rows),
         "invalid_reset_count": invalid_reset_count,
         "expected_window_counts": expected_counts,
@@ -810,10 +1021,13 @@ def run_invalid_reset_end_to_end(
         "invalid_reset_expected_counts_match": expected_counts_match,
         "invalid_frame_state_reset": invalid_state_reset,
         "post_invalid_window_restarted": restarted_from_empty,
+        "invalid_reset_raw_cusum_match": raw_cusum_match,
+        "invalid_reset_huber_cusum_match": huber_cusum_match,
+        "invalid_reset_sign_run_match": sign_run_match,
         "invalid_reset_cusum_reset_match": cusum_reset,
         "invalid_reset_end_to_end_pass": passed,
     }
-    return audit, output_path
+    return audit
 
 
 def write_fixed_audit_csv(
@@ -830,6 +1044,125 @@ def write_fixed_audit_csv(
         writer = csv.DictWriter(handle, fieldnames=list(fields), extrasaction="raise")
         writer.writeheader()
         writer.writerows(rows)
+
+
+def audit_day10_output_files(
+    result_dir: Path,
+    expected_online_row_count: int,
+    expected_window_row_count: int,
+    expected_invalid_row_count: int,
+    expected_json_fields: Mapping[str, Sequence[str]],
+) -> Mapping[str, Any]:
+    """Re-read every Day 10 output and validate schemas, counts, and hashes."""
+
+    result_dir = Path(result_dir)
+    errors: List[str] = []
+    expected_files = {
+        "online_equivalence_audit.csv",
+        "window_equivalence_audit.csv",
+        "static_dependency_audit.json",
+        "filesystem_sandbox_audit.json",
+        "invalid_reset_end_to_end.csv",
+        "invalid_reset_audit.json",
+        "day10_quick_summary.json",
+        "run_manifest.json",
+    }
+    actual_files = {path.name for path in result_dir.iterdir() if path.is_file()}
+    if actual_files != expected_files:
+        errors.append(
+            f"output file set mismatch: missing={sorted(expected_files - actual_files)}, "
+            f"extra={sorted(actual_files - expected_files)}"
+        )
+    csv_expectations = {
+        "online_equivalence_audit.csv": (
+            ONLINE_EQUIVALENCE_FIELDS,
+            int(expected_online_row_count),
+        ),
+        "window_equivalence_audit.csv": (
+            WINDOW_EQUIVALENCE_FIELDS,
+            int(expected_window_row_count),
+        ),
+        "invalid_reset_end_to_end.csv": (
+            WINDOW_FIELDS,
+            int(expected_invalid_row_count),
+        ),
+    }
+    for filename, (fields, expected_count) in csv_expectations.items():
+        path = result_dir / filename
+        if not path.is_file():
+            errors.append(f"missing CSV: {filename}")
+            continue
+        with path.open("r", encoding="utf-8", newline="") as handle:
+            reader = csv.DictReader(handle)
+            rows = list(reader)
+        if reader.fieldnames != list(fields):
+            errors.append(f"CSV schema mismatch: {filename}")
+        if len(rows) != expected_count:
+            errors.append(
+                f"CSV row count mismatch: {filename}={len(rows)} expected={expected_count}"
+            )
+        if any(_csv_row_contains_infinite(row) for row in rows):
+            errors.append(f"CSV contains illegal Inf: {filename}")
+
+    json_values: Dict[str, Mapping[str, Any]] = {}
+    for filename, fields in expected_json_fields.items():
+        path = result_dir / filename
+        if not path.is_file():
+            errors.append(f"missing JSON: {filename}")
+            continue
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as error:
+            errors.append(f"invalid JSON {filename}: {error}")
+            continue
+        if not isinstance(value, dict):
+            errors.append(f"JSON root must be a mapping: {filename}")
+            continue
+        if set(value) != set(fields):
+            errors.append(
+                f"JSON schema mismatch: {filename}; "
+                f"missing={sorted(set(fields) - set(value))}, "
+                f"extra={sorted(set(value) - set(fields))}"
+            )
+        if value.get("schema_version") != NO_GT_AUDIT_SCHEMA_VERSION:
+            errors.append(f"JSON schema_version mismatch: {filename}")
+        if _contains_infinite(value):
+            errors.append(f"JSON contains illegal Inf: {filename}")
+        json_values[filename] = value
+
+    manifest = json_values.get("run_manifest.json", {})
+    hash_fields = {
+        "online_equivalence_audit_sha256": "online_equivalence_audit.csv",
+        "window_equivalence_audit_sha256": "window_equivalence_audit.csv",
+        "static_dependency_audit_sha256": "static_dependency_audit.json",
+        "filesystem_sandbox_audit_sha256": "filesystem_sandbox_audit.json",
+        "invalid_reset_end_to_end_sha256": "invalid_reset_end_to_end.csv",
+        "invalid_reset_audit_sha256": "invalid_reset_audit.json",
+        "day10_quick_summary_sha256": "day10_quick_summary.json",
+    }
+    for field, filename in hash_fields.items():
+        path = result_dir / filename
+        if not path.is_file() or manifest.get(field) != sha256_file(path):
+            errors.append(f"manifest SHA-256 mismatch: {field}")
+    return {
+        "output_schema_pass": not errors,
+        "output_schema_errors": errors,
+    }
+
+
+def _csv_row_contains_infinite(row: Mapping[str, Any]) -> bool:
+    infinite_tokens = {"inf", "+inf", "-inf", "infinity", "+infinity", "-infinity"}
+    return any(str(value).strip().lower() in infinite_tokens for value in row.values())
+
+
+def _contains_infinite(value: Any) -> bool:
+    if isinstance(value, Mapping):
+        return any(_contains_infinite(item) for item in value.values())
+    if isinstance(value, (list, tuple)):
+        return any(_contains_infinite(item) for item in value)
+    if isinstance(value, (float, np.floating)):
+        return math.isinf(float(value))
+    return False
 
 
 def _maximum_array_difference(first: np.ndarray, second: np.ndarray) -> float:
@@ -892,6 +1225,26 @@ def _scalar_values_equal(first: Any, second: Any) -> bool:
             return math.isnan(left) and math.isnan(right)
         return left == right
     return first == second
+
+
+def _scalar_is_finite(value: Any) -> bool:
+    if isinstance(value, (bool, np.bool_, int, np.integer, str)):
+        return True
+    if isinstance(value, (float, np.floating)):
+        return math.isfinite(float(value))
+    return False
+
+
+def _record_sequence_is_finite(
+    records: Sequence[Mapping[str, Any]],
+    fields: Sequence[str],
+) -> bool:
+    return all(
+        _scalar_is_finite(record[field])
+        for record in records
+        for field in fields
+        if field in record
+    )
 
 
 def _qualified_function_arguments(tree: ast.AST) -> Mapping[str, Sequence[str]]:

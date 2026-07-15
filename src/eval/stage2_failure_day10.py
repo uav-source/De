@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import math
 import platform
 import shutil
@@ -31,6 +32,8 @@ from eval.stage2_failure_no_gt_audit import (
     RUNTIME_VARIANTS,
     WINDOW_EQUIVALENCE_FIELDS,
     GTAccessSentinelMapping,
+    audit_day10_output_files,
+    audit_runtime_output_integrity,
     audit_static_dependencies,
     compare_online_runs,
     compare_window_runs,
@@ -50,6 +53,7 @@ HISTORICAL_ARTIFACT_PATHS = (
     "artifacts/current/weak_update_stage2c",
 )
 DAY9_CHECKPOINT = "checkpoint/day9-window-stats-pass"
+DAY10_METHODS = ("huber_full", "huber_projected_gain")
 
 
 def run_stage2_failure_day10(
@@ -62,6 +66,9 @@ def run_stage2_failure_day10(
     """Run the deterministic Day 10 engineering-only no-GT audit."""
 
     root = Path(root).resolve()
+    clean_at_start = git_status_clean(root)
+    if not clean_at_start:
+        raise RuntimeError("Day 10 refuses to run from a dirty Git worktree")
     config_path = (
         root / "configs/stage2_failure/day10_quick.yaml"
         if config_path is None
@@ -69,7 +76,7 @@ def run_stage2_failure_day10(
     )
     config = load_yaml(config_path)
     validate_day10_quick_config(config)
-    clean_at_start = git_status_clean(root)
+    day9_preconditions = validate_day9_preconditions(root)
     result_dir = Path(output_root).resolve() / str(run_id)
     if result_dir.exists():
         if not overwrite:
@@ -85,6 +92,7 @@ def run_stage2_failure_day10(
     day8_config = load_yaml(day8_config_path)
     day9_config = load_yaml(day9_config_path)
     methods = [str(method) for method in day8_config["methods"]]
+    non_oracle_method_list_pass = validate_day10_method_list(methods)
     detector_config = load_yaml(root / "configs/detector/odi_stage2a.yaml")
     update_config = load_yaml(root / "configs/update/stage2c_common.yaml")
     context = {
@@ -190,7 +198,11 @@ def run_stage2_failure_day10(
     ]
     continuous_rows = [row for row in online_rows if row["field_type"] == "continuous"]
     discrete_rows = [row for row in online_rows if row["field_type"] == "discrete"]
-    record_rows = [row for row in online_rows if row["field_type"] == "record_sequence"]
+    record_rows = [row for row in online_rows if row["field"] == "online_records"]
+    frame_diagnostic_rows = [
+        row for row in online_rows if row["field"] == "frame_diagnostics"
+    ]
+    runtime_integrity = audit_runtime_output_integrity(runtime_runs, methods)
     historical_after = _historical_hashes(root)
     historical_unchanged = historical_before == historical_after
     maximums = _online_maximums(continuous_rows)
@@ -209,9 +221,17 @@ def run_stage2_failure_day10(
         int(row["control_sha256"] != row["variant_sha256"])
         for row in window_rows
     )
+    frame_diagnostics_failure_count = sum(
+        int(not bool(row["pass"])) for row in frame_diagnostic_rows
+    )
+    frame_diagnostics_checksum_mismatch_count = sum(
+        int(row["control_sha256"] != row["variant_sha256"])
+        for row in frame_diagnostic_rows
+    )
     metrics = {
         "git_status_clean_at_start": clean_at_start,
-        "output_schema_pass": True,
+        **day9_preconditions,
+        "non_oracle_method_list_pass": non_oracle_method_list_pass,
         "nonfinite_violation_count": nonfinite_violation_count,
         "static_audit_pass": bool(static_audit["audit_pass"]),
         "forbidden_import_count": len(static_audit["forbidden_imports"]),
@@ -234,6 +254,12 @@ def run_stage2_failure_day10(
         **maximums,
         "online_checksum_mismatch_count": online_checksum_mismatch_count,
         "online_record_checksum_mismatch_count": online_record_checksum_mismatch_count,
+        "frame_diagnostics_comparison_count": len(frame_diagnostic_rows),
+        "frame_diagnostics_failure_count": frame_diagnostics_failure_count,
+        "frame_diagnostics_checksum_mismatch_count": (
+            frame_diagnostics_checksum_mismatch_count
+        ),
+        **runtime_integrity,
         "window_equivalence_comparison_count": len(window_rows),
         "window_equivalence_failure_count": window_failure_count,
         "window_record_checksum_mismatch_count": window_record_checksum_mismatch_count,
@@ -246,6 +272,15 @@ def run_stage2_failure_day10(
         ],
         "invalid_reset_cusum_reset_match": invalid_reset_audit[
             "invalid_reset_cusum_reset_match"
+        ],
+        "invalid_reset_raw_cusum_match": invalid_reset_audit[
+            "invalid_reset_raw_cusum_match"
+        ],
+        "invalid_reset_huber_cusum_match": invalid_reset_audit[
+            "invalid_reset_huber_cusum_match"
+        ],
+        "invalid_reset_sign_run_match": invalid_reset_audit[
+            "invalid_reset_sign_run_match"
         ],
         "invalid_reset_end_to_end_pass": invalid_reset_audit[
             "invalid_reset_end_to_end_pass"
@@ -263,66 +298,172 @@ def run_stage2_failure_day10(
         "detection_delay_computed": False,
         "fast_lio2_integrated": False,
     }
-    day10_pass = evaluate_day10_gate(metrics)
-    summary = {
-        "run_id": str(run_id),
-        **metrics,
-        "DAY10_NO_GT_AUDIT_PASS": day10_pass,
+    summary_path = result_dir / "day10_quick_summary.json"
+    manifest_path = result_dir / "run_manifest.json"
+    created_at = datetime.now(timezone.utc).isoformat()
+    source_tree_sha256 = compute_source_tree_hash(
+        [
+            root / "src/eval/stage2_failure_no_gt_audit.py",
+            root / "src/eval/stage2_failure_day10.py",
+            root / "src/eval/stage2_failure_logging.py",
+            root / "src/eval/stage2_failure_window_stats.py",
+            root / "src/eval/stage2_failure_window_schema.py",
+            root / "src/eval/stage2_failure_day9.py",
+            root / "src/minibench/map_lio.py",
+            root / "scripts/34_run_stage2_failure_day10.py",
+        ]
+    )
+
+    def write_summary_and_manifest(output_schema_pass: bool):
+        gated_metrics = {**metrics, "output_schema_pass": bool(output_schema_pass)}
+        summary_value = {
+            "run_id": str(run_id),
+            "schema_version": NO_GT_AUDIT_SCHEMA_VERSION,
+            **gated_metrics,
+            "DAY10_NO_GT_AUDIT_PASS": evaluate_day10_gate(gated_metrics),
+            "STAGE2_GATE": "INCOMPLETE",
+            "STAGE3_GATE": "NOT_STARTED",
+            "COHERENT_BIAS_DETECTABLE": "UNDETERMINED",
+            "RISK_WARNING_AUTHORIZED": False,
+            "FAST_LIO2_INTEGRATION_AUTHORIZED": False,
+            "PUBLIC_DISCLOSURE_AUTHORIZED": False,
+        }
+        write_json(summary_path, summary_value)
+        manifest_value = {
+            **summary_value,
+            "task": "Stage 2 Failure-Mechanism Diagnosis — Day 10",
+            "git_branch": _git_branch(root),
+            "git_commit": git_commit(root),
+            "python_version": platform.python_version(),
+            "numpy_version": np.__version__,
+            "scipy_version": scipy.__version__,
+            "created_at": created_at,
+            "source_day8_config_sha256": sha256_file(day8_config_path),
+            "source_day9_config_sha256": sha256_file(day9_config_path),
+            "source_tree_sha256": source_tree_sha256,
+            "day10_config_sha256": sha256_file(config_path),
+            "method_list": methods,
+            "variant_list": list(config["runtime_variants"]),
+            "frame_count": int(config["frame_limit"]),
+            "online_equivalence_audit_sha256": sha256_file(online_path),
+            "window_equivalence_audit_sha256": sha256_file(window_path),
+            "static_dependency_audit_sha256": sha256_file(
+                result_dir / "static_dependency_audit.json"
+            ),
+            "filesystem_sandbox_audit_sha256": sha256_file(
+                result_dir / "filesystem_sandbox_audit.json"
+            ),
+            "invalid_reset_end_to_end_sha256": sha256_file(
+                result_dir / "invalid_reset_end_to_end.csv"
+            ),
+            "invalid_reset_audit_sha256": sha256_file(
+                result_dir / "invalid_reset_audit.json"
+            ),
+            "day10_quick_summary_sha256": sha256_file(summary_path),
+        }
+        write_json(manifest_path, manifest_value)
+        return summary_value, manifest_value
+
+    summary, manifest = write_summary_and_manifest(False)
+    expected_json_fields = {
+        "static_dependency_audit.json": list(static_audit),
+        "filesystem_sandbox_audit.json": list(filesystem_audit),
+        "invalid_reset_audit.json": list(invalid_reset_audit),
+        "day10_quick_summary.json": list(summary),
+        "run_manifest.json": list(manifest),
+    }
+    validation = audit_day10_output_files(
+        result_dir,
+        len(online_rows),
+        len(window_rows),
+        int(invalid_reset_audit["fixture_row_count"]),
+        expected_json_fields,
+    )
+    summary, manifest = write_summary_and_manifest(validation["output_schema_pass"])
+    final_validation = audit_day10_output_files(
+        result_dir,
+        len(online_rows),
+        len(window_rows),
+        int(invalid_reset_audit["fixture_row_count"]),
+        expected_json_fields,
+    )
+    if not final_validation["output_schema_pass"]:
+        summary, manifest = write_summary_and_manifest(False)
+    return manifest
+
+
+def validate_day9_preconditions(
+    root: Path,
+    manifest_path: Path = None,
+    summary_path: Path = None,
+) -> Mapping[str, Any]:
+    """Require the frozen passing Day 9 v2 evidence before any Day 10 output."""
+
+    root = Path(root).resolve()
+    day9_run = (
+        root
+        / "results/stage2_failure_analysis/day9_quick/stage2_failure_day9_quick_v2"
+    )
+    manifest_path = (
+        day9_run / "run_manifest.json"
+        if manifest_path is None
+        else Path(manifest_path).resolve()
+    )
+    summary_path = (
+        day9_run / "day9_quick_summary.json"
+        if summary_path is None
+        else Path(summary_path).resolve()
+    )
+    if not manifest_path.is_file():
+        raise FileNotFoundError(f"Day 9 manifest is missing: {manifest_path}")
+    if not summary_path.is_file():
+        raise FileNotFoundError(f"Day 9 summary is missing: {summary_path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    if not isinstance(manifest, dict) or not isinstance(summary, dict):
+        raise ValueError("Day 9 manifest and summary must contain mappings")
+    required = {
+        "DAY9_WINDOW_STATS_PASS": True,
         "STAGE2_GATE": "INCOMPLETE",
         "STAGE3_GATE": "NOT_STARTED",
-        "COHERENT_BIAS_DETECTABLE": "UNDETERMINED",
-        "RISK_WARNING_AUTHORIZED": False,
-        "FAST_LIO2_INTEGRATION_AUTHORIZED": False,
-        "PUBLIC_DISCLOSURE_AUTHORIZED": False,
+        "gt_file_read": False,
+        "reserved_test_run_performed": False,
+        "formal_stage2c_rerun_performed": False,
     }
-    summary_path = result_dir / "day10_quick_summary.json"
-    write_json(summary_path, summary)
-    manifest = {
-        **summary,
-        "task": "Stage 2 Failure-Mechanism Diagnosis — Day 10",
-        "schema_version": NO_GT_AUDIT_SCHEMA_VERSION,
-        "git_branch": _git_branch(root),
-        "git_commit": git_commit(root),
-        "python_version": platform.python_version(),
-        "numpy_version": np.__version__,
-        "scipy_version": scipy.__version__,
-        "created_at": datetime.now(timezone.utc).isoformat(),
-        "day9_checkpoint_commit": _git_commit_for_ref(root, DAY9_CHECKPOINT),
-        "source_day8_config_sha256": sha256_file(day8_config_path),
-        "source_day9_config_sha256": sha256_file(day9_config_path),
-        "source_tree_sha256": compute_source_tree_hash(
-            [
-                root / "src/eval/stage2_failure_no_gt_audit.py",
-                root / "src/eval/stage2_failure_day10.py",
-                root / "src/eval/stage2_failure_logging.py",
-                root / "src/eval/stage2_failure_window_stats.py",
-                root / "src/eval/stage2_failure_window_schema.py",
-                root / "src/eval/stage2_failure_day9.py",
-                root / "src/minibench/map_lio.py",
-                root / "scripts/34_run_stage2_failure_day10.py",
-            ]
-        ),
-        "day10_config_sha256": sha256_file(config_path),
-        "method_list": methods,
-        "variant_list": list(config["runtime_variants"]),
-        "frame_count": int(config["frame_limit"]),
-        "online_equivalence_audit_sha256": sha256_file(online_path),
-        "window_equivalence_audit_sha256": sha256_file(window_path),
-        "static_dependency_audit_sha256": sha256_file(
-            result_dir / "static_dependency_audit.json"
-        ),
-        "filesystem_sandbox_audit_sha256": sha256_file(
-            result_dir / "filesystem_sandbox_audit.json"
-        ),
-        "invalid_reset_end_to_end_sha256": sha256_file(
-            result_dir / "invalid_reset_end_to_end.csv"
-        ),
-        "invalid_reset_audit_sha256": sha256_file(
-            result_dir / "invalid_reset_audit.json"
-        ),
+    failures = []
+    for filename, value in (("manifest", manifest), ("summary", summary)):
+        for field, expected in required.items():
+            if value.get(field) != expected or type(value.get(field)) is not type(expected):
+                failures.append(f"{filename}.{field}")
+    checkpoint_commit = _git_commit_for_ref(root, DAY9_CHECKPOINT)
+    if manifest.get("git_commit") != checkpoint_commit:
+        failures.append("manifest.git_commit")
+    descends = _head_descends_from_day9_checkpoint(root)
+    if not descends:
+        failures.append("HEAD ancestry")
+    if failures:
+        raise RuntimeError(
+            "Day 9 precondition validation failed: " + ", ".join(failures)
+        )
+    return {
+        "day9_precondition_pass": True,
+        "day9_manifest_path": str(manifest_path),
+        "day9_manifest_sha256": sha256_file(manifest_path),
+        "day9_summary_sha256": sha256_file(summary_path),
+        "head_descends_from_day9_checkpoint": descends,
+        "day9_checkpoint_commit": checkpoint_commit,
     }
-    write_json(result_dir / "run_manifest.json", manifest)
-    return manifest
+
+
+def validate_day10_method_list(methods: Sequence[str]) -> bool:
+    normalized = [str(method) for method in methods]
+    if any("oracle" in method.lower() for method in normalized):
+        raise ValueError("Day 10 formal methods must not contain oracle methods")
+    if normalized != list(DAY10_METHODS):
+        raise ValueError(
+            "Day 10 methods are frozen to huber_full and huber_projected_gain"
+        )
+    return True
 
 
 def validate_day10_quick_config(config: Mapping[str, Any]) -> None:
@@ -388,6 +529,9 @@ def validate_day10_quick_config(config: Mapping[str, Any]) -> None:
 def evaluate_day10_gate(values: Mapping[str, Any]) -> bool:
     required_true = (
         "git_status_clean_at_start",
+        "day9_precondition_pass",
+        "head_descends_from_day9_checkpoint",
+        "non_oracle_method_list_pass",
         "output_schema_pass",
         "static_audit_pass",
         "gt_removed_run_succeeded",
@@ -398,6 +542,9 @@ def evaluate_day10_gate(values: Mapping[str, Any]) -> bool:
         "output_byte_identical",
         "invalid_reset_expected_counts_match",
         "invalid_reset_cusum_reset_match",
+        "invalid_reset_raw_cusum_match",
+        "invalid_reset_huber_cusum_match",
+        "invalid_reset_sign_run_match",
         "invalid_reset_end_to_end_pass",
         "historical_artifacts_unchanged",
     )
@@ -411,6 +558,12 @@ def evaluate_day10_gate(values: Mapping[str, Any]) -> bool:
         "online_equivalence_failure_count",
         "online_checksum_mismatch_count",
         "online_record_checksum_mismatch_count",
+        "frame_diagnostics_failure_count",
+        "frame_diagnostics_checksum_mismatch_count",
+        "solver_failure_count_control",
+        "solver_failure_count_variant_total",
+        "strategy_mismatch_count",
+        "failure_frame_record_mismatch_count",
         "window_equivalence_failure_count",
         "window_record_checksum_mismatch_count",
         "no_gt_subprocess_return_code",
@@ -448,6 +601,7 @@ def evaluate_day10_gate(values: Mapping[str, Any]) -> bool:
         and int(values.get("invalid_reset_fixture_row_count", -1)) == 11
         and int(values.get("invalid_reset_count", -1)) == 1
         and int(values.get("online_equivalence_comparison_count", 0)) > 0
+        and int(values.get("frame_diagnostics_comparison_count", 0)) > 0
         and int(values.get("window_equivalence_comparison_count", 0)) > 0
     )
 
@@ -504,3 +658,14 @@ def _git_commit_for_ref(root: Path, ref: str) -> str:
     return subprocess.check_output(
         ["git", "rev-parse", f"{ref}^{{commit}}"], cwd=root, text=True
     ).strip()
+
+
+def _head_descends_from_day9_checkpoint(root: Path) -> bool:
+    completed = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", DAY9_CHECKPOINT, "HEAD"],
+        cwd=root,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    return completed.returncode == 0
