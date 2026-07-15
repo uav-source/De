@@ -159,7 +159,16 @@ def run_stage2_failure_day8(
     online_keys = [frame_key(row) for row in online_rows]
     gt_keys = [frame_key(row) for row in gt_rows]
     duplicate_key_count = len(online_keys) - len(set(online_keys))
-    finite_state_violation_count = _finite_state_violation_count(enabled_outputs)
+    enabled_nonfinite_violation_count = _finite_state_violation_count(enabled_outputs)
+    disabled_nonfinite_violation_count = _finite_state_violation_count(disabled_outputs)
+    finite_state_violation_count = (
+        enabled_nonfinite_violation_count + disabled_nonfinite_violation_count
+    )
+    enabled_trajectory_checksum = _trajectory_checksum(enabled_outputs)
+    disabled_trajectory_checksum = _trajectory_checksum(disabled_outputs)
+    trajectory_checksum_match = (
+        enabled_trajectory_checksum == disabled_trajectory_checksum
+    )
     solver_failure_count = sum(
         int(output["solver_failure_count"]) for output in enabled_outputs.values()
     )
@@ -169,6 +178,9 @@ def run_stage2_failure_day8(
         max_trajectory_difference <= 1.0e-12
         and max_covariance_difference <= 1.0e-12
         and discrete_equivalence
+        and enabled_nonfinite_violation_count == 0
+        and disabled_nonfinite_violation_count == 0
+        and trajectory_checksum_match
     )
     row_join_valid = bool(
         len(online_rows) == len(gt_rows)
@@ -183,10 +195,13 @@ def run_stage2_failure_day8(
     )
     day8_pass = bool(
         online_rows
+        and clean_at_start
         and row_join_valid
         and valid_innovation_count > 0
         and solver_failure_count == 0
-        and finite_state_violation_count == 0
+        and enabled_nonfinite_violation_count == 0
+        and disabled_nonfinite_violation_count == 0
+        and trajectory_checksum_match
         and logging_equivalent
         and historical_unchanged
     )
@@ -204,11 +219,15 @@ def run_stage2_failure_day8(
         "duplicate_key_count": duplicate_key_count,
         "invalid_direction_frame_count": invalid_direction_count,
         "valid_weak_innovation_frame_count": valid_innovation_count,
+        "git_status_clean_at_start": clean_at_start,
+        "logging_enabled_nonfinite_violation_count": enabled_nonfinite_violation_count,
+        "logging_disabled_nonfinite_violation_count": disabled_nonfinite_violation_count,
         "nonfinite_violation_count": finite_state_violation_count,
         "solver_failure_count": solver_failure_count,
         "logging_on_off_max_trajectory_difference": max_trajectory_difference,
         "logging_on_off_max_covariance_difference": max_covariance_difference,
         "logging_discrete_state_equivalent": discrete_equivalence,
+        "logging_trajectory_checksum_match": trajectory_checksum_match,
         "historical_artifacts_unchanged": historical_unchanged,
         "reserved_test_run_performed": False,
         "formal_stage2c_rerun_performed": False,
@@ -250,8 +269,8 @@ def run_stage2_failure_day8(
         ),
         "online_log_sha256": sha256_file(online_path),
         "gt_log_sha256": sha256_file(gt_path),
-        "logging_enabled_trajectory_checksum": _trajectory_checksum(enabled_outputs),
-        "logging_disabled_trajectory_checksum": _trajectory_checksum(disabled_outputs),
+        "logging_enabled_trajectory_checksum": enabled_trajectory_checksum,
+        "logging_disabled_trajectory_checksum": disabled_trajectory_checksum,
         "logging_trajectory_equivalent": logging_equivalent,
         "logging_on_off_max_trajectory_difference": max_trajectory_difference,
         "logging_on_off_max_covariance_difference": max_covariance_difference,
@@ -262,6 +281,8 @@ def run_stage2_failure_day8(
         "formal_stage2c_rerun_performed": False,
         "gt_used_by_online_logger": False,
         "solver_failure_count": solver_failure_count,
+        "logging_enabled_nonfinite_violation_count": enabled_nonfinite_violation_count,
+        "logging_disabled_nonfinite_violation_count": disabled_nonfinite_violation_count,
         "nonfinite_violation_count": finite_state_violation_count,
         "duplicate_key_count": duplicate_key_count,
         "DAY8_LOGGING_PASS": day8_pass,
@@ -395,6 +416,8 @@ def _maximum_array_difference(left: np.ndarray, right: np.ndarray) -> float:
     first = np.asarray(left, dtype=float)
     second = np.asarray(right, dtype=float)
     if first.shape != second.shape:
+        return float("inf")
+    if not np.all(np.isfinite(first)) or not np.all(np.isfinite(second)):
         return float("inf")
     return float(np.max(np.abs(first - second))) if first.size else 0.0
 

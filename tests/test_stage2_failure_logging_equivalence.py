@@ -2,7 +2,10 @@ from pathlib import Path
 
 import numpy as np
 
-from eval.stage2_failure_day8 import build_day8_unit_fixture
+from eval.stage2_failure_day8 import (
+    _maximum_array_difference,
+    build_day8_unit_fixture,
+)
 from eval.stage2_failure_logging import Stage2FailureOnlineLogger
 from eval.synthetic_pipeline_common import load_yaml
 from minibench.map_lio import run_map_lio
@@ -48,7 +51,13 @@ def test_logging_is_read_only_and_estimator_equivalent_to_1e_minus_12():
         failure_logger=Stage2FailureOnlineLogger(context),
     )
 
-    for name in ["prior_poses", "poses", "applied_deltas", "covariances"]:
+    for name in [
+        "prior_poses",
+        "poses",
+        "applied_deltas",
+        "full_deltas",
+        "covariances",
+    ]:
         assert np.max(np.abs(disabled[name] - enabled[name])) <= 1.0e-12
     np.testing.assert_array_equal(disabled["detector_triggered"], enabled["detector_triggered"])
     np.testing.assert_array_equal(disabled["actionable_direction"], enabled["actionable_direction"])
@@ -56,3 +65,11 @@ def test_logging_is_read_only_and_estimator_equivalent_to_1e_minus_12():
         np.testing.assert_array_equal(observations[name], before)
     for name, before in motion_before.items():
         np.testing.assert_array_equal(motion[name], before)
+
+
+def test_maximum_array_difference_rejects_nonfinite_and_shape_mismatch():
+    finite = np.array([1.0, 2.0])
+    assert _maximum_array_difference(finite, finite.copy()) == 0.0
+    assert _maximum_array_difference(finite, np.array([1.0, np.nan])) == float("inf")
+    assert _maximum_array_difference(np.array([np.inf, 2.0]), finite) == float("inf")
+    assert _maximum_array_difference(finite, np.array([[1.0, 2.0]])) == float("inf")
