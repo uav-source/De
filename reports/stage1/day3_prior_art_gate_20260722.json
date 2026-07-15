@@ -1,0 +1,75 @@
+{
+  "AUDIT_LABEL_DATE": "2026-07-22",
+  "EXECUTION_ENVIRONMENT_DATE": "2026-07-15",
+  "PATENT_DOC_AVAILABLE": true,
+  "PATENT_DOC_SHA256": "2f63a53c01eb8c86e3c8003d48453698fe78867cb6b4e31b8ddc5ca55828d5f4",
+  "SEARCH_INTERNET_AVAILABLE": true,
+  "PATENT_DATABASE_COUNT": 3,
+  "PATENT_DATABASES": [
+    "WIPO PATENTSCOPE",
+    "Google Patents",
+    "USPTO Patent Public Search"
+  ],
+  "NON_PATENT_DATABASE_COUNT": 5,
+  "NON_PATENT_DATABASES": [
+    "IEEE Xplore",
+    "arXiv",
+    "Crossref",
+    "ScienceDirect",
+    "SpringerLink"
+  ],
+  "CHINESE_QUERY_COUNT": 20,
+  "ENGLISH_QUERY_COUNT": 25,
+  "PATENT_FAMILY_CANDIDATE_COUNT": 30,
+  "HIGH_RELEVANCE_PATENT_COUNT": 10,
+  "DEEP_REVIEW_PATENT_COUNT": 6,
+  "NON_PATENT_CANDIDATE_COUNT": 22,
+  "HIGH_RELEVANCE_PAPER_COUNT": 11,
+  "DEEP_REVIEW_PAPER_COUNT": 5,
+  "PRIMARY_CLOSEST_REFERENCE_IDENTIFIED": true,
+  "PRIMARY_CLOSEST_REFERENCE": {
+    "publication_number": "CN120599047A",
+    "title": "Visual-semantic assisted point-cloud feature extraction and pose estimation method"
+  },
+  "SECONDARY_CLOSEST_REFERENCE_IDENTIFIED": true,
+  "SECONDARY_CLOSEST_REFERENCE": {
+    "publication_number": "CN114964212A",
+    "title": "Multi-robot cooperative fused localization and mapping method for unknown-space exploration"
+  },
+  "STRONGEST_NON_PATENT_REFERENCE_IDENTIFIED": true,
+  "STRONGEST_NON_PATENT_REFERENCE": {
+    "title": "X-ICP: Localizability-Aware LiDAR Registration for Robust Localization in Extreme Environments",
+    "DOI": "10.1109/TRO.2023.3335691"
+  },
+  "SINGLE_REFERENCE_NOVELTY_RISK": "MEDIUM",
+  "COMBINATION_INVENTIVENESS_RISK": "HIGH",
+  "UNVERIFIED_CRITICAL_REFERENCE_COUNT": 0,
+  "P0_ISSUE_COUNT": 0,
+  "P1_ISSUE_COUNT": 4,
+  "P2_ISSUE_COUNT": 2,
+  "FULL_PYTEST_COMMAND": "python3 -m pytest -q",
+  "FULL_PYTEST_PASS": true,
+  "FULL_PYTEST_PASSED_COUNT": 185,
+  "FULL_PYTEST_FAILED_COUNT": 0,
+  "FULL_PYTEST_WARNING_COUNT": 1,
+  "FULL_PYTEST_EXIT_CODE": 0,
+  "SCIENTIFIC_CODE_MODIFIED": false,
+  "HISTORICAL_ARTIFACTS_MODIFIED": false,
+  "PATENT_DOC_MODIFIED": false,
+  "FORMAL_EXPERIMENTS_RERUN": false,
+  "GIT_PUSH_PERFORMED": false,
+  "PRIVATE_REVIEW_PATH": "/home/lj/Degen-LIO-private-IP/patent1/prior_art",
+  "warnings": {
+    "P1": [
+      "Final filing/priority date is unknown; legal prior-art applicability requires patent-counsel review.",
+      "Public CNIPA/Espacenet access limitations prevented independent official-register validation of every high-relevance Chinese family and legal-status field.",
+      "Two required Chinese seed phrases were not verified as exact publication titles; related technical records were reviewed without inventing a match.",
+      "Combination inventive-step risk is HIGH and warrants professional claim drafting and professional family/legal-status searching."
+    ],
+    "P2": [
+      "Several strong 2025 references require comparison to the eventual legally effective filing/priority date.",
+      "Several useful non-patent records are verified preprints for which no formal peer-reviewed DOI/version was asserted."
+    ]
+  },
+  "DAY3_GATE": "PRIOR_ART_REVIEW_PASS_WITH_WARNINGS"
+}
