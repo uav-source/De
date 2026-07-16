@@ -1,0 +1,289 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://degen-lio.local/schemas/harmful_bias/readonly_detector_output_v1.schema.json",
+  "title": "FAST-LIO2 read-only detector output v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_version",
+    "scan_index",
+    "timestamp_begin",
+    "timestamp_end",
+    "measurement_call_index",
+    "input_observation_checksum",
+    "detector_input_checksum",
+    "detector_output_checksum",
+    "detector_metric_version",
+    "detector_entrypoint",
+    "detector_source_sha256",
+    "detector_config_sha256",
+    "detector_lock_sha256",
+    "detector_residual_input_field",
+    "measurement_weight_representation",
+    "valid_correspondence_count",
+    "valid",
+    "invalid_reason",
+    "odi_trans",
+    "ais_trans",
+    "lambda_min_trans",
+    "condition_number_trans",
+    "translation_eigenvalues_ascending",
+    "primary_weak_direction",
+    "primary_weak_direction_frame",
+    "primary_eigengap_ratio",
+    "primary_direction_stable",
+    "degeneracy_triggered",
+    "actionable_direction",
+    "synthetic_only"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "fastlio2-readonly-detector-output-v1"
+    },
+    "record_version": {
+      "const": "readonly_detector_output_v1"
+    },
+    "scan_index": {
+      "$ref": "#/$defs/uint64"
+    },
+    "timestamp_begin": {
+      "type": "number"
+    },
+    "timestamp_end": {
+      "type": "number"
+    },
+    "measurement_call_index": {
+      "$ref": "#/$defs/uint32"
+    },
+    "input_observation_checksum": {
+      "$ref": "#/$defs/sha256"
+    },
+    "detector_input_checksum": {
+      "$ref": "#/$defs/sha256"
+    },
+    "detector_output_checksum": {
+      "$ref": "#/$defs/sha256"
+    },
+    "detector_metric_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "detector_entrypoint": {
+      "const": "src/degen_detector/odi_tracker.py::compute_metrics_for_frame"
+    },
+    "detector_source_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "detector_config_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "detector_lock_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "detector_residual_input_field": {
+      "const": "formal_filter_innovation_h"
+    },
+    "measurement_weight_representation": {
+      "const": "CONSTANT_SCALAR_VARIANCE"
+    },
+    "valid_correspondence_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4294967295
+    },
+    "valid": {
+      "type": "boolean"
+    },
+    "invalid_reason": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "OBSERVATION_SCHEMA_INVALID",
+        "UNSUPPORTED_WEIGHT_REPRESENTATION",
+        "TOO_FEW_CORRESPONDENCES",
+        "NONFINITE_DETECTOR_INPUT",
+        "DETECTOR_CONTRACT_MISMATCH",
+        "DETECTOR_REJECTED",
+        "DETECTOR_OUTPUT_NONFINITE"
+      ]
+    },
+    "odi_trans": {
+      "$ref": "#/$defs/nullableNumber"
+    },
+    "ais_trans": {
+      "$ref": "#/$defs/nullableNumber"
+    },
+    "lambda_min_trans": {
+      "$ref": "#/$defs/nullableNumber"
+    },
+    "condition_number_trans": {
+      "$ref": "#/$defs/nullableNumber"
+    },
+    "translation_eigenvalues_ascending": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/vector3"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "primary_weak_direction": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/vector3"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "primary_weak_direction_frame": {
+      "const": "WORLD"
+    },
+    "primary_eigengap_ratio": {
+      "$ref": "#/$defs/nullableNumber"
+    },
+    "primary_direction_stable": {
+      "type": "boolean"
+    },
+    "degeneracy_triggered": {
+      "type": "boolean"
+    },
+    "actionable_direction": {
+      "type": "boolean"
+    },
+    "synthetic_only": {
+      "const": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "valid": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "invalid_reason": {
+            "const": "NONE"
+          },
+          "odi_trans": {
+            "type": "number"
+          },
+          "ais_trans": {
+            "type": "number"
+          },
+          "lambda_min_trans": {
+            "type": "number"
+          },
+          "condition_number_trans": {
+            "type": "number"
+          },
+          "translation_eigenvalues_ascending": {
+            "$ref": "#/$defs/vector3"
+          },
+          "primary_weak_direction": {
+            "$ref": "#/$defs/vector3"
+          },
+          "primary_eigengap_ratio": {
+            "type": "number"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "invalid_reason": {
+            "not": {
+              "const": "NONE"
+            }
+          },
+          "odi_trans": {
+            "type": "null"
+          },
+          "ais_trans": {
+            "type": "null"
+          },
+          "lambda_min_trans": {
+            "type": "null"
+          },
+          "condition_number_trans": {
+            "type": "null"
+          },
+          "translation_eigenvalues_ascending": {
+            "type": "null"
+          },
+          "primary_weak_direction": {
+            "type": "null"
+          },
+          "primary_eigengap_ratio": {
+            "type": "null"
+          },
+          "primary_direction_stable": {
+            "const": false
+          },
+          "degeneracy_triggered": {
+            "const": false
+          },
+          "actionable_direction": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "actionable_direction": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "primary_direction_stable": {
+            "const": true
+          },
+          "degeneracy_triggered": {
+            "const": true
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "uint32": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "uint64": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nullableNumber": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "vector3": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "number"
+      }
+    }
+  }
+}

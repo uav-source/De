@@ -1,0 +1,41 @@
+{
+  "actionable_direction": true,
+  "ais_trans": 0.5500864134291925,
+  "condition_number_trans": 499999.49999999953,
+  "degeneracy_triggered": true,
+  "detector_config_sha256": "665c3df8f794841ac5f3afe97e77f9993aaae2feaf3510043ecff6646acf2398",
+  "detector_entrypoint": "src/degen_detector/odi_tracker.py::compute_metrics_for_frame",
+  "detector_input_checksum": "fc6652ace2a05dc895a30840510bbfcf53eacefcbcc7549c0d399788b1fadc8c",
+  "detector_lock_sha256": "075f14217f5e9c782bc1ab4051e6533f34d4932399c7f4b8cbc60a03d62fe358",
+  "detector_metric_version": "detector_stage2a_v1",
+  "detector_output_checksum": "d191f870db3e2e3e0fff2bd671c9cc684278c2f44574e178b807287357af0375",
+  "detector_residual_input_field": "formal_filter_innovation_h",
+  "detector_source_sha256": "c515e5321e569ed074ae1c4f33563e73a82775800f20197612c2816086676d17",
+  "input_observation_checksum": "3fe1bee891decc754d0adb0860ec85b05d79da654151dbf1a77e80a4f96658dc",
+  "invalid_reason": "NONE",
+  "lambda_min_trans": 0.00025000000000000017,
+  "measurement_call_index": 1,
+  "measurement_weight_representation": "CONSTANT_SCALAR_VARIANCE",
+  "odi_trans": 0.49998155360612917,
+  "primary_direction_stable": true,
+  "primary_eigengap_ratio": 0.9999979999979997,
+  "primary_weak_direction": [
+    1.0,
+    0.0,
+    0.0
+  ],
+  "primary_weak_direction_frame": "WORLD",
+  "record_version": "readonly_detector_output_v1",
+  "scan_index": 2,
+  "schema_version": "fastlio2-readonly-detector-output-v1",
+  "synthetic_only": true,
+  "timestamp_begin": 1002.0,
+  "timestamp_end": 1002.1,
+  "translation_eigenvalues_ascending": [
+    0.00025000000000000017,
+    124.99987499999993,
+    124.99987499999997
+  ],
+  "valid": true,
+  "valid_correspondence_count": 24
+}

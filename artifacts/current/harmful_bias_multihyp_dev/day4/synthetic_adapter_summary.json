@@ -1,0 +1,18 @@
+{
+  "adapter_success_count": 3,
+  "determinism_pass_count": 3,
+  "direct_equivalence_pass_count": 3,
+  "fixture_count": 3,
+  "fixture_ids": [
+    "well_conditioned",
+    "weak_x",
+    "weak_rotated"
+  ],
+  "input_immutability_pass_count": 3,
+  "maximum_direct_equivalence_abs_error": 0.0,
+  "real_data_used": false,
+  "rosbag_run": false,
+  "schema_validation_pass_count": 3,
+  "schema_version": "harmful-bias-multihyp-day4-synthetic-summary-v1",
+  "synthetic_only": true
+}
