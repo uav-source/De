@@ -8,14 +8,18 @@ from typing import Any, Mapping, Sequence
 import numpy as np
 
 from eval.stage2_failure_schema import FRAME_KEY_FIELDS
+from eval.stage2_failure_day11b_provenance import canonical_ndarray_sha256
 from minibench.map_lio import linearize_point_to_plane
 from minibench.update_strategies import build_robust_linear_system
 
 
-STRESS_TRACE_SCHEMA_VERSION = "stage2_failure_day11b_stress_trace_v1"
+STRESS_TRACE_SCHEMA_VERSION = "stage2_failure_day11b_stress_trace_v2"
 STRESS_TRACE_FIELDS = (
     "schema_version", *FRAME_KEY_FIELDS, "stress_active",
     "contaminated_measurement_count", "contaminated_measurement_ratio",
+    "axial_support_measurement_count", "contaminated_axial_support_count",
+    "contaminated_non_axial_support_count", "axial_support_mask_checksum",
+    "contamination_mask_checksum", "axial_only_frame_pass",
     "contamination_offset_signed_mean_m", "contamination_offset_abs_mean_m",
     "contamination_offset_abs_max_m", "contaminated_normalized_residual_mean",
     "contaminated_normalized_residual_median", "contaminated_normalized_residual_abs_median",
@@ -42,6 +46,11 @@ def compute_stress_trace(
     residual_noise = np.asarray(observations["r_list"], dtype=float)
     variances = np.asarray(observations["R_diag_list"], dtype=float)
     mask_all = np.asarray(observations["contamination_mask"], dtype=bool)
+    axial_all = np.asarray(
+        observations.get("is_axial_support", np.zeros_like(mask_all, dtype=bool)), dtype=bool
+    )
+    if axial_all.shape != mask_all.shape:
+        raise ValueError("axial-support mask must match contamination mask")
     offsets_all = np.asarray(observations["contamination_offset_m"], dtype=float)
     rows = []
     for online in online_records:
@@ -55,6 +64,7 @@ def compute_stress_trace(
         weights = np.asarray(robust.robust_weights, dtype=float)
         normalized = residual / np.sqrt(variances[frame])
         mask = mask_all[frame]
+        axial = axial_all[frame]
         offsets = offsets_all[frame][mask]
         contaminated = normalized[mask]
         count = int(np.count_nonzero(mask))
@@ -104,6 +114,12 @@ def compute_stress_trace(
             "stress_active": bool(count > 0),
             "contaminated_measurement_count": count,
             "contaminated_measurement_ratio": float(count / mask.size),
+            "axial_support_measurement_count": int(np.count_nonzero(axial)),
+            "contaminated_axial_support_count": int(np.count_nonzero(mask & axial)),
+            "contaminated_non_axial_support_count": int(np.count_nonzero(mask & ~axial)),
+            "axial_support_mask_checksum": canonical_ndarray_sha256(axial),
+            "contamination_mask_checksum": canonical_ndarray_sha256(mask),
+            "axial_only_frame_pass": bool(np.all(np.logical_or(~mask, axial))),
             **contaminated_values,
             "all_huber_outlier_ratio": float(np.mean(weights < 1.0)),
             "all_mean_huber_weight": float(np.mean(weights)),
@@ -125,6 +141,16 @@ def validate_stress_trace_record(record: Mapping[str, Any]) -> None:
         raise ValueError("invalid contamination count or ratio")
     if bool(record["stress_active"]) != (count > 0):
         raise ValueError("stress_active does not match contamination count")
+    axial_count = int(record["contaminated_axial_support_count"])
+    non_axial_count = int(record["contaminated_non_axial_support_count"])
+    if axial_count < 0 or non_axial_count < 0 or axial_count + non_axial_count != count:
+        raise ValueError("axial/non-axial contamination counts do not partition contamination")
+    if bool(record["axial_only_frame_pass"]) != (non_axial_count == 0):
+        raise ValueError("axial-only frame result does not match mask-derived counts")
+    for field in ("axial_support_mask_checksum", "contamination_mask_checksum"):
+        value = str(record[field])
+        if len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
+            raise ValueError(f"invalid stress-trace checksum: {field}")
     contaminated_float_fields = (
         "contamination_offset_signed_mean_m", "contamination_offset_abs_mean_m",
         "contamination_offset_abs_max_m", "contaminated_normalized_residual_mean",

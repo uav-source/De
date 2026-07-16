@@ -23,13 +23,27 @@ from eval.stage2_failure_day11b_plan import (
     replay_plan_document,
     validate_replay_plan,
 )
+from eval.stage2_failure_day11b_provenance import (
+    AXIAL_SUPPORT_AUDIT_FIELDS,
+    BASE_OBSERVATION_PAIRING_AUDIT_FIELDS,
+    STRATEGY_CHAIN_AUDIT_FIELDS,
+    V1_V2_EQUIVALENCE_AUDIT_FIELDS,
+    audit_axial_support,
+    base_observation_provenance,
+    build_base_observation_pairing_audit,
+    build_strategy_chain_audit,
+    canonical_array_sequence_sha256,
+    compare_v1_v2_scientific_outputs,
+    result_tree_manifest,
+    stressed_plane_checksum,
+    write_v1_immutable_after_evidence,
+)
 from eval.stage2_failure_day11b_schema import (
     CASE_SUMMARY_FIELDS,
     DAY11B_RUN_SCHEMA_VERSION,
     LOGGING_AUDIT_FIELDS,
     MERGED_FIELDS,
     PAIRING_AUDIT_FIELDS,
-    STRESS_MECHANISM_AUDIT_FIELDS,
     build_pairing_audit,
     compare_logging_runs,
     evaluate_day11b_gate,
@@ -37,6 +51,11 @@ from eval.stage2_failure_day11b_schema import (
     write_fixed_csv,
 )
 from eval.stage2_failure_day11b_stress_trace import STRESS_TRACE_FIELDS, compute_stress_trace
+from eval.stage2_failure_day11b_v2_schema import (
+    DAY11B_V2_RUN_SCHEMA_VERSION,
+    DAY11B_V2_STRESS_MECHANISM_AUDIT_FIELDS,
+    evaluate_day11b_v2_gate,
+)
 from eval.stage2_failure_day9 import compute_window_records, window_config_from_mapping
 from eval.stage2_failure_gt_metrics import evaluate_gt_frame_records
 from eval.stage2_failure_logging import Stage2FailureOnlineLogger
@@ -67,6 +86,10 @@ HISTORICAL_ARTIFACT_PATHS = (
     "artifacts/history/stage2b_column_scaling_no_go",
     "artifacts/current/weak_update_stage2c",
 )
+DAY11B_V1_CHECKPOINT = "checkpoint/day11b-v1-runtime-pass-provenance-incomplete"
+DAY11B_V1_RUN_RELATIVE = Path(
+    "results/stage2_failure_analysis/day11b_replay/stage2_failure_day11b_replay_v1"
+)
 
 
 def verify_lock_and_write_plan(
@@ -85,6 +108,7 @@ def verify_lock_and_write_plan(
     verification = verify_day11a_case_lock(root, case_lock_path)
     rows = build_replay_plan(verification)
     result_dir = Path(output_root).resolve() / str(run_id)
+    _reject_v1_output_path(root, result_dir)
     if result_dir.exists():
         if not overwrite:
             raise FileExistsError(f"Day 11B output exists: {result_dir}")
@@ -93,11 +117,18 @@ def verify_lock_and_write_plan(
     write_json(result_dir / "case_lock_verification.json", verification)
     write_fixed_csv(result_dir / "replay_plan.csv", rows, REPLAY_PLAN_FIELDS)
     write_json(result_dir / "replay_plan.json", replay_plan_document(rows))
+    v1_plan = root / DAY11B_V1_RUN_RELATIVE / "replay_plan.csv"
+    plan_byte_identical = bool(
+        v1_plan.is_file() and (result_dir / "replay_plan.csv").read_bytes() == v1_plan.read_bytes()
+    )
+    if str(run_id).endswith("_v2") and not plan_byte_identical:
+        raise ValueError("Day 11B v2 replay plan is not byte-identical to v1")
     return {
         "result_dir": str(result_dir),
         "case_lock_verification_pass": True,
         "replay_plan_row_count": len(rows),
         "estimator_run": False,
+        "v1_v2_replay_plan_byte_identical": plan_byte_identical,
         "config": config,
     }
 
@@ -117,6 +148,7 @@ def run_stage2_failure_day11b(
         raise RuntimeError("Day 11B requires a clean worktree at start")
     config = _load_and_validate_config(root)
     result_dir = Path(output_root).resolve() / str(run_id)
+    _reject_v1_output_path(root, result_dir)
     if result_dir.exists() and overwrite:
         shutil.rmtree(result_dir)
     if not result_dir.exists():
@@ -128,6 +160,23 @@ def run_stage2_failure_day11b(
     expected_plan = list(build_replay_plan(verification))
     if plan != expected_plan:
         raise ValueError("stored Day 11B replay plan differs from the verified plan")
+    v1_run = root / DAY11B_V1_RUN_RELATIVE
+    v1_plan_path = v1_run / "replay_plan.csv"
+    v2_plan_path = result_dir / "replay_plan.csv"
+    plan_byte_identical = bool(
+        v1_plan_path.is_file() and v2_plan_path.read_bytes() == v1_plan_path.read_bytes()
+    )
+    if not plan_byte_identical:
+        raise ValueError("Day 11B v2 replay plan is not byte-identical to v1")
+    before_manifest_path = Path.home() / "day11b_v1_result_sha256_before.txt"
+    if not before_manifest_path.is_file():
+        raise FileNotFoundError("Day 11B v1 immutable before-manifest is missing")
+    if before_manifest_path.read_bytes() != result_tree_manifest(root, v1_run):
+        raise RuntimeError("Day 11B v1 result tree changed before v2 replay")
+    day11b_v1_checkpoint_commit = _git_rev_parse(root, f"{DAY11B_V1_CHECKPOINT}^{{}}")
+    head_descends_from_day11b_v1 = _git_is_ancestor(root, DAY11B_V1_CHECKPOINT, "HEAD")
+    if not head_descends_from_day11b_v1:
+        raise RuntimeError("HEAD does not descend from the frozen Day 11B v1 checkpoint")
 
     historical_before = _historical_hashes(root)
     common = load_yaml(root / "configs/update/stage2c_common.yaml")
@@ -149,6 +198,9 @@ def run_stage2_failure_day11b(
     all_merged = []
     summaries = []
     case_manifests = []
+    strategy_rows = []
+    axial_rows = []
+    axial_summaries = []
     logging_case_failures = 0
     checksum_mismatches = 0
     max_differences = {
@@ -227,6 +279,9 @@ def run_stage2_failure_day11b(
                 merged = list(merge_frame_records(
                     case_id, online_rows, gt_rows, window_rows, stress_rows
                 ))
+                case_axial_rows, case_axial_summary = audit_axial_support(
+                    case_id, str(plan_row["stress"]), online_rows, stressed
+                )
                 case_dir = result_dir / "cases" / case_id
                 write_online_csv(case_dir / "frame_diagnostics_online.csv", online_rows)
                 write_gt_csv(case_dir / "frame_diagnostics_gt.csv", gt_rows)
@@ -235,7 +290,27 @@ def run_stage2_failure_day11b(
                 metrics = compute_update_metrics(
                     enabled["poses"], truth, axes, enabled["frame_diagnostics"], enabled["covariances"]
                 )
-                write_json(case_dir / "trajectory_metrics.json", metrics)
+                provenance_fields = {
+                    field: external[field] for field in (
+                        "points_lidar_base_checksum", "normals_world_base_checksum",
+                        "R_diag_list_checksum", "plane_points_world_base_checksum",
+                        "plane_points_world_stressed_checksum", "initial_state_checksum",
+                        "initial_covariance_checksum", "process_noise_checksum",
+                        "scene_checksum", "stress_checksum",
+                    )
+                }
+                metrics.update({
+                    **provenance_fields,
+                    "strategy": str(enabled["strategy"]),
+                    "strategy_logging_disabled": str(disabled["strategy"]),
+                    "strategy_logging_enabled": str(enabled["strategy"]),
+                    "axial_support_mask_list_checksum": case_axial_summary[
+                        "axial_support_mask_list_checksum"
+                    ],
+                    "contamination_mask_list_checksum": case_axial_summary[
+                        "contamination_mask_list_checksum"
+                    ],
+                })
                 case_manifest = {
                     **{field: plan_row[field] for field in (
                         "case_id", "sweep", "level", "stress", "geometry_seed",
@@ -246,8 +321,25 @@ def run_stage2_failure_day11b(
                         "stressed_observation_checksum", "stress_checksum",
                         "process_noise_checksum", "initial_state_checksum",
                         "initial_covariance_checksum", "contaminated_measurement_count",
-                        "stress_active_frame_count",
+                        "stress_active_frame_count", "points_lidar_base_checksum",
+                        "normals_world_base_checksum", "R_diag_list_checksum",
+                        "plane_points_world_base_checksum", "plane_points_world_stressed_checksum",
+                        "points_lidar_frame_count", "normals_world_frame_count",
+                        "R_diag_frame_count",
                     )},
+                    "axial_support_mask_list_checksum": case_axial_summary[
+                        "axial_support_mask_list_checksum"
+                    ],
+                    "contamination_mask_list_checksum": case_axial_summary[
+                        "contamination_mask_list_checksum"
+                    ],
+                    "contaminated_axial_support_count": case_axial_summary[
+                        "contaminated_axial_support_count"
+                    ],
+                    "contaminated_non_axial_support_count": case_axial_summary[
+                        "contaminated_non_axial_support_count"
+                    ],
+                    "axial_only": bool(case_axial_summary["axial_only"]),
                     "frame_count": len(online_rows),
                     "expected_online_frame_count": int(truth.shape[0] - 1),
                     "full_sequence_complete": len(online_rows) == int(truth.shape[0] - 1),
@@ -256,9 +348,25 @@ def run_stage2_failure_day11b(
                     "gt_field_access_attempt_count": int(online_payload.access_attempt_count),
                     "online_estimator_received_gt": False,
                 }
+                strategy_audit = build_strategy_chain_audit(
+                    case_id, method, str(case_manifest["method"]), metrics,
+                    disabled, enabled, online_rows,
+                )
+                metrics["strategy_chain_pass"] = bool(strategy_audit["pass"])
+                case_manifest.update({
+                    "strategy": str(enabled["strategy"]),
+                    "strategy_logging_disabled": str(disabled["strategy"]),
+                    "strategy_logging_enabled": str(enabled["strategy"]),
+                    "strategy_chain_pass": bool(strategy_audit["pass"]),
+                })
+                write_json(case_dir / "trajectory_metrics.json", metrics)
                 write_json(case_dir / "case_manifest.json", case_manifest)
+                write_json(case_dir / "strategy_chain_audit.json", strategy_audit)
                 summaries.append(_case_summary(plan_row, merged, metrics))
                 case_manifests.append(case_manifest)
+                strategy_rows.append(strategy_audit)
+                axial_rows.extend(case_axial_rows)
+                axial_summaries.append(case_axial_summary)
                 all_online.extend(online_rows)
                 all_gt.extend(gt_rows)
                 all_window.extend(window_rows)
@@ -271,11 +379,52 @@ def run_stage2_failure_day11b(
 
     pairing_rows = list(build_pairing_audit(case_manifests))
     pairing_violations = sum(int(not bool(row["pairing_valid"])) for row in pairing_rows)
+    base_pairing_rows, base_pairing_counts = build_base_observation_pairing_audit(case_manifests)
     write_fixed_csv(result_dir / "logging_equivalence_audit.csv", logging_rows, LOGGING_AUDIT_FIELDS)
     write_fixed_csv(result_dir / "pairing_audit.csv", pairing_rows, PAIRING_AUDIT_FIELDS)
-    write_fixed_csv(result_dir / "stress_mechanism_audit.csv", stress_audits, STRESS_MECHANISM_AUDIT_FIELDS)
+    write_fixed_csv(
+        result_dir / "stress_mechanism_audit.csv", stress_audits,
+        DAY11B_V2_STRESS_MECHANISM_AUDIT_FIELDS,
+    )
+    write_fixed_csv(
+        result_dir / "strategy_chain_audit.csv", strategy_rows, STRATEGY_CHAIN_AUDIT_FIELDS
+    )
+    write_fixed_csv(result_dir / "axial_support_audit.csv", axial_rows, AXIAL_SUPPORT_AUDIT_FIELDS)
+    axial_summary_document = {
+        "schema_version": "stage2_failure_day11b_axial_support_summary_v2",
+        "case_count": len(axial_summaries),
+        "cases": axial_summaries,
+        "frame_comparison_count": len(axial_rows),
+        "contaminated_measurement_count": sum(
+            int(row["contaminated_measurement_count"]) for row in axial_summaries
+        ),
+        "contaminated_axial_support_count": sum(
+            int(row["contaminated_axial_support_count"]) for row in axial_summaries
+        ),
+        "contaminated_non_axial_support_count": sum(
+            int(row["contaminated_non_axial_support_count"]) for row in axial_summaries
+        ),
+        "axial_only_audit_pass": bool(
+            len(axial_summaries) == 8 and all(bool(row["pass"]) for row in axial_summaries)
+        ),
+    }
+    write_json(result_dir / "axial_support_summary.json", axial_summary_document)
+    write_fixed_csv(
+        result_dir / "base_observation_pairing_audit.csv", base_pairing_rows,
+        BASE_OBSERVATION_PAIRING_AUDIT_FIELDS,
+    )
     write_fixed_csv(result_dir / "replay_case_summary.csv", summaries, CASE_SUMMARY_FIELDS)
     write_fixed_csv(result_dir / "replay_frame_diagnostics_merged.csv", all_merged, MERGED_FIELDS)
+    equivalence_rows, equivalence_summary = compare_v1_v2_scientific_outputs(v1_run, result_dir)
+    write_fixed_csv(
+        result_dir / "v1_v2_scientific_equivalence_audit.csv", equivalence_rows,
+        V1_V2_EQUIVALENCE_AUDIT_FIELDS,
+    )
+    immutable = write_v1_immutable_after_evidence(
+        root, v1_run, before_manifest_path,
+        Path.home() / "day11b_v1_result_sha256_after.txt",
+        Path.home() / "day11b_v1_result_tree_digest_after.txt",
+    )
     no_gt_audit = {
         "schema_version": "stage2_failure_day11b_no_gt_audit_v1",
         "gt_field_access_attempt_count": gt_access_attempts,
@@ -289,9 +438,18 @@ def run_stage2_failure_day11b(
     clean_count = sum(int(row["contaminated_measurement_count"]) for row in stress_audits if row["stress"] == "clean")
     coherent_count = sum(int(row["contaminated_measurement_count"]) for row in stress_audits if row["stress"] == "coherent_subhuber_slip")
     coherent_active = sum(int(row["stress_active_frame_count"]) for row in stress_audits if row["stress"] == "coherent_subhuber_slip")
+    axial_mask_list_checksum = canonical_array_sequence_sha256([
+        np.asarray(row["axial_support_mask_list_checksum"], dtype="U64")
+        for row in axial_summaries
+    ])
+    contamination_mask_list_checksum = canonical_array_sequence_sha256([
+        np.asarray(row["contamination_mask_list_checksum"], dtype="U64")
+        for row in axial_summaries
+    ])
     manifest: Dict[str, Any] = {
-        "run_id": str(run_id), "task": "Stage 2 Failure-Mechanism Diagnosis — Day 11B",
-        "schema_version": DAY11B_RUN_SCHEMA_VERSION,
+        "run_id": str(run_id),
+        "task": "Stage 2 Day 11B-R — Locked Replay Provenance Hardening v2",
+        "schema_version": DAY11B_V2_RUN_SCHEMA_VERSION,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "git_branch": _git_branch(root), "git_commit": git_commit(root),
         "git_status_clean_at_start": clean_at_start,
@@ -300,6 +458,8 @@ def run_stage2_failure_day11b(
         "python311_tests_pass": False,
         "day11a_checkpoint_commit": verification["day11a_checkpoint_commit"],
         "head_descends_from_day11a_checkpoint": verification["head_descends_from_day11a_checkpoint"],
+        "day11b_v1_checkpoint_commit": day11b_v1_checkpoint_commit,
+        "head_descends_from_day11b_v1_checkpoint": head_descends_from_day11b_v1,
         "candidate_pool_path": str(Path(case_lock_path).resolve().parent / "candidate_pool.csv"),
         "candidate_pool_sha256": verification["candidate_pool_sha256"],
         "day11a_case_lock_path": str(Path(case_lock_path).resolve()),
@@ -319,6 +479,11 @@ def run_stage2_failure_day11b(
         "replay_stress_list": list(verification["replay_stress_list"]),
         "allowed_stage2c_stress_list": list(verification["allowed_stage2c_stress_list"]),
         "expected_replay_count": 8, "completed_replay_count": len(case_manifests),
+        "v1_run_dir": str(v1_run), "v2_run_dir": str(result_dir),
+        "v1_replay_plan_sha256": sha256_file(v1_plan_path),
+        "v2_replay_plan_sha256": sha256_file(v2_plan_path),
+        "v1_v2_replay_plan_byte_identical": plan_byte_identical,
+        **immutable,
         "selected_geometry_case": verification["selected_geometry_case"],
         "selected_observation_case": verification["selected_observation_case"],
         "gt_field_access_attempt_count": gt_access_attempts,
@@ -330,6 +495,37 @@ def run_stage2_failure_day11b(
         "logging_max_applied_delta_difference": max_differences["applied_delta"],
         "logging_max_full_delta_difference": max_differences["full_delta"],
         "logging_checksum_mismatch_count": checksum_mismatches,
+        "strategy_chain_comparison_count": len(strategy_rows),
+        "strategy_chain_mismatch_count": sum(
+            int(not bool(row["pass"])) for row in strategy_rows
+        ),
+        "runtime_strategies": {
+            str(row["case_id"]): str(row["logging_enabled_strategy"])
+            for row in strategy_rows
+        },
+        "axial_support_frame_comparison_count": len(axial_rows),
+        "contaminated_measurement_count": axial_summary_document[
+            "contaminated_measurement_count"
+        ],
+        "contaminated_axial_support_count": axial_summary_document[
+            "contaminated_axial_support_count"
+        ],
+        "contaminated_non_axial_support_count": axial_summary_document[
+            "contaminated_non_axial_support_count"
+        ],
+        "axial_only_audit_pass": axial_summary_document["axial_only_audit_pass"],
+        "axial_support_mask_list_checksum": axial_mask_list_checksum,
+        "contamination_mask_list_checksum": contamination_mask_list_checksum,
+        "case_axial_support_mask_list_checksums": {
+            str(row["case_id"]): str(row["axial_support_mask_list_checksum"])
+            for row in axial_summaries
+        },
+        "case_contamination_mask_list_checksums": {
+            str(row["case_id"]): str(row["contamination_mask_list_checksum"])
+            for row in axial_summaries
+        },
+        **base_pairing_counts,
+        **equivalence_summary,
         "pairing_group_count": len(pairing_rows), "pairing_violation_count": pairing_violations,
         "online_row_count": len(all_online), "gt_row_count": len(all_gt),
         "window_row_count": len(all_window), "stress_trace_row_count": len(all_stress),
@@ -364,12 +560,18 @@ def run_stage2_failure_day11b(
         "COHERENT_BIAS_DETECTABLE": "UNDETERMINED",
         "RISK_WARNING_AUTHORIZED": False, "FAST_LIO2_INTEGRATION_AUTHORIZED": False,
         "PUBLIC_DISCLOSURE_AUTHORIZED": False,
+        "DAY11B_V1_RUNTIME_RESULT": "PASS",
+        "DAY11B_V1_PROVENANCE_COMPLETE": False,
     }
-    passed = evaluate_day11b_gate(manifest)
-    manifest["DAY11B_DETERMINISTIC_REPLAY_PASS"] = passed
-    manifest["DAY11_REPLAY_PASS"] = passed
-    manifest["DAY12_DIAGNOSTIC_FIGURES_AUTHORIZED"] = passed
-    write_json(result_dir / "day11b_summary.json", manifest)
+    runtime_passed = evaluate_day11b_gate(manifest)
+    manifest["DAY11B_V2_RUNTIME_RESULT"] = "PASS" if runtime_passed else "FAIL"
+    provenance_passed = evaluate_day11b_v2_gate(manifest)
+    manifest["DAY11B_V2_PROVENANCE_COMPLETE"] = provenance_passed
+    manifest["DAY11B_V2_PROVENANCE_PASS"] = provenance_passed
+    manifest["DAY11B_DETERMINISTIC_REPLAY_PASS"] = provenance_passed
+    manifest["DAY11_REPLAY_PASS"] = provenance_passed
+    manifest["DAY12_DIAGNOSTIC_FIGURES_AUTHORIZED"] = provenance_passed
+    write_json(result_dir / "day11b_v2_summary.json", manifest)
     write_json(result_dir / "run_manifest.json", manifest)
     return manifest
 
@@ -412,6 +614,7 @@ def _build_external_inputs(
         )
     patch_ids = observation_patch_ids(sequence_dir, base)
     motion = make_motion(base, process_seed, geometry_seed, sensor_seed, motion_config)
+    base_provenance = base_observation_provenance(base)
     common_checksums = {
         "scene_checksum": _scene_checksum(sequence_dir),
         "base_observation_checksum": observation_checksum(base),
@@ -420,6 +623,7 @@ def _build_external_inputs(
         "initial_covariance_checksum": array_checksum(
             np.diag(np.asarray(common["initial_covariance_diag"], dtype=float))
         ),
+        **base_provenance,
     }
     output = {}
     for stress in ("clean", "coherent_subhuber_slip"):
@@ -428,25 +632,56 @@ def _build_external_inputs(
             geometry_seed, sensor_seed, patch_ids,
         )
         mask = np.asarray(stressed["contamination_mask"], dtype=bool)
+        axial = np.asarray(stressed["is_axial_support"], dtype=bool)
+        if mask.shape != axial.shape:
+            raise ValueError("stress masks changed shape")
+        contaminated = int(np.count_nonzero(mask))
+        contaminated_axial = int(np.count_nonzero(mask & axial))
+        contaminated_non_axial = int(np.count_nonzero(mask & ~axial))
+        axial_only = bool(
+            contaminated_non_axial == 0
+            and contaminated_axial == contaminated
+            and np.all(np.logical_or(~mask, axial))
+        )
         audit = {
             "sweep": sweep, "level": level, "stress": stress,
             "geometry_seed": geometry_seed, "sensor_seed": sensor_seed,
             "process_seed": process_seed, **common_checksums,
             "stressed_observation_checksum": observation_checksum(stressed),
             "stress_checksum": str(np.asarray(stressed["stress_checksum"]).item()),
-            "contaminated_measurement_count": int(np.count_nonzero(mask)),
+            "plane_points_world_stressed_checksum": stressed_plane_checksum(stressed),
+            "contaminated_measurement_count": contaminated,
             "stress_active_frame_count": int(np.count_nonzero(np.any(mask, axis=1))),
             "selected_patch_count": int(np.asarray(stressed["selected_axial_patch_ids"]).size),
+            "contaminated_axial_support_count": contaminated_axial,
+            "contaminated_non_axial_support_count": contaminated_non_axial,
+            "axial_support_mask_list_checksum": canonical_array_sequence_sha256(
+                [axial[index] for index in range(axial.shape[0])]
+            ),
+            "contamination_mask_list_checksum": canonical_array_sequence_sha256(
+                [mask[index] for index in range(mask.shape[0])]
+            ),
+            "axial_only": axial_only,
         }
         audit["external_stress_valid"] = bool(
-            (stress == "clean" and audit["contaminated_measurement_count"] == 0)
-            or (stress == "coherent_subhuber_slip" and audit["contaminated_measurement_count"] > 0 and audit["stress_active_frame_count"] > 0)
+            (
+                stress == "clean" and contaminated == 0
+                and contaminated_axial == 0 and contaminated_non_axial == 0 and axial_only
+            )
+            or (
+                stress == "coherent_subhuber_slip" and contaminated > 0
+                and contaminated_axial == contaminated and contaminated_non_axial == 0
+                and audit["stress_active_frame_count"] > 0 and axial_only
+            )
         )
         key = (sweep, level, geometry_seed, sensor_seed, process_seed, stress)
         output[key] = {
             "sequence_id": str(spec["sequence_id"]), "observations": stressed,
             "motion": motion, "stress_audit": audit, **common_checksums,
             "stressed_observation_checksum": audit["stressed_observation_checksum"],
+            "plane_points_world_stressed_checksum": audit[
+                "plane_points_world_stressed_checksum"
+            ],
             "stress_checksum": audit["stress_checksum"],
             "contaminated_measurement_count": audit["contaminated_measurement_count"],
             "stress_active_frame_count": audit["stress_active_frame_count"],
@@ -523,6 +758,25 @@ def _read_json(path: Path) -> Mapping[str, Any]:
 
 def _git_branch(root: Path) -> str:
     return subprocess.check_output(["git", "branch", "--show-current"], cwd=str(root), text=True).strip()
+
+
+def _git_rev_parse(root: Path, revision: str) -> str:
+    return subprocess.check_output(
+        ["git", "rev-parse", revision], cwd=str(root), text=True
+    ).strip()
+
+
+def _git_is_ancestor(root: Path, ancestor: str, descendant: str) -> bool:
+    return subprocess.run(
+        ["git", "merge-base", "--is-ancestor", ancestor, descendant],
+        cwd=str(root), check=False,
+    ).returncode == 0
+
+
+def _reject_v1_output_path(root: Path, result_dir: Path) -> None:
+    frozen = (Path(root).resolve() / DAY11B_V1_RUN_RELATIVE).resolve()
+    if Path(result_dir).resolve() == frozen:
+        raise ValueError("Day 11B v2 may not write to the frozen v1 output directory")
 
 
 def _finite_values(values: Sequence[Any]) -> np.ndarray:
