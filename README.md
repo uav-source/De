@@ -17,8 +17,11 @@ Not confirmed:
 - projected-gain weak-direction update benefit under the Stage 2C benchmark;
 - complete LiDAR-inertial odometry method.
 
-Current active task:
-Stage 2 Day 13 — Preregistered New-Seed Diagnostic AUROC/FPR Evaluation
+Current completed stage:
+Stage 2 Failure-Mechanism Diagnosis
+
+Stage 2 final decision:
+**FAIL**
 
 Confirmed:
 
@@ -27,12 +30,14 @@ Confirmed:
 - reproducible four-figure mechanism pipeline;
 - nonnegative run-length axis and 14-source input-lock contracts;
 - preregistered SHA-256 seed generation with disjoint calibration/evaluation roles.
+- controlled degeneracy detection;
+- controlled weak-direction identification;
+- coherent-slip stress can increase harmful weak-direction updates.
 
-Current Day 13 output is restricted to preliminary held-out diagnostic AUROC,
-clean-FPR, geometry-block stability, offline causal association, and gross
-Huber-control summaries. Its calibration-only operating point cannot be retuned
-from evaluation results and is not a Stage 3 threshold. Stage 2 remains
-incomplete until the separate Day 14 review.
+The Day 14 review found corrected Geometry and Observation AUROCs of 0.5993 and
+0.6862, both below the preregistered 0.80 threshold. The controlled harmful
+mechanism is supported, but stable no-GT online coherent-bias detection is not.
+Stage 2 is complete with a formal NO-GO and the project transition is `PIVOT`.
 
 Day 11A selects no historical "representative seed." It locks one Geometry and
 one Observation diagnostic case from the frozen Test seed namespace using a
@@ -47,11 +52,24 @@ sample, and it cannot select a threshold or decide the Stage 2 gate.
 
 Not established:
 
-- coherent-bias separability;
-- AUROC/FPR;
-- cross-seed stability;
-- online threshold;
-- Stage 2 Gate.
+- stable no-GT online detection of coherent bias;
+- reliable innovation gate;
+- bias-state estimator;
+- robust complete Degen-LIO.
+
+Authorized pivot:
+
+- Patent 1;
+- degeneracy-detection and weak-direction paper;
+- private detector-only real-LIO adapter;
+- public-dataset external validation of H1.
+
+Stopped:
+
+- Stage 3 innovation-gating route;
+- Stage 4 bias-state route;
+- Patent 2;
+- complete robust Degen-LIO T-RO route.
 
 Earlier confirmed:
 

@@ -1,0 +1,28 @@
+schema_version: stage2_day14_decision_v1
+
+scientific_question:
+  is_coherent_bias_stably_online_detectable: true
+
+gates:
+  separability:
+    auroc_min: 0.80
+    clean_fpr_max: 0.10
+
+  cross_geometry:
+    same_direction_geometry_ratio_min: 0.80
+
+  causal_consistency:
+    require_harmful_update_association: true
+    require_gross_outlier_huber_handling: true
+
+  no_gt:
+    require_online_only_statistics: true
+    require_gt_removal_equivalence: true
+
+locked_primary_statistic: huber_cusum_max
+locked_threshold: 13.745952939169019
+
+allow_trial_rerun: false
+allow_retuning: false
+allow_new_statistic: false
+allow_stage3_on_stage2_fail: false
