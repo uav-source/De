@@ -17,23 +17,18 @@ Not confirmed:
 - projected-gain weak-direction update benefit under the Stage 2C benchmark;
 - complete LiDAR-inertial odometry method.
 
-Current active task: **Stage 2 Failure-Mechanism Diagnosis — Day 11B**.
+Current active task:
+Stage 2 Failure-Mechanism Diagnosis — Day 12
 
 Confirmed:
 
-- controlled degeneracy detection;
-- controlled weak-direction identification;
-- causal frame and window diagnostics.
+- Day 11B v2 provenance-complete locked replay;
+- no-GT causal diagnostics;
+- reproducible four-figure mechanism pipeline.
 
-Negative results:
+Current output:
 
-- Stage 2B column-scaling selective update;
-- Stage 2C projected-gain update.
-
-Under audit:
-
-- locked deterministic diagnostic replay and Day 12 input freezing after the
-  historical Stage 2C trial-level outputs were found to be unavailable.
+- four descriptive figures from two deterministic diagnostic cases.
 
 Day 11A selects no historical "representative seed." It locks one Geometry and
 one Observation diagnostic case from the frozen Test seed namespace using a
@@ -46,11 +41,24 @@ Day 11B replays exactly the locked Geometry and Observation cases across
 mechanism-only diagnostic replay, not an independent Test or representative
 sample, and it cannot select a threshold or decide the Stage 2 gate.
 
-Not yet evaluated:
+Not established:
 
 - coherent-bias separability;
 - AUROC/FPR;
-- causal error association.
+- cross-seed stability;
+- online threshold;
+- Stage 2 Gate.
+
+Earlier confirmed:
+
+- controlled degeneracy detection;
+- controlled weak-direction identification;
+- causal frame and window diagnostics.
+
+Negative results:
+
+- Stage 2B column-scaling selective update;
+- Stage 2C projected-gain update.
 
 Not implemented:
 

@@ -1,0 +1,43 @@
+mode: day12_diagnostic_figures_v2
+schema_version: stage2_failure_day12_figures_v2
+input_run_dir: results/stage2_failure_analysis/day11b_replay/stage2_failure_day11b_replay_v2
+expected_methods:
+  - huber_full
+  - huber_projected_gain
+expected_stress:
+  - clean
+  - coherent_subhuber_slip
+expected_sweeps:
+  - geometry
+  - observation
+expected_case_count: 8
+figure_formats:
+  - png
+  - pdf
+png_dpi: 300
+matplotlib_backend: Agg
+font_family: DejaVu Sans
+use_constrained_layout: true
+crop_data_range: false
+clip_outliers: false
+smooth_timeline: false
+interpolate_missing: false
+forward_fill_missing: false
+use_fixed_line_styles: true
+use_marker_shape_redundancy: true
+black_white_distinguishable: true
+generate_exactly_four_figures: true
+generate_plot_data_csv: true
+generate_figure_captions: true
+create_threshold: false
+draw_threshold_line: false
+compute_auroc: false
+compute_fpr: false
+compute_f1: false
+compute_detection_delay: false
+perform_significance_test: false
+select_best_statistic: false
+select_best_method: false
+replay_estimator: false
+use_new_seed: false
+modify_day11b_results: false
