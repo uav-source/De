@@ -1,0 +1,13 @@
+{
+  "schema_version": "harmful-bias-multihyp-day3-synthetic-validation-v1",
+  "synthetic_only": true,
+  "record_count": 2,
+  "correspondence_count": 3,
+  "scan_lifecycle_record": "synthetic_scan_lifecycle.json",
+  "first_valid_observation_record": "synthetic_first_valid_observation.json",
+  "scan_lifecycle_validator_pass": true,
+  "first_valid_observation_validator_pass": true,
+  "real_data_used": false,
+  "rosbag_used": false,
+  "scientific_experiment": false
+}
