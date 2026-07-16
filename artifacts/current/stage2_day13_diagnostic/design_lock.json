@@ -1,5 +1,5 @@
 {
-  "analysis_code_sha256": "24cd778844af4971065d8d362c191bf363df09f64b0c2b545c657e9871d793b4",
+  "analysis_code_sha256": "9e35612ccb9bc0a132e087e1fd94461f98ba9ca9538c2c47f3285047a74209ef",
   "analysis_plan_sha256": "b874d353af6b183fb58a91c726217d6c22508df8c2b5154947d73b3d73b913dc",
   "bootstrap_block": "geometry_seed",
   "bootstrap_repetitions": 5000,
@@ -24,7 +24,7 @@
     ]
   },
   "config_sha256": "363e2295ed32310b74f6cf00e1b0984e8c9e1ca882195a11b7fdfeff1bc79d1f",
-  "created_at": "2026-07-16T03:29:02.988173+00:00",
+  "created_at": "2026-07-16T03:35:55.991536+00:00",
   "day11_cases_used": false,
   "design_id": "stage2_failure_day13_new_seed_v1",
   "evaluation_expected_trial_count": 520,
@@ -67,7 +67,7 @@
     "slip_sigma": 4.0
   },
   "frozen_stress_config_sha256": "f241ab437ab30e87d802787211e2c560f46b9b0302c50546fe45e210e279dcf4",
-  "git_commit_at_design": "f70a1249b35474670d176849e0ae3a603d585ae1",
+  "git_commit_at_design": "2d0cc94118512e3b15e8d7a3fcb0099001be48a3",
   "git_status_clean_at_design": true,
   "historical_artifact_hashes_at_design": {
     "artifacts/current/detector_stage2a": "8893ff7c996105af631e4306df46ea9cc27d29fecc6ec500289ac0cb4e5ab423",
