@@ -18,19 +18,21 @@ Not confirmed:
 - complete LiDAR-inertial odometry method.
 
 Current active task:
-Stage 2 Day 12-R — Figure-Axis and Input-Lock Provenance Hardening
+Stage 2 Day 13 — Preregistered New-Seed Diagnostic AUROC/FPR Evaluation
 
 Confirmed:
 
 - Day 11B v2 provenance-complete locked replay;
 - no-GT causal diagnostics;
 - reproducible four-figure mechanism pipeline;
-- nonnegative run-length axis and 14-source input-lock contracts.
+- nonnegative run-length axis and 14-source input-lock contracts;
+- preregistered SHA-256 seed generation with disjoint calibration/evaluation roles.
 
-Current output:
-
-- four descriptive figures from two deterministic diagnostic cases, regenerated
-  without changing their plot-data or descriptive statistics.
+Current Day 13 output is restricted to preliminary held-out diagnostic AUROC,
+clean-FPR, geometry-block stability, offline causal association, and gross
+Huber-control summaries. Its calibration-only operating point cannot be retuned
+from evaluation results and is not a Stage 3 threshold. Stage 2 remains
+incomplete until the separate Day 14 review.
 
 Day 11A selects no historical "representative seed." It locks one Geometry and
 one Observation diagnostic case from the frozen Test seed namespace using a

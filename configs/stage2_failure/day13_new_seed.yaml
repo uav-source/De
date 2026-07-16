@@ -1,0 +1,57 @@
+mode: day13_new_seed_diagnostic
+schema_version: stage2_failure_day13_v1
+
+method: huber_full
+
+calibration_geometry_seed_count: 5
+evaluation_geometry_seed_count: 10
+calibration_sensor_seed_count: 2
+evaluation_sensor_seed_count: 2
+calibration_process_seed_count: 2
+evaluation_process_seed_count: 2
+
+geometry_levels:
+  - L3
+  - L4
+
+observation_levels:
+  - O3
+  - O4
+
+open_control_level: OC
+
+stress_regimes:
+  - clean
+  - coherent_subhuber_slip
+  - gross_outlier_control
+
+primary_statistic: huber_cusum_max
+
+secondary_statistics:
+  - abs_weak_innovation_z_huber
+  - abs_huber_window_mean
+  - huber_window_energy
+  - huber_dominant_sign_ratio
+  - huber_current_same_sign_run_length
+  - abs_huber_lag1_autocorrelation
+  - abs_huber_skewness
+
+threshold_quantile: 0.90
+threshold_quantile_rule: nearest_rank
+threshold_comparison_operator: ">"
+
+bootstrap_repetitions: 5000
+bootstrap_seed: 23131
+bootstrap_block: geometry_seed
+
+use_full_sequence: true
+frame_limit: null
+
+run_open_control_clean: true
+run_coherent_on_open_control: false
+run_gross_on_open_control: false
+
+create_stage3_threshold: false
+compute_f1: false
+compute_detection_delay: false
+make_stage2_decision: false
