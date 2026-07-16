@@ -1,0 +1,88 @@
+{
+  "schema_version": "harmful_bias_day1_remediation_v2",
+  "completed_at_utc": "2026-07-16T09:10:24Z",
+  "starting_branch": "decision/stage2-day14",
+  "starting_head": "531e25de917ec527645d2e6633592145826c81d6",
+  "pivot_tag": "checkpoint/stage2-day14-pivot-pass",
+  "pivot_tag_commit": "531e25de917ec527645d2e6633592145826c81d6",
+  "spike_branch": "spike/harmful-bias-multihyp-dev",
+  "spike_branch_commit": "531e25de917ec527645d2e6633592145826c81d6",
+  "trusted_v3_archive_sha256": "99ada237ea91e943c227d36324e77b853ceccde7c06e18d99fb42a4a275735e1",
+  "home_state_restoration": {
+    "required": 8,
+    "restored": 8,
+    "already_matched": 0,
+    "conflicts": 0
+  },
+  "pytest": {
+    "before": "576 passed, 14 failed, 1 warning in 39.05s",
+    "after_first": "590 passed, 1 warning in 51.96s"
+  },
+  "data_namespace": {
+    "approval_id": "HBMH_DATA_SPLIT_APPROVAL_V1",
+    "source_resolution_ambiguity_count": 0,
+    "quick_sequences": 2,
+    "development_degenerate": 3,
+    "development_control": 2,
+    "development_auxiliary": 1,
+    "holdout_degenerate": 1,
+    "holdout_control": 1,
+    "future_sequences": 8,
+    "future_sources": 5,
+    "future_run_count": 0,
+    "duplicate_count": 0,
+    "cross_namespace_overlap_count": 0,
+    "cross_location_family_overlap_count": 0,
+    "day13_overlap_count": 0,
+    "subt_selected_count": 0,
+    "stairs_selected_count": 0
+  },
+  "namespace_hardening": {
+    "sequence_entry_count": 18,
+    "holdout_dev_sealed": true,
+    "future_test_sealed": true,
+    "all_entries_self_contained": true,
+    "all_entries_run_authorized": false
+  },
+  "evidence_sha256": {
+    "data_split_source_resolution": "c6f22da50ad470806d9f695b3657eae10633b42ced2cd7c08bdd8a70fb1f0e1d",
+    "data_split_approval": "e80454cf3f36f16a5c4f2275660124d1440402ee9b6ba268ddfc1aa38b753f28",
+    "data_inventory": "4ce864216ff3f28898c13df1e35be004966b54c4cd3c8d274d76269783cfaf00",
+    "data_namespace": "2821496081792de8184d29e8d9b7d53c53774f12e7fa1a675d7b63ff8d1281c8",
+    "selection_audit": "54de70dcacd88c4b47bf0c38690760e3ba0bf0b6b183a1daff5a5e1fd01da45a",
+    "data_namespace_validation": "bfa2e319f0dedb13a6996c1252ff1c507a7b7cb979d5f25936c13703aec8be3a"
+  },
+  "prohibited_actions": {
+    "source_code_modified": false,
+    "tests_modified": false,
+    "configs_modified": false,
+    "fastlio2_source_modified": false,
+    "fastlio2_build_run": false,
+    "rosbag_run": false,
+    "scientific_experiment_run": false,
+    "quick_run": false,
+    "development_run": false,
+    "holdout_dev_run": false,
+    "future_test_run": false,
+    "data_download_performed": false,
+    "observation_tap_implemented": false,
+    "commit_created": false,
+    "push_performed": false
+  },
+  "gates": {
+    "HOME_STATE_RESTORATION_PASS": true,
+    "DEGEN_LIO_BASELINE_PASS": true,
+    "FASTLIO2_BASELINE_PASS": true,
+    "DATA_SPLIT_APPROVAL_APPLIED": true,
+    "DATA_NAMESPACE_FROZEN": true,
+    "DAY1_REMEDIATION_DIFF_SCOPE_PASS": true,
+    "DAY1_REMEDIATION_PASS": true,
+    "DAY1_BASELINE_FREEZE_PASS": true,
+    "DAY2_INTERFACE_AUDIT_AUTHORIZED": true,
+    "STAGE2_GATE": "FAIL",
+    "TRANSITION": "PIVOT",
+    "STAGE3_START_AUTHORIZED": false,
+    "FAST_LIO2_INTEGRATION_AUTHORIZED": false,
+    "PUBLIC_DISCLOSURE_AUTHORIZED": false
+  }
+}

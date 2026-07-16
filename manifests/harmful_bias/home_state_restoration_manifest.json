@@ -1,0 +1,52 @@
+{
+  "schema_version": "harmful_bias_home_state_restoration_v1",
+  "restored_at_utc": "2026-07-16T09:10:24Z",
+  "source_archive_alias": "$HOME/Degen-LIO-Day14-audit-v3.tar.gz",
+  "source_archive_expected_sha256": "99ada237ea91e943c227d36324e77b853ceccde7c06e18d99fb42a4a275735e1",
+  "source_archive_actual_sha256": "99ada237ea91e943c227d36324e77b853ceccde7c06e18d99fb42a4a275735e1",
+  "gzip_valid": true,
+  "internal_hash_failure_count": 0,
+  "internal_hash_verification_log_sha256": "ea854a90ed028de9f018e96f1064a5d55c8c3e63e68c4c007ee05e9563f81078",
+  "required_file_count": 8,
+  "restored_file_count": 8,
+  "already_matched_file_count": 0,
+  "conflict_count": 0,
+  "files": [
+    {
+      "name": "day11b_v1_result_sha256_after.txt",
+      "sha256": "5ae9761addf97098cedf6f3b4c36213de137df0f785af8cb9a4c17a9adc2ecb0"
+    },
+    {
+      "name": "day11b_v1_result_sha256_before.txt",
+      "sha256": "5ae9761addf97098cedf6f3b4c36213de137df0f785af8cb9a4c17a9adc2ecb0"
+    },
+    {
+      "name": "day11b_v1_result_tree_digest_after.txt",
+      "sha256": "d3734bbf9f5f2a1c1ace4abe93d07c35aeb39dcb31dcfe4611a1d77834838630"
+    },
+    {
+      "name": "day11b_v2_result_sha256_before_day12.txt",
+      "sha256": "2a2f987560ca02665fe658548e873612c16df4c117f898847fd76ecf033237a3"
+    },
+    {
+      "name": "day11b_v2_result_sha256_before_day12_v3.txt",
+      "sha256": "2a2f987560ca02665fe658548e873612c16df4c117f898847fd76ecf033237a3"
+    },
+    {
+      "name": "day11b_v2_result_sha256_before_day13.txt",
+      "sha256": "2a2f987560ca02665fe658548e873612c16df4c117f898847fd76ecf033237a3"
+    },
+    {
+      "name": "day12_v2_result_sha256_before_v3.txt",
+      "sha256": "0d97d50bfd775ad38f507517b31da7aee226a4d555d3581cbe180c88e6461250"
+    },
+    {
+      "name": "day12_v3_result_sha256_before_day13.txt",
+      "sha256": "e108757c11ed54b2f370dfc6134d184ed024a0ad236d161461f6faa3b1b7bdbc"
+    }
+  ],
+  "pytest_before_summary": "576 passed, 14 failed, 1 warning in 39.05s",
+  "pytest_after_summary": "590 passed, 1 warning in 51.96s",
+  "HOME_STATE_RESTORATION_PASS": true,
+  "DEGEN_LIO_BASELINE_PASS": true
+}

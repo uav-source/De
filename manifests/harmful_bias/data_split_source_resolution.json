@@ -1,0 +1,80 @@
+{
+  "schema_version": "harmful_bias_data_split_source_resolution_v1",
+  "approval_id": "HBMH_DATA_SPLIT_APPROVAL_V1",
+  "resolved_at_utc": "2026-07-16T09:10:24Z",
+  "source_files": [
+    {
+      "path": "docs/datasets/dataset_sequence_inventory_v1.csv",
+      "sha256": "464a60ebc7984aeaccd5c7aa6c5e2258148a7f7460fe7665d16df0a6ad4f828c",
+      "purpose": "Day 6 sequence-level inventory and proposal",
+      "machine_readable": true
+    },
+    {
+      "path": "docs/datasets/dataset_split_plan_v1.md",
+      "sha256": "232ca2f15f63dd82876906bc34fcea89fe2d70e8a23515c8cdbb6f53ef7de71c",
+      "purpose": "Day 6 location-family and split constraints",
+      "machine_readable": false
+    },
+    {
+      "path": "docs/datasets/dataset_feasibility_matrix_v1.csv",
+      "sha256": "3e4d5a0df0a3dfd1df7350989f17b875a754b7b7e9e26bd4bf9e5cb77a255fa4",
+      "purpose": "Day 6 source license and availability matrix",
+      "machine_readable": true
+    },
+    {
+      "path": "docs/datasets/day7_fastlio2_adapter_release_matrix_v1.csv",
+      "sha256": "d9ac3d1ae797a4a35e9239446dfbe7b5c2169ec4dbd399ff0f1ddfed118436c2",
+      "purpose": "Day 7 release, hold, and blocked status",
+      "machine_readable": true
+    },
+    {
+      "path": "docs/datasets/day7_sample_download_manifest_v1.csv",
+      "sha256": "f41b4089e02e1bc2ab5f704cc80e6a8fc7e83fa7fd73a7dcce676f0554c1f111",
+      "purpose": "Day 7 local sample checksum evidence",
+      "machine_readable": true
+    },
+    {
+      "path": "docs/datasets/day7_ground_truth_inventory_v1.csv",
+      "sha256": "c1bef26de45607d874d6993dfe8add1fbd11a00a2f035e4557aa2043aa2f3271",
+      "purpose": "Day 7 reference-coverage semantics",
+      "machine_readable": true
+    },
+    {
+      "path": "docs/datasets/day7_topic_field_inventory_v1.csv",
+      "sha256": "7d46c30b6c9e317b290f1f1546b290bcfe28ed26ce13025960733ce7d6837255",
+      "purpose": "Day 7 actual local sample field evidence",
+      "machine_readable": true
+    },
+    {
+      "path": "artifacts/current/stage2_day13_diagnostic/design_lock.json",
+      "sha256": "d57d1bd006c873c8dc6559b246c4257b4789469f4eeec2634a077f82391672f1",
+      "purpose": "Day 13 synthetic evaluation exclusion boundary",
+      "machine_readable": true
+    }
+  ],
+  "column_mapping": {
+    "source_name": "dataset_sequence_inventory_v1.csv:dataset_id",
+    "source_sequence_name": "dataset_sequence_inventory_v1.csv:sequence_name",
+    "sequence_id": "upper(dataset_id) + '__' + sequence_name",
+    "role": "dataset_sequence_inventory_v1.csv:degeneration_or_control",
+    "location_family": "dataset_sequence_inventory_v1.csv:location_group",
+    "proposal_split": "dataset_sequence_inventory_v1.csv:proposed_split",
+    "license_status": "dataset_feasibility_matrix_v1.csv:license_available/research_use_allowed/license_risk",
+    "availability_override": "day7_fastlio2_adapter_release_matrix_v1.csv:release_status"
+  },
+  "deterministic_order": {
+    "proposal_rank_column_present": false,
+    "fallback_primary": "dataset_id ascending, bytewise UTF-8",
+    "fallback_secondary": "canonical sequence_id ascending, bytewise UTF-8"
+  },
+  "special_canonicalization": [
+    {
+      "day6_id": "MUN_FRL__lighthouse",
+      "canonical_id": "MUN_FRL__Lighthouse_benchmarking_bag",
+      "reason": "Day 7 inspected release supplies the exact sample release name."
+    }
+  ],
+  "ambiguity_count": 0,
+  "invented_sequence_id_count": 0,
+  "resolution_pass": true
+}

@@ -1,0 +1,294 @@
+schema_version: harmful_bias_data_namespace_v1
+approval_id: HBMH_DATA_SPLIT_APPROVAL_V1
+frozen_at_utc: "2026-07-16T09:10:24Z"
+hardened_at_utc: "2026-07-16T09:30:00Z"
+selection_scope: engineering_namespace_allocation
+scientific_label_policy:
+  scientific_label_status: UNVERIFIED
+  eligible_as_ground_truth_label: false
+  eligible_for_auroc_label: false
+  eligible_as_causal_truth_label: false
+source_resolution:
+  path: manifests/harmful_bias/data_split_source_resolution.json
+  ambiguity_count: 0
+  invented_sequence_id_count: 0
+
+quick:
+  sealed: true
+  run_authorized: false
+  degenerate:
+    - sequence_id: avia_quick_shack
+      canonical_source_sequence_id: 2020-09-16-quick-shack.bag
+      source_name: FAST_LIO2_AVIA_EXAMPLES
+      location_family: avia_quick_shack_family
+      approved_role: DEGENERATE
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: LOCAL
+      hash_kind: file_sha256
+      file_or_manifest_sha256: 05a56e75898f952766f136d1e5db64a35d202e990e3b1052558369d8384d7ffe
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.fixed.quick.degenerate
+      run_authorized: false
+  control:
+    - sequence_id: avia_outdoor_run_100hz
+      canonical_source_sequence_id: outdoor_run_100Hz_2020-12-27-17-12-19.bag
+      source_name: FAST_LIO2_AVIA_EXAMPLES
+      location_family: avia_outdoor_run_family
+      approved_role: CONTROL
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: LOCAL
+      hash_kind: file_sha256
+      file_or_manifest_sha256: 13bde5d88ce054d88904873e924e2619153efdf5b63df7f3bbab4f16eb72a253
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.fixed.quick.control
+      run_authorized: false
+
+development:
+  sealed: true
+  run_authorized: false
+  degenerate:
+    - sequence_id: avia_mainbuilding_100hz
+      canonical_source_sequence_id: outdoor_Mainbuilding_100Hz_2020-12-24-16-46-29.bag
+      source_name: FAST_LIO2_AVIA_EXAMPLES
+      location_family: avia_hku_mainbuilding_family
+      approved_role: DEGENERATE
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: LOCAL
+      hash_kind: file_sha256
+      file_or_manifest_sha256: 583157ac009286374b5c1648fd11f42ec755525d43fe34f62de187c8ffde5a73
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.fixed.development.degenerate.1
+      run_authorized: false
+    - sequence_id: avia_mainbuilding_10hz
+      canonical_source_sequence_id: outdoor_Mainbuilding_10hz_2020-12-24-16-38-00.bag
+      source_name: FAST_LIO2_AVIA_EXAMPLES
+      location_family: avia_hku_mainbuilding_family
+      approved_role: DEGENERATE
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: LOCAL
+      hash_kind: file_sha256
+      file_or_manifest_sha256: e2a96b36a494360d61d1f066b6ac0a385aca346e614cd54b7fc5706a8e3d62e4
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.fixed.development.degenerate.2
+      run_authorized: false
+    - sequence_id: avia_hku_mb
+      canonical_source_sequence_id: HKU_MB_2020-09-20-13-34-51.bag
+      source_name: FAST_LIO2_AVIA_EXAMPLES
+      location_family: avia_hku_mainbuilding_family
+      approved_role: DEGENERATE
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: LOCAL
+      hash_kind: file_sha256
+      file_or_manifest_sha256: 5d56e3fde2dc94db682411c1f8d7cda6c2bcdcbd89a92b76971f51670c9df3e6
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.fixed.development.degenerate.3
+      run_authorized: false
+  control:
+    - sequence_id: NTU_VIRAL__eee_03
+      canonical_source_sequence_id: eee_03
+      source_name: NTU_VIRAL
+      location_family: ntu_eee
+      approved_role: CONTROL
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: LOCAL
+      hash_kind: verified_sample_sha256
+      file_or_manifest_sha256: 1539fdbe89487ffdff543afad9e58971c4334c679d474cbdfc3bd378d31507c8
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.fixed.development.control
+      run_authorized: false
+    - sequence_id: HELIPR__Roundabout01
+      canonical_source_sequence_id: Roundabout01
+      source_name: HELIPR
+      location_family: helipr_roundabout
+      approved_role: CONTROL
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: ea3c38098ba07b990716a6a93e5fd7c3089f6b69c3f55596167b903ad8526e9c
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.development_extra_control
+      run_authorized: false
+  auxiliary_adapter:
+    - sequence_id: MUN_FRL__Lighthouse_benchmarking_bag
+      canonical_source_sequence_id: Lighthouse_benchmarking_bag
+      source_name: MUN_FRL
+      location_family: mun_dji_lighthouse
+      approved_role: AUXILIARY
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: LOCAL
+      hash_kind: verified_sample_sha256
+      file_or_manifest_sha256: 562bafc57dab7fdac3d8959cf6836b3f4508c4fa60147b11d718552180543162
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.fixed.development.auxiliary
+      run_authorized: false
+
+holdout_dev:
+  sealed: true
+  run_authorized: false
+  degenerate:
+    - sequence_id: HELIPR__Bridge02
+      canonical_source_sequence_id: Bridge02
+      source_name: HELIPR
+      location_family: helipr_bridge
+      approved_role: DEGENERATE
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: eaf3e4cc5c3c45cd74425c8f319c4262d50c8c8ea19ca1d88ea955d6829ceb14
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.holdout_degenerate
+      run_authorized: false
+  control:
+    - sequence_id: M2DGR__room_01
+      canonical_source_sequence_id: room_01
+      source_name: M2DGR
+      location_family: m2dgr_room
+      approved_role: CONTROL
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: a24a281ebf78a81f2572377116963fd56a9ae1746b79b4b363a1f6d927aa26a9
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.holdout_control
+      run_authorized: false
+
+future_test:
+  sealed: true
+  run_authorized: false
+  run_count: 0
+  sequences:
+    - sequence_id: HELIPR__Town02
+      canonical_source_sequence_id: Town02
+      source_name: HELIPR
+      location_family: helipr_town
+      approved_role: DEGENERATE
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: c664011d137978c3bca76f81c48faeb81487f855920faab8c5370912667bb112
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.future_degenerate.1
+      run_authorized: false
+    - sequence_id: HILTI_2021__Basement
+      canonical_source_sequence_id: Basement
+      source_name: HILTI_2021
+      location_family: hilti_basement
+      approved_role: DEGENERATE
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: d23cd05c3cb7f264b5a200afa6c18ced3ed487a4f0bc248cf52b5280f82085ae
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.future_degenerate.2
+      run_authorized: false
+    - sequence_id: HILTI_2021__Basement_3
+      canonical_source_sequence_id: Basement_3
+      source_name: HILTI_2021
+      location_family: hilti_basement
+      approved_role: DEGENERATE
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: 502629ba44dc132594174f6fbddd5ccf6f3cb502a252ce9f41e2494bbe975e06
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.future_degenerate.3
+      run_authorized: false
+    - sequence_id: M2DGR__hall_02
+      canonical_source_sequence_id: hall_02
+      source_name: M2DGR
+      location_family: m2dgr_hall
+      approved_role: DEGENERATE
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: 51e76b1472cd1ccd47a6389ed5af59b5a90c5326f02e72347b11920d4d196d81
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.future_degenerate.4
+      run_authorized: false
+    - sequence_id: M2DGR__street_02
+      canonical_source_sequence_id: street_02
+      source_name: M2DGR
+      location_family: m2dgr_street
+      approved_role: CONTROL
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: 7e40e315647584a8f3313d56a6b4daf3613ac43bfb1ba8f5157fffa6a3e5a64d
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.future_control.1
+      run_authorized: false
+    - sequence_id: MULRAN__DCC01
+      canonical_source_sequence_id: DCC01
+      source_name: MULRAN
+      location_family: mulran_dcc
+      approved_role: CONTROL
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: 072118833d9b3facdea0962d877bec800c31186078e6e43b9b584f2b021a5766
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.future_control.2
+      run_authorized: false
+    - sequence_id: MULRAN__KAIST01
+      canonical_source_sequence_id: KAIST01
+      source_name: MULRAN
+      location_family: mulran_kaist
+      approved_role: CONTROL
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: 257396ed07e4ccadee243278e3d7a15b88f821c217b3c211712c456f5c853f29
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.future_control.3
+      run_authorized: false
+    - sequence_id: MUN_FRL__quarry1
+      canonical_source_sequence_id: quarry1
+      source_name: MUN_FRL
+      location_family: mun_dji_quarry
+      approved_role: CONTROL
+      scientific_label_status: UNVERIFIED
+      eligible_as_ground_truth_label: false
+      eligible_for_auroc_label: false
+      availability: METADATA_ONLY
+      hash_kind: metadata_record_sha256
+      file_or_manifest_sha256: 885304715a216326244e86170ad38dfa47a8bf7a5b5f6952cd4db4656576ab82
+      selection_provenance: HBMH_DATA_SPLIT_APPROVAL_V1.deterministic.future_control.4
+      run_authorized: false
+
+hard_exclusions:
+  subt_mrs:
+    availability: HOLD_LICENSE
+    selected_namespace: NONE
+  newer_college_stairs:
+    sequence_id: NEWER_COLLEGE_MULTICAM__Stairs
+    availability: BLOCKED_DOWNLOAD
+    selected_namespace: NONE
+  day13_evaluation:
+    design_id: stage2_failure_day13_new_seed_v1
+    dataset_type: synthetic
+    overlap_count: 0
+validation_targets:
+  sequence_entry_count: 18
+  duplicate_sequence_count: 0
+  cross_namespace_overlap_count: 0
+  cross_location_family_overlap_count: 0
+  day13_overlap_count: 0
+  subt_selected_count: 0
+  stairs_selected_count: 0

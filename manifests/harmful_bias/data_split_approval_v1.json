@@ -1,0 +1,83 @@
+{
+  "schema_version": "harmful_bias_data_split_approval_v1",
+  "approval_id": "HBMH_DATA_SPLIT_APPROVAL_V1",
+  "applied_at_utc": "2026-07-16T09:10:24Z",
+  "approval_scope": "engineering namespace allocation",
+  "scientific_ground_truth_approval": false,
+  "auroc_label_approval": false,
+  "causal_truth_approval": false,
+  "label_policy": {
+    "scientific_label_status": "UNVERIFIED",
+    "eligible_as_ground_truth_label": false,
+    "eligible_for_auroc_label": false
+  },
+  "fixed_assignments": {
+    "quick": {
+      "degenerate": [
+        "avia_quick_shack"
+      ],
+      "control": [
+        "avia_outdoor_run_100hz"
+      ]
+    },
+    "development": {
+      "degenerate": [
+        "avia_mainbuilding_100hz",
+        "avia_mainbuilding_10hz",
+        "avia_hku_mb"
+      ],
+      "control": [
+        "NTU_VIRAL__eee_03"
+      ],
+      "auxiliary": [
+        "MUN_FRL__Lighthouse_benchmarking_bag"
+      ]
+    }
+  },
+  "deterministically_selected_assignments": {
+    "development_extra_control": [
+      "HELIPR__Roundabout01"
+    ],
+    "holdout_degenerate": [
+      "HELIPR__Bridge02"
+    ],
+    "holdout_control": [
+      "M2DGR__room_01"
+    ],
+    "future_degenerate": [
+      "HELIPR__Town02",
+      "HILTI_2021__Basement",
+      "HILTI_2021__Basement_3",
+      "M2DGR__hall_02"
+    ],
+    "future_control": [
+      "M2DGR__street_02",
+      "MULRAN__DCC01",
+      "MULRAN__KAIST01",
+      "MUN_FRL__quarry1"
+    ]
+  },
+  "hard_exclusions": {
+    "subt_mrs": {
+      "availability": "HOLD_LICENSE",
+      "selected_namespace": "NONE"
+    },
+    "newer_college_stairs": {
+      "availability": "BLOCKED_DOWNLOAD",
+      "selected_namespace": "NONE"
+    },
+    "day13_evaluation": {
+      "dataset_type": "synthetic",
+      "selected_namespace": "NONE",
+      "overlap_count": 0
+    }
+  },
+  "execution": {
+    "quick_run": false,
+    "development_run": false,
+    "holdout_run": false,
+    "future_test_run": false,
+    "future_test_run_count": 0
+  },
+  "DATA_SPLIT_APPROVAL_APPLIED": true
+}
