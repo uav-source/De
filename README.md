@@ -132,3 +132,11 @@ git show archive/stage1c-confirmatory-no-go:<path>
 ```
 
 The compact research timeline is in [docs/history/metric_redesign_timeline.md](docs/history/metric_redesign_timeline.md).
+# Day 13 matched-analysis correction V2
+
+The frozen Day 13 V1 trials are reanalysed without rerunning the estimator by
+`scripts/39_run_stage2_failure_day13_correction.py`. The correction uses one-to-one
+same-scene, same-seed, same-frame clean matches for AUROC negatives and reports
+weak-clean and Open Control FPR separately. See
+`docs/stage2_day13_analysis_correction_v2.md` for the protocol and scientific
+limitations.
