@@ -6,7 +6,6 @@ import csv
 import hashlib
 import json
 import math
-import subprocess
 from pathlib import Path
 from typing import Any, Dict, Mapping, Optional, Sequence, Tuple
 
@@ -66,7 +65,83 @@ HASH_FILES = {
     "base_observation_pairing_audit_sha256": "base_observation_pairing_audit.csv",
     "v1_v2_scientific_equivalence_audit_sha256": "v1_v2_scientific_equivalence_audit.csv",
 }
+LOCKED_DAY11B_SOURCE_FILES = {
+    "day11b_manifest": ("day11b_manifest_path", "day11b_manifest_sha256", "run_manifest.json"),
+    "day11b_summary": ("day11b_summary_path", "day11b_summary_sha256", "day11b_v2_summary.json"),
+    "replay_plan": ("replay_plan_path", "replay_plan_sha256", "replay_plan.csv"),
+    "replay_case_summary": (
+        "replay_case_summary_path", "replay_case_summary_sha256", "replay_case_summary.csv",
+    ),
+    "merged_csv": ("merged_csv_path", "merged_csv_sha256", "replay_frame_diagnostics_merged.csv"),
+    "logging_equivalence_audit": (
+        "logging_equivalence_audit_path", "logging_equivalence_audit_sha256",
+        "logging_equivalence_audit.csv",
+    ),
+    "pairing_audit": ("pairing_audit_path", "pairing_audit_sha256", "pairing_audit.csv"),
+    "stress_mechanism_audit": (
+        "stress_mechanism_audit_path", "stress_mechanism_audit_sha256",
+        "stress_mechanism_audit.csv",
+    ),
+    "no_gt_audit": ("no_gt_audit_path", "no_gt_audit_sha256", "no_gt_audit.json"),
+    "strategy_chain_audit": (
+        "strategy_chain_audit_path", "strategy_chain_audit_sha256", "strategy_chain_audit.csv",
+    ),
+    "axial_support_audit": (
+        "axial_support_audit_path", "axial_support_audit_sha256", "axial_support_audit.csv",
+    ),
+    "base_observation_pairing_audit": (
+        "base_observation_pairing_audit_path", "base_observation_pairing_audit_sha256",
+        "base_observation_pairing_audit.csv",
+    ),
+    "v1_v2_scientific_equivalence_audit": (
+        "v1_v2_scientific_equivalence_audit_path",
+        "v1_v2_scientific_equivalence_audit_sha256",
+        "v1_v2_scientific_equivalence_audit.csv",
+    ),
+}
 DAY11B_V2_CHECKPOINT_COMMIT = "480960def270d2739a21bfc4967990318d2ed3c3"
+
+
+class LockedInputPathError(ValueError):
+    """A locked path is unsafe or does not name the frozen file."""
+
+
+class LockedInputMissingError(ValueError):
+    """A locked source file is missing."""
+
+
+class LockedInputSymlinkError(ValueError):
+    """A locked source path contains a symbolic link."""
+
+
+def resolve_locked_input_file(run_dir: Path, relative_path: str) -> Path:
+    """Resolve a locked relative file without permitting escape or symlinks."""
+
+    root = Path(run_dir).resolve()
+    text = str(relative_path)
+    candidate_relative = Path(text)
+    if not text or candidate_relative.is_absolute():
+        raise LockedInputPathError("locked source path must be relative")
+    if ".." in candidate_relative.parts:
+        raise LockedInputPathError("locked source path traversal is forbidden")
+    candidate = root / candidate_relative
+    current = candidate
+    while current != root:
+        if current.is_symlink():
+            raise LockedInputSymlinkError(f"locked source path is a symlink: {text}")
+        if current.parent == current:
+            break
+        current = current.parent
+    resolved = candidate.resolve(strict=False)
+    try:
+        resolved.relative_to(root)
+    except ValueError as exc:
+        raise LockedInputPathError("locked source resolves outside its run directory") from exc
+    if not candidate.exists():
+        raise LockedInputMissingError(f"locked source file is missing: {text}")
+    if not candidate.is_file():
+        raise LockedInputPathError(f"locked source is not a regular file: {text}")
+    return resolved
 
 
 def verify_day11b_v2_plot_input(

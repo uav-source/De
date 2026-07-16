@@ -10,7 +10,7 @@ from typing import Any, Mapping, Sequence
 
 DAY12_SCHEMA_VERSION = "stage2_failure_day12_figures_v2"
 INPUT_AUDIT_SCHEMA_VERSION = "stage2_failure_day12_input_audit_v2"
-INPUT_LOCK_SCHEMA_VERSION = "stage2_failure_day12_input_lock_v2"
+INPUT_LOCK_SCHEMA_VERSION = "stage2_failure_day12_input_lock_v3"
 EXPECTED_METHODS = ("huber_full", "huber_projected_gain")
 EXPECTED_STRESSES = ("clean", "coherent_subhuber_slip")
 EXPECTED_SWEEPS = ("geometry", "observation")
@@ -113,6 +113,46 @@ def evaluate_day12_gate(values: Mapping[str, Any]) -> bool:
     if expected_rows <= 0 or int(values.get("actual_merged_row_count", -2)) != expected_rows:
         return False
     return True
+
+
+def evaluate_day12_v3_gate(values: Mapping[str, Any]) -> bool:
+    """Apply the original Day 12 gate plus v3 axis/provenance hardening."""
+
+    if not evaluate_day12_gate(values):
+        return False
+    required_true = (
+        "DAY12_V3_AXIS_CONTRACT_PASS", "DAY12_V3_INPUT_LOCK_PASS",
+        "day12_v2_result_tree_unchanged", "day11b_v2_result_tree_unchanged",
+        "v2_v3_plot_data_byte_identical", "v2_v3_summary_byte_identical",
+        "v2_v3_captions_byte_identical", "figure1_pixel_hash_equal_v2_v3",
+        "figure2_pixel_hash_equal_v2_v3", "figure3_pixel_hash_changed_v2_v3",
+        "figure4_pixel_hash_changed_v2_v3",
+    )
+    if not all(values.get(field) is True for field in required_true):
+        return False
+    zero_fields = (
+        "source_file_hash_mismatch_count", "source_file_missing_count",
+        "source_file_path_violation_count", "source_file_symlink_count",
+        "source_file_schema_failure_count", "axis_contract_failure_count",
+        "v2_v3_plot_data_value_mismatch_count", "figure_change_failure_count",
+    )
+    if not all(int(values.get(field, -1)) == 0 for field in zero_fields):
+        return False
+    exact = {
+        "source_file_verification_count": 14,
+        "provenance_source_rehash_count": 4,
+        "axis_contract_comparison_count": 12,
+        "figure3_ylim_lower": 0.0,
+        "figure3_ylim_upper": 5.0,
+        "figure3_actual_run_max": 5.0,
+        "figure4_run_row_ylim_lower": 0.0,
+        "figure4_run_row_ylim_upper": 5.0,
+        "figure4_run_row_actual_max": 5.0,
+        "DAY12_V2_DATA_AUDIT": "PASS",
+        "DAY12_V2_REPRODUCIBILITY": "PASS",
+        "DAY12_V2_CONTRACT_COMPLETE": False,
+    }
+    return not any(values.get(field) != expected for field, expected in exact.items())
 
 
 def write_csv(path: Path, rows: Sequence[Mapping[str, Any]], fields: Sequence[str]) -> None:

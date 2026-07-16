@@ -18,17 +18,19 @@ Not confirmed:
 - complete LiDAR-inertial odometry method.
 
 Current active task:
-Stage 2 Failure-Mechanism Diagnosis — Day 12
+Stage 2 Day 12-R — Figure-Axis and Input-Lock Provenance Hardening
 
 Confirmed:
 
 - Day 11B v2 provenance-complete locked replay;
 - no-GT causal diagnostics;
-- reproducible four-figure mechanism pipeline.
+- reproducible four-figure mechanism pipeline;
+- nonnegative run-length axis and 14-source input-lock contracts.
 
 Current output:
 
-- four descriptive figures from two deterministic diagnostic cases.
+- four descriptive figures from two deterministic diagnostic cases, regenerated
+  without changing their plot-data or descriptive statistics.
 
 Day 11A selects no historical "representative seed." It locks one Geometry and
 one Observation diagnostic case from the frozen Test seed namespace using a

@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import ast
+import csv
 import hashlib
+import itertools
 import json
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -145,3 +147,88 @@ def compare_reproduction(main_dir: Path, second_dir: Path) -> Mapping[str, Any]:
         "repro_pdf_valid": pdf_ok,
         "audit_pass": bool(csv_equal and pixel_equal and size_equal and summary_equal and captions_equal and pdf_ok),
     }
+
+
+def audit_v2_v3_data_equivalence(v2_dir: Path, v3_dir: Path) -> Mapping[str, Any]:
+    """Compare all frozen scientific table/caption outputs from v2 and v3."""
+
+    v2_dir, v3_dir = Path(v2_dir), Path(v3_dir)
+    byte_results = {}
+    value_mismatches = 0
+    for index, name in enumerate(FIGURE_NAMES, start=1):
+        first = v2_dir / "figure_data" / f"{name}.csv"
+        second = v3_dir / "figure_data" / f"{name}.csv"
+        identical = first.read_bytes() == second.read_bytes()
+        byte_results[f"figure{index}_plot_data_byte_identical"] = identical
+        value_mismatches += _csv_value_mismatch_count(first, second)
+    summary_equal = (
+        (v2_dir / "day12_descriptive_summary.csv").read_bytes()
+        == (v3_dir / "day12_descriptive_summary.csv").read_bytes()
+    )
+    captions_equal = (
+        (v2_dir / "figure_captions.md").read_bytes()
+        == (v3_dir / "figure_captions.md").read_bytes()
+    )
+    passed = (
+        all(byte_results.values()) and summary_equal and captions_equal
+        and value_mismatches == 0
+    )
+    return {
+        "schema_version": "stage2_failure_day12_v2_v3_data_equivalence_v3",
+        **byte_results,
+        "descriptive_summary_byte_identical": summary_equal,
+        "captions_byte_identical": captions_equal,
+        "plot_data_value_mismatch_count": value_mismatches,
+        "data_equivalence_pass": passed,
+    }
+
+
+def audit_v2_v3_figure_changes(v2_dir: Path, v3_dir: Path) -> Mapping[str, Any]:
+    """Require pixel stability for Figures 1/2 and axis-only changes for 3/4."""
+
+    v2_dir, v3_dir = Path(v2_dir), Path(v3_dir)
+    records = []
+    expected_changes = (False, False, True, True)
+    for name, change_expected in zip(FIGURE_NAMES, expected_changes):
+        v2_hash = pixel_sha256(v2_dir / "figures" / f"{name}.png")
+        v3_hash = pixel_sha256(v3_dir / "figures" / f"{name}.png")
+        equal = v2_hash == v3_hash
+        passed = equal == (not change_expected)
+        records.append({
+            "figure_id": name,
+            "v2_png_pixel_sha256": v2_hash,
+            "v3_png_pixel_sha256": v3_hash,
+            "pixel_hash_equal": equal,
+            "change_expected": change_expected,
+            "change_scope_pass": passed,
+        })
+    return {
+        "schema_version": "stage2_failure_day12_v2_v3_figure_change_v3",
+        "figures": records,
+        "figure_change_failure_count": sum(
+            int(not row["change_scope_pass"]) for row in records
+        ),
+        "audit_pass": all(row["change_scope_pass"] for row in records),
+    }
+
+
+def _csv_value_mismatch_count(first: Path, second: Path) -> int:
+    with Path(first).open("r", encoding="utf-8", newline="") as first_handle:
+        first_rows = list(csv.reader(first_handle))
+    with Path(second).open("r", encoding="utf-8", newline="") as second_handle:
+        second_rows = list(csv.reader(second_handle))
+    mismatches = 0
+    sentinel = object()
+    for first_row, second_row in itertools.zip_longest(
+        first_rows, second_rows, fillvalue=sentinel
+    ):
+        if first_row is sentinel or second_row is sentinel:
+            mismatches += 1
+            continue
+        mismatches += sum(
+            int(first_value != second_value)
+            for first_value, second_value in itertools.zip_longest(
+                first_row, second_row, fillvalue=sentinel
+            )
+        )
+    return mismatches

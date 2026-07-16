@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
@@ -25,6 +26,35 @@ METHODS = ("huber_full", "huber_projected_gain")
 STRESSES = ("clean", "coherent_subhuber_slip")
 METHOD_LABEL = {"huber_full": "Huber full", "huber_projected_gain": "Projected gain"}
 STRESS_LABEL = {"clean": "Clean", "coherent_subhuber_slip": "Coherent"}
+FIGURE4_METRICS = (
+    ("abs_weak_innovation_z_huber", "Absolute innovation score"),
+    ("abs_huber_window_mean", "Absolute window mean"),
+    ("abs_huber_cusum_signed", "Absolute signed CUSUM"),
+    ("huber_current_same_sign_run_length", "Current same-sign run (frames)"),
+)
+
+
+def nonnegative_integer_limits(values: Sequence[float]) -> tuple[int, int]:
+    """Return the frozen nonnegative integer range without clipping data."""
+
+    finite = [float(value) for value in values if math.isfinite(float(value))]
+    if not finite:
+        return (0, 1)
+    return (0, max(1, math.ceil(max(finite))))
+
+
+def build_figure(figure_id: str, rows: Sequence[Mapping[str, Any]]):
+    """Build one figure while exposing its Matplotlib axes for contract audits."""
+
+    builders = {
+        FIGURE_NAMES[0]: _figure1,
+        FIGURE_NAMES[1]: _figure2,
+        FIGURE_NAMES[2]: _figure3,
+        FIGURE_NAMES[3]: _figure4,
+    }
+    if figure_id not in builders:
+        raise ValueError(f"unknown Day 12 figure: {figure_id}")
+    return builders[figure_id](rows)
 
 
 def generate_four_figures(
@@ -36,10 +66,9 @@ def generate_four_figures(
     })
     target = Path(output_dir) / "figures"
     target.mkdir(parents=True, exist_ok=True)
-    builders = (_figure1, _figure2, _figure3, _figure4)
     results = []
-    for name, builder in zip(FIGURE_NAMES, builders):
-        fig = builder(figure_data[name])
+    for name in FIGURE_NAMES:
+        fig = build_figure(name, figure_data[name])
         bottom_margin = 0.075 if name.endswith("distributions") else 0.045
         layout_engine = fig.get_layout_engine()
         if layout_engine is not None:
@@ -116,7 +145,9 @@ def _figure2(rows: Sequence[Mapping[str, Any]]):
 
 def _figure3(rows: Sequence[Mapping[str, Any]]):
     fig, axes = plt.subplots(2, 2, figsize=(12, 8), sharex=True, sharey=True)
-    limits = padded_limits([float(row["huber_current_same_sign_run_length"]) for row in rows], integer=True)
+    limits = nonnegative_integer_limits([
+        float(row["huber_current_same_sign_run_length"]) for row in rows
+    ])
     for row_index, sweep in enumerate(SWEEPS):
         for column, method in enumerate(METHODS):
             ax = axes[row_index, column]
@@ -143,16 +174,14 @@ def _figure3(rows: Sequence[Mapping[str, Any]]):
 
 def _figure4(rows: Sequence[Mapping[str, Any]]):
     fig, axes = plt.subplots(4, 2, figsize=(12, 14), sharex=True)
-    metrics = (
-        ("abs_weak_innovation_z_huber", "Absolute innovation score"),
-        ("abs_huber_window_mean", "Absolute window mean"),
-        ("abs_huber_cusum_signed", "Absolute signed CUSUM"),
-        ("huber_current_same_sign_run_length", "Current same-sign run (frames)"),
-    )
     groups = tuple((method, stress) for method in METHODS for stress in STRESSES)
-    for metric_index, (metric, label) in enumerate(metrics):
+    for metric_index, (metric, label) in enumerate(FIGURE4_METRICS):
         metric_values = [float(row["metric_value"]) for row in rows if row["metric_name"] == metric and _as_bool(row["included"])]
-        limits = padded_limits(metric_values, integer=metric.endswith("run_length"))
+        limits = (
+            nonnegative_integer_limits(metric_values)
+            if metric == "huber_current_same_sign_run_length"
+            else padded_limits(metric_values)
+        )
         for column, sweep in enumerate(SWEEPS):
             ax = axes[metric_index, column]
             grouped = []
