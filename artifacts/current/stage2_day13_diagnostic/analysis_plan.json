@@ -1,0 +1,30 @@
+{
+  "best_statistic_selected": false,
+  "bootstrap_block": "geometry_seed",
+  "bootstrap_repetitions": 5000,
+  "bootstrap_seed": 23131,
+  "descriptive_combined_only": true,
+  "gross_control_in_auroc_or_fpr": false,
+  "negative_population": "evaluation matched severe clean eligible rows by sweep",
+  "open_control_in_auroc": false,
+  "positive_population": "evaluation coherent active eligible rows by sweep",
+  "primary_statistic": "huber_cusum_max",
+  "primary_statistic_role": "primary",
+  "schema_version": "stage2_failure_day13_analysis_plan_v1",
+  "secondary_statistic_role": "secondary_descriptive",
+  "secondary_statistics": [
+    "abs_weak_innovation_z_huber",
+    "abs_huber_window_mean",
+    "huber_window_energy",
+    "huber_dominant_sign_ratio",
+    "huber_current_same_sign_run_length",
+    "abs_huber_lag1_autocorrelation",
+    "abs_huber_skewness"
+  ],
+  "stage2_gate_decided": false,
+  "stage3_threshold_created": false,
+  "threshold_comparison_operator": ">",
+  "threshold_quantile": 0.9,
+  "threshold_quantile_rule": "nearest_rank",
+  "threshold_source": "calibration clean eligible rows only"
+}
