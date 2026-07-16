@@ -1,0 +1,5 @@
+schema_version,sweep,level,gross_case_count,median_contaminated_huber_downweighted_ratio,zero_downweight_case_count,zero_downweight_case_ratio,median_contaminated_subhuber_ratio,median_huber_outlier_ratio,interpretation,correction_version
+stage2_failure_day13_analysis_correction_v2,geometry,L3,40,0.625,0,0.0,0.375,0.02564102564102564,Huber downweighting is level-dependent; Geometry L4 is not stable,v2
+stage2_failure_day13_analysis_correction_v2,geometry,L4,40,0.0,25,0.625,1.0,0.01834862385321101,Huber downweighting is level-dependent; Geometry L4 is not stable,v2
+stage2_failure_day13_analysis_correction_v2,observation,O3,40,0.6971230158730158,0,0.0,0.30287698412698416,0.020833333333333332,Huber downweighting is level-dependent; Geometry L4 is not stable,v2
+stage2_failure_day13_analysis_correction_v2,observation,O4,40,0.875,0,0.0,0.125,0.015625,Huber downweighting is level-dependent; Geometry L4 is not stable,v2

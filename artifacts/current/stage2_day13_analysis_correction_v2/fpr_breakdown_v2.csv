@@ -1,0 +1,7 @@
+schema_version,role,population,eligible_frame_count,false_positive_frame_count,fpr,threshold,comparison_operator,target,target_met,correction_version
+stage2_failure_day13_analysis_correction_v2,calibration,clean_all,3500,350,0.1,13.745952939169019,>,0.1,True,v2
+stage2_failure_day13_analysis_correction_v2,calibration,weak_clean,2800,324,0.11571428571428571,13.745952939169019,>,0.1,False,v2
+stage2_failure_day13_analysis_correction_v2,calibration,open_control,700,26,0.037142857142857144,13.745952939169019,>,0.1,True,v2
+stage2_failure_day13_analysis_correction_v2,evaluation,clean_all,7000,595,0.085,13.745952939169019,>,0.1,True,v2
+stage2_failure_day13_analysis_correction_v2,evaluation,weak_clean,5600,561,0.10017857142857142,13.745952939169019,>,0.1,False,v2
+stage2_failure_day13_analysis_correction_v2,evaluation,open_control,1400,34,0.024285714285714285,13.745952939169019,>,0.1,True,v2
