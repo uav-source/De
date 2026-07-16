@@ -115,22 +115,9 @@ def primary_score_eligible(row: Mapping[str, Any]) -> bool:
 def statistic_score(row: Mapping[str, Any], statistic: str) -> float:
     if statistic == PRIMARY_STATISTIC:
         return float(row.get("primary_score", row.get(PRIMARY_STATISTIC)))
-    sources = {
-        "abs_weak_innovation_z_huber": ("weak_innovation_z_huber", True),
-        "abs_huber_window_mean": ("huber_window_mean", True),
-        "huber_window_energy": ("huber_window_energy", False),
-        "huber_dominant_sign_ratio": ("huber_dominant_sign_ratio", False),
-        "huber_current_same_sign_run_length": (
-            "huber_current_same_sign_run_length", False
-        ),
-        "abs_huber_lag1_autocorrelation": ("huber_lag1_autocorrelation", True),
-        "abs_huber_skewness": ("huber_skewness", True),
-    }
-    if statistic not in sources:
+    if statistic not in SECONDARY_STATISTICS:
         raise ValueError(f"unregistered Day 13 statistic: {statistic}")
-    source, absolute = sources[statistic]
-    value = float(row[source])
-    return abs(value) if absolute else value
+    return float(row[statistic])
 
 
 def analysis_population_rows(

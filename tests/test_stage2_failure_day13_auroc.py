@@ -1,6 +1,11 @@
 import pytest
 
-from eval.stage2_failure_day13_statistics import analysis_population_rows, tie_aware_auroc
+from eval.stage2_failure_day13_statistics import (
+    SECONDARY_STATISTICS,
+    analysis_population_rows,
+    statistic_score,
+    tie_aware_auroc,
+)
 
 
 def test_tie_aware_auroc_known_vectors():
@@ -27,3 +32,9 @@ def test_open_control_and_gross_rows_never_enter_auroc():
     selected = analysis_population_rows(rows, "geometry", "huber_cusum_max")
     assert len(selected) == 2
     assert {row["stress"] for row in selected} == {"clean", "coherent_subhuber_slip"}
+
+
+def test_secondary_statistics_read_the_preregistered_frame_score_columns():
+    row = {name: float(index + 1) for index, name in enumerate(SECONDARY_STATISTICS)}
+    for name in SECONDARY_STATISTICS:
+        assert statistic_score(row, name) == row[name]
