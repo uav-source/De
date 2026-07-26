@@ -5,4 +5,4 @@ matplotlib
 pyyaml
 pytest
 tqdm
-
+jsonschema
