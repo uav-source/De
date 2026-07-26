@@ -1,0 +1,7 @@
+sequence_id,repeat_id,status,scan_count,first_runtime_scan_index,first_measure_group_checksum,first_measure_group_lidar_begin_time,first_measure_group_lidar_end_time,first_measure_group_lidar_point_count,first_measure_group_imu_message_count,first_measure_group_first_imu_timestamp,first_measure_group_last_imu_timestamp
+avia_quick_shack,1,NOT_EVALUATED_RUNTIME_BINARY_TRUNCATED,,,,,,,,,
+avia_quick_shack,2,NOT_EVALUATED,,,,,,,,,
+avia_quick_shack,3,NOT_EVALUATED,,,,,,,,,
+avia_outdoor_run_100hz,1,NOT_EVALUATED,,,,,,,,,
+avia_outdoor_run_100hz,2,NOT_EVALUATED,,,,,,,,,
+avia_outdoor_run_100hz,3,NOT_EVALUATED,,,,,,,,,

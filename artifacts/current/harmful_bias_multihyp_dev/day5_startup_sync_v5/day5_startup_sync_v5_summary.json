@@ -1,0 +1,124 @@
+{
+  "ALL_CALLBACKS_RECEIVED_PASS": false,
+  "BASELINE_REPEATABILITY_PASS": false,
+  "CROSS_PROCESS_BITWISE_REPLAY_EQUIVALENCE": "NOT_PROVEN",
+  "DAY5_CAPTURE_EXPORT_REMEDIATION_AUTHORIZED": false,
+  "DAY5_RUNTIME_EQUIVALENCE_PASS": false,
+  "DAY5_STARTUP_SYNC_V5_PASS": false,
+  "DAY6_QUICK_DIAGNOSTICS_AUTHORIZED": false,
+  "DRAIN_SERVICE_WALL_TIMEOUT_PASS": false,
+  "END_OF_STREAM_DRAIN_PASS": false,
+  "FAILURE_CLASSIFICATION": "TAIL_CLOCK_DUPLICATE_TIME",
+  "FAST_LIO2_UNCHANGED_PASS": true,
+  "NORMAL_SHUTDOWN_PASS": false,
+  "OFF_ON_REPLAY_EQUIVALENCE_STATUS": "NOT_REEVALUATED_STARTUP_SYNC_ONLY",
+  "OUTDOOR_BASELINE_REPEATABILITY_PASS": false,
+  "QUICK_BASELINE_REPEATABILITY_PASS": false,
+  "RECOMMENDED_FALLBACK_EVIDENCE_ROUTE": "IN_CALL_IMMUTABILITY+FROZEN_OBSERVATION_RECORD+OFFLINE_PRODUCTION_DETECTOR_DETERMINISM+REAL_REPLAY_FUNCTIONAL_STATISTICAL_TOLERANCE",
+  "REPLAY_ENDPOINT_CONTRACT_PASS": true,
+  "RUNNER_PERSISTENCE_PASS": false,
+  "RUNTIME_PRODUCT_COMPLETENESS_PASS": false,
+  "STRICT_CROSS_PROCESS_REPLAY_ROUTE_STATUS": "ABANDONED_AFTER_V5",
+  "STRICT_REPLAY_FURTHER_REMEDIATION_AUTHORIZED": false,
+  "TAIL_CLOCK_HANDOFF_PASS": false,
+  "TAIL_CLOCK_MAIN_LOOP_PROGRESS_PASS": false,
+  "TAIL_CLOCK_MONOTONIC_PASS": false,
+  "TAIL_CLOCK_NO_OVERLAP_PASS": false,
+  "TAIL_CLOCK_PROTOCOL_TEST_PASS": true,
+  "accepted_index_mismatch_count": 0,
+  "capture_only_run": false,
+  "clock_backward_count": 0,
+  "clock_duplicate_count": 226,
+  "clock_publisher_overlap_count": 0,
+  "compact_export_run": false,
+  "correspondence_mismatch_count": 0,
+  "day5_commit_created": false,
+  "detector_called": false,
+  "detector_modified": false,
+  "development_run": false,
+  "drain_pass_count": 1,
+  "duplicate_scan_count": 0,
+  "engineering_quick_replay_run": true,
+  "executed_replay_count": 1,
+  "failure_adjudication_path": "post_run_failure_adjudication.json",
+  "final_map_mismatch_count": 0,
+  "first_divergence_scan": null,
+  "first_divergence_stage": "TAIL_CLOCK_DUPLICATE_TIME",
+  "future_test_run": false,
+  "holdout_run": false,
+  "jacobian_mismatch_count": 0,
+  "map_size_mismatch_count": 0,
+  "max_consecutive_service_timeouts": 0,
+  "max_covariance_difference": 0.0,
+  "max_position_difference_m": 0.0,
+  "max_rotation_difference_rad": 0.0,
+  "measure_group_mismatch_count": 0,
+  "missing_scan_count": 0,
+  "odi_computed": false,
+  "outdoor": null,
+  "outdoor_executed": false,
+  "paired_scan_count": 0,
+  "per_run_callback_counts": [
+    {
+      "imu": 9953,
+      "lidar": 491,
+      "repeat_id": 1,
+      "sequence_id": "avia_quick_shack"
+    }
+  ],
+  "per_run_last_bag_clock_ns": [
+    1600270417569223231
+  ],
+  "per_run_main_loop_heartbeat_growth": [
+    {
+      "end": 57473,
+      "growth": 17884,
+      "repeat_id": 1,
+      "sequence_id": "avia_quick_shack",
+      "start": 39589
+    }
+  ],
+  "per_run_processed_measure_group_counts": [
+    490
+  ],
+  "per_run_remaining_imu_counts": [
+    20
+  ],
+  "per_run_tail_final_clock_ns": [
+    1600270427952223231
+  ],
+  "per_run_tail_first_clock_ns": [
+    1600270417570223231
+  ],
+  "per_run_tail_publish_count": [
+    10383
+  ],
+  "per_run_unprocessed_lidar_tail_counts": [
+    1
+  ],
+  "planned_replay_count": 6,
+  "posterior_covariance_mismatch_count": 0,
+  "posterior_state_mismatch_count": 0,
+  "prior_covariance_mismatch_count": 0,
+  "prior_state_mismatch_count": 0,
+  "push_performed": false,
+  "quick": null,
+  "real_data_used": true,
+  "residual_mismatch_count": 0,
+  "rosbag_run": true,
+  "roscore_run": true,
+  "roslaunch_run": true,
+  "run_id": "multihyp_day5_startup_sync_v5",
+  "runner_interruption_count": 0,
+  "runtime_product_pass_count": 0,
+  "scientific_experiment_run": false,
+  "service_call_timeout_count": 0,
+  "service_call_timeout_sec": 2.0,
+  "shutdown_completed_count": 1,
+  "successful_replay_count": 0,
+  "supervisor_heartbeat_count": 47,
+  "supervisor_max_heartbeat_gap_sec": 5.012012891,
+  "supervisor_pid": 2632516,
+  "supervisor_terminal_state": "FAILED",
+  "threshold_modified": false
+}

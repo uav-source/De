@@ -1,0 +1,74 @@
+DAY6_EXPERIMENT_A_MAP_SNAPSHOT_STATIC_READONLY_AUDIT_V1
+
+formal_source_identity:
+  h_share_model_before_sha256:
+    b83364d819aaab79e0655f7ec5095246b8448244268d9f5fa11c15869ae8fa40
+  h_share_model_after_sha256:
+    b83364d819aaab79e0655f7ec5095246b8448244268d9f5fa11c15869ae8fa40
+  map_incremental_before_sha256:
+    d32d409a30c701b30931465206e03e5ddb3649b583f0a14d2636b461c3acca71
+  map_incremental_after_sha256:
+    d32d409a30c701b30931465206e03e5ddb3649b583f0a14d2636b461c3acca71
+  lasermap_fov_segment_before_sha256:
+    ef3d7de3d6c5c1e5ab8547b44c58b22e8cfd1ce4585513c068943af7cc8568f9
+  lasermap_fov_segment_after_sha256:
+    ef3d7de3d6c5c1e5ab8547b44c58b22e8cfd1ce4585513c068943af7cc8568f9
+  IMU_Processing_before_sha256:
+    a456016e268680555919f58ae066354fd297a27f49be197292452f4147e1e0f5
+  IMU_Processing_after_sha256:
+    a456016e268680555919f58ae066354fd297a27f49be197292452f4147e1e0f5
+  formal_expression_bundle_before_sha256:
+    ec403d82c0a4960bf7683ad6a5a187659019f48044ec59de29fb81709e0b22ef
+  formal_expression_bundle_after_sha256:
+    ec403d82c0a4960bf7683ad6a5a187659019f48044ec59de29fb81709e0b22ef
+  formal_math_combined_before_sha256:
+    eaaa9e77b79590840c0d7782b144a079431f32ac89b06d52fdf2352321c3eb54
+  formal_math_combined_after_sha256:
+    eaaa9e77b79590840c0d7782b144a079431f32ac89b06d52fdf2352321c3eb54
+
+formal_expression_identity:
+  state_update: byte-identical
+  covariance_update: byte-identical
+  Kalman_gain_path: byte-identical
+  point_to_plane_residual: byte-identical
+  native_Jacobian: byte-identical
+  correspondence_condition: byte-identical
+  Nearest_Search_parameters: byte-identical
+  plane_fit_parameters: byte-identical
+  map_Add_Points_parameters: byte-identical
+  map_Delete_Point_Boxes_parameters: byte-identical
+  rebuild_trigger_and_subtree_selection: byte-identical except authorized
+    diagnostic generation increment at the existing commit boundary
+  IMU_propagation: byte-identical
+  undistortion: byte-identical
+  OpenMP_pragma: byte-identical
+
+snapshot_forbidden_call_scan:
+  Add_Points: 0
+  Delete_Point_Boxes: 0
+  Nearest_Search: 0
+  esti_plane: 0
+  update_iterated_dyn_share_modified: 0
+  change_x: 0
+  change_P: 0
+  boxplus: 0
+
+authorized_ikdtree_delta:
+  readonly_snapshot_API: present
+  readonly_lazy_delete_interpretation: present
+  diagnostic_atomic_rebuild_generation: present
+  diagnostic_atomic_mutation_counters: present
+  formal_branch_added: false
+  rebuild_trigger_changed: false
+  subtree_selection_changed: false
+  rebuild_logger_semantics_changed: false
+  point_comparator_changed: false
+  box_predicate_changed: false
+  Nearest_Search_changed: false
+
+external_unlocked_Root_Node_collector_call_count: 0
+background_diagnostic_thread_added: false
+full_map_export_added: false
+
+STATIC_READONLY_AUDIT_PASS=true
+FORMAL_FAST_MATH_UNCHANGED_PASS=true

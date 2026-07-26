@@ -1,0 +1,2 @@
+heartbeat_count,max_heartbeat_gap_sec,runner_interruption_count,supervisor_pid,terminal_state
+88,17.648816821,1,2608270,INTERRUPTED

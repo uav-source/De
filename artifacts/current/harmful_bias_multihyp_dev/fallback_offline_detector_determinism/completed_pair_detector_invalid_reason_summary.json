@@ -1,0 +1,10 @@
+{
+  "invalid_count": 1,
+  "invalid_reason_counts": {
+    "NONE": 486,
+    "TOO_FEW_CORRESPONDENCES": 1
+  },
+  "nonfinite_output_count": 0,
+  "schema_version": "fallback_detector_invalid_reason_summary_v1",
+  "valid_count": 486
+}

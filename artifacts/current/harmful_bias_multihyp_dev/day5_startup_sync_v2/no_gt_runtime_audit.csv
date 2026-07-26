@@ -1,0 +1,7 @@
+sequence_id,repeat_id,status,gt_topic_consumed_count
+avia_quick_shack,1,NOT_EVALUATED_RUNTIME_PRODUCT_INCOMPLETE,
+avia_quick_shack,2,NOT_EVALUATED,
+avia_quick_shack,3,NOT_EVALUATED,
+avia_outdoor_run_100hz,1,NOT_EVALUATED,
+avia_outdoor_run_100hz,2,NOT_EVALUATED,
+avia_outdoor_run_100hz,3,NOT_EVALUATED,

@@ -1,0 +1,4 @@
+sequence_id,repeat_id,when,degen_source_lock_pass,fastlio2_source_lock_pass,binary_lock_pass,clip_lock_pass,status
+avia_quick_shack,1,pre,true,true,true,true,PASS_EXECUTED_RUN
+avia_quick_shack,1,post_clear,true,true,true,true,PASS_EXECUTED_RUN
+avia_quick_shack,1,post_failure,true,true,true,true,PASS_EXECUTED_RUN

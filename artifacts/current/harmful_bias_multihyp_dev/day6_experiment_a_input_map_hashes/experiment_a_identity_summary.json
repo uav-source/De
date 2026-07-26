@@ -1,0 +1,20 @@
+{
+  "checksum_collision_limitation_disclosed": true,
+  "checksum_interpretation": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "identity_status": {
+    "correspondence": "MATCHED_BY_CANONICAL_CHECKSUM",
+    "imu_bundle": "MATCHED_BY_CANONICAL_CHECKSUM",
+    "insertion_batch": "MATCHED_BY_CANONICAL_CHECKSUM",
+    "map_content_after": "DIVERGED",
+    "map_content_before": "MATCHED_BY_CANONICAL_CHECKSUM",
+    "map_traversal_after": "DIVERGED",
+    "map_traversal_before": "DIVERGED",
+    "post_update_state": "MATCHED_BY_CANONICAL_CHECKSUM",
+    "prior_covariance": "MATCHED_BY_CANONICAL_CHECKSUM",
+    "prior_state": "MATCHED_BY_CANONICAL_CHECKSUM",
+    "raw_lidar": "MATCHED_BY_CANONICAL_CHECKSUM",
+    "timestamp": "MATCHED_BY_CANONICAL_CHECKSUM",
+    "undistorted_cloud": "MATCHED_BY_CANONICAL_CHECKSUM"
+  },
+  "schema_version": "experiment_a_identity_summary_v1"
+}

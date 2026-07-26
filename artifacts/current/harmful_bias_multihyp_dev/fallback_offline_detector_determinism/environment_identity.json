@@ -1,0 +1,137 @@
+{
+  "blas_identity": {
+    "blas_ilp64_opt_info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    },
+    "lapack_ilp64_opt_info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ],
+        [
+          "HAVE_LAPACKE",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    },
+    "openblas64__info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    },
+    "openblas64__lapack_info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ],
+        [
+          "HAVE_LAPACKE",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    }
+  },
+  "environment_variables": {
+    "LANG": "C",
+    "LC_ALL": "C",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_DYNAMIC": "FALSE",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONHASHSEED": "0",
+    "TZ": "UTC",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "numpy_version": "1.24.4",
+  "platform": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
+  "python_implementation": "CPython",
+  "python_version": "3.8.10",
+  "scipy_version": "1.10.1"
+}

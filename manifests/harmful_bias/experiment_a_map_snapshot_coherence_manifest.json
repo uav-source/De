@@ -1,0 +1,211 @@
+{
+  "CROSS_PROCESS_BITWISE_REPLAY_EQUIVALENCE": "NOT_PROVEN",
+  "COHERENT_BIAS_HARMFUL_MECHANISM_SUPPORTED": true,
+  "COHERENT_BIAS_STABLY_ONLINE_DETECTABLE": false,
+  "FAST_LIO2_INTEGRATION_AUTHORIZED": false,
+  "HARMFUL_BIAS_DETECTABILITY_STATUS": "NOT_EVALUATED_DAY6_EXPERIMENT_A_MAP_SNAPSHOT_COHERENCE",
+  "PATENT2_AUTHORIZED": false,
+  "PUBLIC_DISCLOSURE_AUTHORIZED": false,
+  "RISK_WARNING_AUTHORIZED": false,
+  "STAGE2_GATE": "FAIL",
+  "STAGE3_START_AUTHORIZED": false,
+  "STAGE4_START_AUTHORIZED": false,
+  "STRICT_CROSS_PROCESS_REPLAY_ROUTE_STATUS": "ABANDONED_AFTER_V5",
+  "STRICT_REPLAY_FURTHER_REMEDIATION_AUTHORIZED": false,
+  "TRANSITION": "PIVOT",
+  "additional_replay_authorized": false,
+  "additional_replay_recommended": false,
+  "authorization_audit_sha256": "1d5ab7f3e3ed44f8c9c77776ecb6504980e5e2abe92c618f829bb9b108130513",
+  "checksum_collision_limitation": "MATCHED_BY_CANONICAL_CHECKSUM; finite FNV-1a checksums may collide",
+  "clip_sha256": "272325265978787c838e010b1f0da963a15fb4b08ff8730fc3dd9901e32a0e20",
+  "commit_created": false,
+  "correspondence_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "created_at_utc": "2026-07-17T16:37:40Z",
+  "degen_full_pytest": "1102 passed, 1 skipped, 1 warning",
+  "degen_targeted_pytest": "38 passed",
+  "day7_authorized": false,
+  "day7_recommended": false,
+  "day7_recommended_scope": "NONE",
+  "detector_called": false,
+  "development_run": false,
+  "exact_real_replay_count": 2,
+  "experiment_a_map_snapshot_remediation_execution_pass": true,
+  "experiment_a_pass": true,
+  "experiment_a_stage_localization_pass": true,
+  "fastlio2_run": true,
+  "fast_production_build_rerun_after_test_fix": false,
+  "fast_test_result": "256 tests, 0 errors, 0 failures, 0 skipped",
+  "first_divergence_scan": 135,
+  "first_divergence_stage": "map_traversal_after",
+  "formal_math_source_sha256_after": "eaaa9e77b79590840c0d7782b144a079431f32ac89b06d52fdf2352321c3eb54",
+  "formal_math_source_sha256_before": "eaaa9e77b79590840c0d7782b144a079431f32ac89b06d52fdf2352321c3eb54",
+  "future_test_run": false,
+  "gates": {
+    "AUDIT_PACKAGE_SCOPE_PASS": true,
+    "CORRESPONDENCE_HASH_REUSE_PASS": true,
+    "DEGEN_FULL_TEST_PASS": true,
+    "DEGEN_TARGETED_TEST_PASS": true,
+    "DIAGNOSTIC_IMMUTABILITY_PASS": true,
+    "DIFF_SCOPE_PASS": true,
+    "FAST_BUILD_PASS": true,
+    "FAST_TEST_PASS": true,
+    "FORMAL_FAST_MATH_UNCHANGED_PASS": true,
+    "IMU_BUNDLE_HASH_CAPTURE_PASS": true,
+    "INSERTION_BATCH_HASH_CAPTURE_PASS": true,
+    "MAP_SNAPSHOT_COHERENCE_PASS": true,
+    "MAP_SNAPSHOT_CROSS_SCAN_COHERENCE_PASS": true,
+    "MAP_SNAPSHOT_IMPLEMENTATION_PASS": true,
+    "MAP_SNAPSHOT_LOCK_PROTOCOL_CONFIRMED": true,
+    "MAP_AFTER_SNAPSHOT_CAPTURE_PASS": true,
+    "MAP_BEFORE_SNAPSHOT_CAPTURE_PASS": true,
+    "NO_GT_PASS": true,
+    "NO_TAP_DROP_PASS": true,
+    "NO_WRITER_ERROR_PASS": true,
+    "OBSERVATION_BINARY_INTEGRITY_PASS": true,
+    "PAIRWISE_STAGE_HASH_COMPARISON_PASS": true,
+    "RAW_LIDAR_HASH_CAPTURE_PASS": true,
+    "REMEDIATION_AUTHORIZATION_IDENTITY_PASS": true,
+    "RUN_1_COMPLETENESS_PASS": true,
+    "RUN_2_COMPLETENESS_PASS": true,
+    "STAGE_CLASSIFICATION_COMPLETE": true,
+    "STAGE_HASH_V2_RECORD_COUNT_PASS": true,
+    "STAGE_HASH_WINDOW_COVERAGE_PASS": true,
+    "STATIC_READONLY_AUDIT_PASS": true,
+    "TWO_REPLAY_RUNS_COMPLETE_PASS": true,
+    "UNDISTORTED_CLOUD_HASH_CAPTURE_PASS": true
+  },
+  "holdout_run": false,
+  "ikdtree_source_sha256_after": "2a17d431b11de0607b4f7505624d3ce77e39eef29b054b0440f67c099ccc810b",
+  "ikdtree_source_sha256_before": "87bfd4cc4ea68139c6571d631da9020d10bc79cc917effbefc0272ea1163250a",
+  "imu_bundle_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "insertion_batch_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "lock_protocol_document_sha256": "f768d7d96a47f393ce9aca3f9ad16fa7feafe6b3c1b90f597c5d48584afd089a",
+  "lock_protocol_status": "CONFIRMED",
+  "main_run_id": "multihyp_day6_experiment_a_map_snapshot_coherence_v1",
+  "map_content_after_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "map_content_before_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "map_snapshot_coherence_pass": true,
+  "map_snapshot_cross_scan_coherence_pass": true,
+  "map_traversal_after_identity_status": "DIVERGED",
+  "map_traversal_before_identity_status": "DIVERGED",
+  "odi_computed": false,
+  "offline_analysis_lock_sha256": "59d071c1fb73fa30de87e3d10716802dbfbab4e5943ba4e632c955d903878d5f",
+  "offline_classifier_rule_conformance_correction": {
+    "classification_after": "MAP_STORAGE_ORDER_DIFFERED_WITH_MATCHED_CONTENT",
+    "classification_before": "MAP_INSERTION_STAGE_DIVERGED",
+    "post_correction_classifier_sha256": "0621dabf00c551c00f100a2cf8d6d85fb3fcce76bef3f2db0431d26482320865",
+    "pre_correction_classifier_sha256": "9c30f13b7565f71e9e90fafe49dd9c9b57e590ff59979c4c04f4dc1399a02f68",
+    "runtime_products_changed": false
+  },
+  "original_scan147_formal_branch_reproduced": false,
+  "per_run_no_add_but_count_increase_count": [
+    0,
+    0
+  ],
+  "per_run_coherent_snapshot_count": [
+    52,
+    52
+  ],
+  "per_run_cross_scan_continuity_violation_count": [
+    0,
+    0
+  ],
+  "per_run_incoherent_snapshot_count": [
+    0,
+    0
+  ],
+  "per_run_logical_add_call_count": [
+    52,
+    52
+  ],
+  "per_run_logical_delete_call_count": [
+    0,
+    0
+  ],
+  "per_run_map_after_snapshot_count": [
+    26,
+    26
+  ],
+  "per_run_map_before_snapshot_count": [
+    26,
+    26
+  ],
+  "per_run_observation_count": [
+    487,
+    487
+  ],
+  "per_run_rebuild_generation_changes": [
+    2,
+    2
+  ],
+  "per_run_stage_record_count": [
+    26,
+    26
+  ],
+  "post_update_state_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "post_update_covariance_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "prior_covariance_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "prior_state_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "push_performed": false,
+  "raw_lidar_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "rosbag_run": true,
+  "roscore_run": true,
+  "roslaunch_run": true,
+  "result_identity": "INTERNAL_ENGINEERING_MAP_SNAPSHOT_DIAGNOSTICS_ONLY",
+  "runtime_lock_sha256": "5145062b455868c90f941f6a302e5d4767a271889718df2cb1b5d24ecd7a0331",
+  "runtime_wrapper_post_run_materialization": {
+    "affected_real_replay_completion": false,
+    "failure": "KeyError: ros_master_port",
+    "offline_materialization_recovery_pass": true,
+    "per_run_wrapper_exit_code": [
+      1,
+      1
+    ],
+    "replay_rerun": false
+  },
+  "scan_end": 160,
+  "scan_start": 135,
+  "schema_version": "experiment_a_map_snapshot_coherence_manifest_v1",
+  "sequence_id": "avia_quick_shack",
+  "snapshot_copy_cost_statistics": [
+    {
+      "count": 52,
+      "max": 121999,
+      "mean": 36728.86538461538,
+      "min": 7072
+    },
+    {
+      "count": 52,
+      "max": 108937,
+      "mean": 42035.019230769234,
+      "min": 11418
+    }
+  ],
+  "snapshot_implementation": "NEW_READONLY_SYNCHRONIZED_KDTREE_API",
+  "snapshot_max_attempts": 3,
+  "snapshot_method": "KD_TREE_REBUILD_PTR_THEN_WORKING_MUTEX_COPY_V1",
+  "snapshot_lock_wait_statistics": [
+    {
+      "count": 52,
+      "max": 219,
+      "mean": 41.94230769230769,
+      "min": 21
+    },
+    {
+      "count": 52,
+      "max": 230,
+      "mean": 51.67307692307692,
+      "min": 22
+    }
+  ],
+  "snapshot_schema_version": "coherent_map_snapshot_v2",
+  "stage_classification": "MAP_STORAGE_ORDER_DIFFERED_WITH_MATCHED_CONTENT",
+  "storage_order_difference_observed": true,
+  "sub_run_ids": [
+    "multihyp_day6_experiment_a_map_snapshot_r1",
+    "multihyp_day6_experiment_a_map_snapshot_r2"
+  ],
+  "undistorted_cloud_identity_status": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "unexpected_changed_file_count": 0,
+  "weak_direction_computed": false
+}

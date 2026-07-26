@@ -1,0 +1,20 @@
+{
+  "additional_replay_authorized": false,
+  "additional_replay_recommended": false,
+  "branch_reproduced": true,
+  "checksum_collision_limitation_disclosed": true,
+  "checksum_interpretation": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "comparison_pass": true,
+  "day7_authorized": false,
+  "day7_recommended": false,
+  "day7_recommended_scope": "NONE",
+  "evidence_gap": false,
+  "experiment_a_pass": true,
+  "experiment_a_stage_localization_pass": true,
+  "first_divergence_scan": 135,
+  "first_divergence_stage": "map_content_after",
+  "input_replay_or_preprocessing_remediation_recommended": false,
+  "schema_version": "experiment_a_stage_classification_v1",
+  "stage_classification": "MAP_INSERTION_STAGE_DIVERGED",
+  "stage_classification_complete": true
+}

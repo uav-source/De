@@ -1,0 +1,2 @@
+bag_clock_publisher_disappear_ready_ns,bag_clock_publisher_disappear_start_ns,bag_player_exit_monotonic_ns,clock_publisher_overlap_count,clock_publishers_after_handoff,clock_publishers_before_handoff,clock_publishers_during_handoff,no_overlap_pass,repeat_id,sequence_id,tail_start_request_monotonic_ns,tail_start_response_monotonic_ns
+156016337720324,156016334878214,156016334869059,0,[],[],"[""/day5_tail_clock""]",True,1,avia_quick_shack,156016558320817,156016568030990

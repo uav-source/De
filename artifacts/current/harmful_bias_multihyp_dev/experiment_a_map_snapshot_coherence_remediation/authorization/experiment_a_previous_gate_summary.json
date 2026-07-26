@@ -1,0 +1,12 @@
+{
+  "authorization_audit_sha256": "1d5ab7f3e3ed44f8c9c77776ecb6504980e5e2abe92c618f829bb9b108130513",
+  "experiment_a_hash_capture_infrastructure_pass": true,
+  "experiment_a_replay_execution_pass": true,
+  "map_snapshot_coherence_pass": false,
+  "previous_map_after_run_1_scan_135_count": 1575,
+  "previous_map_after_run_2_scan_135_count": 596,
+  "previous_map_before_run_2_scan_136_count": 1575,
+  "previous_map_insertion_stage_diverged_conclusion": "REVOKED",
+  "schema_version": "experiment_a_previous_gate_summary_v1",
+  "stage_classification_complete": false
+}

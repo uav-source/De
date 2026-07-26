@@ -1,0 +1,18 @@
+{
+  "executed_replay_count": 1,
+  "planned_replay_count": 6,
+  "run_id": "multihyp_day5_startup_sync_v2",
+  "runs": [
+    {
+      "connection_handshake_pass": true,
+      "failure_classification": "UNEXPECTED_RUNTIME_OUTPUT",
+      "mode": "AUDIT_ONLY",
+      "paused_start_pass": true,
+      "repeat_id": 1,
+      "runtime_output_contract_pass": false,
+      "sequence_id": "avia_quick_shack",
+      "successful_replay": false
+    }
+  ],
+  "successful_replay_count": 0
+}

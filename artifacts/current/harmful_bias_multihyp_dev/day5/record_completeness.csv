@@ -1,0 +1,9 @@
+sequence_id,run_label,first_valid_linearization_count,observation_record_count,detector_output_count,tap_drop_count,writer_error_count,pass
+avia_quick_shack,OFF_R1,486,0,0,0,0,True
+avia_quick_shack,ON_R1,486,486,486,0,0,True
+avia_quick_shack,ON_R2,486,486,486,0,0,True
+avia_quick_shack,OFF_R2,486,0,0,0,0,True
+avia_outdoor_run_100hz,OFF_R1,6368,0,0,0,0,True
+avia_outdoor_run_100hz,ON_R1,6364,6364,6350,0,0,False
+avia_outdoor_run_100hz,ON_R2,6368,6368,6360,0,0,False
+avia_outdoor_run_100hz,OFF_R2,6368,0,0,0,0,True

@@ -1,0 +1,7 @@
+execution_status,final_map_summary_pass,repeat_id,run_summary_pass,runtime_binary_checksum_pass,runtime_binary_record_count,runtime_binary_trailer_pass,runtime_product_missing_count,runtime_product_pass,sequence_id,tap_export_summary_pass
+VALIDATED,True,1,True,True,489,True,0,True,avia_quick_shack,True
+VALIDATED,True,2,True,True,490,True,0,True,avia_quick_shack,True
+VALIDATED,True,3,True,True,489,True,0,True,avia_quick_shack,True
+VALIDATED,True,1,True,True,6384,True,0,True,avia_outdoor_run_100hz,True
+NOT_EVALUATED_INTERRUPTED,NOT_EVALUATED,2,NOT_EVALUATED,NOT_EVALUATED,NOT_EVALUATED,NOT_EVALUATED,0,False,avia_outdoor_run_100hz,NOT_EVALUATED
+NOT_EXECUTED,NOT_EVALUATED,3,NOT_EVALUATED,NOT_EVALUATED,NOT_EVALUATED,NOT_EVALUATED,4,False,avia_outdoor_run_100hz,NOT_EVALUATED

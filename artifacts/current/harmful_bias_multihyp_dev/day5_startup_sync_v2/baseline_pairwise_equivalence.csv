@@ -1,0 +1,7 @@
+sequence_id,left_run,right_run,status,paired_scan_count,missing_scan_count,duplicate_scan_count,first_divergence_scan_index,first_divergence_stage
+avia_quick_shack,AUDIT_ONLY_R1,AUDIT_ONLY_R2,NOT_EVALUATED,,,,,UNEXPECTED_RUNTIME_OUTPUT
+avia_quick_shack,AUDIT_ONLY_R1,AUDIT_ONLY_R3,NOT_EVALUATED,,,,,UNEXPECTED_RUNTIME_OUTPUT
+avia_quick_shack,AUDIT_ONLY_R2,AUDIT_ONLY_R3,NOT_EVALUATED,,,,,UNEXPECTED_RUNTIME_OUTPUT
+avia_outdoor_run_100hz,AUDIT_ONLY_R1,AUDIT_ONLY_R2,NOT_EVALUATED,,,,,UNEXPECTED_RUNTIME_OUTPUT
+avia_outdoor_run_100hz,AUDIT_ONLY_R1,AUDIT_ONLY_R3,NOT_EVALUATED,,,,,UNEXPECTED_RUNTIME_OUTPUT
+avia_outdoor_run_100hz,AUDIT_ONLY_R2,AUDIT_ONLY_R3,NOT_EVALUATED,,,,,UNEXPECTED_RUNTIME_OUTPUT

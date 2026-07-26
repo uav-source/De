@@ -1,0 +1,5 @@
+order,mutex_or_guard,owner,protected_objects,confidence
+1,rebuild_ptr_mutex_lock,KD_TREE,rebuild pointer and complete background rebuild lifetime,CONFIRMED
+2,working_flag_mutex,KD_TREE,active rebuild mutation and logger handoff,CONFIRMED
+3,search_flag_mutex plus search_mutex_counter,KD_TREE,selected subtree reader admission,CONFIRMED
+4,rebuild_logger_mutex_lock,KD_TREE,rebuild operation logger,CONFIRMED

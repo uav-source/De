@@ -1,0 +1,2 @@
+failure_reason,first_tail_exact_pass,handoff_pass,last_bag_clock_ns,repeat_id,sequence_id,start_success,stop_success,tail_clock_step_ns,tail_final_clock_ns,tail_first_clock_ns,tail_publish_count
+NONE,True,False,1600270417569223231,1,avia_quick_shack,True,True,1000000,1600270427952223231,1600270417570223231,10383

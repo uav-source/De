@@ -1,0 +1,3 @@
+sequence_id,repeat_id,when,source_lock_pass,binary_sha256_match,clip_sha256_match,fastlio2_worktree_match,failure_detail
+avia_quick_shack,1,pre,true,true,true,true,NONE
+avia_quick_shack,1,post,false,true,true,false,FAST_LIO_Log_mat_pre_txt_SHA_changed

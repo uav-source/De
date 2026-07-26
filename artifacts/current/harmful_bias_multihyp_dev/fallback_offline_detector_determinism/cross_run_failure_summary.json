@@ -1,0 +1,24 @@
+{
+  "canonical_json_byte_determinism_pass": false,
+  "completed_pair": "fresh_process_run_2_vs_fresh_process_run_3",
+  "completed_pair_json_line_mismatch_count": 0,
+  "completed_pair_jsonl_sha256": [
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232"
+  ],
+  "completed_pair_record_checksum_mismatch_count": 0,
+  "completed_pair_record_count": 487,
+  "completed_pair_record_identity_mismatch_count": 0,
+  "completed_pair_whole_file_sha_mismatch_count": 0,
+  "failed_run_id": "fresh_process_run_1",
+  "failure_classification": "RUNTIME_ADAPTER_PRECONDITION_DIFFERS_FROM_DIRECT_PRODUCTION_ENTRYPOINT",
+  "fresh_process_attempt_count": 3,
+  "fresh_process_complete_count": 2,
+  "per_record_checksum_determinism_pass": false,
+  "schema_version": "fallback_detector_cross_run_failure_summary_v1",
+  "three_run_comparison_completed": false,
+  "three_run_json_line_mismatch_count": null,
+  "three_run_record_checksum_mismatch_count": null,
+  "three_run_whole_file_sha_mismatch_count": null,
+  "whole_file_sha_determinism_pass": false
+}

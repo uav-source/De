@@ -1,0 +1,547 @@
+{
+  "gate": {
+    "ADAPTER_DIRECT_CONTRACT_PASS": true,
+    "AUDIT_PACKAGE_SCOPE_PASS": true,
+    "AUPRC_COMPUTED": false,
+    "AUROC_COMPUTED": false,
+    "CLIP_IDENTITY_PASS": true,
+    "CROSS_PROCESS_BITWISE_REPLAY_EQUIVALENCE": "NOT_PROVEN",
+    "CROSS_RUN_BITWISE_EQUIVALENCE_CLAIMED": false,
+    "CROSS_RUN_EXACT_OUTPUT_EQUALITY_REQUIRED": false,
+    "CROSS_RUN_STATISTICAL_COMPARISON_COMPLETE": true,
+    "DAY6_AUTHORIZATION_IDENTITY_PASS": true,
+    "DAY6_FALLBACK_CONTINUITY_DIAGNOSTICS_PASS": true,
+    "DAY6_FALLBACK_DETECTOR_EXECUTION_PASS": true,
+    "DAY6_FALLBACK_FUNCTIONAL_DIAGNOSTICS_PASS": true,
+    "DAY6_FALLBACK_OBSERVATION_COMPLETENESS_PASS": true,
+    "DAY6_FALLBACK_REAL_REPLAY_CAPTURE_PASS": true,
+    "DAY6_FALLBACK_STATISTICAL_CHARACTERIZATION_PASS": true,
+    "DAY6_QUICK_DIAGNOSTICS_AUTHORIZED": false,
+    "DEGEN_FULL_TEST_PASS": true,
+    "DEGEN_SOURCE_LOCK_PASS": true,
+    "DEGEN_TARGETED_TEST_PASS": true,
+    "DETECTOR_ARTIFACT_IMMUTABILITY_PASS": true,
+    "DETECTOR_ENVIRONMENT_LOCK_PASS": true,
+    "DETECTOR_FEEDBACK_TO_ESTIMATOR": false,
+    "DETECTOR_FEEDBACK_TO_MAP": false,
+    "DETECTOR_OUTPUT_COUNT_PASS": true,
+    "DETECTOR_OUTPUT_SCHEMA_PASS": true,
+    "DIFF_SCOPE_PASS": true,
+    "DIRECTION_CONTINUITY_DIAGNOSTICS_PASS": true,
+    "ENDPOINT_CONTRACT_PASS": true,
+    "END_OF_STREAM_DRAIN_PASS": true,
+    "FAST_BINARY_LOCK_PASS": true,
+    "FAST_LIO2_INTEGRATION_AUTHORIZED": false,
+    "FAST_LIO2_ROBUST_UPDATE_INTEGRATED": false,
+    "FAST_SOURCE_LOCK_PASS": true,
+    "FLAG_CONTINUITY_DIAGNOSTICS_PASS": true,
+    "FPR_COMPUTED": false,
+    "HARMFUL_BIAS_DETECTABILITY_EVALUATED": false,
+    "HARMFUL_BIAS_DETECTABILITY_STATUS": "NOT_EVALUATED_DAY6_FALLBACK_FUNCTIONAL_DIAGNOSTICS",
+    "INPUT_IMMUTABILITY_PASS": true,
+    "IN_CALL_IMMUTABILITY_RECONFIRMED": true,
+    "LATENCY_CHARACTERIZATION_PASS": true,
+    "METRIC_DESCRIPTIVE_STATISTICS_PASS": true,
+    "NEXT_PHASE_AUTHORIZED": false,
+    "NEXT_PHASE_RECOMMENDED": true,
+    "NORMAL_SHUTDOWN_PASS": true,
+    "NO_GT_PASS": true,
+    "NO_TAP_DROP_PASS": true,
+    "NO_WRITER_ERROR_PASS": true,
+    "OBSERVATION_BINARY_INTEGRITY_PASS": true,
+    "OBSERVATION_COUNT_COMPLETENESS_PASS": true,
+    "ONLINE_DETECTOR_LATENCY_EVALUATED": false,
+    "OUTPUT_CONTINUITY_DIAGNOSTICS_PASS": true,
+    "OUTPUT_TIMESTAMP_MONOTONICITY_PASS": true,
+    "PATENT2_AUTHORIZED": false,
+    "PLOTS_COMPLETE": true,
+    "POST_REPLAY_DETECTOR_PROCESSING_PASS": true,
+    "PRODUCTION_DETECTOR_IDENTITY_PASS": true,
+    "PUBLIC_DISCLOSURE_AUTHORIZED": false,
+    "REAL_REPLAY_FUNCTIONAL_STATISTICAL_TOLERANCE_PASS": true,
+    "RECALL_COMPUTED": false,
+    "REFERENCE_COMPARISON_COMPLETE": true,
+    "REFERENCE_SCAN_ALIGNMENT_PASS": true,
+    "RISK_WARNING_AUTHORIZED": false,
+    "RUN_1_COMPLETENESS_PASS": true,
+    "RUN_2_COMPLETENESS_PASS": true,
+    "RUN_3_COMPLETENESS_PASS": true,
+    "SCIENTIFIC_EFFECTIVENESS_EVALUATED": false,
+    "STAGE2_GATE": "FAIL",
+    "STAGE3_START_AUTHORIZED": false,
+    "STAGE4_START_AUTHORIZED": false,
+    "TAIL_ADJUDICATION_RULE_REUSE_PASS": true,
+    "THREE_REAL_REPLAY_RUNS_COMPLETE_PASS": true,
+    "TRANSITION": "PIVOT"
+  },
+  "main_run_id": "multihyp_day6_fallback_functional_diagnostics_v1",
+  "reference_comparison": {
+    "CROSS_RUN_BITWISE_EQUIVALENCE_CLAIMED": false,
+    "CROSS_RUN_EXACT_OUTPUT_EQUALITY_OBSERVED": false,
+    "CROSS_RUN_EXACT_OUTPUT_EQUALITY_REQUIRED": false,
+    "CROSS_RUN_STATISTICAL_COMPARISON_COMPLETE": true,
+    "REFERENCE_COMPARISON_COMPLETE": true,
+    "descriptive_only": true,
+    "frozen_reference_run_id": "multihyp_fallback_frozen_observation_v1",
+    "hard_statistical_difference_threshold_applied": false,
+    "pairwise": {
+      "r1-r2": {
+        "aligned_record_count": 487,
+        "alignment_pass": true,
+        "difference_quantiles": {
+          "ais_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "condition_number_relative_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "lambda_min_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "odi_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "primary_eigengap_ratio_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "weak_direction_sign_invariant_angle_deg": {
+            "count": 486,
+            "max": 1.4787793334710982e-06,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          }
+        },
+        "flag_agreement": {
+          "actionable_flag_agreement": 1.0,
+          "degeneracy_flag_agreement": 1.0,
+          "stable_flag_agreement": 1.0
+        },
+        "left_count": 487,
+        "left_only_count": 0,
+        "pair": "r1-r2",
+        "right_count": 487,
+        "right_only_count": 0,
+        "valid_agreement_fraction": 1.0
+      },
+      "r1-r3": {
+        "aligned_record_count": 487,
+        "alignment_pass": true,
+        "difference_quantiles": {
+          "ais_trans_absolute_difference": {
+            "count": 486,
+            "max": 2.133354095181195,
+            "median": 0.007362812742402358,
+            "min": 0.0,
+            "p90": 0.04670348610312813,
+            "p95": 0.15633598602719645,
+            "p99": 0.7269046869753464
+          },
+          "condition_number_relative_difference": {
+            "count": 486,
+            "max": 0.9273675393495286,
+            "median": 0.015204595587173027,
+            "min": 0.0,
+            "p90": 0.09257557150909504,
+            "p95": 0.20942820154750308,
+            "p99": 0.6919680331551004
+          },
+          "lambda_min_trans_absolute_difference": {
+            "count": 486,
+            "max": 1.8446929234464893,
+            "median": 0.10446331284233956,
+            "min": 0.0,
+            "p90": 0.5193505688049798,
+            "p95": 0.7691231691102838,
+            "p99": 1.454789193570707
+          },
+          "odi_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.35785261448693195,
+            "median": 0.002894026700793806,
+            "min": 0.0,
+            "p90": 0.018828837698245393,
+            "p95": 0.048358646151926754,
+            "p99": 0.13986360561633282
+          },
+          "primary_eigengap_ratio_absolute_difference": {
+            "count": 486,
+            "max": 0.19373150594277866,
+            "median": 0.002010435636466925,
+            "min": 0.0,
+            "p90": 0.01346561809098681,
+            "p95": 0.022414722147421524,
+            "p99": 0.06746454702309915
+          },
+          "weak_direction_sign_invariant_angle_deg": {
+            "count": 486,
+            "max": 85.42927474354154,
+            "median": 1.2440338375534665,
+            "min": 0.0,
+            "p90": 8.947477338546964,
+            "p95": 25.36618522086056,
+            "p99": 64.2937359382421
+          }
+        },
+        "flag_agreement": {
+          "actionable_flag_agreement": 0.9609856262833676,
+          "degeneracy_flag_agreement": 0.997946611909651,
+          "stable_flag_agreement": 0.9609856262833676
+        },
+        "left_count": 487,
+        "left_only_count": 0,
+        "pair": "r1-r3",
+        "right_count": 487,
+        "right_only_count": 0,
+        "valid_agreement_fraction": 0.997946611909651
+      },
+      "r2-r3": {
+        "aligned_record_count": 487,
+        "alignment_pass": true,
+        "difference_quantiles": {
+          "ais_trans_absolute_difference": {
+            "count": 486,
+            "max": 2.133354095181195,
+            "median": 0.007362812742402358,
+            "min": 0.0,
+            "p90": 0.04670348610312813,
+            "p95": 0.15633598602719645,
+            "p99": 0.7269046869753464
+          },
+          "condition_number_relative_difference": {
+            "count": 486,
+            "max": 0.9273675393495286,
+            "median": 0.015204595587173027,
+            "min": 0.0,
+            "p90": 0.09257557150909504,
+            "p95": 0.20942820154750308,
+            "p99": 0.6919680331551004
+          },
+          "lambda_min_trans_absolute_difference": {
+            "count": 486,
+            "max": 1.8446929234464893,
+            "median": 0.10446331284233956,
+            "min": 0.0,
+            "p90": 0.5193505688049798,
+            "p95": 0.7691231691102838,
+            "p99": 1.454789193570707
+          },
+          "odi_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.35785261448693195,
+            "median": 0.002894026700793806,
+            "min": 0.0,
+            "p90": 0.018828837698245393,
+            "p95": 0.048358646151926754,
+            "p99": 0.13986360561633282
+          },
+          "primary_eigengap_ratio_absolute_difference": {
+            "count": 486,
+            "max": 0.19373150594277866,
+            "median": 0.002010435636466925,
+            "min": 0.0,
+            "p90": 0.01346561809098681,
+            "p95": 0.022414722147421524,
+            "p99": 0.06746454702309915
+          },
+          "weak_direction_sign_invariant_angle_deg": {
+            "count": 486,
+            "max": 85.42927474354154,
+            "median": 1.2440338375534665,
+            "min": 0.0,
+            "p90": 8.947477338546964,
+            "p95": 25.36618522086056,
+            "p99": 64.2937359382421
+          }
+        },
+        "flag_agreement": {
+          "actionable_flag_agreement": 0.9609856262833676,
+          "degeneracy_flag_agreement": 0.997946611909651,
+          "stable_flag_agreement": 0.9609856262833676
+        },
+        "left_count": 487,
+        "left_only_count": 0,
+        "pair": "r2-r3",
+        "right_count": 487,
+        "right_only_count": 0,
+        "valid_agreement_fraction": 0.997946611909651
+      }
+    },
+    "reference_alignment": {
+      "multihyp_day6_fallback_quick_r1": {
+        "REFERENCE_OBSERVATION_BITWISE_EQUALITY_REQUIRED": false,
+        "REFERENCE_OUTPUT_BITWISE_EQUALITY_REQUIRED": false,
+        "aligned_count": 487,
+        "aligned_record_count": 487,
+        "difference_quantiles": {
+          "ais_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "condition_number_relative_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "lambda_min_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "odi_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "primary_eigengap_ratio_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "weak_direction_sign_invariant_angle_deg": {
+            "count": 486,
+            "max": 1.4787793334710982e-06,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          }
+        },
+        "flag_agreement": {
+          "actionable_flag_agreement": 1.0,
+          "degeneracy_flag_agreement": 1.0,
+          "stable_flag_agreement": 1.0
+        },
+        "reference_alignment_pass": true,
+        "reference_count": 487,
+        "reference_only_count": 0,
+        "run_count": 487,
+        "run_only_count": 0,
+        "schema_version": "day6_reference_alignment_summary_v1",
+        "timestamp_identity_count": 487,
+        "valid_agreement_fraction": 1.0
+      },
+      "multihyp_day6_fallback_quick_r2": {
+        "REFERENCE_OBSERVATION_BITWISE_EQUALITY_REQUIRED": false,
+        "REFERENCE_OUTPUT_BITWISE_EQUALITY_REQUIRED": false,
+        "aligned_count": 487,
+        "aligned_record_count": 487,
+        "difference_quantiles": {
+          "ais_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "condition_number_relative_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "lambda_min_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "odi_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "primary_eigengap_ratio_absolute_difference": {
+            "count": 486,
+            "max": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "weak_direction_sign_invariant_angle_deg": {
+            "count": 486,
+            "max": 1.4787793334710982e-06,
+            "median": 0.0,
+            "min": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          }
+        },
+        "flag_agreement": {
+          "actionable_flag_agreement": 1.0,
+          "degeneracy_flag_agreement": 1.0,
+          "stable_flag_agreement": 1.0
+        },
+        "reference_alignment_pass": true,
+        "reference_count": 487,
+        "reference_only_count": 0,
+        "run_count": 487,
+        "run_only_count": 0,
+        "schema_version": "day6_reference_alignment_summary_v1",
+        "timestamp_identity_count": 487,
+        "valid_agreement_fraction": 1.0
+      },
+      "multihyp_day6_fallback_quick_r3": {
+        "REFERENCE_OBSERVATION_BITWISE_EQUALITY_REQUIRED": false,
+        "REFERENCE_OUTPUT_BITWISE_EQUALITY_REQUIRED": false,
+        "aligned_count": 487,
+        "aligned_record_count": 487,
+        "difference_quantiles": {
+          "ais_trans_absolute_difference": {
+            "count": 486,
+            "max": 2.133354095181195,
+            "median": 0.007362812742402358,
+            "min": 0.0,
+            "p90": 0.04670348610312813,
+            "p95": 0.15633598602719645,
+            "p99": 0.7269046869753464
+          },
+          "condition_number_relative_difference": {
+            "count": 486,
+            "max": 0.9273675393495286,
+            "median": 0.015204595587173027,
+            "min": 0.0,
+            "p90": 0.09257557150909504,
+            "p95": 0.20942820154750308,
+            "p99": 0.6919680331551004
+          },
+          "lambda_min_trans_absolute_difference": {
+            "count": 486,
+            "max": 1.8446929234464893,
+            "median": 0.10446331284233956,
+            "min": 0.0,
+            "p90": 0.5193505688049798,
+            "p95": 0.7691231691102838,
+            "p99": 1.454789193570707
+          },
+          "odi_trans_absolute_difference": {
+            "count": 486,
+            "max": 0.35785261448693195,
+            "median": 0.002894026700793806,
+            "min": 0.0,
+            "p90": 0.018828837698245393,
+            "p95": 0.048358646151926754,
+            "p99": 0.13986360561633282
+          },
+          "primary_eigengap_ratio_absolute_difference": {
+            "count": 486,
+            "max": 0.19373150594277866,
+            "median": 0.002010435636466925,
+            "min": 0.0,
+            "p90": 0.01346561809098681,
+            "p95": 0.022414722147421524,
+            "p99": 0.06746454702309915
+          },
+          "weak_direction_sign_invariant_angle_deg": {
+            "count": 486,
+            "max": 85.42927474354154,
+            "median": 1.2440338375534665,
+            "min": 0.0,
+            "p90": 8.947477338546964,
+            "p95": 25.36618522086056,
+            "p99": 64.2937359382421
+          }
+        },
+        "flag_agreement": {
+          "actionable_flag_agreement": 0.9609856262833676,
+          "degeneracy_flag_agreement": 0.997946611909651,
+          "stable_flag_agreement": 0.9609856262833676
+        },
+        "reference_alignment_pass": true,
+        "reference_count": 487,
+        "reference_only_count": 0,
+        "run_count": 487,
+        "run_only_count": 0,
+        "schema_version": "day6_reference_alignment_summary_v1",
+        "timestamp_identity_count": 487,
+        "valid_agreement_fraction": 0.997946611909651
+      }
+    },
+    "run_level_spreads": {
+      "actionable_direction_true_fraction_spread": 0.010266940451745366,
+      "ais_trans_median_spread": 0.005482725795704191,
+      "condition_number_trans_median_spread": 0.13900363095159918,
+      "degeneracy_triggered_true_fraction_spread": 0.002053388090349051,
+      "lambda_min_trans_median_spread": 0.0004939473355864976,
+      "odi_trans_median_spread": 0.0005906960889148216,
+      "primary_direction_stable_true_fraction_spread": 0.010266940451745366,
+      "primary_eigengap_ratio_median_spread": 7.126111614306346e-05,
+      "valid_fraction_spread": 0.002053388090349051
+    },
+    "schema_version": "day6_cross_run_pairwise_summary_v1"
+  },
+  "sub_run_ids": [
+    "multihyp_day6_fallback_quick_r1",
+    "multihyp_day6_fallback_quick_r2",
+    "multihyp_day6_fallback_quick_r3"
+  ]
+}

@@ -1,0 +1,2 @@
+run_id,sequence_id,repeat_id,first_divergence_scan,first_divergence_stage,evidence
+multihyp_day5_startup_sync_v2,avia_quick_shack,1,,UNEXPECTED_RUNTIME_OUTPUT,Log/imu.txt changed outside exact allowlist

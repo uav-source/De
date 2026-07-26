@@ -1,0 +1,7 @@
+execution_status,failure_reason,handshake_pass,paused_start_pass,repeat_id,sequence_id,stable_poll_observed,stable_poll_required
+EXECUTED,NONE,True,True,1,avia_quick_shack,20,20
+EXECUTED,NONE,True,True,2,avia_quick_shack,20,20
+EXECUTED,NONE,True,True,3,avia_quick_shack,20,20
+EXECUTED,NONE,True,True,1,avia_outdoor_run_100hz,20,20
+EXECUTED,NONE,True,True,2,avia_outdoor_run_100hz,20,20
+NOT_EXECUTED,MATRIX_STOPPED,NOT_EVALUATED,NOT_EVALUATED,3,avia_outdoor_run_100hz,0,20

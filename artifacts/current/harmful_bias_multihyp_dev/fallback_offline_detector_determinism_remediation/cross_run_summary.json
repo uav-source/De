@@ -1,0 +1,60 @@
+{
+  "adapter_invalid_count_per_run": [
+    1,
+    1,
+    1
+  ],
+  "adapter_json_line_mismatch_count": 0,
+  "adapter_jsonl_sha256_per_run": [
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232"
+  ],
+  "adapter_output_count_per_run": [
+    487,
+    487,
+    487
+  ],
+  "adapter_record_checksum_mismatch_count": 0,
+  "adapter_record_identity_mismatch_count": 0,
+  "adapter_three_process_determinism_pass": true,
+  "adapter_valid_count_per_run": [
+    486,
+    486,
+    486
+  ],
+  "adapter_whole_file_sha_mismatch_count": 0,
+  "direct_invalid_count_per_run": [
+    0,
+    0,
+    0
+  ],
+  "direct_json_line_mismatch_count": 0,
+  "direct_jsonl_sha256_per_run": [
+    "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9",
+    "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9",
+    "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9"
+  ],
+  "direct_output_count_per_run": [
+    487,
+    487,
+    487
+  ],
+  "direct_record_checksum_mismatch_count": 0,
+  "direct_record_identity_mismatch_count": 0,
+  "direct_three_process_determinism_pass": true,
+  "direct_valid_count_per_run": [
+    487,
+    487,
+    487
+  ],
+  "direct_whole_file_sha_mismatch_count": 0,
+  "environment_identity_mismatch_count": 0,
+  "fresh_process_run_count": 3,
+  "input_count_per_run": [
+    487,
+    487,
+    487
+  ],
+  "schema_version": "fallback_c_remediation_cross_run_summary_v1"
+}

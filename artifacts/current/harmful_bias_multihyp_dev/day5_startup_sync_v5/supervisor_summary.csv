@@ -1,0 +1,2 @@
+supervisor_pid,heartbeat_count,max_heartbeat_gap_sec,runner_interruption_count,terminal_state,failure_classification
+2632516,47,5.012012891,0,FAILED,NONE

@@ -1,0 +1,75 @@
+{
+  "adapter_precondition_contract_mismatch_count": 0,
+  "adapter_precondition_domain_record_count": 1,
+  "adapter_precondition_record_indexes": [
+    284
+  ],
+  "adapter_precondition_scan_indexes": [
+    287
+  ],
+  "canonical_adapter_output_path": "artifacts/current/harmful_bias_multihyp_dev/fallback_offline_detector_determinism_remediation/adapter_detector_outputs_v3.jsonl",
+  "canonical_adapter_output_sha256": "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+  "canonical_direct_output_path": "artifacts/current/harmful_bias_multihyp_dev/fallback_offline_detector_determinism_remediation/direct_production_metrics_v1.jsonl",
+  "canonical_direct_output_sha256": "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9",
+  "detector_artifact_tree_sha256_after": "6dcccf2de670f78080ae0097d357d1cfd7b87949caf48c31dd247ae81bb5c95e",
+  "detector_artifact_tree_sha256_before": "6dcccf2de670f78080ae0097d357d1cfd7b87949caf48c31dd247ae81bb5c95e",
+  "direct_production_exception_count": 0,
+  "fast_patch_sha256_after": "3b6b1941ccb9e0ae5e52d26a370d10ab3bf571064374d60f056476ee7fb6cc45",
+  "fast_patch_sha256_before": "3b6b1941ccb9e0ae5e52d26a370d10ab3bf571064374d60f056476ee7fb6cc45",
+  "fresh_process_run_count": 3,
+  "frozen_artifact_sha256_after": "f68c9671e0058644b86fd1602b44b4a19ee35714e523cc10e1261650d538aca8",
+  "frozen_artifact_sha256_before": "f68c9671e0058644b86fd1602b44b4a19ee35714e523cc10e1261650d538aca8",
+  "per_run_adapter_invalid_count": [
+    1,
+    1,
+    1
+  ],
+  "per_run_adapter_jsonl_sha256": [
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232"
+  ],
+  "per_run_adapter_output_count": [
+    487,
+    487,
+    487
+  ],
+  "per_run_adapter_valid_count": [
+    486,
+    486,
+    486
+  ],
+  "per_run_direct_invalid_count": [
+    0,
+    0,
+    0
+  ],
+  "per_run_direct_jsonl_sha256": [
+    "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9",
+    "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9",
+    "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9"
+  ],
+  "per_run_direct_output_count": [
+    487,
+    487,
+    487
+  ],
+  "per_run_direct_valid_count": [
+    487,
+    487,
+    487
+  ],
+  "per_run_input_count": [
+    487,
+    487,
+    487
+  ],
+  "production_executed_domain_record_count": 486,
+  "production_metric_equivalence_max_abs_error": 0.0,
+  "production_metric_equivalence_mismatch_count": 0,
+  "production_metric_equivalence_required_count": 486,
+  "run_id": "multihyp_fallback_offline_detector_determinism_remediation_v1",
+  "schema_version": "fallback_c_remediation_summary_v1",
+  "unexpected_changed_file_count": 0,
+  "unexpected_changed_files": []
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "day8_token_capture_semantics_v2.schema.json",
+  "title": "TOKEN_CAPTURE_SEMANTICS_V2 comparison record",
+  "type": "object",
+  "required": [
+    "token_semantics_version",
+    "left_token_capture_status",
+    "right_token_capture_status",
+    "token_comparison_status",
+    "token_sequence_equal",
+    "capture_gate_pass"
+  ],
+  "properties": {
+    "token_semantics_version": {
+      "const": "TOKEN_CAPTURE_SEMANTICS_V2"
+    },
+    "left_token_capture_status": {
+      "$ref": "#/$defs/captureStatus"
+    },
+    "right_token_capture_status": {
+      "$ref": "#/$defs/captureStatus"
+    },
+    "token_comparison_status": {
+      "enum": [
+        "APPLICABLE",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "token_sequence_equal": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "classification": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "root_cause_classification": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "capture_gate_pass": {
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "captureStatus": {
+      "enum": [
+        "CAPTURED_NONEMPTY",
+        "CAPTURED_EMPTY_FORMAL_QUERY",
+        "NOT_CAPTURED_OUTSIDE_TOKEN_WINDOW",
+        "NOT_CAPTURED_TRACE_DISABLED",
+        "CAPTURE_FAILED",
+        "OVERFLOWED"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "anyOf": [
+          {
+            "properties": {
+              "left_token_capture_status": {
+                "enum": [
+                  "NOT_CAPTURED_OUTSIDE_TOKEN_WINDOW",
+                  "NOT_CAPTURED_TRACE_DISABLED"
+                ]
+              }
+            }
+          },
+          {
+            "properties": {
+              "right_token_capture_status": {
+                "enum": [
+                  "NOT_CAPTURED_OUTSIDE_TOKEN_WINDOW",
+                  "NOT_CAPTURED_TRACE_DISABLED"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "then": {
+        "properties": {
+          "token_comparison_status": {
+            "const": "NOT_APPLICABLE"
+          },
+          "token_sequence_equal": {
+            "type": "null"
+          },
+          "classification": {
+            "const": "EVIDENCE_GAP"
+          },
+          "root_cause_classification": {
+            "const": "EVIDENCE_GAP_DETAILED_TRACE_NOT_CAPTURED"
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": true
+}

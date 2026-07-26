@@ -1,0 +1,21 @@
+{
+  "absolute_path_count": 0,
+  "archive_member_count": 36,
+  "archive_scope_pass": true,
+  "archive_sha256": "4b6d04bcbe8313fa1464635ac66aedec9639e5ded3dc32ca4292247c228335b6",
+  "bag_file_count": 0,
+  "binary_sha_match": true,
+  "detector_output_file_count": 0,
+  "forbidden_file_count": 0,
+  "freeze_a_sha256": "4b6d04bcbe8313fa1464635ac66aedec9639e5ded3dc32ca4292247c228335b6",
+  "freeze_b_sha256": "4b6d04bcbe8313fa1464635ac66aedec9639e5ded3dc32ca4292247c228335b6",
+  "freeze_roundtrip_pass": true,
+  "freeze_sha_identical": true,
+  "gzip_pass": true,
+  "internal_hash_entry_count": 28,
+  "internal_hash_failure_count": 0,
+  "internal_hash_pass": true,
+  "record_index_row_count_match": true,
+  "schema_version": "frozen_observation_roundtrip_v1",
+  "symbolic_link_count": 0
+}

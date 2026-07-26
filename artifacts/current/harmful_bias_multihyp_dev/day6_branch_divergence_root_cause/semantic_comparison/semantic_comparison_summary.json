@@ -1,0 +1,241 @@
+{
+  "CORRESPONDENCE_DIVERGENCE_AT_ONSET_STATUS": "SUPPORTED_AT_AGGREGATE_CHECKSUM_AND_FORMAL_ARRAY_LEVEL",
+  "DIVERGENCE_ORDER_CLASS": "MEASUREMENT_OR_CORRESPONDENCE_DIVERGED_WITH_EQUAL_PRIOR",
+  "PREVIOUS_RECORD_SEMANTIC_IDENTITY_CONFIRMED": true,
+  "PRIOR_STATE_DIVERGENCE_AT_ONSET_STATUS": "EQUAL_AT_ONSET_DIVERGED_ON_NEXT_RECORD",
+  "environment_audit": {
+    "CONFIGURATION_IDENTITY": "MATCHED_EXCEPT_INTENTIONALLY_DISTINCT_ROS_MASTER_PORT",
+    "RUNTIME_EXECUTION_ORDER_IDENTITY": "NOT_PROVEN_NO_EXECUTION_ORDER_TRACE",
+    "SCHEDULING_IDENTITY": "NOT_PROVEN_NO_SCHEDULING_TRACE",
+    "configuration_identity_pass": true,
+    "ros_master_ports": [
+      20211,
+      20212,
+      20213
+    ],
+    "run_count": 3,
+    "runtime_execution_order_identity_claimed": false,
+    "scheduling_identity_claimed": false,
+    "schema_version": "day6_cross_run_environment_identity_v1"
+  },
+  "first_accepted_index_divergence": {
+    "record_index": 144,
+    "scan_index": 147
+  },
+  "first_correspondence_divergence": {
+    "record_index": 144,
+    "scan_index": 147
+  },
+  "first_divergence_localization_pass": true,
+  "first_divergence_record": 144,
+  "first_divergence_scan": 147,
+  "first_geometric_residual_divergence": {
+    "record_index": 144,
+    "scan_index": 147
+  },
+  "first_innovation_divergence": {
+    "record_index": 144,
+    "scan_index": 147
+  },
+  "first_jacobian_divergence": {
+    "record_index": 144,
+    "scan_index": 147
+  },
+  "first_map_size_divergence": null,
+  "first_prior_covariance_divergence": {
+    "record_index": 145,
+    "scan_index": 148
+  },
+  "first_prior_orientation_divergence": {
+    "record_index": 145,
+    "scan_index": 148
+  },
+  "first_prior_position_divergence": {
+    "record_index": 145,
+    "scan_index": 148
+  },
+  "first_timestamp_divergence": null,
+  "first_valid_count_divergence": {
+    "record_index": 144,
+    "scan_index": 147
+  },
+  "pairs": {
+    "r1-r2": {
+      "divergence_order_class": "NOT_APPLICABLE_NO_DIVERGENCE",
+      "first_divergence_by_field": {
+        "accepted_index_checksum": null,
+        "detector_jacobian_checksum": null,
+        "detector_pose_jacobian_rows": null,
+        "formal_correspondence_checksum": null,
+        "formal_filter_innovation_h": null,
+        "formal_innovation_checksum": null,
+        "formal_native_jacobian_checksum": null,
+        "geometric_residual_checksum": null,
+        "map_size": null,
+        "measurement_call_index": null,
+        "measurement_variance_scalar_m2": null,
+        "measurement_weight_representation": null,
+        "prior_covariance_detector_order_raw": null,
+        "prior_covariance_detector_order_symmetric": null,
+        "prior_orientation_world_from_imu_xyzw": null,
+        "prior_position_world": null,
+        "scan_index": null,
+        "timestamp_begin": null,
+        "timestamp_end": null,
+        "valid_correspondence_count": null
+      },
+      "first_semantic_divergence": null,
+      "previous_record_semantic_identity": "NOT_APPLICABLE_NO_DIVERGENCE",
+      "semantic_mismatch_count": 0
+    },
+    "r1-r3": {
+      "divergence_order_class": "MEASUREMENT_OR_CORRESPONDENCE_DIVERGED_WITH_EQUAL_PRIOR",
+      "first_divergence_by_field": {
+        "accepted_index_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "detector_jacobian_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "detector_pose_jacobian_rows": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "formal_correspondence_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "formal_filter_innovation_h": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "formal_innovation_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "formal_native_jacobian_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "geometric_residual_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "map_size": null,
+        "measurement_call_index": null,
+        "measurement_variance_scalar_m2": null,
+        "measurement_weight_representation": null,
+        "prior_covariance_detector_order_raw": {
+          "record_index": 145,
+          "scan_index": 148
+        },
+        "prior_covariance_detector_order_symmetric": {
+          "record_index": 145,
+          "scan_index": 148
+        },
+        "prior_orientation_world_from_imu_xyzw": {
+          "record_index": 145,
+          "scan_index": 148
+        },
+        "prior_position_world": {
+          "record_index": 145,
+          "scan_index": 148
+        },
+        "scan_index": null,
+        "timestamp_begin": null,
+        "timestamp_end": null,
+        "valid_correspondence_count": {
+          "record_index": 144,
+          "scan_index": 147
+        }
+      },
+      "first_semantic_divergence": {
+        "record_index": 144,
+        "scan_index": 147
+      },
+      "previous_record_semantic_identity": "CONFIRMED",
+      "semantic_mismatch_count": 343
+    },
+    "r2-r3": {
+      "divergence_order_class": "MEASUREMENT_OR_CORRESPONDENCE_DIVERGED_WITH_EQUAL_PRIOR",
+      "first_divergence_by_field": {
+        "accepted_index_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "detector_jacobian_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "detector_pose_jacobian_rows": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "formal_correspondence_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "formal_filter_innovation_h": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "formal_innovation_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "formal_native_jacobian_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "geometric_residual_checksum": {
+          "record_index": 144,
+          "scan_index": 147
+        },
+        "map_size": null,
+        "measurement_call_index": null,
+        "measurement_variance_scalar_m2": null,
+        "measurement_weight_representation": null,
+        "prior_covariance_detector_order_raw": {
+          "record_index": 145,
+          "scan_index": 148
+        },
+        "prior_covariance_detector_order_symmetric": {
+          "record_index": 145,
+          "scan_index": 148
+        },
+        "prior_orientation_world_from_imu_xyzw": {
+          "record_index": 145,
+          "scan_index": 148
+        },
+        "prior_position_world": {
+          "record_index": 145,
+          "scan_index": 148
+        },
+        "scan_index": null,
+        "timestamp_begin": null,
+        "timestamp_end": null,
+        "valid_correspondence_count": {
+          "record_index": 144,
+          "scan_index": 147
+        }
+      },
+      "first_semantic_divergence": {
+        "record_index": 144,
+        "scan_index": 147
+      },
+      "previous_record_semantic_identity": "CONFIRMED",
+      "semantic_mismatch_count": 343
+    }
+  },
+  "pairwise_semantic_comparison_pass": true,
+  "run1_run2_semantic_mismatch_count": 0,
+  "run1_run3_semantic_mismatch_count": 343,
+  "run2_run3_semantic_mismatch_count": 343,
+  "schema_version": "day6_semantic_pairwise_summary_v1",
+  "semantic_contract": "SEMANTIC_OBSERVATION_V1",
+  "semantic_identity_excludes_run_identity_and_self_checksums": true,
+  "window_end_record": 164,
+  "window_start_record": 132
+}

@@ -1,0 +1,2 @@
+status,planned_replay_count,successful_replay_count,planned_pair_count,evaluated_pair_count,baseline_repeatability_pass,failure_classification
+FAIL,6,1,6,0,false,FASTLIO2_WORKTREE_MUTATION_DURING_REPLAY

@@ -1,0 +1,7 @@
+logical_name,run_relative_path,included_small_copy
+roscore.log,roscore.log,False
+roslaunch.log,roslaunch.log,False
+rosbag.log,rosbag.log,False
+tail_clock_node.log,tail_clock_node.log,False
+end_of_stream_drain_tool.log,end_of_stream_drain_tool.log,False
+runtime_product_validation_tool.log,runtime_product_validation_tool.log,False

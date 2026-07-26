@@ -1,0 +1,2 @@
+phase,status,execution_reason,detector_execution_mode,detector_output_count,detector_repeat_mismatch_count
+export,NOT_EXECUTED,BASELINE_REPEATABILITY_PREREQUISITE_FAILED,POST_REPLAY_ONLY,0,NOT_EVALUATED

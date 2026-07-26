@@ -1,0 +1,8 @@
+{
+  "forbidden_field_count": 0,
+  "gt_topic_consumed_count": 0,
+  "no_gt_pass": true,
+  "scanned_adapter_output_count": 487,
+  "scanned_direct_output_count": 487,
+  "schema_version": "fallback_c_no_gt_output_audit_v1"
+}

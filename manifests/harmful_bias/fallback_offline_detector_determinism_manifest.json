@@ -1,0 +1,264 @@
+{
+  "CANONICAL_JSON_BYTE_DETERMINISM_PASS": false,
+  "COHERENT_BIAS_HARMFUL_MECHANISM_SUPPORTED": true,
+  "COHERENT_BIAS_STABLY_ONLINE_DETECTABLE": false,
+  "CROSS_PROCESS_BITWISE_REPLAY_EQUIVALENCE": "NOT_PROVEN",
+  "DAY6_FALLBACK_FUNCTIONAL_DIAGNOSTICS_RECOMMENDED": false,
+  "DAY6_QUICK_DIAGNOSTICS_AUTHORIZED": false,
+  "DEGEN_FULL_TEST_PASS": true,
+  "DEGEN_TARGETED_TEST_PASS": true,
+  "DETECTOR_ARTIFACT_IMMUTABILITY_PASS": true,
+  "DETECTOR_OUTPUT_SCHEMA_REUSE_PASS": true,
+  "DIFF_SCOPE_PASS": true,
+  "DIRECT_PRODUCTION_EQUIVALENCE_PASS": false,
+  "FALLBACK_C_PASS": false,
+  "FAST_LIO2_INTEGRATION_AUTHORIZED": false,
+  "FRESH_PROCESS_RUN_COMPLETENESS_PASS": false,
+  "FROZEN_INPUT_IDENTITY_PASS": true,
+  "HARMFUL_BIAS_DETECTABILITY_STATUS": "NOT_EVALUATED_DAY5_FALLBACK_OFFLINE_DETERMINISM",
+  "INPUT_IMMUTABILITY_PASS": false,
+  "JACOBIAN_NO_DOUBLE_REORDER_PASS": true,
+  "NO_GT_PASS": true,
+  "OBSERVATION_SCHEMA_REUSE_PASS": true,
+  "OFFLINE_PRODUCTION_DETECTOR_DETERMINISM_PASS": false,
+  "OUTPUT_COUNT_COMPLETENESS_PASS": false,
+  "OUTPUT_SCHEMA_PASS": false,
+  "PATENT2_AUTHORIZED": false,
+  "PER_RECORD_CHECKSUM_DETERMINISM_PASS": false,
+  "PRIOR_COVARIANCE_NOT_USED_PASS": true,
+  "PRODUCTION_DETECTOR_ENTRYPOINT_CONFIRMED": true,
+  "PRODUCTION_DETECTOR_IDENTITY_PASS": true,
+  "PUBLIC_DISCLOSURE_AUTHORIZED": false,
+  "REAL_REPLAY_FUNCTIONAL_STATISTICAL_TOLERANCE_AUTHORIZED": false,
+  "RESIDUAL_NOT_USED_BY_DETECTOR_CONFIRMED": true,
+  "RISK_WARNING_AUTHORIZED": false,
+  "STAGE2_GATE": "FAIL",
+  "STAGE3_START_AUTHORIZED": false,
+  "STAGE4_START_AUTHORIZED": false,
+  "STRICT_CROSS_PROCESS_REPLAY_ROUTE_STATUS": "ABANDONED_AFTER_V5",
+  "STRICT_REPLAY_FURTHER_REMEDIATION_AUTHORIZED": false,
+  "THIN_ADAPTER_PASS": true,
+  "TRANSITION": "PIVOT",
+  "VARIANCE_MAPPING_PASS": true,
+  "WHOLE_FILE_SHA_DETERMINISM_PASS": false,
+  "auroc_computed": false,
+  "authorization_source": "Fallback B remediation audit gate_summary.json",
+  "blas_identity": {
+    "blas_ilp64_opt_info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    },
+    "lapack_ilp64_opt_info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ],
+        [
+          "HAVE_LAPACKE",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    },
+    "openblas64__info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    },
+    "openblas64__lapack_info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ],
+        [
+          "HAVE_LAPACKE",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    }
+  },
+  "canonical_output_path": null,
+  "canonical_output_sha256": null,
+  "commit_created": false,
+  "config_modified": false,
+  "confirmed_direct_equivalence_failure_count_at_least": 1,
+  "core_binary_sha256": "d7f218068868985eee7ff01a8b7d1ce3467711d088e8c00b6c5de04ff0c120f3",
+  "created_at_utc": "2026-07-17T11:01:05.005885+00:00",
+  "degen_branch": "spike/harmful-bias-multihyp-dev",
+  "degen_diff_sha256": "5038f886369378b7832a271cc2c8f904010f5724a6b169c7a808852bfa0c25c4",
+  "degen_head": "711ac05ccc683263446fb8656c0054048832f54c",
+  "detector_artifact_tree_sha256_after": "6dcccf2de670f78080ae0097d357d1cfd7b87949caf48c31dd247ae81bb5c95e",
+  "detector_artifact_tree_sha256_before": "6dcccf2de670f78080ae0097d357d1cfd7b87949caf48c31dd247ae81bb5c95e",
+  "detector_called": true,
+  "detector_config_sha256": "665c3df8f794841ac5f3afe97e77f9993aaae2feaf3510043ecff6646acf2398",
+  "detector_exception_count": 0,
+  "detector_lock_sha256": "075f14217f5e9c782bc1ab4051e6533f34d4932399c7f4b8cbc60a03d62fe358",
+  "detector_metric_version": "detector_stage2a_v1",
+  "detector_modified": false,
+  "detector_output_schema_sha256": "cc012c579a25820d1e4185a9300bf1903ab92b871cf6fa0b45f98664ca5ba445",
+  "development_run": false,
+  "direct_equivalence_mismatch_count": null,
+  "environment_lock": {
+    "LANG": "C",
+    "LC_ALL": "C",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_DYNAMIC": "FALSE",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONHASHSEED": "0",
+    "TZ": "UTC",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "failure_classification": "RUNTIME_ADAPTER_PRECONDITION_DIFFERS_FROM_DIRECT_PRODUCTION_ENTRYPOINT",
+  "fallback_b_audit_sha256": "8672e22f529a10dfc6fb8c6e3b145c51d78f1eef0a911f34da15b8ebf3b65acb",
+  "fastlio2_run": false,
+  "forbidden_field_count": 0,
+  "fpr_computed": false,
+  "fresh_process_complete_count": 2,
+  "fresh_process_run_count": 3,
+  "frozen_artifact_sha256": "f68c9671e0058644b86fd1602b44b4a19ee35714e523cc10e1261650d538aca8",
+  "future_test_run": false,
+  "holdout_run": false,
+  "input_mutation_count": null,
+  "input_record_count": 487,
+  "json_line_mismatch_count": null,
+  "lock_modified": false,
+  "numpy_version": "1.24.4",
+  "observation_schema_sha256": "f1ec0d8f7af242e087f3ca8c3365d3950afb58733d8b2d05c99825d745d98909",
+  "odi_computed": true,
+  "per_record_checksum_mismatch_count": null,
+  "per_run_input_count": [
+    null,
+    487,
+    487
+  ],
+  "per_run_invalid_count": [
+    null,
+    1,
+    1
+  ],
+  "per_run_nonfinite_count": [
+    null,
+    0,
+    0
+  ],
+  "per_run_output_count": [
+    null,
+    487,
+    487
+  ],
+  "per_run_output_jsonl_sha256": [
+    null,
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232"
+  ],
+  "per_run_valid_count": [
+    null,
+    486,
+    486
+  ],
+  "production_detector_file": "src/degen_detector/odi_tracker.py",
+  "production_detector_sha256": "c515e5321e569ed074ae1c4f33563e73a82775800f20197612c2816086676d17",
+  "production_detector_symbol": "compute_metrics_for_frame",
+  "push_performed": false,
+  "python_version": "3.8.10",
+  "real_observation_artifact_used": true,
+  "recall_computed": false,
+  "rosbag_run": false,
+  "roscore_run": false,
+  "roslaunch_run": false,
+  "run_id": "multihyp_fallback_offline_detector_determinism_v1",
+  "runner_exception_count": 1,
+  "schema_rejected_output_count": null,
+  "schema_version": "fallback_offline_detector_determinism_manifest_v1",
+  "scientific_effectiveness_evaluated": false,
+  "scipy_version": "1.10.1",
+  "threshold_modified": false,
+  "weak_direction_computed": true,
+  "whole_file_sha_mismatch_count": null
+}

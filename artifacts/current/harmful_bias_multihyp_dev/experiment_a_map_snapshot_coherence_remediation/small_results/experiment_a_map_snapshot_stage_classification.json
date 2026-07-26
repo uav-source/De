@@ -1,0 +1,90 @@
+{
+  "actual_total_snapshot_count": 104,
+  "additional_replay_authorized": false,
+  "additional_replay_recommended": false,
+  "branch_reproduced": true,
+  "checksum_collision_limitation_disclosed": true,
+  "checksum_interpretation": "MATCHED_BY_CANONICAL_CHECKSUM",
+  "coherent_snapshot_count": 104,
+  "comparison_pass": true,
+  "day7_authorized": false,
+  "day7_recommended": false,
+  "day7_recommended_scope": "NONE",
+  "evidence_gap": false,
+  "expected_total_snapshot_count": 104,
+  "experiment_a_pass": true,
+  "experiment_a_stage_localization_pass": true,
+  "first_divergence_scan": 135,
+  "first_divergence_stage": "map_traversal_after",
+  "incoherent_snapshot_count": 0,
+  "input_replay_or_preprocessing_remediation_recommended": false,
+  "map_snapshot_coherence_pass": true,
+  "map_snapshot_cross_scan_coherence_pass": true,
+  "per_run_continuity_summaries": [
+    {
+      "map_snapshot_cross_scan_coherence_pass": true,
+      "schema_version": "map_snapshot_cross_scan_continuity_summary_v1",
+      "transition_count": 25,
+      "violation_count": 0
+    },
+    {
+      "map_snapshot_cross_scan_coherence_pass": true,
+      "schema_version": "map_snapshot_cross_scan_continuity_summary_v1",
+      "transition_count": 25,
+      "violation_count": 0
+    }
+  ],
+  "per_run_snapshot_summaries": [
+    {
+      "coherent_snapshot_count": 52,
+      "errors": [],
+      "incoherent_snapshot_count": 0,
+      "lock_wait_ns": {
+        "count": 52,
+        "max": 219,
+        "mean": 41.94230769230769,
+        "min": 21
+      },
+      "locked_copy_ns": {
+        "count": 52,
+        "max": 121999,
+        "mean": 36728.86538461538,
+        "min": 7072
+      },
+      "map_after_snapshot_count": 26,
+      "map_before_snapshot_count": 26,
+      "map_snapshot_coherence_pass": true,
+      "schema_version": "coherent_map_snapshot_summary_v1",
+      "snapshot_count": 52,
+      "snapshot_method": "KD_TREE_REBUILD_PTR_THEN_WORKING_MUTEX_COPY_V1",
+      "snapshot_schema_version": "coherent_map_snapshot_v2"
+    },
+    {
+      "coherent_snapshot_count": 52,
+      "errors": [],
+      "incoherent_snapshot_count": 0,
+      "lock_wait_ns": {
+        "count": 52,
+        "max": 230,
+        "mean": 51.67307692307692,
+        "min": 22
+      },
+      "locked_copy_ns": {
+        "count": 52,
+        "max": 108937,
+        "mean": 42035.019230769234,
+        "min": 11418
+      },
+      "map_after_snapshot_count": 26,
+      "map_before_snapshot_count": 26,
+      "map_snapshot_coherence_pass": true,
+      "schema_version": "coherent_map_snapshot_summary_v1",
+      "snapshot_count": 52,
+      "snapshot_method": "KD_TREE_REBUILD_PTR_THEN_WORKING_MUTEX_COPY_V1",
+      "snapshot_schema_version": "coherent_map_snapshot_v2"
+    }
+  ],
+  "schema_version": "experiment_a_map_snapshot_stage_classification_v1",
+  "stage_classification": "MAP_STORAGE_ORDER_DIFFERED_WITH_MATCHED_CONTENT",
+  "stage_classification_complete": true
+}

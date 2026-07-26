@@ -1,0 +1,20 @@
+{
+  "adapter_precondition_contract_mismatch_count": 0,
+  "adapter_precondition_contract_pass_count": 1,
+  "adapter_precondition_domain_record_count": 1,
+  "adapter_precondition_record_indexes": [
+    284
+  ],
+  "adapter_precondition_scan_indexes": [
+    287
+  ],
+  "direct_production_diagnostic_record_count": 487,
+  "direct_production_exception_count": 0,
+  "production_executed_domain_record_count": 486,
+  "production_metric_equivalence_max_abs_error": 0.0,
+  "production_metric_equivalence_mismatch_count": 0,
+  "production_metric_equivalence_pass_count": 486,
+  "production_metric_equivalence_required_count": 486,
+  "schema_version": "direct_equivalence_domain_summary_v1",
+  "total_record_count": 487
+}

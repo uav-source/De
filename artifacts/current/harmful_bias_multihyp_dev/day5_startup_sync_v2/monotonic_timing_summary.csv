@@ -1,0 +1,7 @@
+sequence_id,repeat_id,status,handshake_start_monotonic_ns,handshake_ready_monotonic_ns,unpause_call_start_monotonic_ns,unpause_call_end_monotonic_ns,unpause_wall_time_utc,monotonic_order_pass
+avia_quick_shack,1,PASS_EXECUTED_RUN,140466236707470,140468661470658,140468661478670,140469605939790,2026-07-17T02:24:34.250466+00:00,true
+avia_quick_shack,2,NOT_EVALUATED,,,,,,
+avia_quick_shack,3,NOT_EVALUATED,,,,,,
+avia_outdoor_run_100hz,1,NOT_EVALUATED,,,,,,
+avia_outdoor_run_100hz,2,NOT_EVALUATED,,,,,,
+avia_outdoor_run_100hz,3,NOT_EVALUATED,,,,,,

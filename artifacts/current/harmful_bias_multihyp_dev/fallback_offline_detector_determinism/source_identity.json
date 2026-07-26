@@ -1,0 +1,30 @@
+{
+  "ambiguity_count": 0,
+  "candidate_entrypoint_count": 1,
+  "config_path_alias": "configs/detector/odi_stage2a.yaml",
+  "config_sha256": "665c3df8f794841ac5f3afe97e77f9993aaae2feaf3510043ecff6646acf2398",
+  "detector_artifact_tree_sha256": "6dcccf2de670f78080ae0097d357d1cfd7b87949caf48c31dd247ae81bb5c95e",
+  "detector_output_schema_path_alias": "schemas/harmful_bias/readonly_detector_output_v3.schema.json",
+  "detector_residual_used": false,
+  "entrypoint_file": "src/degen_detector/odi_tracker.py",
+  "entrypoint_sha256": "c515e5321e569ed074ae1c4f33563e73a82775800f20197612c2816086676d17",
+  "entrypoint_symbol": "compute_metrics_for_frame",
+  "expected_input_state_order": [
+    "delta_theta_x",
+    "delta_theta_y",
+    "delta_theta_z",
+    "delta_p_x",
+    "delta_p_y",
+    "delta_p_z"
+  ],
+  "lock_path_alias": "artifacts/current/detector_stage2a/locked/detector_lock.json",
+  "lock_sha256": "075f14217f5e9c782bc1ab4051e6533f34d4932399c7f4b8cbc60a03d62fe358",
+  "measurement_weight_representation": "CONSTANT_SCALAR_VARIANCE",
+  "metric_version": "detector_stage2a_v1",
+  "observation_schema_path_alias": "schemas/harmful_bias/readonly_observation_v3.schema.json",
+  "offline_adapter_path_alias": "src/fastlio2_adapter/offline_detector_determinism.py",
+  "output_schema_sha256": "cc012c579a25820d1e4185a9300bf1903ab92b871cf6fa0b45f98664ca5ba445",
+  "prior_covariance_used_by_detector": false,
+  "runtime_adapter_path_alias": "src/fastlio2_adapter/runtime_detector_adapter_v3.py",
+  "selected_entrypoint_count": 1
+}

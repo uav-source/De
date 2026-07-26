@@ -1,0 +1,2 @@
+failure_classification,first_divergence_scan,first_divergence_stage,notes
+RUNTIME_NODE_SHUTDOWN_INCOMPLETE,NOT_EVALUATED,RUNTIME_NODE_SHUTDOWN_INCOMPLETE,runner interrupted after Outdoor R2 rosbag completion; remaining matrix stopped

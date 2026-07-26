@@ -1,0 +1,2 @@
+drain_completed,drain_started,failure_classification,handshake_pass,repeat_id,rosbag_natural_exit,runtime_mode,runtime_product_pass,sequence_id,shutdown_completed,single_run_status,unpause_success
+False,True,DRAIN_SERVICE_IMPLEMENTATION_INVALID,True,1,True,AUDIT_ONLY,False,avia_quick_shack,False,INTERRUPTED,True

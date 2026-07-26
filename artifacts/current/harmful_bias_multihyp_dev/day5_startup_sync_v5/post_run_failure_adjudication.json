@@ -1,0 +1,20 @@
+{
+  "STRICT_CROSS_PROCESS_REPLAY_ROUTE_STATUS": "ABANDONED_AFTER_V5",
+  "STRICT_REPLAY_FURTHER_REMEDIATION_AUTHORIZED": false,
+  "adjudication_rule": "handoff_pass=false and clock_duplicate_count>0 maps to TAIL_CLOCK_DUPLICATE_TIME",
+  "created_at_utc": "2026-07-17T06:45:14Z",
+  "fixed_enum_adjudicated_failure_classification": "TAIL_CLOCK_DUPLICATE_TIME",
+  "formal_replay_rerun": false,
+  "observed_clock_backward_count": 0,
+  "observed_clock_duplicate_count": 226,
+  "observed_clock_publisher_overlap_count": 0,
+  "observed_handoff_pass": false,
+  "repeat_id": 1,
+  "run_id": "multihyp_day5_startup_sync_v5",
+  "runner_and_matrix_raw_evidence_preserved": true,
+  "runner_failure_message": "tail-clock stop/handoff did not pass",
+  "runner_reported_failure_classification": "NONE",
+  "schema_version": "day5_startup_sync_v5_post_run_failure_adjudication_v1",
+  "sequence_id": "avia_quick_shack",
+  "v6_created": false
+}

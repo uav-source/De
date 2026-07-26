@@ -1,0 +1,12 @@
+{
+  "authorization_audit_sha256": "1d5ab7f3e3ed44f8c9c77776ecb6504980e5e2abe92c618f829bb9b108130513",
+  "authorization_directive_sha256": "277956240a69d4cd59ae5c57fe145028f817d1161af027fdf27eabaa487c1850",
+  "day7_authorized": false,
+  "experiment_a_map_snapshot_coherence_remediation_authorized": true,
+  "experiment_a_pass": false,
+  "experiment_a_stage_localization_pass": false,
+  "fast_lio2_integration_authorized": false,
+  "map_snapshot_coherence_pass": false,
+  "schema_version": "experiment_a_map_snapshot_remediation_authorization_v1",
+  "stage3_start_authorized": false
+}

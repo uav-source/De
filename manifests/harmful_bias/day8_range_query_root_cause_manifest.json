@@ -1,0 +1,41 @@
+{
+  "DATA_RACE_PROVEN": false,
+  "DAY8_EXECUTION_PASS": false,
+  "DAY9_AUTHORIZED": false,
+  "FORMAL_IKDTREE_BUG_PROVEN": false,
+  "commit_performed": false,
+  "final_gate_path": "/tmp/degen_lio_day8_ikdtree_query_context/final/day8_final_gate.json",
+  "final_gate_sha256": "7b9845661f768c93a16eaf899bba190cfc221a2cf71230c89b4afc8bc6a2ddc7",
+  "main_run_id": "multihyp_day8_ikdtree_range_search_context_v1",
+  "plot_count": 15,
+  "push_performed": false,
+  "query_summary_counts": {
+    "multihyp_day8_range_query_r1": 2408,
+    "multihyp_day8_range_query_r2": 2413,
+    "multihyp_day8_range_query_r3": 2413,
+    "multihyp_day8_range_query_r4": 2412
+  },
+  "report_path": "docs/harmful_bias/day8_range_query_root_cause_report.md",
+  "report_sha256": "d0364a35ab4f99d75c7f0c89187570b9f16b1a20b6c4f36130fb55a9a693c827",
+  "root_cause_classifications": [
+    "SAME_QUERY_TRACE_DIFFERENT_RESULT",
+    "SAME_QUERY_TRACE_DIFFERENT_RESULT",
+    "SAME_QUERY_TRACE_DIFFERENT_RESULT",
+    "SAME_QUERY_TRACE_DIFFERENT_RESULT",
+    "SAME_QUERY_TRACE_DIFFERENT_RESULT",
+    "SAME_QUERY_TRACE_DIFFERENT_RESULT"
+  ],
+  "run_ids": [
+    "multihyp_day8_range_query_r1",
+    "multihyp_day8_range_query_r2",
+    "multihyp_day8_range_query_r3",
+    "multihyp_day8_range_query_r4"
+  ],
+  "schema_version": "day8_range_query_root_cause_manifest_v1",
+  "traversal_token_counts": {
+    "multihyp_day8_range_query_r1": 20807,
+    "multihyp_day8_range_query_r2": 20806,
+    "multihyp_day8_range_query_r3": 20894,
+    "multihyp_day8_range_query_r4": 19954
+  }
+}

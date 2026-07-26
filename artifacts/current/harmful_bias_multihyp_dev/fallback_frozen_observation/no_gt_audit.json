@@ -1,0 +1,11 @@
+{
+  "contains_future_information": false,
+  "contains_gt": false,
+  "contains_holdout_information": false,
+  "forbidden_field_count": 0,
+  "gt_topic_consumed_count": 0,
+  "no_gt_pass": true,
+  "ros_subscription_evidence_scanned": true,
+  "scanned_record_count": 487,
+  "schema_version": "frozen_observation_no_gt_audit_v1"
+}

@@ -1,0 +1,2 @@
+sequence_id,repeat_id,allowlist_pass,changed_paths,allowed_changed_paths,unexpected_paths,unexpected_runtime_output_count
+avia_quick_shack,1,false,Log/dbg.txt;Log/imu.txt;Log/mat_out.txt;Log/mat_pre.txt;Log/pos_log.txt,Log/dbg.txt;Log/mat_out.txt;Log/mat_pre.txt;Log/pos_log.txt,Log/imu.txt,1

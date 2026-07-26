@@ -1,0 +1,7 @@
+duplicate_run_root_detected,execution_status,repeat_id,ros_home_is_absolute,ros_log_dir_is_absolute,run_dir_is_absolute,runtime_output_dir_is_absolute,runtime_output_param_match,sequence_id
+False,EXECUTED,1,True,True,True,True,True,avia_quick_shack
+False,EXECUTED,2,True,True,True,True,True,avia_quick_shack
+False,EXECUTED,3,True,True,True,True,True,avia_quick_shack
+False,EXECUTED,1,True,True,True,True,True,avia_outdoor_run_100hz
+False,EXECUTED,2,True,True,True,True,True,avia_outdoor_run_100hz
+NOT_EVALUATED,NOT_EXECUTED,3,NOT_EVALUATED,NOT_EVALUATED,NOT_EVALUATED,NOT_EVALUATED,NOT_EVALUATED,avia_outdoor_run_100hz

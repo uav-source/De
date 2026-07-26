@@ -1,0 +1,2 @@
+failure_classification,repeat_id,runtime_binary_trailer_pass,runtime_product_missing_count,runtime_product_pass,sequence_id
+RUNTIME_PRODUCT_MISSING_AFTER_INTERRUPTED_DRAIN,1,False,3,False,avia_quick_shack

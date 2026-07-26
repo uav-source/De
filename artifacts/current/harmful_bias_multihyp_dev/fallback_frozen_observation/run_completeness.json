@@ -1,0 +1,12 @@
+{
+  "adjudicated_tail_handoff_pass": true,
+  "all_callbacks_received_pass": true,
+  "connection_handshake_pass": true,
+  "end_of_stream_drain_pass": true,
+  "normal_shutdown_pass": true,
+  "raw_tail_handoff_pass": false,
+  "rosbag_natural_exit": true,
+  "run_completeness_pass": true,
+  "runtime_products_complete": true,
+  "schema_version": "frozen_observation_run_completeness_v1"
+}

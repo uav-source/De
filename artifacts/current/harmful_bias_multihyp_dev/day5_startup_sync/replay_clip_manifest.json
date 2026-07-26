@@ -1,0 +1,76 @@
+{
+  "clips": [
+    {
+      "clip_duration_sec": 49.00543022155762,
+      "clip_name": "avia_quick_shack.replay.bag",
+      "clip_read_only": true,
+      "clip_sha256": "272325265978787c838e010b1f0da963a15fb4b08ff8730fc3dd9901e32a0e20",
+      "clip_size_bytes": 227822121,
+      "data_namespace": "NOT_INCLUDED_IN_DATA_NAMESPACE",
+      "first_imu_time": 1600270368.5658967,
+      "first_lidar_time": 1600270368.5724432,
+      "first_message_time": 1600270368.5658967,
+      "first_message_topic": "/livox/imu",
+      "generated_once": true,
+      "last_imu_time": 1600270417.571327,
+      "last_lidar_time": 1600270417.5702565,
+      "locked_duration_sec": 50.001004,
+      "locked_window_end_exclusive": 1600270418.3136356,
+      "message_count": 10444,
+      "original_start_time": 1600270368.3126316,
+      "scientific_sequence": "NOT_A_NEW_SCIENTIFIC_SEQUENCE",
+      "sequence_id": "avia_quick_shack",
+      "source_name": "2020-09-16-quick-shack.bag",
+      "source_sha256": "05a56e75898f952766f136d1e5db64a35d202e990e3b1052558369d8384d7ffe",
+      "source_size_bytes": 227829516,
+      "topic_counts": {
+        "/livox/imu": 9953,
+        "/livox/lidar": 491
+      },
+      "topics": [
+        "/livox/imu",
+        "/livox/lidar"
+      ],
+      "usage": "ENGINEERING_REPLAY_DERIVATIVE"
+    },
+    {
+      "clip_duration_sec": 63.84782075881958,
+      "clip_name": "avia_outdoor_run_100hz.replay.bag",
+      "clip_read_only": true,
+      "clip_sha256": "087c552c9c62be37b42d218323383459df8791ce6514fa7b3425f7bab5021284",
+      "clip_size_bytes": 296911627,
+      "data_namespace": "NOT_INCLUDED_IN_DATA_NAMESPACE",
+      "first_imu_time": 1609060339.2799432,
+      "first_lidar_time": 1609060339.2799609,
+      "first_message_time": 1609060339.2799432,
+      "first_message_topic": "/livox/imu",
+      "generated_once": true,
+      "last_imu_time": 1609060403.1277618,
+      "last_lidar_time": 1609060403.127764,
+      "locked_duration_sec": 63.857759,
+      "locked_window_end_exclusive": 1609060403.1377022,
+      "message_count": 19300,
+      "original_start_time": 1609060339.2799432,
+      "scientific_sequence": "NOT_A_NEW_SCIENTIFIC_SEQUENCE",
+      "sequence_id": "avia_outdoor_run_100hz",
+      "source_name": "outdoor_run_100Hz_2020-12-27-17-12-19.bag",
+      "source_sha256": "13bde5d88ce054d88904873e924e2619153efdf5b63df7f3bbab4f16eb72a253",
+      "source_size_bytes": 2055207092,
+      "topic_counts": {
+        "/livox/imu": 12914,
+        "/livox/lidar": 6386
+      },
+      "topics": [
+        "/livox/imu",
+        "/livox/lidar"
+      ],
+      "usage": "ENGINEERING_REPLAY_DERIVATIVE"
+    }
+  ],
+  "filter_topics": [
+    "/livox/lidar",
+    "/livox/imu"
+  ],
+  "schema_version": "day5_startup_sync_replay_clips_v1",
+  "window_rule": "original_start_time <= message_time < original_start_time + locked_duration"
+}

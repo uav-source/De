@@ -1,0 +1,22 @@
+{
+  "engineering_diagnostics_only": true,
+  "missing_plot_names": [],
+  "plot_count": 12,
+  "plot_names": [
+    "odi_timeline_run1.png",
+    "odi_timeline_run2.png",
+    "odi_timeline_run3.png",
+    "ais_timeline_run1.png",
+    "condition_number_timeline_run1.png",
+    "detector_flags_timeline_run1.png",
+    "weak_direction_angle_timeline_run1.png",
+    "detector_latency_distribution_run1.png",
+    "metric_quantiles_across_runs.png",
+    "flag_fractions_across_runs.png",
+    "reference_vs_run_odi_difference.png",
+    "cross_run_direction_angle_distribution.png"
+  ],
+  "plots_complete": true,
+  "required_plot_count": 12,
+  "schema_version": "day6_diagnostic_plot_summary_v1"
+}

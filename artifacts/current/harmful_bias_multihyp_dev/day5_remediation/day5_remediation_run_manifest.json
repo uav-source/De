@@ -1,0 +1,85 @@
+{
+  "planned_replay_count": 22,
+  "run_id": "multihyp_day5_remediation_v1",
+  "runs": [
+    {
+      "bag_sha256": "05a56e75898f952766f136d1e5db64a35d202e990e3b1052558369d8384d7ffe",
+      "binary_sha256": "59deeb5302c3c575b04d6cb65b9decdd3e9042eb5d70447f5cc4ee4227d3c136",
+      "observation_record_count": 0,
+      "phase": "baseline",
+      "repeat_id": 1,
+      "rosbag_exit_code": 0,
+      "roslaunch_exit_code": 0,
+      "run_label": "AUDIT_ONLY_R1",
+      "runtime_audit_row_count": 490,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_quick_shack"
+    },
+    {
+      "bag_sha256": "05a56e75898f952766f136d1e5db64a35d202e990e3b1052558369d8384d7ffe",
+      "binary_sha256": "59deeb5302c3c575b04d6cb65b9decdd3e9042eb5d70447f5cc4ee4227d3c136",
+      "observation_record_count": 0,
+      "phase": "baseline",
+      "repeat_id": 2,
+      "rosbag_exit_code": 0,
+      "roslaunch_exit_code": 0,
+      "run_label": "AUDIT_ONLY_R2",
+      "runtime_audit_row_count": 490,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_quick_shack"
+    },
+    {
+      "bag_sha256": "05a56e75898f952766f136d1e5db64a35d202e990e3b1052558369d8384d7ffe",
+      "binary_sha256": "59deeb5302c3c575b04d6cb65b9decdd3e9042eb5d70447f5cc4ee4227d3c136",
+      "observation_record_count": 0,
+      "phase": "baseline",
+      "repeat_id": 3,
+      "rosbag_exit_code": 0,
+      "roslaunch_exit_code": 0,
+      "run_label": "AUDIT_ONLY_R3",
+      "runtime_audit_row_count": 490,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_quick_shack"
+    },
+    {
+      "bag_sha256": "13bde5d88ce054d88904873e924e2619153efdf5b63df7f3bbab4f16eb72a253",
+      "binary_sha256": "59deeb5302c3c575b04d6cb65b9decdd3e9042eb5d70447f5cc4ee4227d3c136",
+      "observation_record_count": 0,
+      "phase": "baseline",
+      "repeat_id": 1,
+      "rosbag_exit_code": 0,
+      "roslaunch_exit_code": 0,
+      "run_label": "AUDIT_ONLY_R1",
+      "runtime_audit_row_count": 6382,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_outdoor_run_100hz"
+    },
+    {
+      "bag_sha256": "13bde5d88ce054d88904873e924e2619153efdf5b63df7f3bbab4f16eb72a253",
+      "binary_sha256": "59deeb5302c3c575b04d6cb65b9decdd3e9042eb5d70447f5cc4ee4227d3c136",
+      "observation_record_count": 0,
+      "phase": "baseline",
+      "repeat_id": 2,
+      "rosbag_exit_code": 0,
+      "roslaunch_exit_code": 0,
+      "run_label": "AUDIT_ONLY_R2",
+      "runtime_audit_row_count": 6382,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_outdoor_run_100hz"
+    },
+    {
+      "bag_sha256": "13bde5d88ce054d88904873e924e2619153efdf5b63df7f3bbab4f16eb72a253",
+      "binary_sha256": "59deeb5302c3c575b04d6cb65b9decdd3e9042eb5d70447f5cc4ee4227d3c136",
+      "observation_record_count": 0,
+      "phase": "baseline",
+      "repeat_id": 3,
+      "rosbag_exit_code": 0,
+      "roslaunch_exit_code": 0,
+      "run_label": "AUDIT_ONLY_R3",
+      "runtime_audit_row_count": 6383,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_outdoor_run_100hz"
+    }
+  ],
+  "successful_replay_count": 6
+}

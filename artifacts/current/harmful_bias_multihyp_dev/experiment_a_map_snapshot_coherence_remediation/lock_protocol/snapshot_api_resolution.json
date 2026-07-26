@@ -1,0 +1,13 @@
+{
+  "lock_order": [
+    "rebuild_ptr_mutex_lock",
+    "working_flag_mutex"
+  ],
+  "lock_protocol_status": "CONFIRMED",
+  "map_snapshot_implementation": "NEW_READONLY_SYNCHRONIZED_KDTREE_API",
+  "maximum_snapshot_attempts": 3,
+  "schema_version": "experiment_a_snapshot_api_resolution_v1",
+  "snapshot_method": "KD_TREE_REBUILD_PTR_THEN_WORKING_MUTEX_COPY_V1",
+  "snapshot_schema_version": "coherent_map_snapshot_v2",
+  "snapshot_symbol": "KD_TREE<PointType>::Snapshot_Valid_Points_Coherent"
+}

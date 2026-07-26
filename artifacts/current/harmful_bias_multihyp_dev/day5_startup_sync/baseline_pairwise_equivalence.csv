@@ -1,0 +1,2 @@
+status,reason,planned_pair_count,evaluated_pair_count
+NOT_EVALUATED,MATRIX_STOPPED_AFTER_POST_RUN_SOURCE_LOCK_FAILURE,6,0

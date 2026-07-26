@@ -1,0 +1,2 @@
+drain_pass,failure_classification,max_consecutive_service_timeouts,repeat_id,sequence_id,service_call_timeout_count,service_call_timeout_sec
+True,NONE,0,1,avia_quick_shack,0,2.0

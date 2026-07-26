@@ -1,0 +1,336 @@
+{
+  "ADAPTER_GUARD_UNCHANGED_PASS": true,
+  "ADAPTER_OUTPUT_BACKWARD_COMPATIBILITY_PASS": true,
+  "ADAPTER_PIPELINE_DETERMINISM_PASS": true,
+  "ADAPTER_PIPELINE_THREE_PROCESS_DETERMINISM_PASS": true,
+  "ADAPTER_PRECONDITION_CONTRACT_PASS": true,
+  "ADAPTER_PRECONDITION_DOMAIN_COUNT_PASS": true,
+  "ADAPTER_PRECONDITION_IDENTITY_PASS": true,
+  "COHERENT_BIAS_HARMFUL_MECHANISM_SUPPORTED": true,
+  "COHERENT_BIAS_STABLY_ONLINE_DETECTABLE": false,
+  "CROSS_PROCESS_BITWISE_REPLAY_EQUIVALENCE": "NOT_PROVEN",
+  "DAY6_FALLBACK_FUNCTIONAL_DIAGNOSTICS_RECOMMENDED": true,
+  "DAY6_QUICK_DIAGNOSTICS_AUTHORIZED": false,
+  "DEGEN_FULL_TEST_PASS": true,
+  "DEGEN_TARGETED_TEST_PASS": true,
+  "DETECTOR_ARTIFACT_IMMUTABILITY_PASS": true,
+  "DETECTOR_OUTPUT_SCHEMA_REUSE_PASS": true,
+  "DIFF_SCOPE_PASS": true,
+  "DIRECT_PRODUCTION_DIAGNOSTIC_STREAM_PASS": true,
+  "DIRECT_PRODUCTION_THREE_PROCESS_DETERMINISM_PASS": true,
+  "FALLBACK_C_PASS": true,
+  "FAST_LIO2_INTEGRATION_AUTHORIZED": false,
+  "FRESH_PROCESS_RUN_COMPLETENESS_PASS": true,
+  "FROZEN_ARTIFACT_IMMUTABILITY_PASS": true,
+  "FROZEN_INPUT_IDENTITY_PASS": true,
+  "FULL_ADAPTER_PRODUCTION_CALL_COVERAGE_PASS": false,
+  "FULL_DIRECT_PRODUCTION_ENTRYPOINT_COVERAGE_PASS": true,
+  "HARMFUL_BIAS_DETECTABILITY_STATUS": "NOT_EVALUATED_DAY5_FALLBACK_OFFLINE_DETERMINISM_REMEDIATION",
+  "INPUT_IMMUTABILITY_PASS": true,
+  "JACOBIAN_NO_DOUBLE_REORDER_PASS": true,
+  "NO_GT_PASS": true,
+  "NULL_SAFE_COMPARATOR_PASS": true,
+  "OBSERVATION_SCHEMA_REUSE_PASS": true,
+  "OFFLINE_PRODUCTION_DETECTOR_DETERMINISM_PASS": true,
+  "OUTPUT_COUNT_COMPLETENESS_PASS": true,
+  "OUTPUT_SCHEMA_PASS": true,
+  "PATENT2_AUTHORIZED": false,
+  "PRIOR_COVARIANCE_NOT_USED_PASS": true,
+  "PRODUCTION_DETECTOR_DETERMINISM_ON_DIRECT_STREAM_PASS": true,
+  "PRODUCTION_DETECTOR_ENTRYPOINT_CONFIRMED": true,
+  "PRODUCTION_DETECTOR_IDENTITY_PASS": true,
+  "PRODUCTION_EXECUTED_DOMAIN_COUNT_PASS": true,
+  "PRODUCTION_METRIC_EQUIVALENCE_PASS": true,
+  "PUBLIC_DISCLOSURE_AUTHORIZED": false,
+  "REAL_REPLAY_FUNCTIONAL_STATISTICAL_TOLERANCE_AUTHORIZED": false,
+  "RESIDUAL_NOT_USED_BY_DETECTOR_CONFIRMED": true,
+  "RISK_WARNING_AUTHORIZED": false,
+  "STAGE2_GATE": "FAIL",
+  "STAGE3_START_AUTHORIZED": false,
+  "STAGE4_START_AUTHORIZED": false,
+  "STRICT_CROSS_PROCESS_REPLAY_ROUTE_STATUS": "ABANDONED_AFTER_V5",
+  "STRICT_REPLAY_FURTHER_REMEDIATION_AUTHORIZED": false,
+  "THIN_ADAPTER_PASS": true,
+  "TRANSITION": "PIVOT",
+  "VARIANCE_MAPPING_PASS": true,
+  "adapter_guard_modified": false,
+  "adapter_guard_sha256_after": "eaf7b4dbe726fb3aa79cfe1a18793068e968b9c052565d6af87ed5ca852644ca",
+  "adapter_guard_sha256_before": "eaf7b4dbe726fb3aa79cfe1a18793068e968b9c052565d6af87ed5ca852644ca",
+  "adapter_input_mutation_count": 0,
+  "adapter_json_line_mismatch_count": 0,
+  "adapter_precondition_contract_mismatch_count": 0,
+  "adapter_precondition_domain_record_count": 1,
+  "adapter_precondition_record_indexes": [
+    284
+  ],
+  "adapter_precondition_scan_indexes": [
+    287
+  ],
+  "adapter_record_checksum_mismatch_count": 0,
+  "adapter_schema_rejected_count": 0,
+  "adapter_whole_file_sha_mismatch_count": 0,
+  "auroc_computed": false,
+  "blas_identity": {
+    "blas_ilp64_opt_info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    },
+    "lapack_ilp64_opt_info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ],
+        [
+          "HAVE_LAPACKE",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    },
+    "openblas64__info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    },
+    "openblas64__lapack_info": {
+      "define_macros": [
+        [
+          "HAVE_CBLAS",
+          null
+        ],
+        [
+          "BLAS_SYMBOL_SUFFIX",
+          "64_"
+        ],
+        [
+          "HAVE_BLAS_ILP64",
+          null
+        ],
+        [
+          "HAVE_LAPACKE",
+          null
+        ]
+      ],
+      "language": "c",
+      "libraries": [
+        "openblas64_",
+        "openblas64_"
+      ],
+      "library_dirs": [
+        "/usr/local/lib"
+      ],
+      "runtime_library_dirs": [
+        "/usr/local/lib"
+      ]
+    }
+  },
+  "canonical_adapter_output_path": "artifacts/current/harmful_bias_multihyp_dev/fallback_offline_detector_determinism_remediation/adapter_detector_outputs_v3.jsonl",
+  "canonical_adapter_output_sha256": "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+  "canonical_direct_output_path": "artifacts/current/harmful_bias_multihyp_dev/fallback_offline_detector_determinism_remediation/direct_production_metrics_v1.jsonl",
+  "canonical_direct_output_sha256": "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9",
+  "canonical_output_module_sha256_after": "ddb57ed373f38ae858fc6c28819540d09654dad441f0f0fb733cad56d886a196",
+  "canonical_output_module_sha256_before": "ddb57ed373f38ae858fc6c28819540d09654dad441f0f0fb733cad56d886a196",
+  "commit_created": false,
+  "config_modified": false,
+  "core_binary_sha256": "d7f218068868985eee7ff01a8b7d1ce3467711d088e8c00b6c5de04ff0c120f3",
+  "created_at_utc": "2026-07-17T11:50:40.819779+00:00",
+  "degen_branch": "spike/harmful-bias-multihyp-dev",
+  "degen_diff_sha256": "6d2248fbbb017cbf49fada77d7905e756f5cf73c98e0b5c97e8eba10b3dd72bd",
+  "degen_head": "711ac05ccc683263446fb8656c0054048832f54c",
+  "detector_artifact_tree_sha256_after": "6dcccf2de670f78080ae0097d357d1cfd7b87949caf48c31dd247ae81bb5c95e",
+  "detector_artifact_tree_sha256_before": "6dcccf2de670f78080ae0097d357d1cfd7b87949caf48c31dd247ae81bb5c95e",
+  "detector_called": true,
+  "detector_config_sha256": "665c3df8f794841ac5f3afe97e77f9993aaae2feaf3510043ecff6646acf2398",
+  "detector_exception_count": 0,
+  "detector_lock_sha256": "075f14217f5e9c782bc1ab4051e6533f34d4932399c7f4b8cbc60a03d62fe358",
+  "detector_metric_version": "detector_stage2a_v1",
+  "detector_modified": false,
+  "development_run": false,
+  "direct_input_mutation_count": 0,
+  "direct_json_line_mismatch_count": 0,
+  "direct_production_exception_count": 0,
+  "direct_record_checksum_mismatch_count": 0,
+  "direct_schema_rejected_count": 0,
+  "direct_whole_file_sha_mismatch_count": 0,
+  "duplicate_output_count": 0,
+  "environment_lock": {
+    "LANG": "C",
+    "LC_ALL": "C",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_DYNAMIC": "FALSE",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONHASHSEED": "0",
+    "TZ": "UTC",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "environment_variables": {
+    "LANG": "C",
+    "LC_ALL": "C",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_DYNAMIC": "FALSE",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONHASHSEED": "0",
+    "TZ": "UTC",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "fast_patch_sha256_after": "3b6b1941ccb9e0ae5e52d26a370d10ab3bf571064374d60f056476ee7fb6cc45",
+  "fast_patch_sha256_before": "3b6b1941ccb9e0ae5e52d26a370d10ab3bf571064374d60f056476ee7fb6cc45",
+  "fastlio2_branch": "spike/readonly-observation-tap-v1",
+  "fastlio2_head": "f19b4c42a77dc11793c912d67b9e56dcafa279dc",
+  "fastlio2_run": false,
+  "forbidden_field_count": 0,
+  "fpr_computed": false,
+  "fresh_process_run_count": 3,
+  "frozen_artifact_sha256": "f68c9671e0058644b86fd1602b44b4a19ee35714e523cc10e1261650d538aca8",
+  "frozen_artifact_sha256_after": "f68c9671e0058644b86fd1602b44b4a19ee35714e523cc10e1261650d538aca8",
+  "frozen_artifact_sha256_before": "f68c9671e0058644b86fd1602b44b4a19ee35714e523cc10e1261650d538aca8",
+  "future_test_run": false,
+  "gt_topic_consumed_count": 0,
+  "holdout_run": false,
+  "input_record_count": 487,
+  "lock_modified": false,
+  "missing_output_count": 0,
+  "numpy_version": "1.24.4",
+  "odi_computed": true,
+  "output_identity": "INTERNAL_ENGINEERING_DETERMINISM_EVIDENCE_ONLY",
+  "per_run_adapter_invalid_count": [
+    1,
+    1,
+    1
+  ],
+  "per_run_adapter_jsonl_sha256": [
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+    "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232"
+  ],
+  "per_run_adapter_output_count": [
+    487,
+    487,
+    487
+  ],
+  "per_run_adapter_valid_count": [
+    486,
+    486,
+    486
+  ],
+  "per_run_direct_invalid_count": [
+    0,
+    0,
+    0
+  ],
+  "per_run_direct_jsonl_sha256": [
+    "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9",
+    "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9",
+    "b2e082add3c596c25d12514eb452a48c3e96583c283bfa1f1e19b054f30b19b9"
+  ],
+  "per_run_direct_output_count": [
+    487,
+    487,
+    487
+  ],
+  "per_run_direct_valid_count": [
+    487,
+    487,
+    487
+  ],
+  "per_run_input_count": [
+    487,
+    487,
+    487
+  ],
+  "previous_completed_adapter_jsonl_sha256": "182b989aee619d83862cb45e9aef6fb0a50dd5b91d407e8d5ef13d694fd65232",
+  "previous_failed_audit_sha256": "721c28dee7d2ef9fc82fc8b71326eb90bffad3cfecd8528b923cd5c7c815c409",
+  "previous_failure_classification": "RUNTIME_ADAPTER_PRECONDITION_DIFFERS_FROM_DIRECT_PRODUCTION_ENTRYPOINT",
+  "production_detector_file": "src/degen_detector/odi_tracker.py",
+  "production_detector_sha256": "c515e5321e569ed074ae1c4f33563e73a82775800f20197612c2816086676d17",
+  "production_detector_symbol": "compute_metrics_for_frame",
+  "production_executed_domain_record_count": 486,
+  "production_metric_equivalence_max_abs_error": 0.0,
+  "production_metric_equivalence_mismatch_count": 0,
+  "production_metric_equivalence_required_count": 486,
+  "push_performed": false,
+  "python_version": "3.8.10",
+  "real_observation_artifact_used": true,
+  "recall_computed": false,
+  "rosbag_run": false,
+  "roscore_run": false,
+  "roslaunch_run": false,
+  "run_id": "multihyp_fallback_offline_detector_determinism_remediation_v1",
+  "runtime_adapter_sha256_after": "c5efe8a8f5c81b6af760108acbc95c20911f2ba7ebceba0347281d0827308aaf",
+  "runtime_adapter_sha256_before": "c5efe8a8f5c81b6af760108acbc95c20911f2ba7ebceba0347281d0827308aaf",
+  "schema_version": "fallback_c_offline_remediation_manifest_v1",
+  "scientific_effectiveness_evaluated": false,
+  "scipy_version": "1.10.1",
+  "threshold_modified": false,
+  "unexpected_changed_file_count": 0,
+  "unexpected_changed_files": [],
+  "weak_direction_computed": true
+}

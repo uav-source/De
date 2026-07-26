@@ -1,0 +1,22 @@
+{
+  "executed_replay_count": 1,
+  "planned_replay_count": 6,
+  "run_id": "multihyp_day5_startup_sync_v4",
+  "runs": [
+    {
+      "drain_completed": false,
+      "drain_started": true,
+      "failure_classification": "DRAIN_SERVICE_IMPLEMENTATION_INVALID",
+      "handshake_pass": true,
+      "repeat_id": 1,
+      "rosbag_natural_exit": true,
+      "runtime_mode": "AUDIT_ONLY",
+      "runtime_product_pass": false,
+      "sequence_id": "avia_quick_shack",
+      "shutdown_completed": false,
+      "single_run_status": "INTERRUPTED",
+      "unpause_success": true
+    }
+  ],
+  "successful_replay_count": 0
+}

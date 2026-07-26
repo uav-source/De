@@ -1,0 +1,34 @@
+{
+  "adapter_formal_metrics_are_null": true,
+  "adapter_invalid_reason": "TOO_FEW_CORRESPONDENCES",
+  "adapter_valid": false,
+  "direct_equivalence_mismatch_count": 1,
+  "direct_equivalence_pass": false,
+  "direct_metrics": {
+    "actionable_direction": true,
+    "ais_trans": -2.582726987217114,
+    "condition_number_trans": 2327.9361438990372,
+    "degeneracy_triggered": true,
+    "lambda_min_trans": 0.0008660570324663162,
+    "odi_trans": 0.7919828318453463,
+    "primary_direction_stable": true,
+    "primary_eigengap_ratio": 0.12201034788848435,
+    "primary_weak_direction": [
+      0.9073560347583851,
+      0.4183439964821795,
+      -0.04115005218536843
+    ],
+    "translation_eigenvalues_ascending": [
+      2.0161254685562797,
+      0.24685422683785152,
+      0.0008660570324663162
+    ]
+  },
+  "direct_production_returned_metrics": true,
+  "failure_classification": "RUNTIME_ADAPTER_PRECONDITION_DIFFERS_FROM_DIRECT_PRODUCTION_ENTRYPOINT",
+  "formal_metric_comparable": false,
+  "record_index": 284,
+  "scan_index": 287,
+  "schema_version": "fallback_direct_equivalence_failure_diagnostic_v1",
+  "valid_correspondence_count": 5
+}

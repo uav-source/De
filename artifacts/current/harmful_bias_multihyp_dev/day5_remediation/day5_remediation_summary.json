@@ -1,0 +1,110 @@
+{
+  "ACCEPTED_INDEX_CHECKSUM_EQUIVALENCE_PASS": false,
+  "BAG_HASH_PASS": true,
+  "BASELINE_REPEATABILITY_PASS": false,
+  "BINARY_FILE_INTEGRITY_PASS": true,
+  "CAPTURE_ONLY_EQUIVALENCE_PASS": false,
+  "COMPACT_EXPORT_EQUIVALENCE_PASS": false,
+  "CORRESPONDENCE_EQUIVALENCE_PASS": false,
+  "COVARIANCE_EQUIVALENCE_PASS": false,
+  "DAY5_DIFF_SCOPE_PASS": true,
+  "DAY5_REMEDIATION_PASS": false,
+  "DAY5_RUNTIME_EQUIVALENCE_PASS": false,
+  "DAY5_SOURCE_LOCK_PASS": true,
+  "DAY6_QUICK_DIAGNOSTICS_AUTHORIZED": false,
+  "DETECTOR_OUTPUT_COMPLETENESS_PASS": false,
+  "DETECTOR_REPEATABILITY_PASS": false,
+  "EXPORT_CALL_IMMUTABILITY_PASS": false,
+  "FAILURE_CLASSIFICATION": "BASELINE_RUNTIME_NONDETERMINISM",
+  "FINAL_MAP_CHECKSUM_EQUIVALENCE_PASS": false,
+  "FORMAL_JACOBIAN_CHECKSUM_EQUIVALENCE_PASS": false,
+  "FORMAL_RESIDUAL_CHECKSUM_EQUIVALENCE_PASS": false,
+  "HARMFUL_BIAS_DETECTABILITY_STATUS": "NOT_EVALUATED_DAY5_REMEDIATION",
+  "MAP_SIZE_EQUIVALENCE_PASS": false,
+  "MEASURE_GROUP_EQUIVALENCE_PASS": false,
+  "NO_DROP_PASS": false,
+  "NO_GT_RUNTIME_PASS": true,
+  "NO_NONFINITE_PASS": true,
+  "OBSERVATION_SCHEMA_ACCEPTANCE_PASS": false,
+  "OFF_ON_REPLAY_EQUIVALENCE_STATUS": "FAIL",
+  "PARAMETER_DIFF_ALLOWLIST_PASS": true,
+  "POSE_EQUIVALENCE_PASS": false,
+  "RUNTIME_HARD_GATE_PASS": false,
+  "RUNTIME_TARGET_PASS": false,
+  "SAME_BINARY_PASS": true,
+  "TAP_BUFFER_NO_DROP_PASS": true,
+  "TAP_IN_CALL_IMMUTABILITY_PASS": false,
+  "WRITER_NO_ERROR_PASS": true,
+  "binary_checksum_failure_count": 0,
+  "checksum_mismatch_counts": {
+    "accepted_index_checksum": 12750,
+    "detector_jacobian_checksum": 12750,
+    "formal_correspondence_checksum": 12750,
+    "formal_innovation_checksum": 12750,
+    "formal_native_jacobian_checksum": 12750,
+    "geometric_residual_checksum": 12750,
+    "measure_group_checksum": 12764,
+    "posterior_covariance_checksum": 12752,
+    "posterior_state_checksum": 12762,
+    "prior_covariance_checksum": 12752,
+    "prior_state_checksum": 12762
+  },
+  "detector_output_missing_count": 0,
+  "duplicate_scan_count": 0,
+  "export_call_mutation_count": 0,
+  "first_divergences": [
+    {
+      "comparison_id": "baseline:avia_quick_shack:AUDIT_ONLY_R1_vs_AUDIT_ONLY_R2",
+      "scan_index": null,
+      "stage": "NONE"
+    },
+    {
+      "comparison_id": "baseline:avia_quick_shack:AUDIT_ONLY_R1_vs_AUDIT_ONLY_R3",
+      "scan_index": null,
+      "stage": "NONE"
+    },
+    {
+      "comparison_id": "baseline:avia_quick_shack:AUDIT_ONLY_R2_vs_AUDIT_ONLY_R3",
+      "scan_index": null,
+      "stage": "NONE"
+    },
+    {
+      "comparison_id": "baseline:avia_outdoor_run_100hz:AUDIT_ONLY_R1_vs_AUDIT_ONLY_R2",
+      "scan_index": null,
+      "stage": "NONE"
+    },
+    {
+      "comparison_id": "baseline:avia_outdoor_run_100hz:AUDIT_ONLY_R1_vs_AUDIT_ONLY_R3",
+      "scan_index": 0,
+      "stage": "INPUT_GROUP"
+    },
+    {
+      "comparison_id": "baseline:avia_outdoor_run_100hz:AUDIT_ONLY_R2_vs_AUDIT_ONLY_R3",
+      "scan_index": 0,
+      "stage": "INPUT_GROUP"
+    }
+  ],
+  "max_covariance_difference": 0.805910679062224,
+  "max_position_difference_m": 6.311448361981912,
+  "max_rotation_difference_rad": 0.11773532575755596,
+  "missing_scan_count": 2,
+  "paired_scan_count": 20616,
+  "per_sequence_runtime": [],
+  "phase_execution_status": {
+    "baseline": true,
+    "capture": false,
+    "export": false
+  },
+  "phase_replay_counts": {
+    "baseline": 6,
+    "capture": 0,
+    "export": 0
+  },
+  "planned_replay_count": 22,
+  "run_id": "multihyp_day5_remediation_v1",
+  "schema_rejected_count": 0,
+  "successful_replay_count": 6,
+  "tap_call_mutation_count": 0,
+  "tap_drop_count": 0,
+  "writer_error_count": 0
+}

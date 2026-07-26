@@ -1,0 +1,65 @@
+{
+  "MAP_CONTENT_IDENTITY_STATUS": "NOT_OBSERVABLE_WITH_CURRENT_EVIDENCE",
+  "RAW_SENSOR_PAYLOAD_IDENTITY_STATUS": "NOT_PROVEN",
+  "checksum_only_limitation_disclosed": true,
+  "evidence_granularity_audit_pass": true,
+  "rows": [
+    {
+      "evidence": "raw_lidar_payload_checksum",
+      "limitation": "No raw LiDAR payload digest field is present.",
+      "status": "NOT_RECORDED"
+    },
+    {
+      "evidence": "raw_imu_bundle_checksum",
+      "limitation": "No raw IMU bundle digest field is present.",
+      "status": "NOT_RECORDED"
+    },
+    {
+      "evidence": "undistorted_point_cloud_checksum",
+      "limitation": "No undistorted-cloud digest field is present.",
+      "status": "NOT_RECORDED"
+    },
+    {
+      "evidence": "map_content_checksum",
+      "limitation": "No complete map-content digest field is present.",
+      "status": "NOT_RECORDED"
+    },
+    {
+      "evidence": "map_insertion_order_checksum",
+      "limitation": "No insertion-order digest field is present.",
+      "status": "NOT_RECORDED"
+    },
+    {
+      "evidence": "full_accepted_index_array",
+      "limitation": "Only the accepted-index checksum is retained.",
+      "status": "CHECKSUM_ONLY"
+    },
+    {
+      "evidence": "full_plane_parameter_array",
+      "limitation": "Only the aggregate formal-correspondence checksum is retained.",
+      "status": "CHECKSUM_ONLY"
+    },
+    {
+      "evidence": "full_nearest_neighbor_identity_array",
+      "limitation": "Nearest-neighbor identities are not retained.",
+      "status": "NOT_RECORDED"
+    },
+    {
+      "evidence": "openmp_scheduling_trace",
+      "limitation": "No scheduling trace is retained.",
+      "status": "NOT_RECORDED"
+    },
+    {
+      "evidence": "thread_identity_trace",
+      "limitation": "No per-operation thread trace is retained.",
+      "status": "NOT_RECORDED"
+    },
+    {
+      "evidence": "map_size",
+      "limitation": "Compact records do not expose map size in this archive.",
+      "status": "NOT_RECORDED"
+    }
+  ],
+  "schema_version": "day6_evidence_granularity_summary_v1",
+  "specific_correspondence_element_localized": false
+}

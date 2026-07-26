@@ -1,0 +1,106 @@
+{
+  "probabilistic_confidence_used": false,
+  "rows": [
+    {
+      "allowed_conclusion": "No mismatch is visible in recorded timestamps; unrecorded ordering cannot be excluded.",
+      "confidence": "LOW",
+      "contradicting_evidence": "Frozen scan indices and begin/end timestamps remain identical across runs.",
+      "hypothesis": "Recorded sensor timestamp or ordering mismatch initiated the branch.",
+      "hypothesis_id": "H1_SENSOR_TIMESTAMP_OR_ORDER_MISMATCH",
+      "missing_evidence": "Raw callback-order and payload identity traces are absent.",
+      "status": "PLAUSIBLE_UNPROVEN",
+      "supporting_evidence": "No direct supporting trace is present."
+    },
+    {
+      "allowed_conclusion": "Raw payload identity is not proven.",
+      "confidence": "NONE",
+      "contradicting_evidence": "Bag identity and callback counts match.",
+      "hypothesis": "A raw sensor payload mismatch initiated the branch.",
+      "hypothesis_id": "H2_RAW_SENSOR_PAYLOAD_MISMATCH",
+      "missing_evidence": "Raw LiDAR and IMU-bundle checksums are not recorded.",
+      "status": "NOT_OBSERVABLE",
+      "supporting_evidence": "None at raw-payload granularity."
+    },
+    {
+      "allowed_conclusion": "Prior-state divergence does not precede the first recorded measurement-side divergence.",
+      "confidence": "HIGH",
+      "contradicting_evidence": "At the first branch record the prior remains equal while J, h, valid count, residual and correspondence checksums differ.",
+      "hypothesis": "Prior state divergence preceded measurement/correspondence divergence.",
+      "hypothesis_id": "H3_PRIOR_STATE_DIVERGENCE_PRECEDES_MEASUREMENT",
+      "missing_evidence": "No missing field changes the observed record-level order.",
+      "status": "CONTRADICTED",
+      "supporting_evidence": "Prior fields do diverge on the next record."
+    },
+    {
+      "allowed_conclusion": "The formal measurement/correspondence representation diverged; the responsible element is not localized.",
+      "confidence": "HIGH",
+      "contradicting_evidence": "The full accepted-index and plane arrays are unavailable.",
+      "hypothesis": "Correspondence selection or its formal measurement representation diverged at onset.",
+      "hypothesis_id": "H4_CORRESPONDENCE_SELECTION_DIVERGENCE",
+      "missing_evidence": "Specific point, plane and nearest-neighbor identities are not recorded.",
+      "status": "SUPPORTED",
+      "supporting_evidence": "Valid count, J/h arrays, residual, accepted-index checksum and formal-correspondence checksum first diverge together."
+    },
+    {
+      "allowed_conclusion": "Map causality is not proven.",
+      "confidence": "NONE",
+      "contradicting_evidence": "No map-level runtime identity evidence is present.",
+      "hypothesis": "Map content or insertion order initiated the branch.",
+      "hypothesis_id": "H5_MAP_CONTENT_OR_INSERTION_ORDER_DIVERGENCE",
+      "missing_evidence": "Map-content, pre/post insertion and insertion-order checksums are absent.",
+      "status": "NOT_OBSERVABLE",
+      "supporting_evidence": "The map and correspondence path is statically upstream of formal measurement construction."
+    },
+    {
+      "allowed_conclusion": "Scheduling sensitivity remains a testable mechanism, not a proven data race.",
+      "confidence": "LOW",
+      "contradicting_evidence": "No direct runtime scheduling failure or conflicting write is recorded.",
+      "hypothesis": "OpenMP or thread scheduling sensitivity initiated the branch.",
+      "hypothesis_id": "H6_OPENMP_OR_THREAD_SCHEDULING_SENSITIVITY",
+      "missing_evidence": "OpenMP schedule and thread-identity traces are absent.",
+      "status": "PLAUSIBLE_UNPROVEN",
+      "supporting_evidence": "The correspondence search loop is statically parallelized and writes index-owned shared arrays."
+    },
+    {
+      "allowed_conclusion": "ikd-tree order sensitivity is not proven.",
+      "confidence": "LOW",
+      "contradicting_evidence": "No tree-content or operation-order identity is available.",
+      "hypothesis": "ikd-tree ordering sensitivity initiated the branch.",
+      "hypothesis_id": "H7_IKDTREE_ORDER_SENSITIVITY",
+      "missing_evidence": "Tree content, insertion batches and neighbor identities are absent.",
+      "status": "PLAUSIBLE_UNPROVEN",
+      "supporting_evidence": "Nearest-neighbor search and incremental insertion are statically on the upstream path."
+    },
+    {
+      "allowed_conclusion": "Post-replay detector execution is not the source of the FAST observation branch.",
+      "confidence": "HIGH",
+      "contradicting_evidence": "The branch exists in frozen FAST-produced observations before post-replay detector processing; same-input r1/r2 outputs agree.",
+      "hypothesis": "Production detector nondeterminism created the observed FAST branch.",
+      "hypothesis_id": "H8_PRODUCTION_DETECTOR_NONDETERMINISM",
+      "missing_evidence": "No missing detector evidence is needed to order detector processing after observation capture.",
+      "status": "CONTRADICTED",
+      "supporting_evidence": "None."
+    },
+    {
+      "allowed_conclusion": "A descriptive association is present, not a cause of the FAST branch.",
+      "confidence": "MEDIUM",
+      "contradicting_evidence": "No records enter the two most extreme fixed near-multiple bins, and association is modest.",
+      "hypothesis": "Small lambda1-lambda2 separation is associated with weak-vector jumps.",
+      "hypothesis_id": "H9_NEAR_MULTIPLE_EIGENVALUES_EXPLAIN_WEAK_VECTOR_JUMPS",
+      "missing_evidence": "A broader controlled perturbation sample is absent.",
+      "status": "PARTIALLY_SUPPORTED",
+      "supporting_evidence": "Observed status: WEAK_DESCRIPTIVE_ASSOCIATION_NO_EXTREME_NEAR_MULTIPLES; smaller observed gap bins have larger descriptive vector angles."
+    },
+    {
+      "allowed_conclusion": "The 2-D subspace is relatively more stable, but uniform stability is not demonstrated.",
+      "confidence": "MEDIUM",
+      "contradicting_evidence": "Large subspace changes still occur in the tail.",
+      "hypothesis": "The two-dimensional weak subspace is stable despite v1 rotation.",
+      "hypothesis_id": "H10_FULL_WEAK_SUBSPACE_IS_STABLE_DESPITE_V1_ROTATION",
+      "missing_evidence": "No hard stability threshold is authorized.",
+      "status": "PARTIALLY_SUPPORTED",
+      "supporting_evidence": "Observed status: RELATIVELY_MORE_STABLE_BUT_NOT_UNIFORMLY_STABLE; median and p95 subspace angles are smaller than v1 angles."
+    }
+  ],
+  "schema_version": "day6_branch_divergence_hypothesis_matrix_v1"
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "day7_map_mutation_outcome_taxonomy_v1",
+  "source_resolution_status": "CONFIRMED",
+  "formal_outcome_count": 20,
+  "outcomes": [
+    {"id": 1, "name": "INSERTED_NEW_VOXEL_REPRESENTATIVE", "class": "candidate", "source": "ikd_Tree.cpp:497-529"},
+    {"id": 2, "name": "REPLACED_EXISTING_VOXEL_REPRESENTATIVE", "class": "candidate", "source": "ikd_Tree.cpp:497-529"},
+    {"id": 3, "name": "REINSERTED_EXISTING_VOXEL_REPRESENTATIVE", "class": "candidate", "source": "ikd_Tree.cpp:497-529"},
+    {"id": 4, "name": "REJECTED_EXISTING_REPRESENTATIVE_CLOSER", "class": "candidate", "source": "ikd_Tree.cpp:523-555"},
+    {"id": 5, "name": "ADDED_WITHOUT_DOWNSAMPLING", "class": "candidate", "source": "ikd_Tree.cpp:557-578"},
+    {"id": 6, "name": "DELETED_BY_BOX", "class": "delete", "source": "ikd_Tree.cpp:646-678"},
+    {"id": 7, "name": "DELETE_BOX_NO_MATCH", "class": "delete", "source": "ikd_Tree.cpp:646-678"},
+    {"id": 8, "name": "LOGGER_APPEND_ADD_POINT", "class": "logger_append", "source": "ikd_Tree.cpp:549,573,1178,1197"},
+    {"id": 9, "name": "LOGGER_APPEND_DELETE_POINT", "class": "logger_append", "source": "ikd_Tree.cpp:636,1038,1057"},
+    {"id": 10, "name": "LOGGER_APPEND_DELETE_BOX", "class": "logger_append", "source": "ikd_Tree.cpp:671,974,990"},
+    {"id": 11, "name": "LOGGER_APPEND_ADD_BOX", "class": "logger_append", "source": "ikd_Tree.cpp:605,1115,1131"},
+    {"id": 12, "name": "LOGGER_APPEND_DOWNSAMPLE_DELETE", "class": "logger_append", "source": "ikd_Tree.cpp:549,974,990"},
+    {"id": 13, "name": "LOGGER_APPEND_PUSH_DOWN", "class": "logger_append", "source": "ikd_Tree.cpp:1557,1600"},
+    {"id": 14, "name": "REBUILD_LOG_ADD_POINT_APPLIED", "class": "logger_apply", "source": "ikd_Tree.cpp:376-378"},
+    {"id": 15, "name": "REBUILD_LOG_DELETE_POINT_APPLIED", "class": "logger_apply", "source": "ikd_Tree.cpp:382-384"},
+    {"id": 16, "name": "REBUILD_LOG_DELETE_BOX_APPLIED", "class": "logger_apply", "source": "ikd_Tree.cpp:385-387"},
+    {"id": 17, "name": "REBUILD_LOG_ADD_BOX_APPLIED", "class": "logger_apply", "source": "ikd_Tree.cpp:379-381"},
+    {"id": 18, "name": "REBUILD_LOG_DOWNSAMPLE_DELETE_APPLIED", "class": "logger_apply", "source": "ikd_Tree.cpp:388-390"},
+    {"id": 19, "name": "REBUILD_LOG_PUSH_DOWN_APPLIED", "class": "logger_apply", "source": "ikd_Tree.cpp:391-404"},
+    {"id": 20, "name": "REBUILD_COMMIT_REPLACED_SUBTREE", "class": "rebuild_commit", "source": "ikd_Tree.cpp:305-354"}
+  ],
+  "sentinel": {
+    "id": 255,
+    "name": "UNCLASSIFIED_FORMAL_PATH",
+    "runtime_allowed": false
+  },
+  "unclassified_formal_path_count": 0,
+  "day7_outcome_taxonomy_pass": true
+}

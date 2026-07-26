@@ -1,0 +1,23 @@
+{
+  "run_id": "multihyp_day5_startup_sync_v1",
+  "planned_replay_count": 6,
+  "successful_replay_count": 1,
+  "matrix_stopped": true,
+  "run_id_reuse_forbidden": true,
+  "runs": [
+    {
+      "sequence_id": "avia_quick_shack",
+      "repeat_id": 1,
+      "mode": "AUDIT_ONLY",
+      "handshake_pass": true,
+      "paused_start": true,
+      "unpause_success": true,
+      "rosbag_exit_code": 0,
+      "roslaunch_exit_code": 0,
+      "runtime_record_count": 490,
+      "binary_sha256_match": true,
+      "clip_sha256_match": true,
+      "post_run_source_lock_pass": false
+    }
+  ]
+}

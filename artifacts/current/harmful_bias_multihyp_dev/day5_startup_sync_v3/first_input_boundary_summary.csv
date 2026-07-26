@@ -1,0 +1,7 @@
+execution_status,first_measure_group_checksum,first_measure_group_first_imu_timestamp,first_measure_group_imu_message_count,first_measure_group_last_imu_timestamp,first_measure_group_lidar_begin_time,first_measure_group_lidar_end_time,first_measure_group_lidar_point_count,first_runtime_scan_index,repeat_id,scan_count,sequence_id
+VALIDATED,13230600471073937172,361.2021976,20,361.29722128,361.19993221,361.297410687478,2282,0,1,489,avia_quick_shack
+VALIDATED,13230600471073937172,361.2021976,20,361.29722128,361.19993221,361.297410687478,2282,0,2,490,avia_quick_shack
+VALIDATED,13230600471073937172,361.2021976,20,361.29722128,361.19993221,361.297410687478,2282,0,3,489,avia_quick_shack
+VALIDATED,4933282047975437380,126.54052706,2,126.54556718,126.53951841,126.54904221657196,417,0,1,6384,avia_outdoor_run_100hz
+NOT_EVALUATED,,,,,,,,,2,NOT_EVALUATED,avia_outdoor_run_100hz
+NOT_EVALUATED,,,,,,,,,3,NOT_EVALUATED,avia_outdoor_run_100hz

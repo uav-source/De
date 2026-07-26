@@ -1,0 +1,9 @@
+sequence_id,left_run,right_run,differing_parameter_count,non_allowlisted_parameter_difference_count,non_allowlisted_parameters,pass
+avia_quick_shack,OFF_R1,ON_R1,5,0,,True
+avia_quick_shack,OFF_R2,ON_R2,5,0,,True
+avia_quick_shack,OFF_R1,OFF_R2,3,0,,True
+avia_quick_shack,ON_R1,ON_R2,3,0,,True
+avia_outdoor_run_100hz,OFF_R1,ON_R1,5,0,,True
+avia_outdoor_run_100hz,OFF_R2,ON_R2,5,0,,True
+avia_outdoor_run_100hz,OFF_R1,OFF_R2,3,0,,True
+avia_outdoor_run_100hz,ON_R1,ON_R2,3,0,,True

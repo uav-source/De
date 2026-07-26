@@ -1,0 +1,7 @@
+allowlist_pass,changed_paths,execution_status,repeat_id,sequence_id,unexpected_runtime_output_count
+True,Log/dbg.txt;Log/imu.txt;Log/mat_out.txt;Log/mat_pre.txt;Log/pos_log.txt,VALIDATED,1,avia_quick_shack,0
+True,Log/dbg.txt;Log/imu.txt;Log/mat_out.txt;Log/mat_pre.txt;Log/pos_log.txt,VALIDATED,2,avia_quick_shack,0
+True,Log/dbg.txt;Log/imu.txt;Log/mat_out.txt;Log/mat_pre.txt;Log/pos_log.txt,VALIDATED,3,avia_quick_shack,0
+True,Log/dbg.txt;Log/imu.txt;Log/mat_out.txt;Log/mat_pre.txt;Log/pos_log.txt,VALIDATED,1,avia_outdoor_run_100hz,0
+NOT_EVALUATED,,NOT_EVALUATED_INTERRUPTED,2,avia_outdoor_run_100hz,NOT_EVALUATED
+NOT_EVALUATED,,NOT_EXECUTED,3,avia_outdoor_run_100hz,NOT_EVALUATED

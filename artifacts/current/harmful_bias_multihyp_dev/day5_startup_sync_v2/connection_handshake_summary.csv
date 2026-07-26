@@ -1,0 +1,7 @@
+sequence_id,repeat_id,status,handshake_pass,unpause_success,stable_poll_required,stable_poll_observed,lidar_publisher_bus_connected,lidar_subscriber_bus_connected,imu_publisher_bus_connected,imu_subscriber_bus_connected,extra_publisher_present,extra_subscriber_present,failure_reason
+avia_quick_shack,1,PASS_EXECUTED_RUN,true,true,20,20,true,true,true,true,false,false,NONE
+avia_quick_shack,2,NOT_EVALUATED,,,,,,,,,,,
+avia_quick_shack,3,NOT_EVALUATED,,,,,,,,,,,
+avia_outdoor_run_100hz,1,NOT_EVALUATED,,,,,,,,,,,
+avia_outdoor_run_100hz,2,NOT_EVALUATED,,,,,,,,,,,
+avia_outdoor_run_100hz,3,NOT_EVALUATED,,,,,,,,,,,

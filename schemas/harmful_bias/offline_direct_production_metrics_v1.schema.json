@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "offline_direct_production_metrics_v1.schema.json",
+  "title": "Offline direct production detector diagnostic record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_source",
+    "record_index",
+    "scan_index",
+    "timestamp_begin",
+    "timestamp_end",
+    "measurement_call_index",
+    "input_observation_checksum",
+    "detector_input_checksum",
+    "direct_output_checksum",
+    "detector_metric_version",
+    "detector_entrypoint",
+    "detector_source_sha256",
+    "detector_config_sha256",
+    "detector_lock_sha256",
+    "jacobian_row_count",
+    "jacobian_column_count",
+    "valid_correspondence_count",
+    "valid",
+    "invalid_reason",
+    "odi_trans",
+    "ais_trans",
+    "lambda_min_trans",
+    "condition_number_trans",
+    "translation_eigenvalues_ascending",
+    "primary_weak_direction",
+    "primary_eigengap_ratio",
+    "primary_direction_stable",
+    "degeneracy_triggered",
+    "actionable_direction"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "offline_direct_production_metrics_v1"
+    },
+    "record_source": {
+      "const": "FROZEN_REAL_OBSERVATION_DIRECT_PRODUCTION"
+    },
+    "record_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "scan_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "timestamp_begin": {
+      "type": "number"
+    },
+    "timestamp_end": {
+      "type": "number"
+    },
+    "measurement_call_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "input_observation_checksum": {
+      "$ref": "#/$defs/sha256"
+    },
+    "detector_input_checksum": {
+      "$ref": "#/$defs/sha256"
+    },
+    "direct_output_checksum": {
+      "$ref": "#/$defs/sha256"
+    },
+    "detector_metric_version": {
+      "const": "detector_stage2a_v1"
+    },
+    "detector_entrypoint": {
+      "const": "src/degen_detector/odi_tracker.py::compute_metrics_for_frame"
+    },
+    "detector_source_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "detector_config_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "detector_lock_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "jacobian_row_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "jacobian_column_count": {
+      "const": 6
+    },
+    "valid_correspondence_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "valid": {
+      "type": "boolean"
+    },
+    "invalid_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "odi_trans": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "ais_trans": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "lambda_min_trans": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "condition_number_trans": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "translation_eigenvalues_ascending": {
+      "$ref": "#/$defs/vector_or_null"
+    },
+    "primary_weak_direction": {
+      "$ref": "#/$defs/vector_or_null"
+    },
+    "primary_eigengap_ratio": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "primary_direction_stable": {
+      "type": "boolean"
+    },
+    "degeneracy_triggered": {
+      "type": "boolean"
+    },
+    "actionable_direction": {
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "vector_or_null": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

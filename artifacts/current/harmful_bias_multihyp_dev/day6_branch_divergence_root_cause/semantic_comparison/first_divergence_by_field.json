@@ -1,0 +1,146 @@
+{
+  "r1-r2": {
+    "accepted_index_checksum": null,
+    "detector_jacobian_checksum": null,
+    "detector_pose_jacobian_rows": null,
+    "formal_correspondence_checksum": null,
+    "formal_filter_innovation_h": null,
+    "formal_innovation_checksum": null,
+    "formal_native_jacobian_checksum": null,
+    "geometric_residual_checksum": null,
+    "map_size": null,
+    "measurement_call_index": null,
+    "measurement_variance_scalar_m2": null,
+    "measurement_weight_representation": null,
+    "prior_covariance_detector_order_raw": null,
+    "prior_covariance_detector_order_symmetric": null,
+    "prior_orientation_world_from_imu_xyzw": null,
+    "prior_position_world": null,
+    "scan_index": null,
+    "timestamp_begin": null,
+    "timestamp_end": null,
+    "valid_correspondence_count": null
+  },
+  "r1-r3": {
+    "accepted_index_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "detector_jacobian_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "detector_pose_jacobian_rows": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "formal_correspondence_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "formal_filter_innovation_h": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "formal_innovation_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "formal_native_jacobian_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "geometric_residual_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "map_size": null,
+    "measurement_call_index": null,
+    "measurement_variance_scalar_m2": null,
+    "measurement_weight_representation": null,
+    "prior_covariance_detector_order_raw": {
+      "record_index": 145,
+      "scan_index": 148
+    },
+    "prior_covariance_detector_order_symmetric": {
+      "record_index": 145,
+      "scan_index": 148
+    },
+    "prior_orientation_world_from_imu_xyzw": {
+      "record_index": 145,
+      "scan_index": 148
+    },
+    "prior_position_world": {
+      "record_index": 145,
+      "scan_index": 148
+    },
+    "scan_index": null,
+    "timestamp_begin": null,
+    "timestamp_end": null,
+    "valid_correspondence_count": {
+      "record_index": 144,
+      "scan_index": 147
+    }
+  },
+  "r2-r3": {
+    "accepted_index_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "detector_jacobian_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "detector_pose_jacobian_rows": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "formal_correspondence_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "formal_filter_innovation_h": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "formal_innovation_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "formal_native_jacobian_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "geometric_residual_checksum": {
+      "record_index": 144,
+      "scan_index": 147
+    },
+    "map_size": null,
+    "measurement_call_index": null,
+    "measurement_variance_scalar_m2": null,
+    "measurement_weight_representation": null,
+    "prior_covariance_detector_order_raw": {
+      "record_index": 145,
+      "scan_index": 148
+    },
+    "prior_covariance_detector_order_symmetric": {
+      "record_index": 145,
+      "scan_index": 148
+    },
+    "prior_orientation_world_from_imu_xyzw": {
+      "record_index": 145,
+      "scan_index": 148
+    },
+    "prior_position_world": {
+      "record_index": 145,
+      "scan_index": 148
+    },
+    "scan_index": null,
+    "timestamp_begin": null,
+    "timestamp_end": null,
+    "valid_correspondence_count": {
+      "record_index": 144,
+      "scan_index": 147
+    }
+  }
+}

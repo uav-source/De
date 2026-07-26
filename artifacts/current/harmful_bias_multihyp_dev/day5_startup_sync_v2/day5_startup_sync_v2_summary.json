@@ -1,0 +1,26 @@
+{
+  "BASELINE_REPEATABILITY_PASS": false,
+  "DAY5_CAPTURE_EXPORT_REMEDIATION_AUTHORIZED": false,
+  "DAY5_RUNTIME_EQUIVALENCE_PASS": false,
+  "DAY5_STARTUP_SYNC_V2_PASS": false,
+  "DAY6_QUICK_DIAGNOSTICS_AUTHORIZED": false,
+  "EXPECTED_RUNTIME_OUTPUT_ALLOWLIST_PASS": false,
+  "FAILURE_CLASSIFICATION": "UNEXPECTED_RUNTIME_OUTPUT",
+  "HARMFUL_BIAS_DETECTABILITY_STATUS": "NOT_EVALUATED_DAY5_STARTUP_SYNC_V2",
+  "OFF_ON_REPLAY_EQUIVALENCE_STATUS": "NOT_REEVALUATED_STARTUP_SYNC_ONLY",
+  "STARTUP_INPUT_BOUNDARY_PASS": false,
+  "evaluated_pair_count": 0,
+  "executed_replay_count": 1,
+  "executed_run_handshake_pass_count": 1,
+  "executed_run_paused_start_pass_count": 1,
+  "first_divergence_scan": null,
+  "first_divergence_stage": "UNEXPECTED_RUNTIME_OUTPUT",
+  "planned_pair_count": 6,
+  "planned_replay_count": 6,
+  "run_id": "multihyp_day5_startup_sync_v2",
+  "successful_replay_count": 0,
+  "unexpected_runtime_output_count": 1,
+  "unexpected_runtime_output_paths": [
+    "Log/imu.txt"
+  ]
+}

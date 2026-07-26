@@ -1,0 +1,7 @@
+phase,sequence_id,run_label,gt_topic_consumed_count,gt_topics,no_gt_runtime_pass
+baseline,avia_quick_shack,AUDIT_ONLY_R1,0,,True
+baseline,avia_quick_shack,AUDIT_ONLY_R2,0,,True
+baseline,avia_quick_shack,AUDIT_ONLY_R3,0,,True
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R1,0,,True
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R2,0,,True
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R3,0,,True

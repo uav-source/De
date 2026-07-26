@@ -1,0 +1,8 @@
+{
+  "invalid_count": 0,
+  "invalid_reason_counts": {
+    "NONE": 487
+  },
+  "schema_version": "fallback_c_direct_invalid_reason_summary_v1",
+  "valid_count": 487
+}

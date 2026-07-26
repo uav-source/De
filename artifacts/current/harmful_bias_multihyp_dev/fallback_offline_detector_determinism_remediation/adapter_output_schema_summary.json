@@ -1,0 +1,9 @@
+{
+  "forbidden_field_count": 0,
+  "output_schema_pass": true,
+  "reused_schema_path_alias": "schemas/harmful_bias/readonly_detector_output_v3.schema.json",
+  "reused_schema_sha256": "cc012c579a25820d1e4185a9300bf1903ab92b871cf6fa0b45f98664ca5ba445",
+  "schema_accepted_output_count": 487,
+  "schema_rejected_output_count": 0,
+  "schema_version": "fallback_c_adapter_schema_summary_v1"
+}

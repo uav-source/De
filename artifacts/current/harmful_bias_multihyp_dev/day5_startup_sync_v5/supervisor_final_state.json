@@ -1,0 +1,47 @@
+{
+  "current_child_pid": null,
+  "current_repeat": 1,
+  "current_sequence": "avia_quick_shack",
+  "failure_classification": "NONE",
+  "failure_message": "tail-clock stop/handoff did not pass",
+  "parent_pid": 1757,
+  "run_id": "multihyp_day5_startup_sync_v5",
+  "run_order": [
+    {
+      "repeat_id": 1,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_quick_shack"
+    },
+    {
+      "repeat_id": 2,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_quick_shack"
+    },
+    {
+      "repeat_id": 3,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_quick_shack"
+    },
+    {
+      "repeat_id": 1,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_outdoor_run_100hz"
+    },
+    {
+      "repeat_id": 2,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_outdoor_run_100hz"
+    },
+    {
+      "repeat_id": 3,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_outdoor_run_100hz"
+    }
+  ],
+  "runner_interruption_count": 0,
+  "schema_version": "day5_startup_sync_v5_matrix_state_v1",
+  "started_at_utc": "2026-07-17T06:40:19Z",
+  "status": "FAILED",
+  "supervisor_pid": 2632516,
+  "updated_at_utc": "2026-07-17T06:44:04Z"
+}

@@ -1,0 +1,9 @@
+{
+  "forbidden_field_count": 0,
+  "output_schema_pass": true,
+  "schema_accepted_output_count": 487,
+  "schema_path_alias": "schemas/harmful_bias/offline_direct_production_metrics_v1.schema.json",
+  "schema_rejected_output_count": 0,
+  "schema_sha256": "a3edb64e621f35cfcda9d4d7c0ce59749039766f4ee514e004f4293cc93bc3ef",
+  "schema_version": "fallback_c_direct_schema_summary_v1"
+}

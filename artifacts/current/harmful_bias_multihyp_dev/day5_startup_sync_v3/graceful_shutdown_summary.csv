@@ -1,0 +1,7 @@
+execution_status,forced_kill_used,forced_terminate_used,laser_mapping_exit_code,repeat_id,rosbag_natural_exit,roslaunch_exit_code,sequence_id,shutdown_completed,shutdown_duration_ms,shutdown_request_method,shutdown_request_monotonic_ns
+EXECUTED_CONTROLLED,False,False,0,1,True,0,avia_quick_shack,True,639.342146,rosnode kill /laserMapping,143464081545714
+EXECUTED_CONTROLLED,False,False,0,2,True,0,avia_quick_shack,True,597.776917,rosnode kill /laserMapping,143674510283099
+EXECUTED_CONTROLLED,False,False,0,3,True,0,avia_quick_shack,True,617.57653,rosnode kill /laserMapping,143886791291772
+EXECUTED_CONTROLLED,False,False,0,1,True,0,avia_outdoor_run_100hz,True,612.81502,rosnode kill /laserMapping,144158322158863
+RUNNER_INTERRUPTED_MANUAL_CLEANUP_NOT_COUNTED,False,False,NOT_DURABLY_RECORDED,2,NOT_DURABLY_RECORDED,NOT_DURABLY_RECORDED,avia_outdoor_run_100hz,False,,POST_INTERRUPTION_rosnode_kill,
+NOT_EXECUTED,False,False,NOT_EVALUATED,3,NOT_EVALUATED,NOT_EVALUATED,avia_outdoor_run_100hz,False,,NOT_EVALUATED,

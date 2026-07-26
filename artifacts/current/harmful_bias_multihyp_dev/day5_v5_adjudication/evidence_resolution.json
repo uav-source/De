@@ -1,0 +1,168 @@
+{
+  "ADJUDICATION_EVIDENCE_RESOLUTION_PASS": true,
+  "resolved_evidence_files": [
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "tail_clock_protocol_source",
+      "parse_status": "PYTHON_AST_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "repo/degen_overlay/src/fastlio2_adapter/tail_clock_protocol.py",
+      "sha256": "394f1ea0e088d55ac7247d55618ca9f0a67cb4190151a9771ff72d13cbf1cc7e",
+      "size_bytes": 8793
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "tail_clock_node_source",
+      "parse_status": "PYTHON_AST_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "repo/degen_overlay/scripts/59_day5_tail_clock_node.py",
+      "sha256": "7b62eb0a21b69b135efadf107b4ebe5124e63b7ba90cac34a9c92a39a4c11493",
+      "size_bytes": 13100
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "tail_clock_protocol_unit_test",
+      "parse_status": "PYTHON_AST_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "repo/degen_overlay/tests/test_tail_clock_protocol.py",
+      "sha256": "0a2277f4e9859086175e2ce92a49317f1b58fd70349e77ff77ca5c04534b00f9",
+      "size_bytes": 6141
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "tail_clock_handoff_unit_test",
+      "parse_status": "PYTHON_AST_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "repo/degen_overlay/tests/test_tail_clock_handoff.py",
+      "sha256": "b5104fd1331d6ab57aae096b0e95a0b2d2390f4707016cdff7f131885161916f",
+      "size_bytes": 3271
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "tail_clock_handoff",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/tail_clock/tail_clock_handoff.json",
+      "sha256": "b3c16208b99d559df910c902e9b1199bd08a24baec5f9cddd8feb116f199cea1",
+      "size_bytes": 1555
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "v5_gate_summary",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/small_results/day5_startup_sync_v5_gate_summary.json",
+      "sha256": "4ce693c84df61dd4d21e5e905e2b0f36395342c1c991eeb996fb76331fec88f8",
+      "size_bytes": 1149
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "v5_manifest",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "repo/degen_overlay/manifests/harmful_bias/day5_startup_sync_v5_manifest.json",
+      "sha256": "048e9499fb5d54d97d3e06c3fb469f2acb0b9cdcb36b300057a773f8597ea05e",
+      "size_bytes": 5850
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "v5_report",
+      "parse_status": "TEXT_READ_PASS",
+      "resolved_count": 1,
+      "resolved_path": "repo/degen_overlay/docs/harmful_bias/day5_startup_sync_v5_report.md",
+      "sha256": "244bed2b558ee3b44c494217327d180b8f6c2adf0e86c3548236feb2f6ecf728",
+      "size_bytes": 3780
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "supervisor_state",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/supervisor/supervisor_final_state.json",
+      "sha256": "06da9f00a71dbde316671fa8de2385acb2c54b81fd68a85d01b096f0f5046c97",
+      "size_bytes": 1199
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "single_run_result",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/runtime_products/single_run_state.json",
+      "sha256": "3767ddea3362da9a68ec778f63b4b956b0f7cd58674f25591615b25fb6f4cf2a",
+      "size_bytes": 347
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "drain_result",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/end_of_stream_drain/end_of_stream_drain.json",
+      "sha256": "9f31e89ce6696b7aee9e14f16ea6df84078025ab4b832a28ce4693cd677618fc",
+      "size_bytes": 1221
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "runtime_product_summary",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/runtime_products/run_summary.json",
+      "sha256": "903a6ed6fcb689c986f3964ed3cc981ba5487b5743684340a644c9f1251bfb15",
+      "size_bytes": 484
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "final_map_summary",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/runtime_products/final_map_summary.json",
+      "sha256": "2abce25313d051747e9dd272a7b29ce9691fffafc2758de60a573ac32725d707",
+      "size_bytes": 395
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "tap_export_summary",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/runtime_products/tap_export_summary.json",
+      "sha256": "5f3103aaed1e4d882e112b6d352fb0e4299ea3419622d8b60e68c28a1cd5ee47",
+      "size_bytes": 446
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "normal_shutdown",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/runtime_products/graceful_shutdown_v5.json",
+      "sha256": "917db22060649dc612a4058a2be9fee6efe2086346306cdc94e5fe533c38b5c9",
+      "size_bytes": 334
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "endpoint_contract",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/endpoint_contract/replay_endpoint_contract_v1.json",
+      "sha256": "fc431cb591474a04f5c7c090e3ce687a76183946201991da2a12f156c5ed9b18",
+      "size_bytes": 3297
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "fast_unchanged_evidence",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/git/fastlio2_source_lock_post_run_compare.json",
+      "sha256": "00fda3086c49491147cd9b537f81aed217aebd1a363442a5fdc7fa6534646187",
+      "size_bytes": 51
+    },
+    {
+      "ambiguity_count": 0,
+      "evidence_role": "original_failure_adjudication",
+      "parse_status": "JSON_OBJECT_PARSE_PASS",
+      "resolved_count": 1,
+      "resolved_path": "evidence/supervisor/post_run_failure_adjudication.json",
+      "sha256": "00c08a785287315e939e7aa44b28bf3f92d80a3274ebff03b3a4f32038a9b061",
+      "size_bytes": 923
+    }
+  ],
+  "schema_version": "day5_v5_evidence_resolution_v1"
+}

@@ -1,0 +1,7 @@
+phase,sequence_id,run_label,binary_file_integrity_pass,binary_checksum_failure_count,truncated_record_count,runtime_record_count,observation_record_count
+baseline,avia_quick_shack,AUDIT_ONLY_R1,True,0,0,490,0
+baseline,avia_quick_shack,AUDIT_ONLY_R2,True,0,0,490,0
+baseline,avia_quick_shack,AUDIT_ONLY_R3,True,0,0,490,0
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R1,True,0,0,6382,0
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R2,True,0,0,6382,0
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R3,True,0,0,6383,0

@@ -1,0 +1,2 @@
+sequence_id,repeat_id,handshake_pass,unpause_success,stable_poll_required,stable_poll_observed,lidar_publisher_bus_connected,lidar_subscriber_bus_connected,imu_publisher_bus_connected,imu_subscriber_bus_connected,extra_publisher_present,extra_subscriber_present,failure_reason
+avia_quick_shack,1,true,true,20,20,true,true,true,true,false,false,NONE

@@ -1,0 +1,13 @@
+{
+  "binary_lock_pass": true,
+  "binary_sha256": "5af22373f923eea39d63c055fc0b2dd6353926fbe5a29535a1a35c7d453c1cc3",
+  "clip_lock_pass": true,
+  "clip_results": {
+    "avia_quick_shack": {
+      "match": true,
+      "read_only": true,
+      "sha256": "272325265978787c838e010b1f0da963a15fb4b08ff8730fc3dd9901e32a0e20"
+    }
+  },
+  "source_lock_pass": true
+}

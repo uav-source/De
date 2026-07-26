@@ -1,0 +1,15 @@
+{
+  "CONFIGURATION_IDENTITY": "MATCHED_EXCEPT_INTENTIONALLY_DISTINCT_ROS_MASTER_PORT",
+  "RUNTIME_EXECUTION_ORDER_IDENTITY": "NOT_PROVEN_NO_EXECUTION_ORDER_TRACE",
+  "SCHEDULING_IDENTITY": "NOT_PROVEN_NO_SCHEDULING_TRACE",
+  "configuration_identity_pass": true,
+  "ros_master_ports": [
+    20211,
+    20212,
+    20213
+  ],
+  "run_count": 3,
+  "runtime_execution_order_identity_claimed": false,
+  "scheduling_identity_claimed": false,
+  "schema_version": "day6_cross_run_environment_identity_v1"
+}

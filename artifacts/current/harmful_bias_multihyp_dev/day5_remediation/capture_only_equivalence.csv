@@ -1,0 +1,2 @@
+phase,status,execution_reason,replay_count,pair_count,capture_record_count
+capture,NOT_EXECUTED,BASELINE_REPEATABILITY_PREREQUISITE_FAILED,0,0,0

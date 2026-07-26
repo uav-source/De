@@ -1,0 +1,43 @@
+{
+  "NEXT_DIAGNOSTIC_EXPERIMENT_AUTHORIZED": false,
+  "NEXT_DIAGNOSTIC_EXPERIMENT_RECOMMENDED": true,
+  "experiments": [
+    {
+      "data_volume": "Small digest-only window.",
+      "expected_evidence": "First differing stage and exact scan without exporting point clouds or maps.",
+      "experiment_id": "A_INPUT_AND_MAP_STAGE_HASHES",
+      "minimal_source_changes": "Read-only per-scan digests for raw LiDAR payload, IMU bundle, undistorted cloud, map before measurement, map after insertion, insertion batch, and formal correspondence; scan 135-160 only.",
+      "question_answered": "Do identical raw inputs reach scan 147, and does map identity diverge before formal correspondence construction?",
+      "rank": 1,
+      "risk": "Low-to-medium instrumentation perturbation risk.",
+      "runtime_cost": "One bounded Quick Shack diagnostic pair.",
+      "scientific_limitation": "A digest localizes stage identity, not scientific detector effectiveness.",
+      "success_criterion": "All stage digests exist and the earliest differing digest is localized."
+    },
+    {
+      "data_volume": "Moderate, limited to 13 scans.",
+      "expected_evidence": "Element-level correspondence onset evidence.",
+      "experiment_id": "C_CORRESPONDENCE_FINE_GRAIN_AUDIT",
+      "minimal_source_changes": "Read-only accepted indices, plane-parameter digests, neighbor IDs/digests, and compression mappings for scan 140-152 only.",
+      "question_answered": "Which accepted source index, plane digest, or neighbor identity first differs?",
+      "rank": 2,
+      "risk": "Medium data-collection and observer-effect risk.",
+      "runtime_cost": "One bounded diagnostic replay pair.",
+      "scientific_limitation": "Element localization does not alone establish map or scheduling causality.",
+      "success_criterion": "The first differing correspondence element and upstream identity are recorded."
+    },
+    {
+      "data_volume": "Small digest-only window.",
+      "expected_evidence": "Configuration-conditioned stage digests around the onset window.",
+      "experiment_id": "B_THREAD_SENSITIVITY",
+      "minimal_source_changes": "Compare the current frozen configuration with OMP_NUM_THREADS=1 using the same digest instrumentation.",
+      "question_answered": "Is the branch sensitive to the current thread configuration?",
+      "rank": 3,
+      "risk": "Medium; configuration changes timing and are diagnostic only.",
+      "runtime_cost": "Two bounded executions after separate authorization.",
+      "scientific_limitation": "Sensitivity would not by itself prove a specific data race.",
+      "success_criterion": "Thread-conditioned divergence is reproducibly localized or absent."
+    }
+  ],
+  "schema_version": "day6_next_minimal_divergence_experiment_v1"
+}

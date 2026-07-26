@@ -1,0 +1,71 @@
+{
+  "created_at_utc": "2026-07-17T06:45:14Z",
+  "cross_process_bitwise_replay_equivalence": "NOT_PROVEN",
+  "day5_fallback_in_call_immutability_authorized": "PENDING_GPT_REVIEW",
+  "day6_quick_diagnostics_authorized": false,
+  "fallback_execution_authorized": false,
+  "fallback_protocol_frozen": true,
+  "parts": [
+    {
+      "checks": [
+        "state_checksum_unchanged",
+        "covariance_checksum_unchanged",
+        "native_jacobian_checksum_unchanged",
+        "innovation_checksum_unchanged",
+        "geometric_residual_checksum_unchanged",
+        "correspondence_checksum_unchanged",
+        "map_size_unchanged"
+      ],
+      "depends_on_cross_process_repeatability": false,
+      "execution_scope": "SAME_FAST_LIO2_MEASUREMENT_CALL",
+      "id": "A",
+      "name": "IN_CALL_IMMUTABILITY",
+      "target_gate": "TAP_IN_CALL_IMMUTABILITY_PASS"
+    },
+    {
+      "allowed_evidence_class": "ENGINEERING_DEVELOPMENT_ONLY",
+      "holdout_or_future_test_allowed": false,
+      "id": "B",
+      "name": "FROZEN_REAL_OBSERVATION_RECORD",
+      "required_evidence": [
+        "schema",
+        "source_commit",
+        "bag_sha256",
+        "record_sha256",
+        "lifecycle",
+        "no_gt_audit",
+        "record_completeness"
+      ],
+      "target_gate": "FROZEN_REAL_OBSERVATION_RECORD_PASS"
+    },
+    {
+      "detector": "PRODUCTION_DETECTOR",
+      "id": "C",
+      "input": "FROZEN_REAL_OBSERVATION_RECORD",
+      "input_checksum_unchanged_required": true,
+      "minimum_repeat_count": 3,
+      "name": "OFFLINE_PRODUCTION_DETECTOR_DETERMINISM",
+      "output_checksum_identical_required": true,
+      "same_config_required": true,
+      "same_lock_required": true,
+      "target_gate": "OFFLINE_PRODUCTION_DETECTOR_DETERMINISM_PASS"
+    },
+    {
+      "allowed_reports": [
+        "record_completeness_rate",
+        "nonfinite_count",
+        "drop_count",
+        "detector_runtime",
+        "odi_and_direction_output_distribution",
+        "functional_stability",
+        "statistical_tolerance"
+      ],
+      "forbidden_claim": "BITWISE_REPLAY_EQUIVALENCE",
+      "id": "D",
+      "name": "REAL_REPLAY_FUNCTIONAL_STATISTICAL_TOLERANCE",
+      "required_disclosure": "CROSS_PROCESS_BITWISE_REPLAY_EQUIVALENCE=NOT_PROVEN"
+    }
+  ],
+  "protocol_status": "FROZEN_NOT_EXECUTED",
+  "schema_version": "fallback_readonly_evidence_protocol_v1"
+}

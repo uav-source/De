@@ -1,0 +1,7 @@
+phase,sequence_id,run_label,first_valid_linearization_count,capture_record_count,binary_record_count,schema_rejected_record_count,detector_output_count,detector_output_missing_count,tap_drop_count,writer_error_count,tap_call_mutation_count,export_call_mutation_count
+baseline,avia_quick_shack,AUDIT_ONLY_R1,487,0,0,0,0,0,0,0,0,0
+baseline,avia_quick_shack,AUDIT_ONLY_R2,487,0,0,0,0,0,0,0,0,0
+baseline,avia_quick_shack,AUDIT_ONLY_R3,487,0,0,0,0,0,0,0,0,0
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R1,6367,0,0,0,0,0,0,0,0,0
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R2,6367,0,0,0,0,0,0,0,0,0
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R3,6368,0,0,0,0,0,0,0,0,0

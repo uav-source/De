@@ -1,0 +1,51 @@
+{
+  "schema_version": "day8_focused_traversal_remediation_manifest_v1",
+  "source_day8_audit_sha256": "5e7b34dfa1260c5724d8591638a83e3c8975800e6d0d72339819a510e0a75fe7",
+  "authorization_sha256": "79b4c63d91882c0a75817b9149e78d7649ca0d6f8e0d5d5e114ab9fe0f7c52f1",
+  "shadow_delta_adjudication_sha256": "d05def937be67ec7dfef6ca7ef5f0fa21edac4bb7fff581882e946a77f4c8335",
+  "null_token_semantics_version": "day8_token_capture_status_v1",
+  "query_summary_window": [155, 165],
+  "detailed_token_window": [156, 158],
+  "main_run_id": "multihyp_day8_focused_traversal_witness_v1",
+  "run_ids": [
+    "multihyp_day8_focused_traversal_r1",
+    "multihyp_day8_focused_traversal_r2",
+    "multihyp_day8_focused_traversal_r3",
+    "multihyp_day8_focused_traversal_r4"
+  ],
+  "real_replay_count_completed": 1,
+  "per_run_status": {
+    "multihyp_day8_focused_traversal_r1": {
+      "status": "POST_REPLAY_FROZEN_OFFLINE_MATERIALIZATION_FAILED",
+      "lidar_callback_count": 491,
+      "imu_callback_count": 9953,
+      "observation_record_count": 487,
+      "observation_binary_sha256": "24cee0486c6f3c9a75765b1e050f569dea6aa43e2232637ac3bf0be7bac4dffe",
+      "query_summary_count": 2407,
+      "traversal_token_count": 20823,
+      "scan157_query_count": 293,
+      "scan157_detailed_token_query_count": 293,
+      "query_overflow_count": 0,
+      "shadow_accounting_failure_count": 0
+    },
+    "multihyp_day8_focused_traversal_r2": {"status": "NOT_STARTED"},
+    "multihyp_day8_focused_traversal_r3": {"status": "NOT_STARTED"},
+    "multihyp_day8_focused_traversal_r4": {"status": "NOT_STARTED"}
+  },
+  "six_pair_comparison_status": "NOT_AVAILABLE_INCOMPLETE_MATRIX",
+  "first_divergent_query_status": "NOT_AVAILABLE_INCOMPLETE_MATRIX",
+  "missing_expected_point_witness_status": "NOT_AVAILABLE_INCOMPLETE_MATRIX",
+  "root_cause_classification_status": "EVIDENCE_GAP",
+  "offline_analysis_lock_pass": true,
+  "offline_analysis_code_changed_after_runtime_lock": false,
+  "detector_called": false,
+  "GT": false,
+  "commit": false,
+  "push": false,
+  "day8_focused_traversal_execution_pass": false,
+  "day8_ikdtree_range_search_context_pass": false,
+  "formal_ikdtree_bug_proven": false,
+  "data_race_proven": false,
+  "day9_recommended": false,
+  "day9_authorized": false
+}

@@ -1,0 +1,17 @@
+{
+  "clock_publisher_after_bag_exit": false,
+  "drain_request_completed": false,
+  "drain_service_registered": true,
+  "explanation": "ros::Rate::sleep waits for /clock; after rosbag natural exit simulated time stops, so the main loop cannot return to ros::spinOnce to dispatch the post-bag drain service",
+  "failure_classification": "DRAIN_SERVICE_IMPLEMENTATION_INVALID",
+  "fast_main_loop_rate_type": "ros::Rate",
+  "manual_completion_claimed": false,
+  "observed_fast_main_thread_wait": "hrtimer_nanosleep",
+  "repeat_id": 1,
+  "rosbag_natural_exit": true,
+  "run_id_reuse_forbidden": true,
+  "schema_version": "day5_startup_sync_v4_runtime_failure_v1",
+  "sequence_id": "avia_quick_shack",
+  "supervisor_terminal_state": "INTERRUPTED",
+  "use_sim_time": true
+}

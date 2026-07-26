@@ -1,0 +1,16 @@
+{
+  "duplicate_scan_first_valid_count": 0,
+  "first_valid_linearization_count": 487,
+  "lifecycle_consistency_pass": true,
+  "lifecycle_gap_count": 0,
+  "observation_record_count": 487,
+  "observation_scan_not_found_count": 0,
+  "runtime_scan_count": 490,
+  "schema_version": "frozen_observation_lifecycle_summary_v1",
+  "skip_reason_counts": {
+    "EMPTY_UNDISTORTED_SCAN": 1,
+    "FIRST_SCAN_INITIALIZATION": 1,
+    "LOCAL_MAP_INITIALIZATION": 1
+  },
+  "skipped_scan_count": 3
+}

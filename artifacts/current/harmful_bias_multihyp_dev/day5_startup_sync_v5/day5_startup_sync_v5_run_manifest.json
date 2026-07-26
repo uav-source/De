@@ -1,0 +1,12 @@
+{
+  "run_id": "multihyp_day5_startup_sync_v5",
+  "runs": [
+    {
+      "failure_classification": "NONE",
+      "repeat_id": 1,
+      "runtime_mode": "AUDIT_ONLY",
+      "sequence_id": "avia_quick_shack",
+      "status": "FAILED"
+    }
+  ]
+}

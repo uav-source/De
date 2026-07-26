@@ -1,0 +1,7 @@
+{
+  "branch_reproduced": true,
+  "evidence_gap": false,
+  "first_divergence_scan": 135,
+  "first_divergence_stage": "map_traversal_after",
+  "schema_version": "experiment_a_map_snapshot_first_divergence_v1"
+}

@@ -1,0 +1,12 @@
+evidence,status,limitation
+raw_lidar_payload_checksum,NOT_RECORDED,No raw LiDAR payload digest field is present.
+raw_imu_bundle_checksum,NOT_RECORDED,No raw IMU bundle digest field is present.
+undistorted_point_cloud_checksum,NOT_RECORDED,No undistorted-cloud digest field is present.
+map_content_checksum,NOT_RECORDED,No complete map-content digest field is present.
+map_insertion_order_checksum,NOT_RECORDED,No insertion-order digest field is present.
+full_accepted_index_array,CHECKSUM_ONLY,Only the accepted-index checksum is retained.
+full_plane_parameter_array,CHECKSUM_ONLY,Only the aggregate formal-correspondence checksum is retained.
+full_nearest_neighbor_identity_array,NOT_RECORDED,Nearest-neighbor identities are not retained.
+openmp_scheduling_trace,NOT_RECORDED,No scheduling trace is retained.
+thread_identity_trace,NOT_RECORDED,No per-operation thread trace is retained.
+map_size,NOT_RECORDED,Compact records do not expose map size in this archive.

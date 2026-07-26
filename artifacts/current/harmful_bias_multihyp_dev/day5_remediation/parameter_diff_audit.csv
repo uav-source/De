@@ -1,0 +1,7 @@
+phase,sequence_id,left_run,right_run,differing_parameter_count,non_allowlisted_parameter_difference_count,non_allowlisted_parameters,parameter_diff_allowlist_pass
+baseline,avia_quick_shack,AUDIT_ONLY_R1,AUDIT_ONLY_R2,2,0,,True
+baseline,avia_quick_shack,AUDIT_ONLY_R1,AUDIT_ONLY_R3,2,0,,True
+baseline,avia_quick_shack,AUDIT_ONLY_R2,AUDIT_ONLY_R3,2,0,,True
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R1,AUDIT_ONLY_R2,2,0,,True
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R1,AUDIT_ONLY_R3,2,0,,True
+baseline,avia_outdoor_run_100hz,AUDIT_ONLY_R2,AUDIT_ONLY_R3,2,0,,True

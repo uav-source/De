@@ -1,0 +1,22 @@
+{
+  "accepted_index_mismatch_count": 0,
+  "all_unchanged_count": 487,
+  "audit_status_checksum": "FNV1A64:62d60fdabe59c527",
+  "audited_call_count": 487,
+  "checksum_algorithm": "FNV1A64_EXACT_BYTES_V1",
+  "correspondence_mismatch_count": 0,
+  "covariance_mismatch_count": 0,
+  "enabled": true,
+  "first_mismatch": null,
+  "geometric_residual_mismatch_count": 0,
+  "innovation_mismatch_count": 0,
+  "internal_audit_error_count": 0,
+  "jacobian_mismatch_count": 0,
+  "map_size_mismatch_count": 0,
+  "mutation_detected_count": 0,
+  "nonfinite_checksum_input_count": 0,
+  "schema_version": "in_call_immutability_status_v1",
+  "state_mismatch_count": 0,
+  "tap_call_attempt_count": 487,
+  "tap_record_emitted_count": 487
+}

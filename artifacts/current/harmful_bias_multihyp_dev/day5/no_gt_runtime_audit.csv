@@ -1,0 +1,9 @@
+sequence_id,run_label,subscription_count,gt_topic_consumed_count,gt_topics,pass
+avia_quick_shack,OFF_R1,0,0,,True
+avia_quick_shack,ON_R1,3,0,,True
+avia_quick_shack,ON_R2,0,0,,True
+avia_quick_shack,OFF_R2,3,0,,True
+avia_outdoor_run_100hz,OFF_R1,3,0,,True
+avia_outdoor_run_100hz,ON_R1,0,0,,True
+avia_outdoor_run_100hz,ON_R2,3,0,,True
+avia_outdoor_run_100hz,OFF_R2,3,0,,True

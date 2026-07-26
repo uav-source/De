@@ -1,0 +1,7 @@
+sequence_id,left_run,right_run,status,differing_parameter_count,non_allowlisted_parameter_difference_count
+avia_quick_shack,AUDIT_ONLY_R1,AUDIT_ONLY_R2,NOT_EVALUATED,,
+avia_quick_shack,AUDIT_ONLY_R1,AUDIT_ONLY_R3,NOT_EVALUATED,,
+avia_quick_shack,AUDIT_ONLY_R2,AUDIT_ONLY_R3,NOT_EVALUATED,,
+avia_outdoor_run_100hz,AUDIT_ONLY_R1,AUDIT_ONLY_R2,NOT_EVALUATED,,
+avia_outdoor_run_100hz,AUDIT_ONLY_R1,AUDIT_ONLY_R3,NOT_EVALUATED,,
+avia_outdoor_run_100hz,AUDIT_ONLY_R2,AUDIT_ONLY_R3,NOT_EVALUATED,,

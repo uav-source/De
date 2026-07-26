@@ -1,0 +1,16 @@
+{
+  "DAY5_FALLBACK_IN_CALL_IMMUTABILITY_AUTHORIZED": "PENDING_GPT_REVIEW",
+  "DAY6_QUICK_DIAGNOSTICS_AUTHORIZED": false,
+  "FALLBACK_EXECUTION_AUTHORIZED": false,
+  "FALLBACK_PROTOCOL_FREEZE_PASS": true,
+  "FALLBACK_PROTOCOL_FROZEN": true,
+  "fallback_protocol_path": "manifests/harmful_bias/fallback_readonly_evidence_protocol_v1.json",
+  "fallback_protocol_sha256": "9ab4bcd7de04bd9a04858484b07897ec205e3619d4c43521aeacc5378f215616",
+  "parts": [
+    "IN_CALL_IMMUTABILITY",
+    "FROZEN_REAL_OBSERVATION_RECORD",
+    "OFFLINE_PRODUCTION_DETECTOR_DETERMINISM",
+    "REAL_REPLAY_FUNCTIONAL_STATISTICAL_TOLERANCE"
+  ],
+  "schema_version": "fallback_protocol_freeze_summary_v1"
+}

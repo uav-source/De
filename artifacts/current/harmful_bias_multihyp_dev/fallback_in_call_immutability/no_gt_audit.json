@@ -1,0 +1,7 @@
+{
+  "axis_gt_present": false,
+  "no_gt_pass": true,
+  "pose_gt_present": false,
+  "scientific_quick_evaluation": false,
+  "trajectory_error_computed": false
+}
