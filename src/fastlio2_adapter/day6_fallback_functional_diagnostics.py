@@ -249,6 +249,22 @@ def validate_environment_lock() -> dict[str, Any]:
         raise Day6FallbackError(
             f"detector environment variable lock mismatch: {actual}"
         )
+    python_version = platform.python_version()
+    numpy_version = np.__version__
+    scipy_version = scipy.__version__
+    # Validate the frozen interpreter/library identity before calling the
+    # NumPy 1.24 configuration API.  NumPy 1.26 removed ``get_info``; a
+    # non-frozen environment must be reported as a version mismatch instead
+    # of failing with an unrelated AttributeError during repository tests.
+    if python_version != "3.8.10":
+        raise Day6FallbackError("locked Python version mismatch")
+    if numpy_version != "1.24.4":
+        raise Day6FallbackError("locked NumPy version mismatch")
+    if scipy_version != "1.10.1":
+        raise Day6FallbackError("locked SciPy version mismatch")
+    get_info = getattr(np.__config__, "get_info", None)
+    if not callable(get_info):
+        raise Day6FallbackError("locked NumPy BLAS inspection API is missing")
     blas = {
         name: np.__config__.get_info(name)
         for name in (
@@ -260,20 +276,14 @@ def validate_environment_lock() -> dict[str, Any]:
         if np.__config__.get_info(name)
     }
     identity = {
-        "python_version": platform.python_version(),
+        "python_version": python_version,
         "python_implementation": platform.python_implementation(),
-        "numpy_version": np.__version__,
-        "scipy_version": scipy.__version__,
+        "numpy_version": numpy_version,
+        "scipy_version": scipy_version,
         "blas_identity": blas,
         "platform": platform.platform(),
         "environment_variables": actual,
     }
-    if identity["python_version"] != "3.8.10":
-        raise Day6FallbackError("locked Python version mismatch")
-    if identity["numpy_version"] != "1.24.4":
-        raise Day6FallbackError("locked NumPy version mismatch")
-    if identity["scipy_version"] != "1.10.1":
-        raise Day6FallbackError("locked SciPy version mismatch")
     if "blas_ilp64_opt_info" not in blas:
         raise Day6FallbackError("OpenBLAS ILP64 identity is missing")
     return identity

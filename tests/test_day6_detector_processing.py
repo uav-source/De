@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from fastlio2_adapter import day6_fallback_functional_diagnostics as diagnostics
 from fastlio2_adapter.day6_fallback_functional_diagnostics import (
     Day6FallbackError,
     EXPECTED_ENVIRONMENT,
@@ -15,6 +16,17 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_locked_detector_environment(monkeypatch):
     for name, value in EXPECTED_ENVIRONMENT.items():
         monkeypatch.setenv(name, value)
+    monkeypatch.setattr(diagnostics.platform, "python_version", lambda: "3.8.10")
+    monkeypatch.setattr(diagnostics.np, "__version__", "1.24.4")
+    monkeypatch.setattr(diagnostics.scipy, "__version__", "1.10.1")
+    monkeypatch.setattr(
+        diagnostics.np.__config__,
+        "get_info",
+        lambda name: {"libraries": ["openblas64_"]}
+        if name == "blas_ilp64_opt_info"
+        else {},
+        raising=False,
+    )
     identity = validate_environment_lock()
     assert identity["python_version"] == "3.8.10"
     assert identity["numpy_version"] == "1.24.4"
