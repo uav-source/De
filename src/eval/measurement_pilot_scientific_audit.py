@@ -365,6 +365,54 @@ def future_error_tables(
 def collect_bag_header_times(bag_path: Path) -> dict[str, Any]:
     """Read only message headers; bag record epochs remain diagnostic only."""
 
+    # The audit is required to run under Python 3.11, while the retained ROS
+    # Noetic reader is installed by the host.  Container runs mount those
+    # pure-Python modules at the paths below.  Append (rather than prepend)
+    # them so the audit container's Python-3.11 NumPy/SciPy remain authoritative.
+    for ros_bridge in (
+        Path("/opt/ros/noetic/lib/python3/dist-packages"),
+        Path("/host_py"),
+    ):
+        bridge = str(ros_bridge)
+        if ros_bridge.is_dir() and bridge not in sys.path:
+            sys.path.append(bridge)
+
+    # ROS Noetic's rosbag imports AES support eagerly even for an unencrypted,
+    # uncompressed bag.  A Python 3.11 audit container can read the pure-Python
+    # ROS modules but cannot load the host's CPython-3.8 Cryptodome extension.
+    # Install a fail-closed placeholder only for that optional path; attempting
+    # to read an encrypted bag still raises immediately.
+    try:  # pragma: no branch - depends on the host ROS/Python combination
+        from Cryptodome.Cipher import AES as _unused_aes  # noqa: F401
+    except Exception:  # pragma: no cover - exercised by Python 3.11 ROS bridge
+        import types
+
+        crypto_module = types.ModuleType("Cryptodome")
+        cipher_module = types.ModuleType("Cryptodome.Cipher")
+        random_module = types.ModuleType("Cryptodome.Random")
+
+        class _EncryptedBagUnsupported:
+            block_size = 16
+            MODE_CBC = 2
+
+            @staticmethod
+            def new(*args: Any, **kwargs: Any) -> Any:
+                del args, kwargs
+                raise RuntimeError("encrypted rosbag is unsupported by the audit reader")
+
+        def _no_random_bytes(size: int) -> bytes:
+            del size
+            raise RuntimeError("encrypted rosbag is unsupported by the audit reader")
+
+        cipher_module.AES = _EncryptedBagUnsupported  # type: ignore[attr-defined]
+        random_module.get_random_bytes = _no_random_bytes  # type: ignore[attr-defined]
+        sys.modules.update(
+            {
+                "Cryptodome": crypto_module,
+                "Cryptodome.Cipher": cipher_module,
+                "Cryptodome.Random": random_module,
+            }
+        )
     try:
         import rosbag
     except ImportError as error:  # pragma: no cover - ROS host integration
