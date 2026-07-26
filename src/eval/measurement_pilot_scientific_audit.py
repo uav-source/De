@@ -822,6 +822,7 @@ def render_figures(
     for axis in axes:
         axis.grid(alpha=0.25)
         axis.legend()
+    figure.suptitle("Frozen-interval correspondence and local-map support")
     figure.savefig(figures / "interval_correspondence_support.png", dpi=160)
     plt.close(figure)
 
@@ -852,6 +853,7 @@ def render_figures(
     axis.set(xlabel="primary eigengap ratio", ylabel="formal 3-D angle error [deg]")
     axis.grid(alpha=0.25)
     axis.legend()
+    axis.set_title("Structural-interval eigengap ratio and formal 3-D angle error")
     figure.savefig(figures / "eigengap_vs_angle_error.png", dpi=160)
     plt.close(figure)
 
@@ -1650,6 +1652,18 @@ tests.  Label validity used independent absolute-information and spectral-shape
 families; reliability uncertainty used bootstrap intervals, Mann-Whitney, and
 Cliff's delta descriptively.
 
+## Visual evidence map
+
+- [ODI versus spectral entropy](figures/odi_vs_spectral_entropy.png) shows the exact exported monotonic relationship on 1,719 valid frames.
+- [ODI versus effective rank](figures/odi_vs_effective_rank.png) shows the corresponding exact affine relationship.
+- [Lag sensitivity](figures/time_lag_sensitivity.png) marks zero as the sole formal lag; the curve is diagnostic and was not optimized.
+- [Weak direction and reference](figures/weak_direction_reference_overlay.png) compares both axes in ENU and exposes the reference's large Up component.
+- [Translation eigenvalues](figures/interval_eigenvalue_timeline.png) shows that the frozen control has weaker minimum and middle information.
+- [Correspondence support](figures/interval_correspondence_support.png) shows that higher control counts and map size do not imply stronger Schur information.
+- [Reference trajectory](figures/reference_axis_trajectory.png) shows the 3-D centerline curvature/height contribution alongside its XY projection.
+- [Eigengap reliability](figures/eigengap_vs_angle_error.png) shows the five-sample unreliable group and the frozen 0.02 threshold.
+- [Trigger threshold transfer](figures/threshold_vs_real_distribution.png) shows every real frozen-interval ODI far above the synthetic threshold.
+
 ## Limitations and uncertainty
 
 Plane-normal distributions, normal covariance, residual magnitudes, map
@@ -1920,6 +1934,17 @@ def run_audit(
             "random_equivalence_spectra": 10_000,
             "random_so3_trials": 100,
         },
+        "figure_contracts": [
+            {"file": "figures/odi_vs_spectral_entropy.png", "family": "relationship/scatter", "grain": "detector-valid frame", "supported_claim": "exported entropy is an exact monotonic transform of ODI"},
+            {"file": "figures/odi_vs_effective_rank.png", "family": "relationship/scatter", "grain": "detector-valid frame", "supported_claim": "exported effective rank equals 3-2*ODI"},
+            {"file": "figures/time_lag_sensitivity.png", "family": "sensitivity/line", "grain": "81 fixed diagnostic lags", "supported_claim": "zero lag remains formal and no lag was selected post hoc"},
+            {"file": "figures/weak_direction_reference_overlay.png", "family": "relationship/scatter", "grain": "structural valid frame", "supported_claim": "weak and reference axes are compared in ENU"},
+            {"file": "figures/interval_eigenvalue_timeline.png", "family": "comparison/line", "grain": "frozen-interval frame", "supported_claim": "control minimum/middle information is weaker"},
+            {"file": "figures/interval_correspondence_support.png", "family": "comparison/line", "grain": "frozen-interval frame", "supported_claim": "support counts do not rescue the label"},
+            {"file": "figures/reference_axis_trajectory.png", "family": "trajectory/line", "grain": "structural RTK fix", "supported_claim": "height and subwindow motion destabilize the 3-D proxy"},
+            {"file": "figures/eigengap_vs_angle_error.png", "family": "relationship/scatter", "grain": "structural valid frame", "supported_claim": "only five frames are below the reliability threshold"},
+            {"file": "figures/threshold_vs_real_distribution.png", "family": "distribution/histogram", "grain": "frozen-interval frame", "supported_claim": "real ODI lies above the synthetic trigger threshold"},
+        ],
         "formal_results": {
             "positive_class": POSITIVE_CLASS,
             "odi_raw_auroc": odi_auc["AUC_raw"],
