@@ -1,0 +1,4 @@
+audit_item,count,pass,evidence
+reference_or_ground_truth_online_detector_access,0,True,measurement processor rejects reference fields; /fix captured by separate offline subscriber
+bag_odometry_played_into_fastlio2,0,True,"rosbag topic allowlist contains only lidar, imu, and /fix"
+reference_orientation_fabricated,0,True,reference_is_position_only=true; reference_orientation_available=false

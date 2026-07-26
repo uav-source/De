@@ -1,0 +1,259 @@
+{
+  "ODI_ADVANTAGE_ESTABLISHED": false,
+  "ODI_ADVANTAGE_NOT_ESTABLISHED": true,
+  "PILOT_SEQUENCE_NOT_SUITABLE_FOR_EFFECTIVENESS_TEST": false,
+  "STAGE2_GATE": "FAIL",
+  "TRANSITION": "PIVOT",
+  "bag_path": "/home/lj/Degen-LIO-data/day7_minimal_samples/mun_frl/lighthouse_francis_sample.bag",
+  "bag_sha256": "562bafc57dab7fdac3d8959cf6836b3f4508c4fa60147b11d718552180543162",
+  "baseline_result": {
+    "best_traditional_auroc": 0.3661301174887428,
+    "best_traditional_metric": "primary_eigengap_ratio",
+    "odi_auroc": 0.0019667719062160345,
+    "odi_minus_best_traditional_auroc": -0.3641633455825268,
+    "odi_pr_auc": 0.30867412475909894,
+    "odi_spearman_rho": -0.17295426497977115
+  },
+  "binary_integrity": {
+    "observation": {
+      "endianness": "little",
+      "extra_byte_count": 0,
+      "file_checksum": 15994851295118162252,
+      "file_checksum_valid": true,
+      "magic": "HBROBSV3",
+      "path": "/workspace/results/measurement_real_validation/mun_frl_lighthouse_pilot/raw/observation_records_v3.bin",
+      "record_checksum_failure_count": 0,
+      "record_count": 1719,
+      "trailer_valid": true,
+      "truncated_record_count": 0,
+      "version": 3
+    },
+    "observation_binary_sha256": "cf00c1013165e0d0bb8fe7e7d7b211f85b7c22ea81288fbb4767f454d4c91ca8",
+    "runtime": {
+      "endianness": "little",
+      "extra_byte_count": 0,
+      "file_checksum": 2682749449613937587,
+      "file_checksum_valid": true,
+      "magic": "HBRTAUD2",
+      "path": "/workspace/results/measurement_real_validation/mun_frl_lighthouse_pilot/raw/runtime_audit_v2.bin",
+      "record_checksum_failure_count": 0,
+      "record_count": 1722,
+      "trailer_valid": true,
+      "truncated_record_count": 0,
+      "version": 2
+    },
+    "runtime_binary_sha256": "88bd2f9e2d45b4d23d7866e2957c55d6c63d694aa25b8d5ec55b3000379a6f42"
+  },
+  "complete_degen_lio_claimed": false,
+  "control_max_consecutive_triggers": 139,
+  "control_trigger_ratio": 1.0,
+  "dataset": "MUN-FRL",
+  "detector_feedback_count": 0,
+  "estimator_modified": false,
+  "fastlio2_binary_sha256": "f02f1da250bfb20e5d0c94ceaccd5b8d0824e3d32e79d359588a20e28b387167",
+  "fastlio2_commit": "f19b4c42a77dc11793c912d67b9e56dcafa279dc",
+  "fastlio2_crash_count": 0,
+  "frozen_detector_mismatch_count": 0,
+  "gates": {
+    "MEASUREMENT_REAL_PILOT_PASS": false,
+    "SECOND_DATASET_EXPANSION_AUTHORIZED": false,
+    "engineering_conditions": {
+      "bag_validation_pass": true,
+      "detector_feedback_pass": true,
+      "extrinsic_direction_pass": true,
+      "fastlio2_crash_pass": true,
+      "finite_detector_output_pass": true,
+      "frozen_detector_determinism_pass": true,
+      "no_reference_dependency_pass": true,
+      "point_time_unit_pass": true,
+      "python311_full_pytest_pass": true,
+      "same_call_mutation_pass": true,
+      "valid_detector_ratio_pass": true
+    },
+    "engineering_gate_pass": true,
+    "runtime_conditions": {
+      "detector_core_mean_target_pass": true,
+      "total_added_q95_target_pass": true
+    },
+    "runtime_gate_target_pass": true,
+    "scientific_conditions": {
+      "control_false_trigger_pass": false,
+      "frozen_structural_and_control_intervals": true,
+      "no_reference_online": true,
+      "odi_effectiveness_pass": false,
+      "reliable_better_than_unreliable": false,
+      "same_input_all_metrics": true,
+      "structural_direction_median_pass": false
+    },
+    "scientific_pilot_gate_pass": false
+  },
+  "ikdtree_investigation_continued": false,
+  "interval_lock_commit": "c4adddb16a60f29d799e56061495189155859730",
+  "interval_lock_sha256": "c74d3af08054979c2cf0ecbb086a7b218a6541f691b82a1eb20706047086e4b4",
+  "interval_statistics_row_count": 22,
+  "intervals_frozen_before_detector": true,
+  "invalid_reason_counts": {
+    "RUNTIME_EMPTY_UNDISTORTED_SCAN": 1,
+    "RUNTIME_FIRST_SCAN_INITIALIZATION": 1,
+    "RUNTIME_LOCAL_MAP_INITIALIZATION": 1
+  },
+  "large_observation_retention_default": false,
+  "nonfinite_detector_output_count": 0,
+  "observation_binary_retained": false,
+  "processed_lidar_frames": 1722,
+  "reference_input_count": 0,
+  "reference_is_position_only": true,
+  "reference_orientation_available": false,
+  "runtime": {
+    "components": [
+      {
+        "component": "capture_core_ms",
+        "mean_ms": 0.9600515325203253,
+        "q95_ms": 2.104636999999999,
+        "target_ms": "",
+        "target_pass": "NOT_GATED",
+        "target_statistic": "NONE"
+      },
+      {
+        "component": "detector_core_ms",
+        "mean_ms": 0.4925796080139372,
+        "q95_ms": 0.5718043499999999,
+        "target_ms": 10.0,
+        "target_pass": true,
+        "target_statistic": "mean"
+      },
+      {
+        "component": "logging_ms",
+        "mean_ms": 0.6242602264808362,
+        "q95_ms": 1.21723115,
+        "target_ms": "",
+        "target_pass": "NOT_GATED",
+        "target_statistic": "NONE"
+      },
+      {
+        "component": "total_added_ms",
+        "mean_ms": 2.0768913670150986,
+        "q95_ms": 3.86347945,
+        "target_ms": 20.0,
+        "target_pass": true,
+        "target_statistic": "q95"
+      }
+    ],
+    "fastlio2_scan_total_ms": {
+      "count": 1722,
+      "iqr": 3.7138430000000007,
+      "mean": 7.364616870499419,
+      "median": 7.0070879999999995,
+      "q05": 0.9178429,
+      "q95": 14.64995525,
+      "standard_deviation": 3.5473471058358754
+    },
+    "transport_runtime_audit_ms": {
+      "count": 1722,
+      "iqr": 0.0024800000000000013,
+      "mean": 0.015074644599303135,
+      "median": 0.0128085,
+      "q05": 0.010974049999999999,
+      "q95": 0.02567135,
+      "standard_deviation": 0.005556951706950901
+    }
+  },
+  "runtime_export_estimator_checksum_change_count": 1,
+  "same_call_mutation_count": 0,
+  "schema_version": "measurement_real_validation_pilot_result_v1",
+  "sequence": "mun_frl_lighthouse",
+  "stage": "Measurement Real Validation Pilot",
+  "trajectory_evaluation": {
+    "alignment_method": "rigid_se3_kabsch_no_scale_position_only",
+    "alignment_rotation_row_major": [
+      0.6216999040629629,
+      0.7831047996194781,
+      0.015365614242211167,
+      0.7829792528729003,
+      -0.6218820197944418,
+      0.014361163844918999,
+      0.02080189555540568,
+      0.0031026229746807243,
+      -0.999778802971927
+    ],
+    "alignment_translation_m": [
+      0.39469276950101495,
+      0.6868427433014048,
+      -0.2501463427570112
+    ],
+    "coordinate_frame": "ENU",
+    "future_position_error_growth_median_m": -0.0028610904286429095,
+    "local_translation_error_median_m": 0.1264173903398359,
+    "origin_altitude_m": 47.2,
+    "origin_latitude_deg": 47.80751516666667,
+    "origin_longitude_deg": -52.786234666666665,
+    "origin_rule": "first_valid_rtk_fix",
+    "origin_timestamp": 1645814029.307201,
+    "overlap_count": 1719,
+    "position_ate_rmse_m": 0.35795646327948843,
+    "position_error_median_m": 0.3180710819082173,
+    "reference_is_position_only": true,
+    "reference_orientation_available": false,
+    "rtk_quality_bad_overlap_count": 0,
+    "scale_estimated": false
+  },
+  "valid_detector_frames": 1719,
+  "valid_detector_ratio": 0.9982578397212544,
+  "visual_input_used": false,
+  "weak_direction": {
+    "all": {
+      "count": 139,
+      "iqr": 3.6887383969629752,
+      "mean": 30.257767133380742,
+      "median": 30.705691451918934,
+      "q05": 25.233814106059274,
+      "q95": 34.25887184932484,
+      "standard_deviation": 2.7117832152057155
+    },
+    "all_q75_deg": 32.02944041213423,
+    "reference_axis": {
+      "angular_uncertainty_deg": 15.0,
+      "endpoint_end_enu_m": [
+        4.242132077029747,
+        12.598667877011858,
+        6.799986132890881
+      ],
+      "endpoint_separation_m": 9.816760948554444,
+      "endpoint_start_enu_m": [
+        3.592606820134286,
+        3.847267110259095,
+        2.399997828202153
+      ],
+      "frame": "ENU",
+      "sign_ambiguous": true,
+      "source": "pre_detector_position_only_rtk_channel_centerline_endpoints",
+      "uncertainty_basis": "Conservative allowance for reported RTK endpoint covariance, finite endpoint separation, and the approximation of the traversed path as the visible channel centerline.",
+      "uses_detector_eigenvector": false,
+      "uses_detector_metric": false,
+      "vector": [
+        0.0661649255084597,
+        0.8914753871073371,
+        0.4482118213682939
+      ]
+    },
+    "reliable": {
+      "count": 134,
+      "iqr": 3.5541683209246493,
+      "mean": 30.30400717502084,
+      "median": 30.800324987173312,
+      "q05": 25.396838232209053,
+      "q95": 34.29283509453293,
+      "standard_deviation": 2.6893639117657577
+    },
+    "unreliable": {
+      "count": 5,
+      "iqr": 3.9633441852965774,
+      "mean": 29.01853401742605,
+      "median": 28.979867521025483,
+      "q05": 25.46620317917111,
+      "q95": 33.082736930126295,
+      "standard_deviation": 3.3507014450291615
+    }
+  },
+  "weak_direction_updater_developed": false
+}

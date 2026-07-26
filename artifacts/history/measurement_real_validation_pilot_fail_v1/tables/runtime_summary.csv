@@ -1,0 +1,5 @@
+component,mean_ms,q95_ms,target_statistic,target_ms,target_pass
+capture_core_ms,0.9600515325203253,2.104636999999999,NONE,,NOT_GATED
+detector_core_ms,0.4925796080139372,0.5718043499999999,mean,10.0,True
+logging_ms,0.6242602264808362,1.21723115,NONE,,NOT_GATED
+total_added_ms,2.0768913670150986,3.86347945,q95,20.0,True

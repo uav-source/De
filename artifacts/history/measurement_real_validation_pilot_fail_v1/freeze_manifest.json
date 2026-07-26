@@ -1,0 +1,20 @@
+{
+  "schema_version": "measurement_real_pilot_fail_freeze_v1",
+  "source_branch": "feature/measurement-real-validation",
+  "source_commit": "732dcff74921cb1da0d37267881ee77c5995e870",
+  "archive_tag": "archive/measurement-real-pilot-fail-v1",
+  "source_directory": "artifacts/current/measurement_real_validation_pilot",
+  "source_tree_sha256": "d4185c7269a0cd2c34aaa5951793962503cca88b0b8691c85428a23442fce849",
+  "source_sha256s_file_sha256": "d4185c7269a0cd2c34aaa5951793962503cca88b0b8691c85428a23442fce849",
+  "source_embedded_sha256s_sha256": "4f5c77cf1fef52d46781758dac2943200109623a2fe48a1e9c1599947aa4a047",
+  "bundle_path": "/tmp/Degen-LIO-measurement-pilot-before-scientific-audit.bundle",
+  "bundle_sha256": "5c45d68da9460d0e319136ec5a3e8e72397d34c4e850fe3052b425b78b1b3d91",
+  "original_pilot_result": {
+    "MEASUREMENT_REAL_PILOT_PASS": false,
+    "SECOND_DATASET_EXPANSION_AUTHORIZED": false,
+    "ODI_ADVANTAGE_ESTABLISHED": false,
+    "STAGE2_GATE": "FAIL",
+    "TRANSITION": "PIVOT"
+  },
+  "original_artifact_is_immutable": true
+}
