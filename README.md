@@ -56,6 +56,23 @@ real-data detector effectiveness, real-data ODI superiority, stable online
 harmful-bias detection, a beneficial weak-direction update, or a complete
 Degen-LIO estimator. `STAGE2_GATE=FAIL` and `TRANSITION=PIVOT` remain fixed.
 
+## Current active stage
+
+Measurement Real Validation Pilot
+
+Goal:
+
+- run the frozen detector on one real FAST-LIO2 sequence;
+- evaluate real ODI, AIS, weak direction and direction reliability;
+- compare with conventional spectral indicators.
+
+Explicitly stopped:
+
+- weak-direction state update;
+- harmful-bias online prediction;
+- ikd-tree nondeterminism investigation;
+- complete robust Degen-LIO.
+
 Day 11A selects no historical "representative seed." It locks one Geometry and
 one Observation diagnostic case from the frozen Test seed namespace using a
 result-independent SHA-256 rule. It runs no estimator or replay. The frozen

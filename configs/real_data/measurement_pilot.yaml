@@ -1,0 +1,23 @@
+stage: Measurement Real Validation Pilot
+dataset: MUN-FRL
+sequence: mun_frl_lighthouse
+runtime_mode: measurement_mode
+detector_config: configs/detector/odi_stage2a.yaml
+reference:
+  topic: /fix
+  online_detector_access: false
+  position_only: true
+  orientation_available: false
+  enu_origin: first_valid_rtk_fix
+  alignment: rigid_se3_position_only
+evaluation:
+  future_window_seconds: 5.0
+  local_translation_window_seconds: 5.0
+  minimum_valid_detector_ratio: 0.90
+runtime_targets_ms:
+  detector_core_mean: 10.0
+  total_added_q95: 20.0
+retention:
+  freeze_selected_observations: false
+  retain_large_jacobians: false
+
