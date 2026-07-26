@@ -73,6 +73,21 @@ Explicitly stopped:
 - ikd-tree nondeterminism investigation;
 - complete robust Degen-LIO.
 
+MUN-FRL Lighthouse pilot outcome:
+
+- Engineering Gate: **PASS**;
+- Runtime target Gate: **PASS**;
+- Scientific Pilot Gate: **FAIL**;
+- `MEASUREMENT_REAL_PILOT_PASS=false`;
+- `SECOND_DATASET_EXPANSION_AUTHORIZED=false`;
+- `ODI_ADVANTAGE_ESTABLISHED=false`.
+
+The frozen structural candidate did not pass the weak-direction, ODI
+effectiveness, or control false-trigger conditions. This negative result does
+not change `STAGE2_GATE=FAIL` or `TRANSITION=PIVOT`, and no second-dataset
+expansion is authorized. Compact evidence is under
+`artifacts/current/measurement_real_validation_pilot/`.
+
 Day 11A selects no historical "representative seed." It locks one Geometry and
 one Observation diagnostic case from the frozen Test seed namespace using a
 result-independent SHA-256 rule. It runs no estimator or replay. The frozen
