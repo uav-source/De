@@ -56,15 +56,33 @@ def evaluate_readonly_observation(
     if record["synthetic_only"] is not True:
         raise ValueError("Day 4 adapter accepts synthetic observations only")
 
-    detector_input = prepare_production_detector_input(record)
+    return _evaluate_production_detector_core(
+        record,
+        base_output_factory=_base_output,
+        seal_output=_seal_and_validate,
+    )
+
+
+def _evaluate_production_detector_core(
+    record: Mapping[str, Any],
+    *,
+    base_output_factory: Any,
+    seal_output: Any,
+) -> dict[str, Any]:
+    """Shared thin core; callers own version-specific validation and output."""
+
+    detector_input = _prepare_production_detector_input_core(record)
     provenance = detector_input["provenance"]
-    base = _base_output(record, detector_input, provenance)
+    base = base_output_factory(record, detector_input, provenance)
 
     jacobian = detector_input["jacobian"]
     variance = detector_input["variance"]
     if jacobian.shape[0] < jacobian.shape[1]:
         return _finalize_output(
-            base, valid=False, invalid_reason="TOO_FEW_CORRESPONDENCES"
+            base,
+            valid=False,
+            invalid_reason="TOO_FEW_CORRESPONDENCES",
+            seal_output=seal_output,
         )
     if not (
         np.all(np.isfinite(jacobian))
@@ -72,7 +90,10 @@ def evaluate_readonly_observation(
         and np.all(np.isfinite(detector_input["residual"]))
     ):
         return _finalize_output(
-            base, valid=False, invalid_reason="NONFINITE_DETECTOR_INPUT"
+            base,
+            valid=False,
+            invalid_reason="NONFINITE_DETECTOR_INPUT",
+            seal_output=seal_output,
         )
 
     try:
@@ -83,7 +104,10 @@ def evaluate_readonly_observation(
         )
     except (KeyError, TypeError, ValueError, FloatingPointError):
         return _finalize_output(
-            base, valid=False, invalid_reason="DETECTOR_REJECTED"
+            base,
+            valid=False,
+            invalid_reason="DETECTOR_REJECTED",
+            seal_output=seal_output,
         )
 
     numeric_values = [
@@ -101,7 +125,10 @@ def evaluate_readonly_observation(
     ]
     if not np.all(np.isfinite(np.asarray(numeric_values, dtype=np.float64))):
         return _finalize_output(
-            base, valid=False, invalid_reason="DETECTOR_OUTPUT_NONFINITE"
+            base,
+            valid=False,
+            invalid_reason="DETECTOR_OUTPUT_NONFINITE",
+            seal_output=seal_output,
         )
 
     base.update(
@@ -138,7 +165,7 @@ def evaluate_readonly_observation(
             "actionable_direction": bool(metrics["actionable_direction"]),
         }
     )
-    return _seal_and_validate(base)
+    return seal_output(base)
 
 
 def prepare_production_detector_input(
@@ -147,15 +174,26 @@ def prepare_production_detector_input(
     """Create independent arrays without reordering the Day 3 pose columns."""
 
     validate_first_valid_observation_record(record)
+    return _prepare_production_detector_input_core(record)
+
+
+def _prepare_production_detector_input_core(
+    record: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Version-neutral mapping after the caller validates its observation."""
+
     jacobian = np.asarray(
         record["detector_pose_jacobian_rows"], dtype=np.float64
     ).copy()
     residual = np.asarray(
         record[DETECTOR_RESIDUAL_INPUT_FIELD], dtype=np.float64
     ).copy()
-    geometric = np.asarray(
-        record["signed_geometric_residual_pd2"], dtype=np.float64
-    )
+    if record.get("signed_geometric_residual_pd2_derived") is True:
+        geometric = -residual.copy()
+    else:
+        geometric = np.asarray(
+            record["signed_geometric_residual_pd2"], dtype=np.float64
+        )
     if not np.allclose(residual, -geometric, rtol=0.0, atol=1.0e-12):
         raise ValueError("formal detector residual must equal negative pd2")
     variance = np.full(
@@ -244,7 +282,11 @@ def _base_output(
 
 
 def _finalize_output(
-    base: dict[str, Any], *, valid: bool, invalid_reason: str
+    base: dict[str, Any],
+    *,
+    valid: bool,
+    invalid_reason: str,
+    seal_output: Any = None,
 ) -> dict[str, Any]:
     base.update(
         {
@@ -262,7 +304,9 @@ def _finalize_output(
             "actionable_direction": False,
         }
     )
-    return _seal_and_validate(base)
+    if seal_output is None:
+        seal_output = _seal_and_validate
+    return seal_output(base)
 
 
 def _seal_and_validate(output: dict[str, Any]) -> dict[str, Any]:
