@@ -315,6 +315,34 @@ def deterministic_payload(row: Mapping[str, Any]) -> dict[str, Any]:
     return {key: value for key, value in row.items() if key not in TIMING_FIELDS}
 
 
+def invalid_runtime_row(runtime: Mapping[str, Any]) -> dict[str, Any]:
+    """Represent a lifecycle scan for which no detector observation exists."""
+
+    row = {field: "" for field in MEASUREMENT_FIELDS}
+    capture_ms = float(runtime.get("tap_capture_ns", 0)) * 1.0e-6
+    logging_ms = float(runtime.get("binary_writer_ns", 0)) * 1.0e-6
+    row.update(
+        {
+            "schema_version": MEASUREMENT_SCHEMA_VERSION,
+            "timestamp": float(runtime["timestamp_end"]),
+            "scan_index": int(runtime["scan_index"]),
+            "valid_correspondence_count": int(
+                runtime.get("valid_correspondence_count", 0)
+            ),
+            "residual_count": 0,
+            "direction_reliable": False,
+            "degeneracy_triggered": False,
+            "detector_valid": False,
+            "invalid_reason": f"RUNTIME_{runtime.get('skip_reason', 'NO_OBSERVATION')}",
+            "capture_core_ms": capture_ms,
+            "detector_core_ms": 0.0,
+            "logging_ms": logging_ms,
+            "total_added_ms": capture_ms + logging_ms,
+        }
+    )
+    return row
+
+
 def write_measurement_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     """Write minimal rows and honestly add measured serialization/write time.
 

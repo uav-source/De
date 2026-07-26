@@ -170,6 +170,15 @@ CAPTURE_PID=""
 }
 
 kill -INT "$FAST_PID"
+for _ in $(seq 1 100); do
+  kill -0 "$FAST_PID" 2>/dev/null || break
+  sleep 0.1
+done
+if kill -0 "$FAST_PID" 2>/dev/null; then
+  # Some FAST-LIO2 builds catch SIGINT without promptly leaving ros::ok().
+  # ROS shutdown closes the compact writers and preserves their trailers.
+  rosnode kill /laserMapping > "$RUN_DIR/rosnode_shutdown.txt" 2>&1 || true
+fi
 set +e
 wait "$FAST_PID"
 FAST_EXIT=$?
