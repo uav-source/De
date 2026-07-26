@@ -39,6 +39,23 @@ The Day 14 review found corrected Geometry and Observation AUROCs of 0.5993 and
 mechanism is supported, but stable no-GT online coherent-bias detection is not.
 Stage 2 is complete with a formal NO-GO and the project transition is `PIVOT`.
 
+## Read-only FAST-LIO2 evidence closure
+
+The strict OFF/ON cross-process replay equivalence was not established.
+The observed divergence also occurs between nominally identical OFF/OFF and
+ON/ON runs and is associated with FAST-LIO2/map-query nondeterminism.
+
+The accepted read-only safety evidence is:
+
+1. same-call input immutability;
+2. frozen-observation determinism;
+3. no detector feedback into FAST-LIO2.
+
+The Day 5--Day 9 investigation is closed at this boundary. It does not prove
+real-data detector effectiveness, real-data ODI superiority, stable online
+harmful-bias detection, a beneficial weak-direction update, or a complete
+Degen-LIO estimator. `STAGE2_GATE=FAIL` and `TRANSITION=PIVOT` remain fixed.
+
 Day 11A selects no historical "representative seed." It locks one Geometry and
 one Observation diagnostic case from the frozen Test seed namespace using a
 result-independent SHA-256 rule. It runs no estimator or replay. The frozen
@@ -86,7 +103,8 @@ Not implemented:
 
 - Stage 3 innovation gate;
 - bias-state estimator;
-- FAST-LIO2 integration;
+- FAST-LIO2 estimator modification or feedback integration (the read-only
+  observation tap is implemented);
 - real IMU propagation;
 - real data association;
 - complete Degen-LIO.
