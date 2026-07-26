@@ -115,6 +115,69 @@ def exact_future_error_growth(
     return growth, available
 
 
+def exact_future_error_growth_against_reference(
+    estimator_timestamps: Sequence[float],
+    aligned_estimated_positions: np.ndarray,
+    reference_timestamps: Sequence[float],
+    reference_positions: np.ndarray,
+    *,
+    window_seconds: float = 5.0,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Evaluate exact-horizon growth against the native reference time grid.
+
+    The estimator and RTK streams are interpolated independently.  This avoids
+    first sampling RTK onto the odometry grid and then interpolating that
+    already-interpolated series a second time at ``t + window``.
+    """
+
+    estimator_times = np.asarray(estimator_timestamps, dtype=np.float64)
+    estimated = np.asarray(aligned_estimated_positions, dtype=np.float64)
+    reference_times = np.asarray(reference_timestamps, dtype=np.float64)
+    reference = np.asarray(reference_positions, dtype=np.float64)
+    if estimator_times.ndim != 1 or estimated.shape != (estimator_times.size, 3):
+        raise ValueError("estimator inputs must be timestamp N and an N x 3 array")
+    if reference_times.ndim != 1 or reference.shape != (reference_times.size, 3):
+        raise ValueError("reference inputs must be timestamp M and an M x 3 array")
+    if estimator_times.size < 2 or reference_times.size < 2:
+        raise ValueError("estimator and reference trajectories need at least two samples")
+    if not (
+        np.all(np.isfinite(estimator_times))
+        and np.all(np.isfinite(estimated))
+        and np.all(np.isfinite(reference_times))
+        and np.all(np.isfinite(reference))
+    ):
+        raise ValueError("future-error inputs must be finite")
+    if np.any(np.diff(estimator_times) <= 0.0) or np.any(np.diff(reference_times) <= 0.0):
+        raise ValueError("future-error timestamps must be strictly increasing")
+    if not math.isfinite(float(window_seconds)) or float(window_seconds) <= 0.0:
+        raise ValueError("future-error window must be finite and positive")
+
+    target = estimator_times + float(window_seconds)
+    available = (
+        (estimator_times >= reference_times[0])
+        & (estimator_times <= reference_times[-1])
+        & (target <= estimator_times[-1])
+        & (target <= reference_times[-1])
+    )
+    growth = np.full(estimator_times.size, np.nan, dtype=np.float64)
+    if np.any(available):
+        current_reference = _interpolate_positions(
+            reference_times, reference, estimator_times[available]
+        )
+        future_estimated = _interpolate_positions(
+            estimator_times, estimated, target[available]
+        )
+        future_reference = _interpolate_positions(
+            reference_times, reference, target[available]
+        )
+        current_error = np.linalg.norm(
+            estimated[available] - current_reference, axis=1
+        )
+        future_error = np.linalg.norm(future_estimated - future_reference, axis=1)
+        growth[available] = future_error - current_error
+    return growth, available
+
+
 def discrete_future_error_growth(
     timestamps: Sequence[float],
     estimated_positions: np.ndarray,

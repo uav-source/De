@@ -13,6 +13,11 @@ from degen_detector.whitened_info import compute_translation_schur_info
 WEAK_DIRECTION_NATIVE_FRAME = "FAST_LIO_CAMERA_INIT_WORLD_MAP"
 REFERENCE_AXIS_FRAME = "ENU"
 COMPARISON_FRAME = "ENU"
+FORMAL_LINEARIZATION_STATE = "CURRENT_ITERATED_IN_CALL_STATE_s"
+PRIOR_POSE_ROLE = "TAP_SAVED_PRIOR_IS_METADATA_ONLY_NOT_REAPPLIED_TO_WEAK_AXIS"
+POST_UPDATE_POSE_ROLE = "NOT_AVAILABLE_TO_IN_CALL_JACOBIAN_OR_WEAK_AXIS"
+LIDAR_TO_IMU_ROLE = "FORWARD_IMU_FROM_LIDAR_APPLIED_UPSTREAM_IN_JACOBIAN"
+OFFLINE_DIRECTION_TRANSFORM = "KABSCH_ROTATION_ONLY_NO_TRANSLATION"
 
 
 def normalize_axis(value: Sequence[float]) -> np.ndarray:
@@ -46,6 +51,13 @@ def transform_lidar_axis_to_world(
     rotation_imu_from_lidar: np.ndarray,
     rotation_world_from_imu: np.ndarray,
 ) -> np.ndarray:
+    """Validate the forward LiDAR -> IMU -> world convention for a LiDAR axis.
+
+    This helper tests the upstream FAST-LIO transform convention.  It is not an
+    operation in the exported weak-axis pipeline: the translation Schur
+    eigenvector is already expressed in FAST-LIO world coordinates.
+    """
+
     return transform_axis(
         validate_rotation_matrix(rotation_world_from_imu)
         @ validate_rotation_matrix(rotation_imu_from_lidar),
@@ -67,15 +79,49 @@ def coordinate_frame_contract_rows() -> list[dict[str, Any]]:
             "input_frame": "IMU/body right-tangent rotation plus world additive position",
             "output_frame": "native [delta_p_world, delta_theta_body]",
             "transform": "FAST-LIO boxplus contract",
+            "linearization_state": FORMAL_LINEARIZATION_STATE,
+            "saved_prior_pose_role": PRIOR_POSE_ROLE,
+            "post_update_pose_role": POST_UPDATE_POSE_ROLE,
             "source_file": "/home/lj/fastlio2_ws/src/FAST_LIO/include/use-ikfom.hpp",
-            "source_line": "12-21",
+            "source_line": "12-21; laserMapping.cpp:923-1068, 1568-1575",
+            "verified": True,
+        },
+        {
+            "stage": "formal_in_call_linearization",
+            "input_frame": "LiDAR point transformed by current s.offset_R_L_I, s.offset_T_L_I, s.rot, and s.pos",
+            "output_frame": "formal native Jacobian [delta_p_world, delta_theta_body, ...]",
+            "transform": "h_share_model evaluates correspondences, residuals, and h_x at the current iterated in-call state s",
+            "linearization_state": FORMAL_LINEARIZATION_STATE,
+            "saved_prior_pose_role": PRIOR_POSE_ROLE,
+            "post_update_pose_role": POST_UPDATE_POSE_ROLE,
+            "lidar_to_imu_extrinsic_role": LIDAR_TO_IMU_ROLE,
+            "forward_lidar_to_imu_applied_upstream": True,
+            "source_file": "/home/lj/fastlio2_ws/src/FAST_LIO/src/laserMapping.cpp",
+            "source_line": "923-1068, 1084-1115",
+            "verified": True,
+        },
+        {
+            "stage": "readonly_tap_prior_metadata",
+            "input_frame": "pre-update FAST-LIO state and covariance",
+            "output_frame": "record prior_position_world, prior_orientation_world_from_imu_xyzw, and prior covariance metadata",
+            "transform": "copied into the record separately from the formal in-call Jacobian",
+            "linearization_state": FORMAL_LINEARIZATION_STATE,
+            "saved_prior_pose_role": PRIOR_POSE_ROLE,
+            "post_update_pose_role": POST_UPDATE_POSE_ROLE,
+            "prior_pose_used_for_weak_axis": False,
+            "post_update_pose_used_for_weak_axis": False,
+            "source_file": "/home/lj/fastlio2_ws/src/FAST_LIO/src/laserMapping.cpp; /home/lj/fastlio2_ws/src/FAST_LIO/src/readonly_observation_tap.cpp",
+            "source_line": "laserMapping.cpp:1458-1487, 1568-1575; readonly_observation_tap.cpp:549-577",
             "verified": True,
         },
         {
             "stage": "readonly_tap_column_reorder",
-            "input_frame": "[delta_p_world, delta_theta_body]",
+            "input_frame": "formal h_x at current iterated state s: [delta_p_world, delta_theta_body]",
             "output_frame": "[delta_theta_body, delta_p_world]",
             "transform": "column permutation [3,4,5,0,1,2], no axis rotation",
+            "linearization_state": FORMAL_LINEARIZATION_STATE,
+            "saved_prior_pose_role": PRIOR_POSE_ROLE,
+            "post_update_pose_role": POST_UPDATE_POSE_ROLE,
             "source_file": "/home/lj/fastlio2_ws/src/FAST_LIO/src/readonly_observation_tap.cpp",
             "source_line": "155, 549-574",
             "verified": True,
@@ -84,9 +130,14 @@ def coordinate_frame_contract_rows() -> list[dict[str, Any]]:
             "stage": "translation_Schur",
             "input_frame": "detector [delta_theta_body, delta_p_world]",
             "output_frame": WEAK_DIRECTION_NATIVE_FRAME,
-            "transform": "marginalize rotation; eigenvector of minimum translation eigenvalue",
+            "transform": "marginalize body-rotation columns; minimum-eigenvalue direction of the remaining world-translation block",
+            "translation_direction_already_world": True,
+            "lidar_to_imu_extrinsic_role": LIDAR_TO_IMU_ROLE,
+            "reapply_lidar_to_imu_to_weak_axis": False,
+            "prior_pose_used_for_weak_axis": False,
+            "post_update_pose_used_for_weak_axis": False,
             "source_file": "src/degen_detector/whitened_info.py",
-            "source_line": "85-111",
+            "source_line": "85-111; laserMapping.cpp:1036-1065",
             "verified": True,
         },
         {
@@ -94,8 +145,13 @@ def coordinate_frame_contract_rows() -> list[dict[str, Any]]:
             "input_frame": WEAK_DIRECTION_NATIVE_FRAME,
             "output_frame": COMPARISON_FRAME,
             "transform": "v_ENU = R_enu_from_fast_world @ v_world; translation omitted for axis",
-            "source_file": "scripts/132_analyze_mun_frl_measurement_pilot.py",
-            "source_line": "315-359",
+            "offline_direction_transform": OFFLINE_DIRECTION_TRANSFORM,
+            "translation_direction_already_world": True,
+            "reapply_lidar_to_imu_to_weak_axis": False,
+            "prior_pose_used_for_weak_axis": False,
+            "post_update_pose_used_for_weak_axis": False,
+            "source_file": "src/eval/navsat_reference.py; src/eval/measurement_pilot_scientific_audit.py",
+            "source_line": "navsat_reference.py:191-214; measurement_pilot_scientific_audit.py:563-587",
             "verified": True,
         },
         {

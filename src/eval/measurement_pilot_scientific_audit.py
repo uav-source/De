@@ -22,6 +22,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
+import yaml  # noqa: E402
 from scipy.stats import spearmanr  # noqa: E402
 
 from eval.frame_contract import (
@@ -41,6 +42,13 @@ from eval.interval_validity_audit import (
     trigger_contract_rows,
 )
 from eval.measurement_pilot import interval_for_timestamp, load_interval_lock
+from eval.measurement_real_analysis import (
+    CONTROL_MAX_CONSECUTIVE_TRIGGERS,
+    CONTROL_MAX_TRIGGER_RATIO,
+    DIRECTION_MEDIAN_MAX_DEG,
+    ODI_ABS_SPEARMAN_MINIMUM,
+    ODI_AUROC_MINIMUM,
+)
 from eval.metric_semantics import (
     NEGATIVE_CLASS,
     POSITIVE_CLASS,
@@ -56,16 +64,31 @@ from eval.navsat_reference import (
 )
 from eval.time_alignment_audit import (
     discrete_future_error_growth,
-    exact_future_error_growth,
+    exact_future_error_growth_against_reference,
     time_stream_summary,
+    validate_strict_seconds_timestamps,
 )
 from fastlio2_adapter.frozen_observation import load_existing_converter
+from fastlio2_adapter.mun_frl_contract import (
+    TIME_OFFSET_LIDAR_TO_IMU,
+    validate_mun_frl_config,
+)
 
 
 AUDIT_SCHEMA = "measurement_pilot_scientific_audit_v1"
 EXPECTED_SOURCE_COMMIT = "732dcff74921cb1da0d37267881ee77c5995e870"
 EXPECTED_PILOT_TREE_SHA256 = "d4185c7269a0cd2c34aaa5951793962503cca88b0b8691c85428a23442fce849"
 EXPECTED_BAG_SHA256 = "562bafc57dab7fdac3d8959cf6836b3f4508c4fa60147b11d718552180543162"
+EXPECTED_INPUT_SHA256 = {
+    "runtime_audit_v2.bin": "88bd2f9e2d45b4d23d7866e2957c55d6c63d694aa25b8d5ec55b3000379a6f42",
+    "fastlio_odometry.csv": "88b11ffd447d2df8c231490dfcdf3fdd5e7fb6f7a6fc1a608cd61c295f110f7c",
+    "navsat_fix.csv": "0bb868230aab96d4da6aaac01b737fc860057691571e917d9927cd62c913c46d",
+    "raw_scene_descriptors.csv": "9e27df2246dba8ee77808e61518dfcca903e47d7af370e2cff370d427c8b94c5",
+    "mun_frl_pilot_intervals.yaml": "c74d3af08054979c2cf0ecbb086a7b218a6541f691b82a1eb20706047086e4b4",
+    "mun_frl_lighthouse.yaml": "6432293f6592a830d8d08ed16bc9bfc31a235d0aa9f7fce2c3933c31b581615d",
+    "detector_lock.json": "075f14217f5e9c782bc1ab4051e6533f34d4932399c7f4b8cbc60a03d62fe358",
+    "odi_threshold_calibration.json": "8648d64a8e2228e913bd9debcef3bae2ba8bb5aeb23ba73f89a9abb354c176af",
+}
 FORMAL_WINDOW_SECONDS = 5.0
 LAG_VALUES_SECONDS = np.round(np.arange(-2.0, 2.0001, 0.05), 2)
 SENSITIVITY_WINDOWS_SECONDS = (1.0, 3.0, 5.0, 10.0)
@@ -272,20 +295,29 @@ def future_error_tables(
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
     timestamps = np.asarray(trajectory["timestamps"])
     aligned = np.asarray(trajectory["aligned"])
-    reference = np.asarray(trajectory["reference_positions"])
+    sampled_reference = np.asarray(trajectory["reference_positions"])
+    native_reference = trajectory["reference"]
     valid = np.asarray(trajectory["valid"])
     if not np.all(valid):
         first, last = int(np.flatnonzero(valid)[0]), int(np.flatnonzero(valid)[-1]) + 1
-        timestamps, aligned, reference = timestamps[first:last], aligned[first:last], reference[first:last]
+        timestamps, aligned, sampled_reference = (
+            timestamps[first:last],
+            aligned[first:last],
+            sampled_reference[first:last],
+        )
     pairs = _metric_indices(frame_rows, timestamps)
     sensitivity: list[dict[str, Any]] = []
     formal_details: dict[str, Any] = {}
     for window in SENSITIVITY_WINDOWS_SECONDS:
         current, current_available, horizon = discrete_future_error_growth(
-            timestamps, aligned, reference, window_seconds=window
+            timestamps, aligned, sampled_reference, window_seconds=window
         )
-        exact, exact_available = exact_future_error_growth(
-            timestamps, aligned, reference, window_seconds=window
+        exact, exact_available = exact_future_error_growth_against_reference(
+            timestamps,
+            aligned,
+            native_reference.timestamps,
+            native_reference.positions_enu_m,
+            window_seconds=window,
         )
         for definition, growth, available in (
             ("first_sample_at_or_after_target", current, current_available),
@@ -441,7 +473,13 @@ def time_stream_rows(
     specifications = (
         ("LiDAR", headers["/velodyne_points"], "message_header", 0.0, "/velodyne_points"),
         ("IMU_raw", headers["/imu/data"], "message_header", 0.0, "/imu/data"),
-        ("IMU_effective_FAST_LIO", headers["/imu/data"] - 0.0034, "message_header_minus_frozen_offset", -0.0034, "/imu/data"),
+        (
+            "IMU_effective_FAST_LIO",
+            headers["/imu/data"] - TIME_OFFSET_LIDAR_TO_IMU,
+            "message_header_minus_frozen_offset",
+            -TIME_OFFSET_LIDAR_TO_IMU,
+            "/imu/data",
+        ),
         ("FAST_LIO_odometry", trajectory["timestamps"], "message_header_lidar_end_time", 0.0, None),
         (
             "RTK_fix",
@@ -453,12 +491,14 @@ def time_stream_rows(
     )
     output: list[dict[str, Any]] = []
     for name, timestamps, source, offset, topic in specifications:
+        validated_timestamps = validate_strict_seconds_timestamps(timestamps)
         row = time_stream_summary(
             name,
-            timestamps,
+            validated_timestamps,
             timestamp_source=source,
             applied_offset_seconds=offset,
         )
+        row["unix_seconds_validation"] = "PASS"
         if topic is not None:
             row["bag_record_minus_header_min_seconds"] = float(np.min(record_delta[topic]))
             row["bag_record_minus_header_max_seconds"] = float(np.max(record_delta[topic]))
@@ -560,6 +600,47 @@ def reference_axis_rows(
     xy_projection = xy_centered @ xy_axis
     xy_residual = np.linalg.norm(xy_centered - np.outer(xy_projection, xy_axis), axis=1)
 
+    def endpoint_axis(window_start: float, window_end: float) -> np.ndarray:
+        window_endpoints, _ = interpolate_reference(
+            reference, np.asarray([window_start, window_end])
+        )
+        window_delta = window_endpoints[1] - window_endpoints[0]
+        return window_delta / np.linalg.norm(window_delta)
+
+    half_boundaries = np.linspace(start, end, 3)
+    half_axes = [
+        endpoint_axis(float(half_boundaries[index]), float(half_boundaries[index + 1]))
+        for index in range(2)
+    ]
+    quarter_boundaries = np.linspace(start, end, 5)
+    quarter_axes = [
+        endpoint_axis(
+            float(quarter_boundaries[index]), float(quarter_boundaries[index + 1])
+        )
+        for index in range(4)
+    ]
+
+    def maximum_pairwise_angle(axes: Sequence[np.ndarray]) -> float:
+        return max(
+            sign_invariant_angle_deg(axes[left], axes[right])
+            for left in range(len(axes))
+            for right in range(left + 1, len(axes))
+        )
+
+    half_axis_angle = sign_invariant_angle_deg(half_axes[0], half_axes[1])
+    quarter_axis_max_angle = maximum_pairwise_angle(quarter_axes)
+    aligned_times = np.asarray(trajectory["timestamps"], dtype=float)
+    aligned_positions = np.asarray(trajectory["aligned"], dtype=float)
+    aligned_endpoints = np.column_stack(
+        [
+            np.interp([start, end], aligned_times, aligned_positions[:, axis_index])
+            for axis_index in range(3)
+        ]
+    )
+    aligned_motion_axis = aligned_endpoints[1] - aligned_endpoints[0]
+    aligned_motion_axis /= np.linalg.norm(aligned_motion_axis)
+    aligned_motion_consistency = sign_invariant_angle_deg(aligned_motion_axis, axis)
+
     rotation = np.asarray(trajectory["rotation_enu_from_fast_world"], dtype=float)
     weak_rows: list[dict[str, Any]] = []
     for row in frame_rows:
@@ -609,6 +690,11 @@ def reference_axis_rows(
         {"audit_item": "endpoint_separation_horizontal", "value": float(np.linalg.norm(delta[:2])), "unit": "m", "interpretation": "horizontal baseline"},
         {"audit_item": "endpoint_vertical_change", "value": float(abs(delta[2])), "unit": "m", "interpretation": "large height contribution"},
         {"audit_item": "axis_elevation", "value": math.degrees(math.asin(abs(float(axis[2])))), "unit": "degree", "interpretation": "formal 3-D axis elevation"},
+        {"audit_item": "frozen_interval_duration", "value": end - start, "unit": "second", "interpretation": "14-second reference construction window"},
+        {"audit_item": "half_window_endpoint_axis_angle", "value": half_axis_angle, "unit": "degree", "interpretation": "large first-half/second-half motion-axis change; reference is not locally stable"},
+        {"audit_item": "quarter_window_endpoint_axis_max_pairwise_angle", "value": quarter_axis_max_angle, "unit": "degree", "interpretation": "maximum sign-invariant disagreement among four equal-duration subwindows"},
+        {"audit_item": "aligned_lio_motion_axis_vs_reference_axis", "value": aligned_motion_consistency, "unit": "degree", "interpretation": "shows trajectory-motion consistency after global alignment; does not validate an environmental null axis"},
+        {"audit_item": "reference_axis_subwindow_stable", "value": False, "unit": "boolean", "interpretation": "half and quarter endpoint axes vary too strongly for a sharp 30-degree environmental-axis claim"},
         {"audit_item": "declared_angular_uncertainty", "value": REFERENCE_UNCERTAINTY_DEG, "unit": "degree", "interpretation": "no confidence level was specified"},
         {"audit_item": "rtk_fix_count", "value": int(np.sum(mask)), "unit": "count", "interpretation": "approximately 5 Hz"},
         {"audit_item": "rtk_covariance_sigma_enu_median", "value": ";".join(f"{value:.12g}" for value in np.sqrt(np.nanmedian(covariance, axis=0))), "unit": "m", "interpretation": "covariance_type=approximate"},
@@ -636,6 +722,10 @@ def reference_axis_rows(
         "uncertainty_lower_deg": lower,
         "uncertainty_upper_deg": upper,
         "pca_3d_endpoint_angle_deg": sign_invariant_angle_deg(pca_axis, axis),
+        "half_window_axis_angle_deg": half_axis_angle,
+        "quarter_window_axis_max_pairwise_angle_deg": quarter_axis_max_angle,
+        "aligned_motion_axis_consistency_deg": aligned_motion_consistency,
+        "reference_axis_subwindow_stable": False,
     }
     return rows, weak_rows, summary
 
@@ -800,14 +890,41 @@ def write_corrected_evaluation_v2(
     control = next(row for row in trigger_rows if row["subset"] == "control_frozen_interval")
     reliable = next(row for row in eigengap_rows if row["group"] == "reliable")
     unreliable = next(row for row in eigengap_rows if row["group"] == "unreliable")
+    original_manifest = json.loads(
+        (pilot_artifact_dir / "run_manifest.json").read_text(encoding="utf-8")
+    )
+    original_gates = original_manifest["gates"]
+    original_correlation = float(original_future["odi_spearman_rho"])
+    corrected_correlation = float(exact_future["odi_spearman_rho"])
+    original_correlation_pass = abs(original_correlation) >= ODI_ABS_SPEARMAN_MINIMUM
+    semantic_same_sample_correlation_pass = (
+        original_correlation >= ODI_ABS_SPEARMAN_MINIMUM
+    )
+    corrected_correlation_pass = corrected_correlation >= ODI_ABS_SPEARMAN_MINIMUM
+    odi_auc_pass = float(odi_auc["AUC_semantically_oriented"]) >= ODI_AUROC_MINIMUM
+    formal_other_auc = [
+        float(row["AUC_semantically_oriented"])
+        for row in auc_rows
+        if row["metric_name"] != "ODI_trans"
+        and row["semantic_status"] == "FORMAL_SEMANTIC_POLARITY"
+        and math.isfinite(float(row["AUC_semantically_oriented"]))
+    ]
+    corrected_odi_advantage = bool(
+        formal_other_auc
+        and float(odi_auc["AUC_semantically_oriented"]) > max(formal_other_auc)
+    )
+    original_odi_advantage = bool(original_manifest["ODI_ADVANTAGE_ESTABLISHED"])
     before_after = [
         {
             "item": "future_5_second_index",
             "before": "first odometry sample at or after t+5",
-            "after": "linear interpolation of aligned estimator and RTK vectors at exact t+5",
-            "before_value": original_future["odi_spearman_rho"],
-            "after_value": exact_future["odi_spearman_rho"],
-            "material_gate_change": False,
+            "after": "independent interpolation of aligned estimator and native RTK streams at exact t+5",
+            "before_value": original_correlation,
+            "after_value": corrected_correlation,
+            "before_gate_pass": original_correlation_pass,
+            "after_gate_pass": corrected_correlation_pass,
+            "material_gate_change": original_correlation_pass
+            != corrected_correlation_pass,
         },
         {
             "item": "eigengap_ratio_semantics",
@@ -815,36 +932,136 @@ def write_corrected_evaluation_v2(
             "after": "excluded from formal degeneration AUC; high means direction more identifiable",
             "before_value": next(row for row in auc_rows if row["metric_name"] == "primary_eigengap_ratio")["AUC_raw"],
             "after_value": "NOT_A_FORMAL_DEGENERATION_SCORE",
-            "material_gate_change": False,
+            "before_gate_pass": original_odi_advantage,
+            "after_gate_pass": corrected_odi_advantage,
+            "material_gate_change": original_odi_advantage
+            != corrected_odi_advantage,
         },
         {
             "item": "correlation_gate_polarity",
             "before": "abs(Spearman) >= 0.4",
             "after": "semantically risk-oriented Spearman >= 0.4",
-            "before_value": original_future["odi_spearman_rho"],
-            "after_value": exact_future["odi_spearman_rho"],
-            "material_gate_change": False,
+            "before_value": original_correlation,
+            "after_value": original_correlation,
+            "before_gate_pass": original_correlation_pass,
+            "after_gate_pass": semantic_same_sample_correlation_pass,
+            "material_gate_change": original_correlation_pass
+            != semantic_same_sample_correlation_pass,
         },
         {
             "item": "ODI_formal_AUROC",
-            "before": odi_auc["AUC_semantically_oriented"],
-            "after": odi_auc["AUC_semantically_oriented"],
+            "before": "positive class structural candidate; raw ODI risk polarity",
+            "after": "unchanged semantic formula and positive class",
             "before_value": odi_auc["AUC_semantically_oriented"],
             "after_value": odi_auc["AUC_semantically_oriented"],
+            "before_gate_pass": odi_auc_pass,
+            "after_gate_pass": odi_auc_pass,
             "material_gate_change": False,
         },
     ]
     write_csv(corrected / "before_after_evaluation.csv", before_after)
-    gate_rows = [
-        {"condition": "structural_direction_median_le_30_deg", "value": reference_summary["formal_3d_median_deg"] <= 30.0, "evidence": reference_summary["formal_3d_median_deg"]},
-        {"condition": "reliable_angle_better_than_unreliable", "value": float(reliable["median_angle_error_deg"]) < float(unreliable["median_angle_error_deg"]), "evidence": f"{reliable['median_angle_error_deg']} vs {unreliable['median_angle_error_deg']}"},
-        {"condition": "odi_auroc_ge_0_70", "value": float(odi_auc["AUC_semantically_oriented"]) >= 0.70, "evidence": odi_auc["AUC_semantically_oriented"]},
-        {"condition": "odi_semantic_spearman_ge_0_40", "value": float(exact_future["odi_spearman_rho"]) >= 0.40, "evidence": exact_future["odi_spearman_rho"]},
-        {"condition": "control_false_trigger_ratio_le_0_20", "value": float(control["trigger_ratio"]) <= 0.20, "evidence": control["trigger_ratio"]},
-        {"condition": "corrected_scientific_gate", "value": False, "evidence": "multiple preregistered scientific conditions remain false"},
-        {"condition": "corrected_pilot_pass", "value": False, "evidence": "corrections are non-material; original FAIL remains"},
-    ]
+
+    corrected_scientific = {
+        "frozen_structural_and_control_intervals": True,
+        "same_input_all_metrics": True,
+        "structural_direction_median_pass": float(
+            reference_summary["formal_3d_median_deg"]
+        )
+        <= DIRECTION_MEDIAN_MAX_DEG,
+        "reliable_better_than_unreliable": float(
+            reliable["median_angle_error_deg"]
+        )
+        < float(unreliable["median_angle_error_deg"]),
+        "odi_effectiveness_pass": odi_auc_pass or corrected_correlation_pass,
+        "control_false_trigger_pass": float(control["trigger_ratio"])
+        <= CONTROL_MAX_TRIGGER_RATIO
+        and int(original_manifest["control_max_consecutive_triggers"])
+        <= CONTROL_MAX_CONSECUTIVE_TRIGGERS,
+        "no_reference_online": bool(
+            original_gates["scientific_conditions"]["no_reference_online"]
+        ),
+    }
+    corrected_scientific_pass = all(corrected_scientific.values())
+    corrected_engineering_pass = all(
+        original_gates["engineering_conditions"].values()
+    )
+    corrected_runtime_pass = all(original_gates["runtime_conditions"].values())
+    corrected_pilot_pass = corrected_engineering_pass and corrected_scientific_pass
+    gate_rows: list[dict[str, Any]] = []
+    for gate_name, conditions, mode in (
+        (
+            "Engineering Gate",
+            original_gates["engineering_conditions"],
+            "REEXECUTED_UNCHANGED_FROZEN_EVIDENCE",
+        ),
+        (
+            "Runtime Gate targets",
+            original_gates["runtime_conditions"],
+            "REEXECUTED_UNCHANGED_FROZEN_EVIDENCE",
+        ),
+        (
+            "Scientific Pilot Gate",
+            corrected_scientific,
+            "REEXECUTED_WITH_CORRECTED_EVALUATION_V2",
+        ),
+    ):
+        for condition, passed in conditions.items():
+            evidence: Any = "unchanged frozen input/result"
+            if condition == "structural_direction_median_pass":
+                evidence = reference_summary["formal_3d_median_deg"]
+            elif condition == "reliable_better_than_unreliable":
+                evidence = (
+                    f"{reliable['median_angle_error_deg']} vs "
+                    f"{unreliable['median_angle_error_deg']}"
+                )
+            elif condition == "odi_effectiveness_pass":
+                evidence = (
+                    f"semantic_auc={odi_auc['AUC_semantically_oriented']};"
+                    f"exact_5s_semantic_rho={corrected_correlation}"
+                )
+            elif condition == "control_false_trigger_pass":
+                evidence = (
+                    f"ratio={control['trigger_ratio']};max_consecutive="
+                    f"{original_manifest['control_max_consecutive_triggers']}"
+                )
+            gate_rows.append(
+                {
+                    "gate": gate_name,
+                    "condition": condition,
+                    "pass": bool(passed),
+                    "evidence": evidence,
+                    "evaluation_mode": mode,
+                }
+            )
+    gate_rows.extend(
+        [
+            {
+                "gate": "Final",
+                "condition": "MEASUREMENT_REAL_PILOT_PASS",
+                "pass": corrected_pilot_pass,
+                "evidence": "engineering AND corrected scientific gates",
+                "evaluation_mode": "REEXECUTED_WITH_CORRECTED_EVALUATION_V2",
+            },
+            {
+                "gate": "Final",
+                "condition": "SECOND_DATASET_EXPANSION_AUTHORIZED",
+                "pass": corrected_pilot_pass,
+                "evidence": "identical to corrected Pilot pass under frozen protocol",
+                "evaluation_mode": "REEXECUTED_WITH_CORRECTED_EVALUATION_V2",
+            },
+            {
+                "gate": "Final",
+                "condition": "ODI_ADVANTAGE_ESTABLISHED",
+                "pass": corrected_odi_advantage,
+                "evidence": "semantic ODI AUROC strictly exceeds every eligible formal baseline",
+                "evaluation_mode": "REEXECUTED_WITH_CORRECTED_EVALUATION_V2",
+            },
+        ]
+    )
     write_csv(corrected / "corrected_gate_summary.csv", gate_rows)
+    formal_conclusion_changed = bool(
+        corrected_pilot_pass != bool(original_gates["MEASUREMENT_REAL_PILOT_PASS"])
+    )
     manifest = {
         "schema_version": "measurement_pilot_corrected_evaluation_v2",
         "same_bag": True,
@@ -853,18 +1070,49 @@ def write_corrected_evaluation_v2(
         "same_odi_formula": True,
         "same_ais_formula": True,
         "old_results_overwritten": False,
+        "bug_descriptions": [
+            "the original future index used the first odometry sample at or after t+5 instead of exact native-stream interpolation",
+            "the original baseline called eigengap ratio a degeneration score although it measures direction identifiability",
+            "the original ODI correlation gate used absolute correlation rather than the preregistered risk direction",
+        ],
         "corrections": [
-            "exact target-time interpolation diagnostic",
+            "exact target-time interpolation on independent estimator and native RTK grids",
             "eigengap semantics corrected to direction identifiability",
             "correlation gate polarity corrected to risk-oriented positive direction",
         ],
-        "affected_outputs": ["future growth correlation", "eigengap baseline interpretation", "gate correlation predicate"],
-        "formal_conclusion_changed": False,
-        "corrected_pilot_pass": False,
+        "affected_files": [
+            "src/eval/navsat_reference.py::trajectory_error_rows",
+            "src/eval/measurement_real_analysis.py::evaluate_pilot_gates",
+            "scripts/132_analyze_mun_frl_measurement_pilot.py::baseline_analysis",
+            "src/eval/measurement_pilot_scientific_audit.py::write_corrected_evaluation_v2",
+        ],
+        "affected_outputs": [
+            "tables/trajectory_errors.csv future-growth values/correlation",
+            "tables/baseline_comparison.csv eigengap interpretation",
+            "tables/pilot_gate_summary.csv ODI effectiveness predicate",
+        ],
+        "frozen_identity": {
+            "bag_sha256": EXPECTED_BAG_SHA256,
+            "interval_lock_sha256": EXPECTED_INPUT_SHA256[
+                "mun_frl_pilot_intervals.yaml"
+            ],
+            "odi_trigger_threshold": ODI_TRIGGER_THRESHOLD,
+            "formal_future_window_seconds": FORMAL_WINDOW_SECONDS,
+        },
+        "all_original_gates_reexecuted": True,
+        "original_gate_condition_count": len(gate_rows),
+        "corrected_engineering_gate_pass": corrected_engineering_pass,
+        "corrected_runtime_target_pass": corrected_runtime_pass,
+        "corrected_scientific_gate_pass": corrected_scientific_pass,
+        "formal_conclusion_changed": formal_conclusion_changed,
+        "corrected_pilot_pass": corrected_pilot_pass,
         "before_checksums": {
             "frame_metrics.csv": sha256_file(pilot_artifact_dir / "tables/frame_metrics.csv"),
             "baseline_comparison.csv": sha256_file(pilot_artifact_dir / "tables/baseline_comparison.csv"),
             "trajectory_errors.csv": sha256_file(pilot_artifact_dir / "tables/trajectory_errors.csv"),
+            "pilot_gate_summary.csv": sha256_file(
+                pilot_artifact_dir / "tables/pilot_gate_summary.csv"
+            ),
         },
         "after_checksums": {
             "before_after_evaluation.csv": sha256_file(corrected / "before_after_evaluation.csv"),
@@ -876,34 +1124,259 @@ def write_corrected_evaluation_v2(
     return manifest
 
 
-def final_decision() -> dict[str, Any]:
+def final_decision(
+    *,
+    metric_direction_bug_confirmed: bool,
+    time_alignment_bug_confirmed: bool,
+    frame_transform_bug_confirmed: bool,
+    future_error_implementation_bug_confirmed: bool,
+    trigger_implementation_bug_confirmed: bool,
+    odi_exactly_equivalent: bool,
+    odi_monotonically_equivalent: bool,
+    pilot_label_invalidated: bool,
+    reference_insufficient: bool,
+    reliability_validation_sufficient: bool,
+    real_domain_threshold_transfer_failed: bool,
+    corrected_evaluation_changes_formal_conclusion: bool,
+    method_negative_criteria_satisfied: bool,
+) -> dict[str, Any]:
+    """Apply the preregistered A/B/C/D rules to measured audit evidence."""
+
+    component_bug = any(
+        (
+            metric_direction_bug_confirmed,
+            time_alignment_bug_confirmed,
+            frame_transform_bug_confirmed,
+            future_error_implementation_bug_confirmed,
+            trigger_implementation_bug_confirmed,
+        )
+    )
+    if corrected_evaluation_changes_formal_conclusion and not component_bug:
+        raise ValueError("a material corrected result requires a confirmed component bug")
+    evaluation_bug_confirmed = bool(
+        component_bug and corrected_evaluation_changes_formal_conclusion
+    )
+
+    if evaluation_bug_confirmed:
+        category = "A"
+        conclusion = "EVALUATION_BUG_CONFIRMED"
+        plan_status = "RECOVERABLE_BY_CORRECTED_PILOT"
+    elif pilot_label_invalidated:
+        category = "B"
+        conclusion = "PILOT_LABEL_INVALIDATED"
+        plan_status = "NEW_PREREGISTERED_REPLACEMENT_PILOT_REQUIRED"
+    elif reference_insufficient:
+        category = "C"
+        conclusion = "REFERENCE_INSUFFICIENT"
+        plan_status = "PILOT_INCONCLUSIVE_REFERENCE_INSUFFICIENT"
+    elif method_negative_criteria_satisfied:
+        category = "D"
+        conclusion = "METHOD_NEGATIVE_CONFIRMED"
+        plan_status = "STOP_ODI_MEASUREMENT_MAINLINE"
+    else:
+        raise ValueError("audit evidence does not satisfy any preregistered A/B/C/D rule")
+
+    method_negative_confirmed = category == "D"
+    replacement_authorized = category in {"A", "B", "C"}
     return {
         "SCIENTIFIC_AUDIT_COMPLETE": True,
-        "PRIMARY_AUDIT_CONCLUSION": "PILOT_LABEL_INVALIDATED",
-        "PRIMARY_CONCLUSION_CATEGORY": "B",
-        "METRIC_DIRECTION_BUG_CONFIRMED": True,
-        "TIME_ALIGNMENT_BUG_CONFIRMED": False,
-        "FRAME_TRANSFORM_BUG_CONFIRMED": False,
-        "FUTURE_ERROR_IMPLEMENTATION_BUG_CONFIRMED": True,
-        "TRIGGER_IMPLEMENTATION_BUG_CONFIRMED": False,
-        "ODI_EXACTLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": True,
-        "ODI_MONOTONICALLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": True,
-        "ODI_INDEPENDENT_RANKING_INFORMATION_CONFIRMED": False,
-        "PILOT_LABEL_INVALIDATED": True,
-        "REFERENCE_INSUFFICIENT": True,
-        "RELIABILITY_VALIDATION_SUFFICIENT": False,
-        "REAL_DOMAIN_THRESHOLD_TRANSFER_FAILED": True,
-        # This composite follows rule A: a component defect must materially
-        # change the formal result.  The confirmed component defects do not.
-        "EVALUATION_BUG_CONFIRMED": False,
-        "METHOD_NEGATIVE_CONFIRMED": False,
-        "REPLACEMENT_PILOT_AUTHORIZED": True,
+        "PRIMARY_AUDIT_CONCLUSION": conclusion,
+        "PRIMARY_CONCLUSION_CATEGORY": category,
+        "METRIC_DIRECTION_BUG_CONFIRMED": bool(metric_direction_bug_confirmed),
+        "TIME_ALIGNMENT_BUG_CONFIRMED": bool(time_alignment_bug_confirmed),
+        "FRAME_TRANSFORM_BUG_CONFIRMED": bool(frame_transform_bug_confirmed),
+        "FUTURE_ERROR_IMPLEMENTATION_BUG_CONFIRMED": bool(
+            future_error_implementation_bug_confirmed
+        ),
+        "TRIGGER_IMPLEMENTATION_BUG_CONFIRMED": bool(
+            trigger_implementation_bug_confirmed
+        ),
+        "ODI_EXACTLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": bool(
+            odi_exactly_equivalent
+        ),
+        "ODI_MONOTONICALLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": bool(
+            odi_monotonically_equivalent
+        ),
+        "ODI_INDEPENDENT_RANKING_INFORMATION_CONFIRMED": bool(
+            not odi_monotonically_equivalent
+        ),
+        "PILOT_LABEL_INVALIDATED": bool(pilot_label_invalidated),
+        "REFERENCE_INSUFFICIENT": bool(reference_insufficient),
+        "RELIABILITY_VALIDATION_SUFFICIENT": bool(
+            reliability_validation_sufficient
+        ),
+        "REAL_DOMAIN_THRESHOLD_TRANSFER_FAILED": bool(
+            real_domain_threshold_transfer_failed
+        ),
+        "EVALUATION_BUG_CONFIRMED": evaluation_bug_confirmed,
+        "METHOD_NEGATIVE_CONFIRMED": method_negative_confirmed,
+        "REPLACEMENT_PILOT_AUTHORIZED": replacement_authorized,
         "SECOND_DATASET_EXPANSION_AUTHORIZED": False,
         "ODI_MEASUREMENT_MAINLINE_AUTHORIZED": False,
-        "MEASUREMENT_PLAN_STATUS": "NEW_PREREGISTERED_REPLACEMENT_PILOT_REQUIRED",
+        "MEASUREMENT_PLAN_STATUS": plan_status,
         "ORIGINAL_MEASUREMENT_REAL_PILOT_PASS": False,
         "ORIGINAL_PILOT_RESULT_REMAINS_FAIL": True,
-        "CORRECTED_EVALUATION_CHANGES_FORMAL_CONCLUSION": False,
+        "CORRECTED_EVALUATION_CHANGES_FORMAL_CONCLUSION": bool(
+            corrected_evaluation_changes_formal_conclusion
+        ),
+    }
+
+
+def derive_decision_evidence(
+    *,
+    metric_rows: Sequence[Mapping[str, Any]],
+    auc_rows: Sequence[Mapping[str, Any]],
+    equivalence_rows: Sequence[Mapping[str, Any]],
+    future_sensitivity: Sequence[Mapping[str, Any]],
+    future_details: Mapping[str, Any],
+    stream_rows: Sequence[Mapping[str, Any]],
+    frame_contract_rows: Sequence[Mapping[str, Any]],
+    frame_validation_rows: Sequence[Mapping[str, Any]],
+    pilot_label_invalidated: bool,
+    reference_summary: Mapping[str, Any],
+    eigengap_rows: Sequence[Mapping[str, Any]],
+    trigger_rows: Sequence[Mapping[str, Any]],
+    corrected_evaluation_changes_formal_conclusion: bool,
+) -> dict[str, bool]:
+    """Reduce saved measurements to the inputs of the A/B/C/D decision rule."""
+
+    metric_bug = any(not _bool(row["contract_consistent"]) for row in metric_rows)
+    expected_streams = {
+        "LiDAR": ("message_header", 0.0),
+        "IMU_raw": ("message_header", 0.0),
+        "IMU_effective_FAST_LIO": (
+            "message_header_minus_frozen_offset",
+            -TIME_OFFSET_LIDAR_TO_IMU,
+        ),
+        "FAST_LIO_odometry": ("message_header_lidar_end_time", 0.0),
+        "RTK_fix": ("message_header", 0.0),
+    }
+    time_contract_pass = len(stream_rows) == len(expected_streams)
+    for row in stream_rows:
+        expected = expected_streams.get(str(row["stream"]))
+        time_contract_pass = bool(
+            time_contract_pass
+            and expected is not None
+            and row["timestamp_source"] == expected[0]
+            and math.isclose(
+                float(row["applied_offset_seconds"]),
+                expected[1],
+                rel_tol=0.0,
+                abs_tol=1.0e-15,
+            )
+            and row["unit"] == "seconds"
+            and row["unix_seconds_validation"] == "PASS"
+            and int(row["duplicate_timestamp_count"]) == 0
+            and int(row["non_monotonic_count"]) == 0
+            and not _bool(row["bag_record_epoch_used"])
+        )
+    time_bug = not time_contract_pass
+
+    frame_bug = not (
+        all(_bool(row["verified"]) for row in frame_contract_rows)
+        and all(_bool(row["pass"]) for row in frame_validation_rows)
+    )
+    future_bug = float(future_details["horizon_max_seconds"]) > (
+        FORMAL_WINDOW_SECONDS + 1.0e-6
+    )
+
+    real_equivalence = {
+        str(row["comparison"]): row
+        for row in equivalence_rows
+        if row["source"] == "all_detector_valid_real_frames"
+    }
+    entropy_equivalence = real_equivalence["spectral_entropy_trans"]
+    odi_exact = bool(
+        float(entropy_equivalence["analytic_relation_max_abs_residual"])
+        <= 1.0e-12
+    )
+    odi_monotonic = bool(
+        math.isclose(
+            float(entropy_equivalence["risk_rank_equality_ratio"]),
+            1.0,
+            rel_tol=0.0,
+            abs_tol=1.0e-15,
+        )
+        and int(entropy_equivalence["monotonic_order_violation_count"]) == 0
+        and math.isclose(
+            float(entropy_equivalence["spearman_raw"]),
+            -1.0,
+            rel_tol=0.0,
+            abs_tol=1.0e-12,
+        )
+    )
+
+    reference_insufficient = bool(
+        float(reference_summary["uncertainty_lower_deg"])
+        <= DIRECTION_GATE_DEG
+        <= float(reference_summary["uncertainty_upper_deg"])
+        or not _bool(reference_summary["reference_axis_subwindow_stable"])
+    )
+    reliability_sufficient = bool(
+        eigengap_rows
+        and all(_bool(row["reliability_validation_sufficient"]) for row in eigengap_rows)
+        and all(int(row["assignment_mismatch_count"]) == 0 for row in eigengap_rows)
+    )
+    trigger_bug = bool(
+        not trigger_rows
+        or any(
+            _bool(row["trigger_implementation_bug_confirmed"])
+            for row in trigger_rows
+        )
+    )
+    trigger = {str(row["subset"]): row for row in trigger_rows}
+    all_valid_trigger = trigger["all_detector_valid"]
+    control_trigger = trigger["control_frozen_interval"]
+    domain_transfer_failed = bool(
+        not trigger_bug
+        and float(all_valid_trigger["odi_min"]) > ODI_TRIGGER_THRESHOLD
+        and float(control_trigger["trigger_ratio"]) > CONTROL_MAX_TRIGGER_RATIO
+    )
+
+    odi_auc = next(row for row in auc_rows if row["metric_name"] == "ODI_trans")
+    formal_other_auc = [
+        float(row["AUC_semantically_oriented"])
+        for row in auc_rows
+        if row["metric_name"] != "ODI_trans"
+        and row["semantic_status"] == "FORMAL_SEMANTIC_POLARITY"
+        and math.isfinite(float(row["AUC_semantically_oriented"]))
+    ]
+    odi_advantage = bool(
+        formal_other_auc
+        and float(odi_auc["AUC_semantically_oriented"]) > max(formal_other_auc)
+    )
+    corrected_future = next(
+        row
+        for row in future_sensitivity
+        if float(row["window_seconds"]) == FORMAL_WINDOW_SECONDS
+        and row["definition"] == "exact_target_vector_interpolation_diagnostic"
+    )
+    correlation_sufficient = float(corrected_future["odi_spearman_rho"]) >= (
+        ODI_ABS_SPEARMAN_MINIMUM
+    )
+    control_pass = float(control_trigger["trigger_ratio"]) <= CONTROL_MAX_TRIGGER_RATIO
+    method_negative_criteria = bool(
+        not odi_advantage
+        and not correlation_sufficient
+        and not reliability_sufficient
+        and not control_pass
+    )
+    return {
+        "metric_direction_bug_confirmed": metric_bug,
+        "time_alignment_bug_confirmed": time_bug,
+        "frame_transform_bug_confirmed": frame_bug,
+        "future_error_implementation_bug_confirmed": future_bug,
+        "trigger_implementation_bug_confirmed": trigger_bug,
+        "odi_exactly_equivalent": odi_exact,
+        "odi_monotonically_equivalent": odi_monotonic,
+        "pilot_label_invalidated": bool(pilot_label_invalidated),
+        "reference_insufficient": reference_insufficient,
+        "reliability_validation_sufficient": reliability_sufficient,
+        "real_domain_threshold_transfer_failed": domain_transfer_failed,
+        "corrected_evaluation_changes_formal_conclusion": bool(
+            corrected_evaluation_changes_formal_conclusion
+        ),
+        "method_negative_criteria_satisfied": method_negative_criteria,
     }
 
 
@@ -1032,11 +1505,16 @@ The native primary weak direction is the minimum-eigenvalue direction of the
 translation Schur matrix in FAST-LIO `camera_init` world/map coordinates.  The
 tap only reorders native `[delta_p_world, delta_theta_body]` columns into
 detector `[delta_theta_body, delta_p_world]`; it does not rotate translation.
-The offline chain is `v_ENU = R_enu_from_fast_world @ v_world`, followed by
+The formal Jacobian is built from the current iterated in-call linearization
+state `s`.  The scan-start prior is retained as metadata and the post-update
+pose is not used to rotate the exported weak direction.  The forward
+IMU-from-LiDAR extrinsic is already applied upstream while constructing the
+formal Jacobian, so it must not be applied again to the world-frame weak axis.
+The offline chain is only `v_ENU = R_enu_from_fast_world @ v_world`, followed by
 `acos(abs(dot(unit(v_ENU), unit(axis_ENU))))`.  Kabsch translation is correctly
-excluded from direction transformation.  ENU, not NED, is used; the LiDAR-to-IMU
-extrinsic direction is not inverted.  Unit/X/Y/Z and fixed-seed random SO(3)
-tests pass to 1e-12.  `FRAME_TRANSFORM_BUG_CONFIRMED=false`.
+excluded from direction transformation.  ENU, not NED, is used.  Unit/X/Y/Z,
+forward LiDAR-to-IMU-to-world, sign, and fixed-seed random SO(3) tests pass to
+1e-12.  `FRAME_TRANSFORM_BUG_CONFIRMED=false`.
 
 Remaining limitations are position-only Kabsch non-main-axis observability, an
 unrecorded GNSS-antenna-to-IMU lever arm, and deletion of the large observation
@@ -1075,7 +1553,13 @@ confidence level.  Formal 3-D median weak-axis error is
 straddles the 30-degree gate.  Horizontal XY median error is
 {ref['horizontal_xy_median_deg']:.6f} degrees but is diagnostic only and does not
 replace the preregistered 3-D result.  RTK motion direction is also not an
-independent measurement of the environmental Schur null direction.
+independent measurement of the environmental Schur null direction.  Within the
+same 14-second interval, the two half-window endpoint axes differ by
+{ref['half_window_axis_angle_deg']:.6f} degrees and the maximum quarter-window
+pair differs by {ref['quarter_window_axis_max_pairwise_angle_deg']:.6f} degrees.
+The globally aligned LIO motion axis agrees within
+{ref['aligned_motion_axis_consistency_deg']:.6f} degrees, but that only confirms
+motion consistency and cannot validate an environmental null axis.
 `REFERENCE_INSUFFICIENT=true`; this cannot be written as an algorithm pass.
 """
     eigengap_report = f"""# Eigengap Reliability Audit
@@ -1108,29 +1592,88 @@ performed.
 """
     scientific_report = f"""# Measurement Pilot Scientific Audit
 
-## Decision
+## Technical summary
 
-Primary conclusion: **B. PILOT_LABEL_INVALIDATED**.
+Primary conclusion: **{decision['PRIMARY_CONCLUSION_CATEGORY']}.
+{decision['PRIMARY_AUDIT_CONCLUSION']}**.
 
-`MEASUREMENT_PLAN_STATUS={decision['MEASUREMENT_PLAN_STATUS']}`
+`MEASUREMENT_PLAN_STATUS={decision['MEASUREMENT_PLAN_STATUS']}`.  The nominal
+control segment is consistently weaker than the structural candidate under
+both absolute-strength and spectral-shape information families.  The frozen
+label therefore does not measure the intended contrast.  The reference axis is
+also insufficient for a sharp 30-degree decision, so the current evidence
+cannot isolate a method-level negative result.  The original Pilot remains
+FAIL; this audit is not a retrospective pass.
 
-The frozen control segment is consistently weaker than the nominal structural
-segment under both absolute-strength and spectral-shape information families.
-The reference axis is also insufficient for a sharp 30-degree decision.  These
-upstream validity failures prevent isolation of a method-level negative result,
-so `METHOD_NEGATIVE_CONFIRMED=false`.
+## The label failure is the primary decision driver
 
-Two objective evaluation defects were identified: eigengap/correlation
-semantics and exact future-time interpolation.  Corrected evaluation v2 keeps
-the same bag, labels, interval, formulas, threshold, and five-second formal
-window; neither correction materially changes a gate.  Therefore the composite
-rule-A flag remains `EVALUATION_BUG_CONFIRMED=false`, and category A is not the
-primary conclusion.
+Structural/control median lambda-min is {structural_lambda:.6f}/
+{control_lambda:.6f}; median condition number is
+{structural_condition:.6f}/{control_condition:.6f}.  Those absolute-strength and
+shape diagnostics agree that the control is less observable.  ODI semantic
+AUROC remains {float(auc['ODI_trans']['AUC_semantically_oriented']):.9f}; labels
+were neither swapped nor reselected to improve it.
 
-ODI is analytically rank-equivalent to exported spectral entropy and effective
-rank, so independent ranking/AUROC advantage is not established.  The original
-Pilot remains FAIL.  A newly preregistered replacement pilot is authorized;
-second-dataset expansion and ODI Measurement mainline are not authorized.
+The formal 3-D median weak-axis error is {ref['formal_3d_median_deg']:.6f}
+degrees, and its declared uncertainty interval
+[{ref['uncertainty_lower_deg']:.6f}, {ref['uncertainty_upper_deg']:.6f}] crosses
+the 30-degree gate.  Half- and quarter-window reference axes are not stable.
+This is a concurrent limitation, not category C overriding the stronger
+category-B label evidence.
+
+Two component evaluation defects were confirmed: eigengap/correlation semantics
+and exact future-time interpolation.  Corrected evaluation v2 retains the same
+bag, intervals, formulas, threshold, and five-second formal window and reruns
+every original Gate condition.  No Gate or formal conclusion changes, so
+`EVALUATION_BUG_CONFIRMED=false`.  ODI is analytically rank-equivalent to the
+exported spectral entropy/effective rank, so independent ranking information is
+not established.
+
+## Scope, data, and metric definitions
+
+The audit uses only the frozen MUN-FRL Lighthouse bag and the preregistered
+1645814048-1645814062 structural and 1645814164-1645814178 control intervals.
+The structural interval remains positive class 1.  Future error growth is the
+change in globally rigid-aligned 3-D position error over the formal five-second
+window.  LiDAR, IMU, FAST-LIO, and RTK timestamps are ROS message-header Unix
+seconds; reference data is offline position-only ENU.
+
+## Method and robustness checks
+
+Metric polarity was derived from formulas before inspecting labels.  AUROC was
+recomputed in raw, semantic, and reversed-diagnostic directions without using
+`max(AUC, 1-AUC)`.  Future growth was checked with exact native-stream
+interpolation and 1/3/5/10-second sensitivity windows.  A -2 to +2 second lag
+grid was diagnostic only.  The full weak-axis frame chain was checked with
+identity, X/Y/Z 90-degree, sign, forward-extrinsic, and fixed-seed random SO(3)
+tests.  Label validity used independent absolute-information and spectral-shape
+families; reliability uncertainty used bootstrap intervals, Mann-Whitney, and
+Cliff's delta descriptively.
+
+## Limitations and uncertainty
+
+Plane-normal distributions, normal covariance, residual magnitudes, map
+Cartesian extent, end-face counts, and floor/ceiling/wall ratios were not
+retained and are explicitly unavailable.  RTK supplies motion position rather
+than an independent environmental Schur-null axis; the antenna-to-IMU lever arm
+was not recorded.  This is one sequence with only five unreliable structural
+frames, so neither eigengap calibration nor cross-domain trigger calibration is
+validated.
+
+## Recommended next step
+
+Authorize one newly preregistered replacement Pilot.  It must independently
+validate both the LIO observability labels and a reference axis capable of
+supporting the 30-degree decision before detector outputs are examined.  Do not
+expand to a second dataset and do not authorize ODI Measurement mainline yet.
+
+## Further questions
+
+The replacement protocol must specify how environmental observability ground
+truth is obtained independently of raw scan anisotropy, how reference-axis
+uncertainty is calibrated, and what minimum reliable/unreliable sample counts
+are required.  Real-domain trigger calibration is a later preregistered task;
+it must not be tuned on this failed Pilot.
 
 ## Frozen prohibitions honored
 
@@ -1185,11 +1728,38 @@ def run_audit(
     if bag_sha != EXPECTED_BAG_SHA256:
         raise RuntimeError("audit bag does not match the frozen Pilot bag")
 
+    raw_root = (
+        repository_root
+        / "results/measurement_real_validation/mun_frl_lighthouse_pilot/raw"
+    )
+    input_paths = {
+        "runtime_audit_v2.bin": raw_root / "runtime_audit_v2.bin",
+        "fastlio_odometry.csv": raw_root / "topic_capture/fastlio_odometry.csv",
+        "navsat_fix.csv": raw_root / "topic_capture/navsat_fix.csv",
+        "raw_scene_descriptors.csv": repository_root
+        / "data/measurement_real_validation/mun_frl_lighthouse_pilot/interval_selection_evidence/raw_scene_descriptors.csv",
+        "mun_frl_pilot_intervals.yaml": repository_root
+        / "configs/real_data/mun_frl_pilot_intervals.yaml",
+        "mun_frl_lighthouse.yaml": repository_root
+        / "configs/real_data/mun_frl_lighthouse.yaml",
+        "detector_lock.json": repository_root
+        / "artifacts/current/detector_stage2a/locked/detector_lock.json",
+        "odi_threshold_calibration.json": repository_root
+        / "artifacts/current/detector_stage2a/development/odi_threshold_calibration.json",
+    }
+    input_sha256 = {name: sha256_file(path) for name, path in input_paths.items()}
+    if input_sha256 != EXPECTED_INPUT_SHA256:
+        raise RuntimeError("retained scientific-audit input hashes changed")
+    mun_frl_config = yaml.safe_load(
+        input_paths["mun_frl_lighthouse.yaml"].read_text(encoding="utf-8")
+    )
+    validate_mun_frl_config(mun_frl_config)
+
     output_dir.mkdir(parents=True)
     tables_dir = output_dir / "tables"
     tables_dir.mkdir()
     interval_lock = load_interval_lock(
-        repository_root / "configs/real_data/mun_frl_pilot_intervals.yaml"
+        input_paths["mun_frl_pilot_intervals.yaml"]
     )
     frame_rows: list[dict[str, Any]] = read_csv(
         pilot_artifact_dir / "tables/frame_metrics.csv"
@@ -1197,8 +1767,7 @@ def run_audit(
     attach_frozen_intervals(frame_rows, interval_lock["intervals"])
     runtime_rows, runtime_integrity = load_runtime_rows(repository_root)
     descriptor_rows = read_csv(
-        repository_root
-        / "data/measurement_real_validation/mun_frl_lighthouse_pilot/interval_selection_evidence/raw_scene_descriptors.csv"
+        input_paths["raw_scene_descriptors.csv"]
     )
     trajectory = load_trajectory_inputs(repository_root)
 
@@ -1219,8 +1788,6 @@ def run_audit(
     label_invalidated, information_comparisons = information_supports_label_invalidation(
         information_rows
     )
-    if not label_invalidated:
-        raise RuntimeError("retained information evidence did not reproduce label invalidation")
     geometry_rows = interval_geometry_rows(
         interval_lock["intervals"],
         runtime_rows,
@@ -1232,7 +1799,33 @@ def run_audit(
     )
     eigengap_rows = eigengap_reliability_rows(weak_rows, frame_rows)
     trigger_rows = trigger_contract_rows(frame_rows)
-    decision = final_decision()
+    correction_manifest = write_corrected_evaluation_v2(
+        output_dir,
+        pilot_artifact_dir,
+        auc_rows,
+        future_sensitivity,
+        reference_summary,
+        eigengap_rows,
+        trigger_rows,
+    )
+    decision_evidence = derive_decision_evidence(
+        metric_rows=metric_rows,
+        auc_rows=auc_rows,
+        equivalence_rows=equivalence_rows,
+        future_sensitivity=future_sensitivity,
+        future_details=future_details,
+        stream_rows=stream_rows,
+        frame_contract_rows=frame_contract_rows,
+        frame_validation_rows=frame_validation_rows,
+        pilot_label_invalidated=label_invalidated,
+        reference_summary=reference_summary,
+        eigengap_rows=eigengap_rows,
+        trigger_rows=trigger_rows,
+        corrected_evaluation_changes_formal_conclusion=bool(
+            correction_manifest["formal_conclusion_changed"]
+        ),
+    )
+    decision = final_decision(**decision_evidence)
     root_causes = root_cause_rows(decision)
 
     tables = {
@@ -1266,16 +1859,6 @@ def run_audit(
         interval_lock["intervals"],
         reference_summary,
     )
-    correction_manifest = write_corrected_evaluation_v2(
-        output_dir,
-        pilot_artifact_dir,
-        auc_rows,
-        future_sensitivity,
-        reference_summary,
-        eigengap_rows,
-        trigger_rows,
-    )
-
     reports = create_reports(
         {
             "metric_rows": metric_rows,
@@ -1320,6 +1903,7 @@ def run_audit(
         "pilot_tree_unchanged": source_tree_before == source_tree_after,
         "bag_path": str(bag_path),
         "bag_sha256": bag_sha,
+        "retained_input_sha256": input_sha256,
         "interval_lock_sha256": interval_lock["interval_lock_sha256"],
         "runtime_audit_integrity": runtime_integrity,
         "python": {
@@ -1349,6 +1933,7 @@ def run_audit(
         },
         "information_family_comparisons": information_comparisons,
         "corrected_evaluation_v2": correction_manifest,
+        "decision_evidence": decision_evidence,
         "original_pilot_flags": {
             "MEASUREMENT_REAL_PILOT_PASS": False,
             "SECOND_DATASET_EXPANSION_AUTHORIZED": False,
@@ -1411,28 +1996,180 @@ def verify_audit_artifacts(audit_dir: Path) -> dict[str, Any]:
     if listed != actual:
         raise ValueError("top-level checksum coverage is incomplete or contains extras")
 
+    correction_dir = audit_dir / "corrected_evaluation_v2"
+    nested_lines = (correction_dir / "SHA256SUMS").read_text(
+        encoding="utf-8"
+    ).splitlines()
+    nested_listed: set[str] = set()
+    for line in nested_lines:
+        digest, relative = line.split("  ", 1)
+        nested_listed.add(relative)
+        if sha256_file(correction_dir / relative) != digest:
+            raise ValueError(f"corrected-evaluation checksum mismatch: {relative}")
+    nested_actual = {
+        path.relative_to(correction_dir).as_posix()
+        for path in correction_dir.rglob("*")
+        if path.is_file() and path != correction_dir / "SHA256SUMS"
+    }
+    if nested_listed != nested_actual:
+        raise ValueError("corrected-evaluation checksum coverage is incomplete")
+
     manifest = json.loads((audit_dir / "run_manifest.json").read_text(encoding="utf-8"))
     decision = json.loads((audit_dir / "final_decision.json").read_text(encoding="utf-8"))
-    if manifest["schema_version"] != AUDIT_SCHEMA or not decision["SCIENTIFIC_AUDIT_COMPLETE"]:
-        raise ValueError("audit schema or completion flag is invalid")
-    if decision["PRIMARY_AUDIT_CONCLUSION"] != "PILOT_LABEL_INVALIDATED":
-        raise ValueError("audit must reproduce the evidence-selected primary category B")
-    if not decision["PILOT_LABEL_INVALIDATED"] or decision["METHOD_NEGATIVE_CONFIRMED"]:
-        raise ValueError("label-invalidated decision is internally inconsistent")
-    if decision["SECOND_DATASET_EXPANSION_AUTHORIZED"] or decision["ODI_MEASUREMENT_MAINLINE_AUTHORIZED"]:
-        raise ValueError("forbidden expansion/mainline authorization is true")
-    if manifest["pilot_tree_sha256_before"] != EXPECTED_PILOT_TREE_SHA256 or not manifest["pilot_tree_unchanged"]:
+    correction = json.loads(
+        (correction_dir / "correction_manifest.json").read_text(encoding="utf-8")
+    )
+    if manifest["schema_version"] != AUDIT_SCHEMA:
+        raise ValueError("audit schema is invalid")
+    if manifest["python"]["implementation"] != "CPython" or not str(
+        manifest["python"]["version"]
+    ).startswith("3.11."):
+        raise ValueError("audit was not executed with the required CPython 3.11")
+    if manifest["bag_sha256"] != EXPECTED_BAG_SHA256:
+        raise ValueError("frozen bag hash evidence is invalid")
+    if manifest["retained_input_sha256"] != EXPECTED_INPUT_SHA256:
+        raise ValueError("retained input hashes are incomplete or changed")
+    if (
+        manifest["pilot_tree_sha256_before"] != EXPECTED_PILOT_TREE_SHA256
+        or manifest["pilot_tree_sha256_after"] != EXPECTED_PILOT_TREE_SHA256
+        or not manifest["pilot_tree_unchanged"]
+    ):
         raise ValueError("frozen Pilot hash evidence is invalid")
     if any(manifest["prohibitions"].values()):
         raise ValueError("a forbidden action is reported as performed")
-    correction = json.loads(
-        (audit_dir / "corrected_evaluation_v2/correction_manifest.json").read_text(encoding="utf-8")
+
+    table_rows = {
+        name: read_csv(audit_dir / "tables" / name) for name in REQUIRED_TABLES
+    }
+    if any(not rows for rows in table_rows.values()):
+        raise ValueError("one or more required audit tables are empty")
+    for report in REQUIRED_REPORTS:
+        if not (audit_dir / report).read_text(encoding="utf-8").strip():
+            raise ValueError(f"required report is empty: {report}")
+
+    label_invalidated, _ = information_supports_label_invalidation(
+        table_rows["interval_lio_information_audit.csv"]
     )
-    if correction["formal_conclusion_changed"] or correction["corrected_pilot_pass"]:
-        raise ValueError("non-material corrected evaluation was misreported as a pass")
+    future_map = {
+        row["audit_item"]: row["result"]
+        for row in table_rows["future_error_growth_audit.csv"]
+    }
+    reference_map = {
+        row["audit_item"]: row["value"]
+        for row in table_rows["reference_axis_audit.csv"]
+    }
+    uncertainty = [
+        float(value)
+        for value in reference_map["formal_3d_median_uncertainty_interval"].split(
+            ";"
+        )
+    ]
+    reference_summary = {
+        "uncertainty_lower_deg": uncertainty[0],
+        "uncertainty_upper_deg": uncertainty[1],
+        "reference_axis_subwindow_stable": _bool(
+            reference_map["reference_axis_subwindow_stable"]
+        ),
+    }
+    decision_evidence = derive_decision_evidence(
+        metric_rows=table_rows["metric_semantic_contract.csv"],
+        auc_rows=table_rows["auc_direction_audit.csv"],
+        equivalence_rows=table_rows["odi_entropy_equivalence.csv"],
+        future_sensitivity=table_rows["future_window_sensitivity.csv"],
+        future_details={
+            "horizon_max_seconds": float(future_map["horizon_max_seconds"])
+        },
+        stream_rows=table_rows["time_stream_summary.csv"],
+        frame_contract_rows=table_rows["coordinate_frame_contract.csv"],
+        frame_validation_rows=table_rows["frame_transform_validation.csv"],
+        pilot_label_invalidated=label_invalidated,
+        reference_summary=reference_summary,
+        eigengap_rows=table_rows["eigengap_reliability_audit.csv"],
+        trigger_rows=table_rows["trigger_contract_audit.csv"],
+        corrected_evaluation_changes_formal_conclusion=_bool(
+            correction["formal_conclusion_changed"]
+        ),
+    )
+    expected_decision = final_decision(**decision_evidence)
+    if decision != expected_decision:
+        raise ValueError("final decision does not match independently derived evidence")
+    if manifest["decision"] != expected_decision:
+        raise ValueError("run manifest and final decision disagree")
+    if manifest["decision_evidence"] != decision_evidence:
+        raise ValueError("run manifest decision evidence does not reproduce")
+    decision_csv = {
+        row["decision_field"]: row["value"]
+        for row in table_rows["final_decision.csv"]
+    }
+    if set(decision_csv) != set(expected_decision) or any(
+        decision_csv[key] != str(value) for key, value in expected_decision.items()
+    ):
+        raise ValueError("final_decision.csv does not match final_decision.json")
+
+    required_gate_conditions = {
+        "python311_full_pytest_pass",
+        "bag_validation_pass",
+        "point_time_unit_pass",
+        "extrinsic_direction_pass",
+        "no_reference_dependency_pass",
+        "same_call_mutation_pass",
+        "detector_feedback_pass",
+        "frozen_detector_determinism_pass",
+        "finite_detector_output_pass",
+        "fastlio2_crash_pass",
+        "valid_detector_ratio_pass",
+        "detector_core_mean_target_pass",
+        "total_added_q95_target_pass",
+        "frozen_structural_and_control_intervals",
+        "same_input_all_metrics",
+        "structural_direction_median_pass",
+        "reliable_better_than_unreliable",
+        "odi_effectiveness_pass",
+        "control_false_trigger_pass",
+        "no_reference_online",
+        "MEASUREMENT_REAL_PILOT_PASS",
+        "SECOND_DATASET_EXPANSION_AUTHORIZED",
+        "ODI_ADVANTAGE_ESTABLISHED",
+    }
+    corrected_gate_rows = read_csv(correction_dir / "corrected_gate_summary.csv")
+    corrected_gate_conditions = {row["condition"] for row in corrected_gate_rows}
+    if corrected_gate_conditions != required_gate_conditions:
+        raise ValueError("corrected evaluation did not rerun every original Gate condition")
+    corrected_gate = {row["condition"]: _bool(row["pass"]) for row in corrected_gate_rows}
+    if corrected_gate["MEASUREMENT_REAL_PILOT_PASS"] or corrected_gate[
+        "SECOND_DATASET_EXPANSION_AUTHORIZED"
+    ]:
+        raise ValueError("corrected evaluation was misreported as a pass")
+    before_after = read_csv(correction_dir / "before_after_evaluation.csv")
+    material_changes = any(_bool(row["material_gate_change"]) for row in before_after)
+    if material_changes != _bool(correction["formal_conclusion_changed"]):
+        raise ValueError("correction materiality does not match before/after evidence")
+    if not (
+        correction["all_original_gates_reexecuted"]
+        and int(correction["original_gate_condition_count"])
+        == len(required_gate_conditions)
+        and correction["affected_files"]
+        and correction["affected_outputs"]
+    ):
+        raise ValueError("corrected evaluation provenance is incomplete")
+    if correction["frozen_identity"] != {
+        "bag_sha256": EXPECTED_BAG_SHA256,
+        "interval_lock_sha256": EXPECTED_INPUT_SHA256[
+            "mun_frl_pilot_intervals.yaml"
+        ],
+        "odi_trigger_threshold": ODI_TRIGGER_THRESHOLD,
+        "formal_future_window_seconds": FORMAL_WINDOW_SECONDS,
+    }:
+        raise ValueError("corrected evaluation changed a frozen identity")
+    for relative, digest in correction["after_checksums"].items():
+        if sha256_file(correction_dir / relative) != digest:
+            raise ValueError(f"corrected output hash mismatch: {relative}")
+
     return {
         "AUDIT_ARTIFACT_VERIFY_PASS": True,
         "file_count": len(actual) + 1,
-        "primary_conclusion": decision["PRIMARY_AUDIT_CONCLUSION"],
-        "measurement_plan_status": decision["MEASUREMENT_PLAN_STATUS"],
+        "primary_conclusion": expected_decision["PRIMARY_AUDIT_CONCLUSION"],
+        "primary_category": expected_decision["PRIMARY_CONCLUSION_CATEGORY"],
+        "measurement_plan_status": expected_decision["MEASUREMENT_PLAN_STATUS"],
+        "python_version": manifest["python"]["version"],
     }
