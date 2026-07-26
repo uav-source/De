@@ -1,0 +1,296 @@
+schema_version: directional_capture_range_day1_protocol_v1
+
+protocol:
+  name: directional_capture_range_day1
+  formal_measurement_name: Algorithm-Conditioned Empirical Directional Capture Range
+  day: 1
+  phase: engineering_smoke_test
+  protocol_locked: true
+  large_scale_experiment: false
+
+frozen_scientific_state:
+  STAGE2_GATE: FAIL
+  TRANSITION: PIVOT
+  CORRECTED_EVALUATION_CHANGES_FORMAL_CONCLUSION: false
+  EVALUATION_BUG_CONFIRMED: false
+  FRAME_TRANSFORM_BUG_CONFIRMED: false
+  FUTURE_ERROR_IMPLEMENTATION_BUG_CONFIRMED: true
+  MEASUREMENT_PLAN_STATUS: NEW_PREREGISTERED_REPLACEMENT_PILOT_REQUIRED
+  METHOD_NEGATIVE_CONFIRMED: false
+  METRIC_DIRECTION_BUG_CONFIRMED: true
+  ODI_EXACTLY_EQUIVALENT_TO_SPECTRAL_ENTROPY: true
+  ODI_INDEPENDENT_RANKING_INFORMATION_CONFIRMED: false
+  ODI_MEASUREMENT_MAINLINE_AUTHORIZED: false
+  ODI_MONOTONICALLY_EQUIVALENT_TO_SPECTRAL_ENTROPY: true
+  ORIGINAL_MEASUREMENT_REAL_PILOT_PASS: false
+  ORIGINAL_PILOT_RESULT_REMAINS_FAIL: true
+  PILOT_LABEL_INVALIDATED: true
+  PRIMARY_AUDIT_CONCLUSION: PILOT_LABEL_INVALIDATED
+  PRIMARY_CONCLUSION_CATEGORY: B
+  REAL_DOMAIN_THRESHOLD_TRANSFER_FAILED: true
+  REFERENCE_INSUFFICIENT: true
+  RELIABILITY_VALIDATION_SUFFICIENT: false
+  REPLACEMENT_PILOT_AUTHORIZED: true
+  SCIENTIFIC_AUDIT_COMPLETE: true
+  SECOND_DATASET_EXPANSION_AUTHORIZED: false
+  TIME_ALIGNMENT_BUG_CONFIRMED: false
+  TRIGGER_IMPLEMENTATION_BUG_CONFIRMED: false
+
+protected_artifact_paths:
+  - artifacts/current/measurement_real_validation_pilot/
+  - artifacts/current/measurement_pilot_scientific_audit/
+  - artifacts/history/
+
+protected_existing_definitions:
+  - ODI_formula
+  - AIS_formula
+  - Schur_translation_information_matrix
+  - eigengap_definition
+  - original_measurement_pilot_thresholds
+  - FAST_LIO2_state_estimator
+  - Kalman_gain
+  - covariance
+  - map_update
+  - data_association
+  - existing_negative_results
+
+scope_constraints:
+  use_vision: false
+  download_or_use_second_dataset: false
+  restore_weak_direction_updater: false
+  modify_fast_lio2: false
+  modify_odi: false
+  claim_new_measurement_paper_complete: false
+
+measurement_object:
+  fixed_components:
+    - scan
+    - local_map
+    - reference_pose
+    - registration_configuration
+    - correspondence_configuration
+    - robust_kernel
+    - termination_condition
+  result_is_algorithm_conditioned: true
+  result_is_algorithm_independent_scene_property: false
+  reference_pose_use:
+    construct_initial_pose: true
+    score_final_pose: true
+    drive_correspondence_or_optimization: false
+    replace_failed_output: false
+
+pose_perturbation:
+  manifold: SO3_right_plus_R3_world_additive
+  perturbation_vector_order:
+    - delta_theta_body
+    - delta_position_world
+  rotation_update: R_prime = R_ref @ Exp(delta_theta_body)
+  translation_update: p_prime = p_ref + delta_position_world
+  generic_full_se3_left_or_right_label_allowed: false
+  literal_right_se3_translation_composition_allowed: false
+  task_translation_notation_interpretation: delta_theta_body = 0 and delta_position_world = d * u_translation_world
+  task_rotation_notation_interpretation: delta_theta_body = theta * u_rotation_body and delta_position_world = 0
+
+sampling:
+  translation:
+    direction_space: S2
+    direction_frame: world
+    amplitude_unit: meter
+    directions:
+      - direction_id: "+x"
+        axis_id: x
+        signed_side: 1
+        vector: [1.0, 0.0, 0.0]
+      - direction_id: "-x"
+        axis_id: x
+        signed_side: -1
+        vector: [-1.0, 0.0, 0.0]
+      - direction_id: "+y"
+        axis_id: y
+        signed_side: 1
+        vector: [0.0, 1.0, 0.0]
+      - direction_id: "-y"
+        axis_id: y
+        signed_side: -1
+        vector: [0.0, -1.0, 0.0]
+      - direction_id: "+z"
+        axis_id: z
+        signed_side: 1
+        vector: [0.0, 0.0, 1.0]
+      - direction_id: "-z"
+        axis_id: z
+        signed_side: -1
+        vector: [0.0, 0.0, -1.0]
+    amplitudes: [0.00, 0.02, 0.05, 0.10, 0.20]
+  rotation:
+    direction_space: S2
+    direction_frame: body
+    amplitude_unit: radian
+    configured_grid_display_unit: degree
+    directions:
+      - direction_id: "+roll"
+        axis_id: roll
+        signed_side: 1
+        vector: [1.0, 0.0, 0.0]
+      - direction_id: "-roll"
+        axis_id: roll
+        signed_side: -1
+        vector: [-1.0, 0.0, 0.0]
+      - direction_id: "+pitch"
+        axis_id: pitch
+        signed_side: 1
+        vector: [0.0, 1.0, 0.0]
+      - direction_id: "-pitch"
+        axis_id: pitch
+        signed_side: -1
+        vector: [0.0, -1.0, 0.0]
+      - direction_id: "+yaw"
+        axis_id: yaw
+        signed_side: 1
+        vector: [0.0, 0.0, 1.0]
+      - direction_id: "-yaw"
+        axis_id: yaw
+        signed_side: -1
+        vector: [0.0, 0.0, -1.0]
+    amplitudes_deg: [0.0, 0.5, 1.0, 2.0, 5.0]
+    amplitudes_rad:
+      - 0.0
+      - 0.008726646259971648
+      - 0.017453292519943295
+      - 0.03490658503988659
+      - 0.08726646259971647
+  repeats_per_direction_amplitude: 3
+  keep_signed_directions_separate: true
+  keep_translation_and_rotation_separate: true
+
+success:
+  translation_error_threshold_m: 0.02
+  rotation_geodesic_error_threshold_deg: 0.5
+  rotation_geodesic_error_threshold_rad: 0.008726646259971648
+  require_solver_converged: true
+  require_finite_result: true
+  require_iteration_limit_not_failed: true
+  final_residual_only_is_sufficient: false
+  thresholds_may_be_tuned_from_day1_results: false
+
+recovery_probability:
+  definition: successful_trials / total_trials
+  group_by:
+    - snapshot_id
+    - perturbation_type
+    - direction_id
+    - signed_side
+    - amplitude
+  confidence_interval:
+    method: wilson
+    confidence_level: 0.95
+
+recovery_curve:
+  preserve_raw_probabilities: true
+  fit_method: isotonic_regression
+  monotonicity: nonincreasing
+  fit_weights: total_trials
+  fitted_values_may_replace_raw_values: false
+  preserve_nonmonotonic_evidence: true
+
+capture_radius:
+  d50:
+    target_probability: 0.5
+    definition: smallest_sampled_amplitude_with_fitted_probability_lte_target
+  d90:
+    target_probability: 0.9
+    definition: smallest_sampled_amplitude_with_fitted_probability_lte_target
+  right_censoring:
+    enabled: true
+    condition: no_sampled_amplitude_has_fitted_probability_lte_target
+    censored_value: null
+  interpolation: none
+  extrapolation_allowed: false
+
+registration:
+  max_iterations: 20
+  k_neighbors: 5
+  max_neighbor_distance_m: 0.75
+  plane_fit_tolerance_m: 0.05
+  huber_delta_m: 0.05
+  damping: 0.000001
+  rotation_step_tolerance_rad: 0.00001
+  translation_step_tolerance_m: 0.00001
+  min_correspondences: 30
+
+registration_paths:
+  formal:
+    name: full_reassociation
+    full_reassociation: true
+    baseline_only: false
+    minimum_reassociation_count: 1
+    recompute_each_iteration:
+      - transformed_scan
+      - nearest_neighbors
+      - correspondences
+      - local_planes
+      - residuals
+      - jacobians
+      - robust_weights
+  comparison:
+    name: frozen_jacobian
+    full_reassociation: false
+    baseline_only: true
+    isolated_from_formal_results: true
+    may_freeze:
+      - J
+      - r
+      - H
+      - b
+
+randomness:
+  global_seed: 15001
+  seed_components:
+    - snapshot_id
+    - perturbation_type
+    - direction_id
+    - signed_amplitude
+    - repeat_index
+    - global_seed
+  include_method_name_in_seed: false
+  point_subsampling:
+    enabled: false
+    retention_fraction: 1.0
+  range_noise:
+    enabled: false
+    standard_deviation_m: 0.0
+  correspondence_tie_breaking:
+    mode: stable_index
+
+ground_truth_boundary:
+  optimizer_forbidden_inputs:
+    - ground_truth_weak_direction
+    - pose_gt
+    - axis_gt
+  synthetic_theoretical_weak_direction_use: offline_evaluation_only
+  expected_optimizer_gt_access_count: 0
+
+synthetic_smoke:
+  scenes:
+    - geometry_rich_box
+    - parallel_walls
+    - long_corridor
+  expectations:
+    geometry_rich_box: majority_success_at_small_perturbations
+    long_corridor: axial_recovery_weaker_than_transverse_trend_visible
+    both_registration_paths_run: true
+    output_files_complete: true
+    optimizer_gt_access_count: 0
+  protocol_changes_from_smoke_results_allowed: false
+
+day1_gate:
+  required_true:
+    - ENGINEERING_PASS
+    - PROTOCOL_LOCKED
+    - FULL_REASSOCIATION_VERIFIED
+    - FROZEN_JACOBIAN_BASELINE_ISOLATED
+    - NO_GT_LEAKAGE
+    - SEED_DETERMINISM_PASS
+    - SMOKE_PIPELINE_PASS
+    - WORKTREE_CLEAN
+  day2_authorized_by_protocol_alone: false
