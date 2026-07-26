@@ -14,7 +14,14 @@ from .recovery_metrics import (
     rotation_geodesic_error_rad,
     translation_error_m,
 )
-from .registration_core import RegistrationOutcome, run_full_reassociation_core
+from .registration_core import (
+    PreparedFullReassociationSession,
+    RegistrationOutcome,
+    assert_prepared_full_reassociation_matches,
+    prepare_full_reassociation_session,
+    run_full_reassociation_core,
+    run_prepared_full_reassociation_core,
+)
 from .types import PerturbationSpec, RecoveryTrialResult, RegistrationSnapshot
 
 
@@ -31,6 +38,56 @@ def run_full_reassociation_trial(
         snapshot.local_map_points,
         initial_pose,
         snapshot.registration_config,
+        perturbation.seed,
+    )
+    runtime_ms = (time.perf_counter() - started) * 1000.0
+    if outcome.counters.full_reassociation_count < 1:
+        raise RuntimeError("formal recovery trial did not execute full reassociation")
+    return _result_from_outcome(
+        snapshot,
+        perturbation,
+        initial_pose,
+        outcome,
+        runtime_ms,
+        full_reassociation=True,
+        baseline_only=False,
+    )
+
+
+def prepare_full_reassociation_trial_session(
+    snapshot: RegistrationSnapshot,
+) -> PreparedFullReassociationSession:
+    """Prepare the reusable spatial index for one immutable snapshot."""
+
+    return prepare_full_reassociation_session(
+        snapshot.scan_points,
+        snapshot.local_map_points,
+        snapshot.registration_config,
+        snapshot_id=snapshot.snapshot_id,
+        reference_pose=snapshot.reference_pose,
+    )
+
+
+def run_prepared_full_reassociation_trial(
+    snapshot: RegistrationSnapshot,
+    perturbation: PerturbationSpec,
+    prepared: PreparedFullReassociationSession,
+) -> RecoveryTrialResult:
+    """Run one formal trial with a previously prepared matching snapshot."""
+
+    assert_prepared_full_reassociation_matches(
+        prepared,
+        snapshot.scan_points,
+        snapshot.local_map_points,
+        snapshot.registration_config,
+        snapshot_id=snapshot.snapshot_id,
+        reference_pose=snapshot.reference_pose,
+    )
+    started = time.perf_counter()
+    initial_pose = apply_perturbation(snapshot.reference_pose, perturbation)
+    outcome = run_prepared_full_reassociation_core(
+        prepared,
+        initial_pose,
         perturbation.seed,
     )
     runtime_ms = (time.perf_counter() - started) * 1000.0
@@ -163,3 +220,4 @@ def _success_thresholds(config: Mapping[str, Any]) -> tuple[float, float]:
 
 # Compatibility alias for callers that use the path name as the verb.
 run_full_reassociation = run_full_reassociation_trial
+run_prepared_full_reassociation = run_prepared_full_reassociation_trial

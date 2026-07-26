@@ -82,6 +82,26 @@ class RegistrationOutcome:
     counters: RegistrationCounters
 
 
+@dataclass(frozen=True, eq=False)
+class PreparedFullReassociationSession:
+    """Immutable fixed-snapshot state shared across independent trials.
+
+    Only the local-map spatial index is prepared.  Correspondences, fitted
+    planes, residuals, Jacobians, and robust weights remain trial/evaluation
+    local and are rebuilt by :func:`run_prepared_full_reassociation_core`.
+    """
+
+    snapshot_id: str
+    scan_checksum: str
+    map_checksum: str
+    config_checksum: str
+    reference_pose_checksum: str
+    scan_points: np.ndarray
+    local_map_points: np.ndarray
+    options: RegistrationOptions
+    _tree: cKDTree = field(repr=False, compare=False)
+
+
 @dataclass(frozen=True)
 class FrozenJacobianBaseline:
     """Reference linearization used only by the comparison path."""
@@ -124,6 +144,116 @@ def run_full_reassociation_core(
         raise ValueError("local map has fewer points than k_neighbors")
 
     tree = cKDTree(local_map, balanced_tree=True, compact_nodes=True)
+    return _run_full_reassociation_with_tree(
+        scan, local_map, pose, tree, options
+    )
+
+
+def prepare_full_reassociation_session(
+    scan_points: np.ndarray,
+    local_map_points: np.ndarray,
+    registration_config: Mapping[str, Any],
+    *,
+    snapshot_id: str = "",
+    reference_pose: np.ndarray | None = None,
+) -> PreparedFullReassociationSession:
+    """Prepare one safe, reusable local-map index for a fixed snapshot."""
+
+    scan, local_map = _validated_clouds(scan_points, local_map_points)
+    options = registration_options(registration_config)
+    if local_map.shape[0] < options.k_neighbors:
+        raise ValueError("local map has fewer points than k_neighbors")
+    prepared_scan = _readonly_copy(scan)
+    prepared_map = _readonly_copy(local_map)
+    tree = cKDTree(
+        prepared_map,
+        balanced_tree=True,
+        compact_nodes=True,
+        copy_data=True,
+    )
+    pose_checksum = ""
+    if reference_pose is not None:
+        pose_checksum = array_checksum(_validated_pose(reference_pose))
+    return PreparedFullReassociationSession(
+        snapshot_id=str(snapshot_id),
+        scan_checksum=array_checksum(prepared_scan),
+        map_checksum=array_checksum(prepared_map),
+        config_checksum=config_checksum(registration_config),
+        reference_pose_checksum=pose_checksum,
+        scan_points=prepared_scan,
+        local_map_points=prepared_map,
+        options=options,
+        _tree=tree,
+    )
+
+
+def assert_prepared_full_reassociation_matches(
+    prepared: PreparedFullReassociationSession,
+    scan_points: np.ndarray,
+    local_map_points: np.ndarray,
+    registration_config: Mapping[str, Any],
+    *,
+    snapshot_id: str = "",
+    reference_pose: np.ndarray | None = None,
+) -> None:
+    """Reject accidental reuse with any registration-relevant snapshot input."""
+
+    if not isinstance(prepared, PreparedFullReassociationSession):
+        raise TypeError("prepared must be a PreparedFullReassociationSession")
+    scan, local_map = _validated_clouds(scan_points, local_map_points)
+    mismatches: list[str] = []
+    if prepared.snapshot_id and str(snapshot_id) != prepared.snapshot_id:
+        mismatches.append("snapshot_id")
+    if array_checksum(scan) != prepared.scan_checksum:
+        mismatches.append("scan_points")
+    if array_checksum(local_map) != prepared.map_checksum:
+        mismatches.append("local_map_points")
+    if config_checksum(registration_config) != prepared.config_checksum:
+        mismatches.append("registration_config")
+    if prepared.reference_pose_checksum:
+        if reference_pose is None:
+            mismatches.append("reference_pose")
+        elif (
+            array_checksum(_validated_pose(reference_pose))
+            != prepared.reference_pose_checksum
+        ):
+            mismatches.append("reference_pose")
+    if mismatches:
+        raise ValueError(
+            "prepared full-reassociation snapshot mismatch: "
+            + ", ".join(mismatches)
+        )
+
+
+def run_prepared_full_reassociation_core(
+    prepared: PreparedFullReassociationSession,
+    initial_pose: np.ndarray,
+    seed: int,
+) -> RegistrationOutcome:
+    """Run one trial while reusing only a fixed snapshot's local-map index."""
+
+    if not isinstance(prepared, PreparedFullReassociationSession):
+        raise TypeError("prepared must be a PreparedFullReassociationSession")
+    pose = _validated_pose(initial_pose).copy()
+    _validate_seed(seed)
+    return _run_full_reassociation_with_tree(
+        prepared.scan_points,
+        prepared.local_map_points,
+        pose,
+        prepared._tree,
+        prepared.options,
+    )
+
+
+def _run_full_reassociation_with_tree(
+    scan: np.ndarray,
+    local_map: np.ndarray,
+    pose: np.ndarray,
+    tree: cKDTree,
+    options: RegistrationOptions,
+) -> RegistrationOutcome:
+    """Shared optimizer; the prepared tree never contains trial-time state."""
+
     counters = RegistrationCounters()
     current = _evaluate_full_reassociation(
         scan, local_map, pose, tree, options, counters
@@ -486,58 +616,71 @@ def _evaluate_full_reassociation(
     counters.plane_fit_count += 1
     counters.jacobian_recompute_count += 1
 
-    accepted_indices: list[int] = []
-    accepted_neighbors: list[np.ndarray] = []
-    normals: list[np.ndarray] = []
-    centroids: list[np.ndarray] = []
-    jacobian_rows: list[np.ndarray] = []
-    residuals: list[float] = []
-    for scan_index in range(scan.shape[0]):
-        if float(distances[scan_index, -1]) > options.max_neighbor_distance_m:
-            continue
-        indices = neighbor_indices[scan_index]
-        plane = _fit_local_plane(
-            local_map[indices], options.plane_fit_tolerance_m
+    # The original Day 1 implementation evaluated this exact algebra in a
+    # Python loop.  Day 2 clouds contain tens of thousands of points, so the
+    # same per-correspondence plane fits are evaluated in a deterministic
+    # NumPy batch.  This changes neither candidate membership nor any gate.
+    distance_mask = distances[:, -1] <= options.max_neighbor_distance_m
+    candidate_scan_indices = np.flatnonzero(distance_mask).astype(np.int64)
+    candidate_neighbor_indices = neighbor_indices[distance_mask]
+    if candidate_scan_indices.size:
+        neighbor_points = local_map[candidate_neighbor_indices]
+        candidate_centroids = np.mean(neighbor_points, axis=1)
+        centered = neighbor_points - candidate_centroids[:, None, :]
+        covariance = np.einsum(
+            "nki,nkj->nij", centered, centered, optimize=True
+        ) / float(options.k_neighbors)
+        finite_covariance = np.all(np.isfinite(covariance), axis=(1, 2))
+        eigenvalues, eigenvectors = np.linalg.eigh(covariance)
+        finite_eigenvalues = np.all(np.isfinite(eigenvalues), axis=1)
+        candidate_normals = eigenvectors[:, :, 0]
+        normal_norm = np.linalg.norm(candidate_normals, axis=1)
+        valid_norm = normal_norm > 1.0e-12
+        candidate_normals = candidate_normals / np.where(
+            valid_norm, normal_norm, 1.0
+        )[:, None]
+        pivots = np.argmax(np.abs(candidate_normals), axis=1)
+        pivot_values = candidate_normals[
+            np.arange(candidate_normals.shape[0]), pivots
+        ]
+        candidate_normals[pivot_values < 0.0] *= -1.0
+        deviations = np.abs(
+            np.einsum("nki,ni->nk", centered, candidate_normals, optimize=True)
         )
-        if plane is None:
-            continue
-        normal, centroid = plane
-        residual = float(normal @ (transformed[scan_index] - centroid))
-        jacobian = _build_point_to_plane_jacobian(
-            rotation, scan[scan_index], normal
+        plane_mask = (
+            finite_covariance
+            & finite_eigenvalues
+            & valid_norm
+            & (np.max(deviations, axis=1) <= options.plane_fit_tolerance_m)
         )
-        accepted_indices.append(scan_index)
-        accepted_neighbors.append(indices.copy())
-        normals.append(normal)
-        centroids.append(centroid)
-        jacobian_rows.append(jacobian)
-        residuals.append(residual)
+        accepted_array = candidate_scan_indices[plane_mask]
+        neighbors_array = candidate_neighbor_indices[plane_mask]
+        normals_array = candidate_normals[plane_mask]
+        centroids_array = candidate_centroids[plane_mask]
+    else:
+        accepted_array = np.empty(0, dtype=np.int64)
+        neighbors_array = np.empty((0, options.k_neighbors), dtype=np.int64)
+        normals_array = np.empty((0, 3), dtype=np.float64)
+        centroids_array = np.empty((0, 3), dtype=np.float64)
 
-    count = len(accepted_indices)
-    jacobian_array = (
-        np.asarray(jacobian_rows, dtype=np.float64).reshape(count, 6)
-        if count
-        else np.empty((0, 6), dtype=np.float64)
-    )
-    residual_array = np.asarray(residuals, dtype=np.float64)
-    accepted_array = np.asarray(accepted_indices, dtype=np.int64)
-    neighbors_array = (
-        np.asarray(accepted_neighbors, dtype=np.int64).reshape(
-            count, options.k_neighbors
+    count = int(accepted_array.size)
+    if count:
+        residual_array = np.einsum(
+            "ni,ni->n",
+            normals_array,
+            transformed[accepted_array] - centroids_array,
+            optimize=True,
         )
-        if count
-        else np.empty((0, options.k_neighbors), dtype=np.int64)
-    )
-    normals_array = (
-        np.asarray(normals, dtype=np.float64).reshape(count, 3)
-        if count
-        else np.empty((0, 3), dtype=np.float64)
-    )
-    centroids_array = (
-        np.asarray(centroids, dtype=np.float64).reshape(count, 3)
-        if count
-        else np.empty((0, 3), dtype=np.float64)
-    )
+        normal_in_scan_coordinates = normals_array @ rotation
+        rotational = np.cross(
+            scan[accepted_array], normal_in_scan_coordinates
+        )
+        jacobian_array = np.concatenate(
+            (rotational, normals_array), axis=1
+        ).astype(np.float64, copy=False)
+    else:
+        residual_array = np.empty(0, dtype=np.float64)
+        jacobian_array = np.empty((0, 6), dtype=np.float64)
     checksum = _correspondence_checksum(accepted_array, neighbors_array)
     counters.correspondence_checksums.append(checksum)
     return RegistrationEvaluation(
@@ -581,21 +724,42 @@ def _evaluate_frozen(
 def _query_neighbors(
     tree: cKDTree, transformed_scan: np.ndarray, k_neighbors: int
 ) -> tuple[np.ndarray, np.ndarray]:
-    distances, indices = tree.query(
-        transformed_scan, k=int(k_neighbors), workers=1
+    map_points = np.asarray(tree.data, dtype=np.float64)
+    requested = int(k_neighbors)
+    query_count = min(requested + 1, map_points.shape[0])
+    queried_distances, queried_indices = tree.query(
+        transformed_scan, k=query_count, workers=1
     )
-    distances = np.asarray(distances, dtype=np.float64).reshape(
-        transformed_scan.shape[0], int(k_neighbors)
+    queried_distances = np.asarray(queried_distances, dtype=np.float64).reshape(
+        transformed_scan.shape[0], query_count
     )
-    indices = np.asarray(indices, dtype=np.int64).reshape(
-        transformed_scan.shape[0], int(k_neighbors)
+    queried_indices = np.asarray(queried_indices, dtype=np.int64).reshape(
+        transformed_scan.shape[0], query_count
     )
+    # Recompute exact candidate distances and enforce (distance, map index)
+    # ordering in one batch.  Only a tie crossing the kth boundary needs the
+    # more expensive radius expansion used by the original implementation.
+    offsets = map_points[queried_indices] - transformed_scan[:, None, :]
+    exact = np.linalg.norm(offsets, axis=2)
+    order = np.lexsort((queried_indices, exact), axis=1)
+    queried_indices = np.take_along_axis(queried_indices, order, axis=1)
+    exact = np.take_along_axis(exact, order, axis=1)
+    indices = queried_indices[:, :requested].copy()
+    distances = exact[:, :requested].copy()
     # cKDTree does not promise stable candidate membership when more than k map
     # points tie at the kth distance.  Expand each kth-radius boundary, compute
     # exact candidate distances, then select by (distance, map index).  The
     # small Day 1 smoke clouds make this deterministic tie resolution cheap.
-    map_points = np.asarray(tree.data, dtype=np.float64)
-    for row in range(distances.shape[0]):
+    if query_count > requested:
+        kth = exact[:, requested - 1]
+        next_distance = exact[:, requested]
+        boundary_rows = np.flatnonzero(
+            np.abs(next_distance - kth)
+            <= np.maximum(1.0e-12, np.abs(kth) * 1.0e-12)
+        )
+    else:
+        boundary_rows = np.arange(distances.shape[0], dtype=np.int64)
+    for row in boundary_rows.tolist():
         kth_distance = float(distances[row, -1])
         radius = kth_distance + max(1.0e-12, abs(kth_distance) * 1.0e-12)
         candidates = np.asarray(
@@ -830,3 +994,4 @@ def _jsonable(value: Any) -> Any:
 
 # Compact aliases for callers and tests that prefer a verb-first name.
 register_full_reassociation = run_full_reassociation_core
+register_prepared_full_reassociation = run_prepared_full_reassociation_core

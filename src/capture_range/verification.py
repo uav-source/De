@@ -35,6 +35,14 @@ from .snapshot import SMOKE_SCENES, build_smoke_snapshots, snapshot_checksums
 from .types import PerturbationSpec, RecoveryTrialResult, RegistrationSnapshot
 
 
+_CAPTURE_RANGE_DESCENDANT_BRANCHES = frozenset(
+    {
+        "feature/directional-capture-range-mvp",
+        "feature/directional-capture-range-day2-development",
+    }
+)
+
+
 DAY1_GATE_KEYS = frozenset(
     {
         "ENGINEERING_PASS",
@@ -841,8 +849,8 @@ def _verify_manifest_products(
         "worktree_clean_at_run_start",
     }:
         raise ValueError("manifest git provenance schema changed")
-    if git["branch"] != "feature/directional-capture-range-mvp":
-        raise ValueError("Day 1 smoke was not run on the frozen feature branch")
+    if git["branch"] not in _CAPTURE_RANGE_DESCENDANT_BRANCHES:
+        raise ValueError("Day 1 smoke was not run on an authorized capture-range branch")
     if not isinstance(git["commit"], str) or not re.fullmatch(r"[0-9a-f]{40}", git["commit"]):
         raise ValueError("manifest git commit is invalid")
     if type(git["worktree_clean_at_run_start"]) is not bool:
@@ -1229,8 +1237,8 @@ def _verify_repository_source(
         text=True,
         capture_output=True,
     ).stdout.strip()
-    if branch != "feature/directional-capture-range-mvp":
-        raise ValueError("repository is not on the Day 1 feature branch")
+    if branch not in _CAPTURE_RANGE_DESCENDANT_BRANCHES:
+        raise ValueError("repository is not on an authorized capture-range branch")
     ancestry = subprocess.run(
         [
             "git",
