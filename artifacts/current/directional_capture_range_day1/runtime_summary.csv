@@ -1,0 +1,13 @@
+snapshot_id,perturbation_type,registration_path,trial_count,runtime_mean_ms,runtime_median_ms,runtime_total_ms,iteration_total,full_reassociation_count,transform_count,nearest_neighbor_search_count,correspondence_build_count,plane_fit_count,jacobian_recomputation_count
+day1_geometry_rich_box,rotation,frozen_jacobian,90,0.3815136667981278,0.38676700023643207,34.3362300118315,162,0,0,0,0,0,0
+day1_geometry_rich_box,rotation,full_reassociation,90,24.624544744640136,27.77219400013564,2216.2090270176122,216,306,306,306,306,306,306
+day1_geometry_rich_box,translation,frozen_jacobian,90,0.383602478015948,0.3894795008818619,34.52422302143532,162,0,0,0,0,0,0
+day1_geometry_rich_box,translation,full_reassociation,90,20.243059033358197,21.167438500924618,1821.8753130022378,162,252,252,252,252,252,252
+day1_long_corridor,rotation,frozen_jacobian,90,0.37557663332942565,0.37967650132486597,33.80189699964831,162,0,0,0,0,0,0
+day1_long_corridor,rotation,full_reassociation,90,22.853363122542053,21.870726501219906,2056.8026810287847,204,294,294,294,294,294,294
+day1_long_corridor,translation,frozen_jacobian,90,0.342312611044488,0.36394750168255996,30.80813499400392,138,0,0,0,0,0,0
+day1_long_corridor,translation,full_reassociation,90,17.7988708446517,20.168185499642277,1601.898376018653,138,228,228,228,228,228,228
+day1_parallel_walls,rotation,frozen_jacobian,90,0.3237600223656045,0.3486084988253424,29.138402012904407,138,0,0,0,0,0,0
+day1_parallel_walls,rotation,full_reassociation,90,9.307148355583195,9.230473500792868,837.6433520024875,168,258,258,258,258,258,258
+day1_parallel_walls,translation,frozen_jacobian,90,0.29262421133656363,0.27429399960965384,26.33617902029073,114,0,0,0,0,0,0
+day1_parallel_walls,translation,full_reassociation,90,7.4107596887188265,6.72070799919311,666.9683719846944,114,204,204,204,204,204,204

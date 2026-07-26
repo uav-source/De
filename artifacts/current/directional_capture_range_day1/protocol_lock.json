@@ -1,0 +1,720 @@
+{
+  "capture_radius": {
+    "d50": {
+      "definition": "smallest_sampled_amplitude_with_fitted_probability_lte_target",
+      "target_probability": 0.5
+    },
+    "d90": {
+      "definition": "smallest_sampled_amplitude_with_fitted_probability_lte_target",
+      "target_probability": 0.9
+    },
+    "extrapolation_allowed": false,
+    "interpolation": "none",
+    "right_censoring": {
+      "censored_value": null,
+      "condition": "no_sampled_amplitude_has_fitted_probability_lte_target",
+      "enabled": true
+    }
+  },
+  "complete_frozen_protocol": {
+    "capture_radius": {
+      "d50": {
+        "definition": "smallest_sampled_amplitude_with_fitted_probability_lte_target",
+        "target_probability": 0.5
+      },
+      "d90": {
+        "definition": "smallest_sampled_amplitude_with_fitted_probability_lte_target",
+        "target_probability": 0.9
+      },
+      "extrapolation_allowed": false,
+      "interpolation": "none",
+      "right_censoring": {
+        "censored_value": null,
+        "condition": "no_sampled_amplitude_has_fitted_probability_lte_target",
+        "enabled": true
+      }
+    },
+    "day1_gate": {
+      "day2_authorized_by_protocol_alone": false,
+      "required_true": [
+        "ENGINEERING_PASS",
+        "PROTOCOL_LOCKED",
+        "FULL_REASSOCIATION_VERIFIED",
+        "FROZEN_JACOBIAN_BASELINE_ISOLATED",
+        "NO_GT_LEAKAGE",
+        "SEED_DETERMINISM_PASS",
+        "SMOKE_PIPELINE_PASS",
+        "WORKTREE_CLEAN"
+      ]
+    },
+    "frozen_scientific_state": {
+      "CORRECTED_EVALUATION_CHANGES_FORMAL_CONCLUSION": false,
+      "EVALUATION_BUG_CONFIRMED": false,
+      "FRAME_TRANSFORM_BUG_CONFIRMED": false,
+      "FUTURE_ERROR_IMPLEMENTATION_BUG_CONFIRMED": true,
+      "MEASUREMENT_PLAN_STATUS": "NEW_PREREGISTERED_REPLACEMENT_PILOT_REQUIRED",
+      "METHOD_NEGATIVE_CONFIRMED": false,
+      "METRIC_DIRECTION_BUG_CONFIRMED": true,
+      "ODI_EXACTLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": true,
+      "ODI_INDEPENDENT_RANKING_INFORMATION_CONFIRMED": false,
+      "ODI_MEASUREMENT_MAINLINE_AUTHORIZED": false,
+      "ODI_MONOTONICALLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": true,
+      "ORIGINAL_MEASUREMENT_REAL_PILOT_PASS": false,
+      "ORIGINAL_PILOT_RESULT_REMAINS_FAIL": true,
+      "PILOT_LABEL_INVALIDATED": true,
+      "PRIMARY_AUDIT_CONCLUSION": "PILOT_LABEL_INVALIDATED",
+      "PRIMARY_CONCLUSION_CATEGORY": "B",
+      "REAL_DOMAIN_THRESHOLD_TRANSFER_FAILED": true,
+      "REFERENCE_INSUFFICIENT": true,
+      "RELIABILITY_VALIDATION_SUFFICIENT": false,
+      "REPLACEMENT_PILOT_AUTHORIZED": true,
+      "SCIENTIFIC_AUDIT_COMPLETE": true,
+      "SECOND_DATASET_EXPANSION_AUTHORIZED": false,
+      "STAGE2_GATE": "FAIL",
+      "TIME_ALIGNMENT_BUG_CONFIRMED": false,
+      "TRANSITION": "PIVOT",
+      "TRIGGER_IMPLEMENTATION_BUG_CONFIRMED": false
+    },
+    "ground_truth_boundary": {
+      "expected_optimizer_gt_access_count": 0,
+      "optimizer_forbidden_inputs": [
+        "ground_truth_weak_direction",
+        "pose_gt",
+        "axis_gt"
+      ],
+      "synthetic_theoretical_weak_direction_use": "offline_evaluation_only"
+    },
+    "measurement_object": {
+      "fixed_components": [
+        "scan",
+        "local_map",
+        "reference_pose",
+        "registration_configuration",
+        "correspondence_configuration",
+        "robust_kernel",
+        "termination_condition"
+      ],
+      "reference_pose_use": {
+        "construct_initial_pose": true,
+        "drive_correspondence_or_optimization": false,
+        "replace_failed_output": false,
+        "score_final_pose": true
+      },
+      "result_is_algorithm_conditioned": true,
+      "result_is_algorithm_independent_scene_property": false
+    },
+    "pose_perturbation": {
+      "generic_full_se3_left_or_right_label_allowed": false,
+      "literal_right_se3_translation_composition_allowed": false,
+      "manifold": "SO3_right_plus_R3_world_additive",
+      "perturbation_vector_order": [
+        "delta_theta_body",
+        "delta_position_world"
+      ],
+      "rotation_update": "R_prime = R_ref @ Exp(delta_theta_body)",
+      "task_rotation_notation_interpretation": "delta_theta_body = theta * u_rotation_body and delta_position_world = 0",
+      "task_translation_notation_interpretation": "delta_theta_body = 0 and delta_position_world = d * u_translation_world",
+      "translation_update": "p_prime = p_ref + delta_position_world"
+    },
+    "protected_artifact_paths": [
+      "artifacts/current/measurement_real_validation_pilot/",
+      "artifacts/current/measurement_pilot_scientific_audit/",
+      "artifacts/history/"
+    ],
+    "protected_existing_definitions": [
+      "ODI_formula",
+      "AIS_formula",
+      "Schur_translation_information_matrix",
+      "eigengap_definition",
+      "original_measurement_pilot_thresholds",
+      "FAST_LIO2_state_estimator",
+      "Kalman_gain",
+      "covariance",
+      "map_update",
+      "data_association",
+      "existing_negative_results"
+    ],
+    "protocol": {
+      "day": 1,
+      "formal_measurement_name": "Algorithm-Conditioned Empirical Directional Capture Range",
+      "large_scale_experiment": false,
+      "name": "directional_capture_range_day1",
+      "phase": "engineering_smoke_test",
+      "protocol_locked": true
+    },
+    "randomness": {
+      "correspondence_tie_breaking": {
+        "mode": "stable_index"
+      },
+      "global_seed": 15001,
+      "include_method_name_in_seed": false,
+      "point_subsampling": {
+        "enabled": false,
+        "retention_fraction": 1.0
+      },
+      "range_noise": {
+        "enabled": false,
+        "standard_deviation_m": 0.0
+      },
+      "seed_components": [
+        "snapshot_id",
+        "perturbation_type",
+        "direction_id",
+        "signed_amplitude",
+        "repeat_index",
+        "global_seed"
+      ]
+    },
+    "recovery_curve": {
+      "fit_method": "isotonic_regression",
+      "fit_weights": "total_trials",
+      "fitted_values_may_replace_raw_values": false,
+      "monotonicity": "nonincreasing",
+      "preserve_nonmonotonic_evidence": true,
+      "preserve_raw_probabilities": true
+    },
+    "recovery_probability": {
+      "confidence_interval": {
+        "confidence_level": 0.95,
+        "method": "wilson"
+      },
+      "definition": "successful_trials / total_trials",
+      "group_by": [
+        "snapshot_id",
+        "perturbation_type",
+        "direction_id",
+        "signed_side",
+        "amplitude"
+      ]
+    },
+    "registration": {
+      "damping": 1e-06,
+      "huber_delta_m": 0.05,
+      "k_neighbors": 5,
+      "max_iterations": 20,
+      "max_neighbor_distance_m": 0.75,
+      "min_correspondences": 30,
+      "plane_fit_tolerance_m": 0.05,
+      "rotation_step_tolerance_rad": 1e-05,
+      "translation_step_tolerance_m": 1e-05
+    },
+    "registration_paths": {
+      "comparison": {
+        "baseline_only": true,
+        "full_reassociation": false,
+        "isolated_from_formal_results": true,
+        "may_freeze": [
+          "J",
+          "r",
+          "H",
+          "b"
+        ],
+        "name": "frozen_jacobian"
+      },
+      "formal": {
+        "baseline_only": false,
+        "full_reassociation": true,
+        "minimum_reassociation_count": 1,
+        "name": "full_reassociation",
+        "recompute_each_iteration": [
+          "transformed_scan",
+          "nearest_neighbors",
+          "correspondences",
+          "local_planes",
+          "residuals",
+          "jacobians",
+          "robust_weights"
+        ]
+      }
+    },
+    "sampling": {
+      "keep_signed_directions_separate": true,
+      "keep_translation_and_rotation_separate": true,
+      "repeats_per_direction_amplitude": 3,
+      "rotation": {
+        "amplitude_unit": "radian",
+        "amplitudes_deg": [
+          0.0,
+          0.5,
+          1.0,
+          2.0,
+          5.0
+        ],
+        "amplitudes_rad": [
+          0.0,
+          0.008726646259971648,
+          0.017453292519943295,
+          0.03490658503988659,
+          0.08726646259971647
+        ],
+        "configured_grid_display_unit": "degree",
+        "direction_frame": "body",
+        "direction_space": "S2",
+        "directions": [
+          {
+            "axis_id": "roll",
+            "direction_id": "+roll",
+            "signed_side": 1,
+            "vector": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "axis_id": "roll",
+            "direction_id": "-roll",
+            "signed_side": -1,
+            "vector": [
+              -1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "axis_id": "pitch",
+            "direction_id": "+pitch",
+            "signed_side": 1,
+            "vector": [
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "axis_id": "pitch",
+            "direction_id": "-pitch",
+            "signed_side": -1,
+            "vector": [
+              0.0,
+              -1.0,
+              0.0
+            ]
+          },
+          {
+            "axis_id": "yaw",
+            "direction_id": "+yaw",
+            "signed_side": 1,
+            "vector": [
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "axis_id": "yaw",
+            "direction_id": "-yaw",
+            "signed_side": -1,
+            "vector": [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          }
+        ]
+      },
+      "translation": {
+        "amplitude_unit": "meter",
+        "amplitudes": [
+          0.0,
+          0.02,
+          0.05,
+          0.1,
+          0.2
+        ],
+        "direction_frame": "world",
+        "direction_space": "S2",
+        "directions": [
+          {
+            "axis_id": "x",
+            "direction_id": "+x",
+            "signed_side": 1,
+            "vector": [
+              1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "axis_id": "x",
+            "direction_id": "-x",
+            "signed_side": -1,
+            "vector": [
+              -1.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "axis_id": "y",
+            "direction_id": "+y",
+            "signed_side": 1,
+            "vector": [
+              0.0,
+              1.0,
+              0.0
+            ]
+          },
+          {
+            "axis_id": "y",
+            "direction_id": "-y",
+            "signed_side": -1,
+            "vector": [
+              0.0,
+              -1.0,
+              0.0
+            ]
+          },
+          {
+            "axis_id": "z",
+            "direction_id": "+z",
+            "signed_side": 1,
+            "vector": [
+              0.0,
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "axis_id": "z",
+            "direction_id": "-z",
+            "signed_side": -1,
+            "vector": [
+              0.0,
+              0.0,
+              -1.0
+            ]
+          }
+        ]
+      }
+    },
+    "schema_version": "directional_capture_range_day1_protocol_v1",
+    "scope_constraints": {
+      "claim_new_measurement_paper_complete": false,
+      "download_or_use_second_dataset": false,
+      "modify_fast_lio2": false,
+      "modify_odi": false,
+      "restore_weak_direction_updater": false,
+      "use_vision": false
+    },
+    "success": {
+      "final_residual_only_is_sufficient": false,
+      "require_finite_result": true,
+      "require_iteration_limit_not_failed": true,
+      "require_solver_converged": true,
+      "rotation_geodesic_error_threshold_deg": 0.5,
+      "rotation_geodesic_error_threshold_rad": 0.008726646259971648,
+      "thresholds_may_be_tuned_from_day1_results": false,
+      "translation_error_threshold_m": 0.02
+    },
+    "synthetic_smoke": {
+      "expectations": {
+        "both_registration_paths_run": true,
+        "geometry_rich_box": "majority_success_at_small_perturbations",
+        "long_corridor": "axial_recovery_weaker_than_transverse_trend_visible",
+        "optimizer_gt_access_count": 0,
+        "output_files_complete": true
+      },
+      "protocol_changes_from_smoke_results_allowed": false,
+      "scenes": [
+        "geometry_rich_box",
+        "parallel_walls",
+        "long_corridor"
+      ]
+    }
+  },
+  "formal_measurement_name": "Algorithm-Conditioned Empirical Directional Capture Range",
+  "frozen_scientific_state": {
+    "CORRECTED_EVALUATION_CHANGES_FORMAL_CONCLUSION": false,
+    "EVALUATION_BUG_CONFIRMED": false,
+    "FRAME_TRANSFORM_BUG_CONFIRMED": false,
+    "FUTURE_ERROR_IMPLEMENTATION_BUG_CONFIRMED": true,
+    "MEASUREMENT_PLAN_STATUS": "NEW_PREREGISTERED_REPLACEMENT_PILOT_REQUIRED",
+    "METHOD_NEGATIVE_CONFIRMED": false,
+    "METRIC_DIRECTION_BUG_CONFIRMED": true,
+    "ODI_EXACTLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": true,
+    "ODI_INDEPENDENT_RANKING_INFORMATION_CONFIRMED": false,
+    "ODI_MEASUREMENT_MAINLINE_AUTHORIZED": false,
+    "ODI_MONOTONICALLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": true,
+    "ORIGINAL_MEASUREMENT_REAL_PILOT_PASS": false,
+    "ORIGINAL_PILOT_RESULT_REMAINS_FAIL": true,
+    "PILOT_LABEL_INVALIDATED": true,
+    "PRIMARY_AUDIT_CONCLUSION": "PILOT_LABEL_INVALIDATED",
+    "PRIMARY_CONCLUSION_CATEGORY": "B",
+    "REAL_DOMAIN_THRESHOLD_TRANSFER_FAILED": true,
+    "REFERENCE_INSUFFICIENT": true,
+    "RELIABILITY_VALIDATION_SUFFICIENT": false,
+    "REPLACEMENT_PILOT_AUTHORIZED": true,
+    "SCIENTIFIC_AUDIT_COMPLETE": true,
+    "SECOND_DATASET_EXPANSION_AUTHORIZED": false,
+    "STAGE2_GATE": "FAIL",
+    "TIME_ALIGNMENT_BUG_CONFIRMED": false,
+    "TRANSITION": "PIVOT",
+    "TRIGGER_IMPLEMENTATION_BUG_CONFIRMED": false
+  },
+  "ground_truth_boundary": {
+    "expected_optimizer_gt_access_count": 0,
+    "optimizer_forbidden_inputs": [
+      "ground_truth_weak_direction",
+      "pose_gt",
+      "axis_gt"
+    ],
+    "synthetic_theoretical_weak_direction_use": "offline_evaluation_only"
+  },
+  "measurement_object": {
+    "fixed_components": [
+      "scan",
+      "local_map",
+      "reference_pose",
+      "registration_configuration",
+      "correspondence_configuration",
+      "robust_kernel",
+      "termination_condition"
+    ],
+    "reference_pose_use": {
+      "construct_initial_pose": true,
+      "drive_correspondence_or_optimization": false,
+      "replace_failed_output": false,
+      "score_final_pose": true
+    },
+    "result_is_algorithm_conditioned": true,
+    "result_is_algorithm_independent_scene_property": false
+  },
+  "pose_perturbation": {
+    "generic_full_se3_left_or_right_label_allowed": false,
+    "literal_right_se3_translation_composition_allowed": false,
+    "manifold": "SO3_right_plus_R3_world_additive",
+    "perturbation_vector_order": [
+      "delta_theta_body",
+      "delta_position_world"
+    ],
+    "rotation_update": "R_prime = R_ref @ Exp(delta_theta_body)",
+    "task_rotation_notation_interpretation": "delta_theta_body = theta * u_rotation_body and delta_position_world = 0",
+    "task_translation_notation_interpretation": "delta_theta_body = 0 and delta_position_world = d * u_translation_world",
+    "translation_update": "p_prime = p_ref + delta_position_world"
+  },
+  "protocol_locked": true,
+  "randomness": {
+    "correspondence_tie_breaking": {
+      "mode": "stable_index"
+    },
+    "global_seed": 15001,
+    "include_method_name_in_seed": false,
+    "point_subsampling": {
+      "enabled": false,
+      "retention_fraction": 1.0
+    },
+    "range_noise": {
+      "enabled": false,
+      "standard_deviation_m": 0.0
+    },
+    "seed_components": [
+      "snapshot_id",
+      "perturbation_type",
+      "direction_id",
+      "signed_amplitude",
+      "repeat_index",
+      "global_seed"
+    ]
+  },
+  "recovery_probability": {
+    "confidence_interval": {
+      "confidence_level": 0.95,
+      "method": "wilson"
+    },
+    "definition": "successful_trials / total_trials",
+    "group_by": [
+      "snapshot_id",
+      "perturbation_type",
+      "direction_id",
+      "signed_side",
+      "amplitude"
+    ]
+  },
+  "registration": {
+    "damping": 1e-06,
+    "huber_delta_m": 0.05,
+    "k_neighbors": 5,
+    "max_iterations": 20,
+    "max_neighbor_distance_m": 0.75,
+    "min_correspondences": 30,
+    "plane_fit_tolerance_m": 0.05,
+    "rotation_step_tolerance_rad": 1e-05,
+    "translation_step_tolerance_m": 1e-05
+  },
+  "sampling": {
+    "keep_signed_directions_separate": true,
+    "keep_translation_and_rotation_separate": true,
+    "repeats_per_direction_amplitude": 3,
+    "rotation": {
+      "amplitude_unit": "radian",
+      "amplitudes_deg": [
+        0.0,
+        0.5,
+        1.0,
+        2.0,
+        5.0
+      ],
+      "amplitudes_rad": [
+        0.0,
+        0.008726646259971648,
+        0.017453292519943295,
+        0.03490658503988659,
+        0.08726646259971647
+      ],
+      "configured_grid_display_unit": "degree",
+      "direction_frame": "body",
+      "direction_space": "S2",
+      "directions": [
+        {
+          "axis_id": "roll",
+          "direction_id": "+roll",
+          "signed_side": 1,
+          "vector": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis_id": "roll",
+          "direction_id": "-roll",
+          "signed_side": -1,
+          "vector": [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis_id": "pitch",
+          "direction_id": "+pitch",
+          "signed_side": 1,
+          "vector": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        {
+          "axis_id": "pitch",
+          "direction_id": "-pitch",
+          "signed_side": -1,
+          "vector": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        },
+        {
+          "axis_id": "yaw",
+          "direction_id": "+yaw",
+          "signed_side": 1,
+          "vector": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "axis_id": "yaw",
+          "direction_id": "-yaw",
+          "signed_side": -1,
+          "vector": [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        }
+      ]
+    },
+    "translation": {
+      "amplitude_unit": "meter",
+      "amplitudes": [
+        0.0,
+        0.02,
+        0.05,
+        0.1,
+        0.2
+      ],
+      "direction_frame": "world",
+      "direction_space": "S2",
+      "directions": [
+        {
+          "axis_id": "x",
+          "direction_id": "+x",
+          "signed_side": 1,
+          "vector": [
+            1.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis_id": "x",
+          "direction_id": "-x",
+          "signed_side": -1,
+          "vector": [
+            -1.0,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "axis_id": "y",
+          "direction_id": "+y",
+          "signed_side": 1,
+          "vector": [
+            0.0,
+            1.0,
+            0.0
+          ]
+        },
+        {
+          "axis_id": "y",
+          "direction_id": "-y",
+          "signed_side": -1,
+          "vector": [
+            0.0,
+            -1.0,
+            0.0
+          ]
+        },
+        {
+          "axis_id": "z",
+          "direction_id": "+z",
+          "signed_side": 1,
+          "vector": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "axis_id": "z",
+          "direction_id": "-z",
+          "signed_side": -1,
+          "vector": [
+            0.0,
+            0.0,
+            -1.0
+          ]
+        }
+      ]
+    }
+  },
+  "schema_version": "directional_capture_range_protocol_lock_v1",
+  "semantic_sha256": "2e5ca9d314b4305baba6ce4e9e6e42a758f073d2f131ffb31efecbb427cef7b0",
+  "source_path": "configs/capture_range/day1_protocol.yaml",
+  "source_sha256": "a45a54974059b390f055724103638c0da0c4e7c38f2c783a5a6f2bb732d992bc",
+  "success": {
+    "final_residual_only_is_sufficient": false,
+    "require_finite_result": true,
+    "require_iteration_limit_not_failed": true,
+    "require_solver_converged": true,
+    "rotation_geodesic_error_threshold_deg": 0.5,
+    "rotation_geodesic_error_threshold_rad": 0.008726646259971648,
+    "thresholds_may_be_tuned_from_day1_results": false,
+    "translation_error_threshold_m": 0.02
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "DAY1_ENGINEERING_GATE": "PASS",
+  "DAY2_AUTHORIZED": true,
+  "claim_boundaries": {
+    "fast_lio2_modified": false,
+    "new_measurement_paper_claimed_complete": false,
+    "odi_modified": false,
+    "second_dataset_used": false,
+    "vision_used": false
+  },
+  "formal_measurement_name": "Algorithm-Conditioned Empirical Directional Capture Range",
+  "frozen_scientific_state": {
+    "CORRECTED_EVALUATION_CHANGES_FORMAL_CONCLUSION": false,
+    "EVALUATION_BUG_CONFIRMED": false,
+    "FRAME_TRANSFORM_BUG_CONFIRMED": false,
+    "FUTURE_ERROR_IMPLEMENTATION_BUG_CONFIRMED": true,
+    "MEASUREMENT_PLAN_STATUS": "NEW_PREREGISTERED_REPLACEMENT_PILOT_REQUIRED",
+    "METHOD_NEGATIVE_CONFIRMED": false,
+    "METRIC_DIRECTION_BUG_CONFIRMED": true,
+    "ODI_EXACTLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": true,
+    "ODI_INDEPENDENT_RANKING_INFORMATION_CONFIRMED": false,
+    "ODI_MEASUREMENT_MAINLINE_AUTHORIZED": false,
+    "ODI_MONOTONICALLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": true,
+    "ORIGINAL_MEASUREMENT_REAL_PILOT_PASS": false,
+    "ORIGINAL_PILOT_RESULT_REMAINS_FAIL": true,
+    "PILOT_LABEL_INVALIDATED": true,
+    "PRIMARY_AUDIT_CONCLUSION": "PILOT_LABEL_INVALIDATED",
+    "PRIMARY_CONCLUSION_CATEGORY": "B",
+    "REAL_DOMAIN_THRESHOLD_TRANSFER_FAILED": true,
+    "REFERENCE_INSUFFICIENT": true,
+    "RELIABILITY_VALIDATION_SUFFICIENT": false,
+    "REPLACEMENT_PILOT_AUTHORIZED": true,
+    "SCIENTIFIC_AUDIT_COMPLETE": true,
+    "SECOND_DATASET_EXPANSION_AUTHORIZED": false,
+    "STAGE2_GATE": "FAIL",
+    "TIME_ALIGNMENT_BUG_CONFIRMED": false,
+    "TRANSITION": "PIVOT",
+    "TRIGGER_IMPLEMENTATION_BUG_CONFIRMED": false
+  },
+  "gates": {
+    "ENGINEERING_PASS": true,
+    "FROZEN_JACOBIAN_BASELINE_ISOLATED": true,
+    "FULL_REASSOCIATION_VERIFIED": true,
+    "NO_GT_LEAKAGE": true,
+    "PROTOCOL_LOCKED": true,
+    "SEED_DETERMINISM_PASS": true,
+    "SMOKE_PIPELINE_PASS": true,
+    "WORKTREE_CLEAN": true
+  },
+  "git": {
+    "branch": "feature/directional-capture-range-mvp",
+    "commit": "c1536b283754bfad3f5314cc2945b1d78113bdf5",
+    "worktree_clean_at_run_start": true
+  },
+  "instrumentation": {
+    "correspondence_recomputation_count": 1542,
+    "full_reassociation_execution_count": 1542,
+    "gt_result_mismatch_count": 0,
+    "jacobian_recomputation_count": 1542,
+    "nearest_neighbor_search_count": 1542,
+    "optimizer_gt_access_count": 0,
+    "plane_recomputation_count": 1542,
+    "transform_execution_count": 1542
+  },
+  "output_files": [
+    "protocol_lock.json",
+    "trial_results.csv",
+    "direction_curves.csv",
+    "capture_radius_summary.csv",
+    "runtime_summary.csv",
+    "smoke_report.md",
+    "run_manifest.json",
+    "SHA256SUMS"
+  ],
+  "phase": "engineering_smoke_test_only",
+  "protocol_semantic_sha256": "2e5ca9d314b4305baba6ce4e9e6e42a758f073d2f131ffb31efecbb427cef7b0",
+  "protocol_source_sha256": "a45a54974059b390f055724103638c0da0c4e7c38f2c783a5a6f2bb732d992bc",
+  "randomness": {
+    "determinism_rerun_count": 2,
+    "deterministic_output_mismatch_count": 0,
+    "frozen_configuration": {
+      "correspondence_tie_breaking": {
+        "mode": "stable_index"
+      },
+      "global_seed": 15001,
+      "include_method_name_in_seed": false,
+      "point_subsampling": {
+        "enabled": false,
+        "retention_fraction": 1.0
+      },
+      "range_noise": {
+        "enabled": false,
+        "standard_deviation_m": 0.0
+      },
+      "seed_components": [
+        "snapshot_id",
+        "perturbation_type",
+        "direction_id",
+        "signed_amplitude",
+        "repeat_index",
+        "global_seed"
+      ]
+    },
+    "global_seed": 15001,
+    "method_name_in_seed": false,
+    "noise_checksum": "38610e0022fe7aa627c8384bc3e34614f24e102d34318737272568b282b2b513",
+    "noise_enabled": false,
+    "runtime_excluded_from_deterministic_output_comparison": true,
+    "seed_derivation_mismatch_count": 0
+  },
+  "run_id": "capture_range_day1_smoke",
+  "schema_version": "directional_capture_range_day1_run_manifest_v1",
+  "smoke_scenes": {
+    "geometry_rich_box": {
+      "formal_success_rate": 1.0,
+      "formal_trial_count": 180,
+      "small_perturbation_majority_pass": true,
+      "small_perturbation_success_rate": 1.0
+    },
+    "long_corridor": {
+      "axial_translation_success_rate": 0.0,
+      "axial_weaker_trend_pass": true,
+      "formal_success_rate": 0.9,
+      "formal_trial_count": 180,
+      "transverse_translation_success_rate": 1.0
+    },
+    "parallel_walls": {
+      "formal_success_rate": 0.6666666666666666,
+      "formal_trial_count": 180
+    }
+  },
+  "snapshots": [
+    {
+      "config_checksum": "b1aa9972fc8cdf120d00b5ac3604fc11a2ce3c71b8de87c9cc03e471b21b343e",
+      "map_checksum": "02fb3f9e952a2891a95bb699a3829ca7ed4746299f7521c889945bc8ea32dc0d",
+      "map_point_count": 522,
+      "reference_pose_checksum": "97819326f58d406fbe149215cb373eb411733bb66dc488f2c364ee71b59c286c",
+      "scan_checksum": "083e173de30036cd0bc5879e2004047c0c6ea3f8558a515b12550b2a5ea7e063",
+      "scan_point_count": 130,
+      "scene_name": "geometry_rich_box",
+      "snapshot_id": "day1_geometry_rich_box"
+    },
+    {
+      "config_checksum": "b1aa9972fc8cdf120d00b5ac3604fc11a2ce3c71b8de87c9cc03e471b21b343e",
+      "map_checksum": "4e4bccd04a889020dbdf757fe6342dfd73fbb1fe36d562233795d0465a768090",
+      "map_point_count": 558,
+      "reference_pose_checksum": "97819326f58d406fbe149215cb373eb411733bb66dc488f2c364ee71b59c286c",
+      "scan_checksum": "e26decf6165dd23fcfc211246c442100847e923734bf1b541b60539aec17913d",
+      "scan_point_count": 56,
+      "scene_name": "parallel_walls",
+      "snapshot_id": "day1_parallel_walls"
+    },
+    {
+      "config_checksum": "b1aa9972fc8cdf120d00b5ac3604fc11a2ce3c71b8de87c9cc03e471b21b343e",
+      "map_checksum": "f4c0bcfee0573b0949057e0e2c04980711f53a173019e4753d5a97bd07210735",
+      "map_point_count": 1116,
+      "reference_pose_checksum": "97819326f58d406fbe149215cb373eb411733bb66dc488f2c364ee71b59c286c",
+      "scan_checksum": "4e9a003fe7931f09ae044bf90021167203049b888f64ca36e79037df5feeb5de",
+      "scan_point_count": 126,
+      "scene_name": "long_corridor",
+      "snapshot_id": "day1_long_corridor"
+    }
+  ],
+  "trial_counts": {
+    "frozen_jacobian": 540,
+    "full_reassociation": 540,
+    "total": 1080
+  }
+}
