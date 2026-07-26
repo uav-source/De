@@ -1,0 +1,59 @@
+schema_version: mun_frl_pilot_interval_lock_v1
+dataset: MUN-FRL
+sequence: mun_frl_lighthouse
+timestamp_clock: message_header_seconds
+bag_sha256: 562bafc57dab7fdac3d8959cf6836b3f4508c4fa60147b11d718552180543162
+
+lock:
+  state: FROZEN_BEFORE_DETECTOR
+  selected_without_detector_outputs: true
+  detector_outputs_examined: false
+  detector_metrics_used_for_selection: []
+  selection_inputs:
+    - raw_velodyne_pointcloud_geometry
+    - position_only_navsatfix_enu_trajectory
+    - raw_scan_scene_montage
+  selection_script: scripts/129_inspect_mun_frl_intervals.py
+  evidence:
+    raw_scene_descriptors_csv_sha256: 9e27df2246dba8ee77808e61518dfcca903e47d7af370e2cff370d427c8b94c5
+    raw_trajectory_and_geometry_png_sha256: af624577c1a85a75ed5e0317be570efdbc20438e9131191da90aa24b0c51915c
+    raw_scan_scene_montage_png_sha256: 63c5906c71df11cee2232259b8dfdc643e35794b844eab77775af95da5b54b62
+
+intervals:
+  - interval_id: structural_candidate_01
+    start_timestamp: 1645814048.0
+    end_timestamp: 1645814062.0
+    label: structural_degeneracy_candidate
+    selection_basis: >-
+      Raw scans are dominated by a long single-sided near-linear structure.
+      Across 14 detector-free 1 Hz samples, raw XY covariance anisotropy has
+      median 130.43 and range 45.32--331.66. The interval was selected without
+      information matrices or detector outputs.
+    selected_without_detector_outputs: true
+    reference_axis:
+      frame: ENU
+      vector: [0.0661649255084597, 0.8914753871073371, 0.4482118213682939]
+      source: pre_detector_position_only_rtk_channel_centerline_endpoints
+      endpoint_start_enu_m: [3.592606820134286, 3.847267110259095, 2.399997828202153]
+      endpoint_end_enu_m: [4.242132077029747, 12.598667877011858, 6.799986132890881]
+      endpoint_separation_m: 9.816760948554444
+      angular_uncertainty_deg: 15.0
+      uncertainty_basis: >-
+        Conservative allowance for reported RTK endpoint covariance, finite
+        endpoint separation, and the approximation of the traversed path as
+        the visible channel centerline.
+      sign_ambiguous: true
+      uses_detector_eigenvector: false
+      uses_detector_metric: false
+
+  - interval_id: geometry_rich_control_01
+    start_timestamp: 1645814164.0
+    end_timestamp: 1645814178.0
+    label: geometry_rich_control
+    selection_basis: >-
+      Raw scans show intersecting/offset structures rather than one dominant
+      near-line. Across 14 detector-free 1 Hz samples, raw XY covariance
+      anisotropy has median 9.60 and range 6.46--15.45. The interval was
+      selected without information matrices or detector outputs.
+    selected_without_detector_outputs: true
+
