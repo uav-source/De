@@ -1,0 +1,53 @@
+{
+  "affected_files": [
+    "src/eval/navsat_reference.py::trajectory_error_rows",
+    "src/eval/measurement_real_analysis.py::evaluate_pilot_gates",
+    "scripts/132_analyze_mun_frl_measurement_pilot.py::baseline_analysis",
+    "src/eval/measurement_pilot_scientific_audit.py::write_corrected_evaluation_v2"
+  ],
+  "affected_outputs": [
+    "tables/trajectory_errors.csv future-growth values/correlation",
+    "tables/baseline_comparison.csv eigengap interpretation",
+    "tables/pilot_gate_summary.csv ODI effectiveness predicate"
+  ],
+  "after_checksums": {
+    "before_after_evaluation.csv": "1ded9fde18572be7aa07166ca9a6ad997e0f11ac0349342e43e347d7bf20110d",
+    "corrected_gate_summary.csv": "0f9ef5dd389af837195629150f605819ed585d1d383554a8f751642fc6573fe7"
+  },
+  "all_original_gates_reexecuted": true,
+  "before_checksums": {
+    "baseline_comparison.csv": "fd6df02c713247ee2e9ce87940f9a9ea6108cb9357dbeb0c3d3819fe2add53f6",
+    "frame_metrics.csv": "ea25499e53e7dfa39a51db87dd9e0330ef0435cecef6d775da7282618b4092f4",
+    "pilot_gate_summary.csv": "595faa8495671e457fe9149b81b25b8343b74b0c03b34dfbd3d53c7a7b029e0a",
+    "trajectory_errors.csv": "e9f78952533bcf1f73f054889df1b67143d015400edcfaff144dd170f930765b"
+  },
+  "bug_descriptions": [
+    "the original future index used the first odometry sample at or after t+5 instead of exact native-stream interpolation",
+    "the original baseline called eigengap ratio a degeneration score although it measures direction identifiability",
+    "the original ODI correlation gate used absolute correlation rather than the preregistered risk direction"
+  ],
+  "corrected_engineering_gate_pass": true,
+  "corrected_pilot_pass": false,
+  "corrected_runtime_target_pass": true,
+  "corrected_scientific_gate_pass": false,
+  "corrections": [
+    "exact target-time interpolation on independent estimator and native RTK grids",
+    "eigengap semantics corrected to direction identifiability",
+    "correlation gate polarity corrected to risk-oriented positive direction"
+  ],
+  "formal_conclusion_changed": false,
+  "frozen_identity": {
+    "bag_sha256": "562bafc57dab7fdac3d8959cf6836b3f4508c4fa60147b11d718552180543162",
+    "formal_future_window_seconds": 5.0,
+    "interval_lock_sha256": "c74d3af08054979c2cf0ecbb086a7b218a6541f691b82a1eb20706047086e4b4",
+    "odi_trigger_threshold": 0.035199792993590634
+  },
+  "old_results_overwritten": false,
+  "original_gate_condition_count": 23,
+  "same_ais_formula": true,
+  "same_bag": true,
+  "same_detector_threshold": true,
+  "same_frozen_intervals": true,
+  "same_odi_formula": true,
+  "schema_version": "measurement_pilot_corrected_evaluation_v2"
+}

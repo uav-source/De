@@ -1,0 +1,11 @@
+candidate,finding,confirmed,material_to_formal_fail,decision_role
+metric_score_polarity,ODI polarity correct; eigengap baseline semantics and abs-correlation gate are incorrect,True,False,component evaluation defect
+time_alignment,all streams use header seconds; frozen -0.0034 s IMU offset is applied,False,False,excluded
+future_error_timestamp_interpolation,original uses first sample at/after t+5 rather than exact t+5 interpolation,True,False,non-material corrected-evaluation defect
+coordinate_frame_transform,FAST world -> ENU Kabsch rotation and sign-invariant angle are correct,False,False,excluded
+frozen_interval_label,absolute-strength and shape-information families both show control is weaker,True,True,PRIMARY_CATEGORY_B
+reference_axis,declared uncertainty crosses the 30 degree gate; 3-D centerline dominated by height,True,True,secondary concurrent limitation
+ODI_independent_novelty,ODI risk rank equals negative exported entropy/effective-rank rank,True,True,independent advantage rejected
+eigengap_calibration,only five unreliable structural frames,True,True,"validation insufficient, not invalid metric"
+trigger_implementation,predicate and lock are correct; real ODI minimum is far above synthetic q95 threshold,False,False,"domain-transfer failure, not code bug"
+method_negative,cannot be isolated because label and reference are invalid,False,False,not scientifically confirmable

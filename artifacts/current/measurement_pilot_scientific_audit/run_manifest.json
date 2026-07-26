@@ -1,0 +1,285 @@
+{
+  "archive_tag": "archive/measurement-real-pilot-fail-v1",
+  "audit_branch": "audit/measurement-pilot-scientific-audit",
+  "audit_execution_commit": "3dc92cc6b1db25aa9e93733ea61c5338753be59f",
+  "audit_name": "Measurement Pilot Scientific Audit",
+  "bag_path": "/home/lj/Degen-LIO-data/day7_minimal_samples/mun_frl/lighthouse_francis_sample.bag",
+  "bag_sha256": "562bafc57dab7fdac3d8959cf6836b3f4508c4fa60147b11d718552180543162",
+  "bundle_path": "/tmp/Degen-LIO-measurement-pilot-before-scientific-audit.bundle",
+  "bundle_sha256": "5c45d68da9460d0e319136ec5a3e8e72397d34c4e850fe3052b425b78b1b3d91",
+  "corrected_evaluation_v2": {
+    "affected_files": [
+      "src/eval/navsat_reference.py::trajectory_error_rows",
+      "src/eval/measurement_real_analysis.py::evaluate_pilot_gates",
+      "scripts/132_analyze_mun_frl_measurement_pilot.py::baseline_analysis",
+      "src/eval/measurement_pilot_scientific_audit.py::write_corrected_evaluation_v2"
+    ],
+    "affected_outputs": [
+      "tables/trajectory_errors.csv future-growth values/correlation",
+      "tables/baseline_comparison.csv eigengap interpretation",
+      "tables/pilot_gate_summary.csv ODI effectiveness predicate"
+    ],
+    "after_checksums": {
+      "before_after_evaluation.csv": "1ded9fde18572be7aa07166ca9a6ad997e0f11ac0349342e43e347d7bf20110d",
+      "corrected_gate_summary.csv": "0f9ef5dd389af837195629150f605819ed585d1d383554a8f751642fc6573fe7"
+    },
+    "all_original_gates_reexecuted": true,
+    "before_checksums": {
+      "baseline_comparison.csv": "fd6df02c713247ee2e9ce87940f9a9ea6108cb9357dbeb0c3d3819fe2add53f6",
+      "frame_metrics.csv": "ea25499e53e7dfa39a51db87dd9e0330ef0435cecef6d775da7282618b4092f4",
+      "pilot_gate_summary.csv": "595faa8495671e457fe9149b81b25b8343b74b0c03b34dfbd3d53c7a7b029e0a",
+      "trajectory_errors.csv": "e9f78952533bcf1f73f054889df1b67143d015400edcfaff144dd170f930765b"
+    },
+    "bug_descriptions": [
+      "the original future index used the first odometry sample at or after t+5 instead of exact native-stream interpolation",
+      "the original baseline called eigengap ratio a degeneration score although it measures direction identifiability",
+      "the original ODI correlation gate used absolute correlation rather than the preregistered risk direction"
+    ],
+    "corrected_engineering_gate_pass": true,
+    "corrected_pilot_pass": false,
+    "corrected_runtime_target_pass": true,
+    "corrected_scientific_gate_pass": false,
+    "corrections": [
+      "exact target-time interpolation on independent estimator and native RTK grids",
+      "eigengap semantics corrected to direction identifiability",
+      "correlation gate polarity corrected to risk-oriented positive direction"
+    ],
+    "formal_conclusion_changed": false,
+    "frozen_identity": {
+      "bag_sha256": "562bafc57dab7fdac3d8959cf6836b3f4508c4fa60147b11d718552180543162",
+      "formal_future_window_seconds": 5.0,
+      "interval_lock_sha256": "c74d3af08054979c2cf0ecbb086a7b218a6541f691b82a1eb20706047086e4b4",
+      "odi_trigger_threshold": 0.035199792993590634
+    },
+    "old_results_overwritten": false,
+    "original_gate_condition_count": 23,
+    "same_ais_formula": true,
+    "same_bag": true,
+    "same_detector_threshold": true,
+    "same_frozen_intervals": true,
+    "same_odi_formula": true,
+    "schema_version": "measurement_pilot_corrected_evaluation_v2"
+  },
+  "counts": {
+    "control_valid": 139,
+    "detector_valid": 1719,
+    "frame_lifecycle": 1722,
+    "lag_grid": 81,
+    "random_equivalence_spectra": 10000,
+    "random_so3_trials": 100,
+    "structural_valid": 139
+  },
+  "decision": {
+    "CORRECTED_EVALUATION_CHANGES_FORMAL_CONCLUSION": false,
+    "EVALUATION_BUG_CONFIRMED": false,
+    "FRAME_TRANSFORM_BUG_CONFIRMED": false,
+    "FUTURE_ERROR_IMPLEMENTATION_BUG_CONFIRMED": true,
+    "MEASUREMENT_PLAN_STATUS": "NEW_PREREGISTERED_REPLACEMENT_PILOT_REQUIRED",
+    "METHOD_NEGATIVE_CONFIRMED": false,
+    "METRIC_DIRECTION_BUG_CONFIRMED": true,
+    "ODI_EXACTLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": true,
+    "ODI_INDEPENDENT_RANKING_INFORMATION_CONFIRMED": false,
+    "ODI_MEASUREMENT_MAINLINE_AUTHORIZED": false,
+    "ODI_MONOTONICALLY_EQUIVALENT_TO_SPECTRAL_ENTROPY": true,
+    "ORIGINAL_MEASUREMENT_REAL_PILOT_PASS": false,
+    "ORIGINAL_PILOT_RESULT_REMAINS_FAIL": true,
+    "PILOT_LABEL_INVALIDATED": true,
+    "PRIMARY_AUDIT_CONCLUSION": "PILOT_LABEL_INVALIDATED",
+    "PRIMARY_CONCLUSION_CATEGORY": "B",
+    "REAL_DOMAIN_THRESHOLD_TRANSFER_FAILED": true,
+    "REFERENCE_INSUFFICIENT": true,
+    "RELIABILITY_VALIDATION_SUFFICIENT": false,
+    "REPLACEMENT_PILOT_AUTHORIZED": true,
+    "SCIENTIFIC_AUDIT_COMPLETE": true,
+    "SECOND_DATASET_EXPANSION_AUTHORIZED": false,
+    "TIME_ALIGNMENT_BUG_CONFIRMED": false,
+    "TRIGGER_IMPLEMENTATION_BUG_CONFIRMED": false
+  },
+  "decision_evidence": {
+    "corrected_evaluation_changes_formal_conclusion": false,
+    "frame_transform_bug_confirmed": false,
+    "future_error_implementation_bug_confirmed": true,
+    "method_negative_criteria_satisfied": true,
+    "metric_direction_bug_confirmed": true,
+    "odi_exactly_equivalent": true,
+    "odi_monotonically_equivalent": true,
+    "pilot_label_invalidated": true,
+    "real_domain_threshold_transfer_failed": true,
+    "reference_insufficient": true,
+    "reliability_validation_sufficient": false,
+    "time_alignment_bug_confirmed": false,
+    "trigger_implementation_bug_confirmed": false
+  },
+  "figure_contracts": [
+    {
+      "family": "relationship/scatter",
+      "file": "figures/odi_vs_spectral_entropy.png",
+      "grain": "detector-valid frame",
+      "supported_claim": "exported entropy is an exact monotonic transform of ODI"
+    },
+    {
+      "family": "relationship/scatter",
+      "file": "figures/odi_vs_effective_rank.png",
+      "grain": "detector-valid frame",
+      "supported_claim": "exported effective rank equals 3-2*ODI"
+    },
+    {
+      "family": "sensitivity/line",
+      "file": "figures/time_lag_sensitivity.png",
+      "grain": "81 fixed diagnostic lags",
+      "supported_claim": "zero lag remains formal and no lag was selected post hoc"
+    },
+    {
+      "family": "relationship/scatter",
+      "file": "figures/weak_direction_reference_overlay.png",
+      "grain": "structural valid frame",
+      "supported_claim": "weak and reference axes are compared in ENU"
+    },
+    {
+      "family": "comparison/line",
+      "file": "figures/interval_eigenvalue_timeline.png",
+      "grain": "frozen-interval frame",
+      "supported_claim": "control minimum/middle information is weaker"
+    },
+    {
+      "family": "comparison/line",
+      "file": "figures/interval_correspondence_support.png",
+      "grain": "frozen-interval frame",
+      "supported_claim": "support counts do not rescue the label"
+    },
+    {
+      "family": "trajectory/line",
+      "file": "figures/reference_axis_trajectory.png",
+      "grain": "structural RTK fix",
+      "supported_claim": "height and subwindow motion destabilize the 3-D proxy"
+    },
+    {
+      "family": "relationship/scatter",
+      "file": "figures/eigengap_vs_angle_error.png",
+      "grain": "structural valid frame",
+      "supported_claim": "only five frames are below the reliability threshold"
+    },
+    {
+      "family": "distribution/histogram",
+      "file": "figures/threshold_vs_real_distribution.png",
+      "grain": "frozen-interval frame",
+      "supported_claim": "real ODI lies above the synthetic trigger threshold"
+    }
+  ],
+  "formal_results": {
+    "odi_entropy_risk_rank_equality": 1.0,
+    "odi_entropy_spearman_raw": -1.0,
+    "odi_raw_auroc": 0.0019667719062160345,
+    "odi_reversed_diagnostic_auroc": 0.9980332280937839,
+    "odi_semantic_auroc": 0.0019667719062160345,
+    "odi_zero_lag_future_growth_spearman": -0.17295426497977115,
+    "positive_class": "structural_degeneracy_candidate",
+    "structural_direction_median_3d_deg": 30.705691451918934,
+    "structural_direction_median_xy_deg_diagnostic": 10.211230839121976
+  },
+  "information_family_comparisons": [
+    {
+      "control_median": 0.813142068184089,
+      "control_more_degenerate": true,
+      "metric": "ODI_trans",
+      "risk_direction": "higher",
+      "structural_median": 0.6910180001724595
+    },
+    {
+      "control_median": 3.017109214165186,
+      "control_more_degenerate": true,
+      "metric": "AIS_trans",
+      "risk_direction": "lower",
+      "structural_median": 3.574160942169383
+    },
+    {
+      "control_median": 3.696397730751123,
+      "control_more_degenerate": true,
+      "metric": "lambda_min_trans",
+      "risk_direction": "lower",
+      "structural_median": 11.901429919806246
+    },
+    {
+      "control_median": 52.61752144102639,
+      "control_more_degenerate": true,
+      "metric": "condition_number_trans",
+      "risk_direction": "higher",
+      "structural_median": 16.88064283700664
+    },
+    {
+      "control_median": 0.019005076115582487,
+      "control_more_degenerate": true,
+      "metric": "lambda_min_over_lambda_max",
+      "risk_direction": "lower",
+      "structural_median": 0.05923945015931188
+    },
+    {
+      "control_median": 0.3175193773873316,
+      "control_more_degenerate": true,
+      "metric": "spectral_entropy_trans",
+      "risk_direction": "lower",
+      "structural_median": 0.4811685684846145
+    },
+    {
+      "control_median": 1.373715863631822,
+      "control_more_degenerate": true,
+      "metric": "effective_rank_trans",
+      "risk_direction": "lower",
+      "structural_median": 1.617963999655081
+    }
+  ],
+  "initial_branch": "feature/measurement-real-validation",
+  "initial_commit": "732dcff74921cb1da0d37267881ee77c5995e870",
+  "interval_lock_sha256": "c74d3af08054979c2cf0ecbb086a7b218a6541f691b82a1eb20706047086e4b4",
+  "original_pilot_flags": {
+    "MEASUREMENT_REAL_PILOT_PASS": false,
+    "ODI_ADVANTAGE_ESTABLISHED": false,
+    "SECOND_DATASET_EXPANSION_AUTHORIZED": false,
+    "STAGE2_GATE": "FAIL",
+    "TRANSITION": "PIVOT"
+  },
+  "pilot_artifact_dir": "/home/lj/Degen-LIO/artifacts/current/measurement_real_validation_pilot",
+  "pilot_tree_sha256_after": "d4185c7269a0cd2c34aaa5951793962503cca88b0b8691c85428a23442fce849",
+  "pilot_tree_sha256_before": "d4185c7269a0cd2c34aaa5951793962503cca88b0b8691c85428a23442fce849",
+  "pilot_tree_unchanged": true,
+  "prohibitions": {
+    "ais_formula_modified": false,
+    "git_push_performed": false,
+    "interval_reselected": false,
+    "odi_formula_modified": false,
+    "original_negative_result_overwritten": false,
+    "second_dataset_used": false,
+    "threshold_tuned": false,
+    "visual_sensor_added": false,
+    "weak_direction_update_restored": false
+  },
+  "python": {
+    "executable": "/usr/local/bin/python3.11",
+    "implementation": "CPython",
+    "version": "3.11.15"
+  },
+  "retained_input_sha256": {
+    "detector_lock.json": "075f14217f5e9c782bc1ab4051e6533f34d4932399c7f4b8cbc60a03d62fe358",
+    "fastlio_odometry.csv": "88b11ffd447d2df8c231490dfcdf3fdd5e7fb6f7a6fc1a608cd61c295f110f7c",
+    "mun_frl_lighthouse.yaml": "6432293f6592a830d8d08ed16bc9bfc31a235d0aa9f7fce2c3933c31b581615d",
+    "mun_frl_pilot_intervals.yaml": "c74d3af08054979c2cf0ecbb086a7b218a6541f691b82a1eb20706047086e4b4",
+    "navsat_fix.csv": "0bb868230aab96d4da6aaac01b737fc860057691571e917d9927cd62c913c46d",
+    "odi_threshold_calibration.json": "8648d64a8e2228e913bd9debcef3bae2ba8bb5aeb23ba73f89a9abb354c176af",
+    "raw_scene_descriptors.csv": "9e27df2246dba8ee77808e61518dfcca903e47d7af370e2cff370d427c8b94c5",
+    "runtime_audit_v2.bin": "88bd2f9e2d45b4d23d7866e2957c55d6c63d694aa25b8d5ec55b3000379a6f42"
+  },
+  "runtime_audit_integrity": {
+    "endianness": "little",
+    "extra_byte_count": 0,
+    "file_checksum": 2682749449613937587,
+    "file_checksum_valid": true,
+    "magic": "HBRTAUD2",
+    "path": "/home/lj/Degen-LIO/results/measurement_real_validation/mun_frl_lighthouse_pilot/raw/runtime_audit_v2.bin",
+    "record_checksum_failure_count": 0,
+    "record_count": 1722,
+    "trailer_valid": true,
+    "truncated_record_count": 0,
+    "version": 2
+  },
+  "schema_version": "measurement_pilot_scientific_audit_v1"
+}

@@ -1,0 +1,30 @@
+audit_item,value,unit,interpretation
+construction,normalized difference of RTK ENU positions linearly interpolated at frozen interval endpoints,contract,position-only motion centerline proxy
+endpoint_start_enu,3.59260682013;3.84726711026;2.3999978282,m,frozen start
+endpoint_end_enu,4.24213207703;12.598667877;6.79998613289,m,frozen end
+axis_enu,0.0661649255085;0.891475387107;0.448211821368,unit_vector,matches frozen configuration
+configured_axis_reconstruction_error,0.0,degree,numerical reconstruction check
+endpoint_separation_3d,9.816760948554444,m,finite baseline
+endpoint_separation_horizontal,8.775471408401145,m,horizontal baseline
+endpoint_vertical_change,4.399988304688728,m,large height contribution
+axis_elevation,26.62901402225395,degree,formal 3-D axis elevation
+frozen_interval_duration,14.0,second,14-second reference construction window
+half_window_endpoint_axis_angle,65.72308671569905,degree,large first-half/second-half motion-axis change; reference is not locally stable
+quarter_window_endpoint_axis_max_pairwise_angle,88.29086160267366,degree,maximum sign-invariant disagreement among four equal-duration subwindows
+aligned_lio_motion_axis_vs_reference_axis,2.241972008105064,degree,shows trajectory-motion consistency after global alignment; does not validate an environmental null axis
+reference_axis_subwindow_stable,False,boolean,half and quarter endpoint axes vary too strongly for a sharp 30-degree environmental-axis claim
+declared_angular_uncertainty,15.0,degree,no confidence level was specified
+rtk_fix_count,70,count,approximately 5 Hz
+rtk_covariance_sigma_enu_median,0.72;0.72;1.44,m,covariance_type=approximate
+pca_axis_3d_vs_endpoint,6.532431786851679,degree,whole-interval axis stability
+pca_line_residual_median,0.7824959534277097,m,3-D straight-line residual
+pca_line_residual_q95,1.8726536733559727,m,3-D straight-line residual
+xy_pca_vs_endpoint,0.4557217005043955,degree,horizontal path is much more stable
+xy_line_residual_median,0.1628327375364271,m,horizontal straight-line residual
+formal_3d_angle_error_median,30.705691451918934,degree,formal gate diagnostic
+formal_3d_angle_error_q05_q95,25.2338141061;34.2588718493,degree,frame distribution
+formal_3d_median_uncertainty_interval,15.7056914519;45.7056914519,degree,declared +/-15 degree bound straddles 30 degree gate
+horizontal_xy_angle_error_median,10.211230839121976,degree,diagnostic only; cannot replace formal 3-D gate
+horizontal_xy_angle_error_q05_q95,1.07091346107;20.6009366399,degree,diagnostic only
+weak_absolute_elevation_median,2.703710787636972,degree,weak directions are nearly horizontal
+reference_sufficient_for_30_degree_gate,False,boolean,uncertainty crosses gate and motion axis is not independent environment-null ground truth

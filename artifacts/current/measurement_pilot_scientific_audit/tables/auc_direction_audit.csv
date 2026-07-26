@@ -1,0 +1,10 @@
+metric_name,positive_class,positive_class_value,negative_class,count,positive_count,negative_count,risk_oriented_transform,semantic_status,AUC_raw,AUC_semantically_oriented,AUC_reversed_diagnostic,PR_AUC_semantically_oriented,reversed_is_formal_result
+ODI_trans,structural_degeneracy_candidate,1,geometry_rich_control,278,139,139,risk_score = raw_score,FORMAL_SEMANTIC_POLARITY,0.0019667719062160345,0.0019667719062160345,0.9980332280937839,0.30867412475909894,False
+AIS_trans,structural_degeneracy_candidate,1,geometry_rich_control,278,139,139,risk_score = -raw_score,FORMAL_SEMANTIC_POLARITY,1.0,0.0,0.0,0.3086481457898473,False
+lambda_min_trans,structural_degeneracy_candidate,1,geometry_rich_control,278,139,139,risk_score = -raw_score,FORMAL_SEMANTIC_POLARITY,1.0,0.0,0.0,0.3086481457898473,False
+condition_number_trans,structural_degeneracy_candidate,1,geometry_rich_control,278,139,139,risk_score = raw_score,FORMAL_SEMANTIC_POLARITY,0.0,0.0,1.0,0.3086481457898473,False
+lambda_min_over_lambda_max,structural_degeneracy_candidate,1,geometry_rich_control,278,139,139,risk_score = -raw_score,FORMAL_SEMANTIC_POLARITY,1.0,0.0,0.0,0.3086481457898473,False
+spectral_entropy_trans,structural_degeneracy_candidate,1,geometry_rich_control,278,139,139,risk_score = -raw_score,FORMAL_SEMANTIC_POLARITY,0.9980332280937839,0.0019667719062160345,0.0019667719062160345,0.30867412475909894,False
+effective_rank_trans,structural_degeneracy_candidate,1,geometry_rich_control,278,139,139,risk_score = -raw_score,FORMAL_SEMANTIC_POLARITY,0.9980332280937839,0.0019667719062160345,0.0019667719062160345,0.30867412475909894,False
+primary_eigengap,structural_degeneracy_candidate,1,geometry_rich_control,278,139,139,N/A for degeneration label; -raw is only a direction-unreliability diagnostic,NOT_A_FORMAL_DEGENERATION_RISK_SCORE,0.41317737177164743,nan,0.5868226282283525,nan,False
+primary_eigengap_ratio,structural_degeneracy_candidate,1,geometry_rich_control,278,139,139,N/A for degeneration label; -raw is only a direction-unreliability diagnostic,NOT_A_FORMAL_DEGENERATION_RISK_SCORE,0.3661301174887428,nan,0.6338698825112572,nan,False

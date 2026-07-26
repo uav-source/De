@@ -1,0 +1,16 @@
+audit_item,result,status
+formal_original_definition,g_k = e_j - e_k; j=min{j:t_j>=t_k+5.0}; e_k=norm(R*p_hat_k+t-r(t_k)),CONFIRMED_FROM_SOURCE
+exact_five_second_definition,g_exact(t)=norm(p_hat_aligned(t+5)-r(t+5))-norm(p_hat_aligned(t)-r(t)),CORRECTED_EVALUATION_V2_DIAGNOSTIC
+formal_original_odi_spearman,-0.17295426497977115,FORMAL_5_SECOND_RESULT
+exact_interpolation_odi_spearman,-0.1762088640488564,NON_MATERIAL_CORRECTION_DIAGNOSTIC
+current_count,1669,MEASURED
+exact_count,1669,MEASURED
+tail_without_window_count,50,MEASURED
+horizon_min_seconds,5.0000011920928955,MEASURED
+horizon_median_seconds,5.053111791610718,MEASURED
+horizon_q95_seconds,5.099507093429565,MEASURED
+horizon_max_seconds,5.15474796295166,MEASURED
+growth_difference_abs_q95_m,0.015449939933191008,MEASURED
+growth_difference_abs_max_m,0.04519732426711617,MEASURED
+growth_sign_change_count,24,MEASURED
+current_exact_pearson,0.9970123373413958,MEASURED

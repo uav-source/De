@@ -1,0 +1,6 @@
+source,comparison,count,pearson_raw,spearman_raw,kendall_tau_raw,risk_rank_equality_ratio,odi_unique_rank_count,comparison_unique_rank_count,monotonic_order_violation_count,analytic_relation,analytic_relation_max_abs_residual
+all_detector_valid_real_frames,spectral_entropy_trans,1719,-0.9978065831718217,-1.0,-1.0,1.0,1719,1719,0,spectral_entropy = log(3 - 2*ODI),0.0
+all_detector_valid_real_frames,effective_rank_trans,1719,-1.0,-1.0,-1.0,1.0,1719,1719,0,effective_rank = 3 - 2*ODI,0.0
+all_detector_valid_real_frames,normalized_eigenvalue_entropy_unregularized,1719,-0.9978065754753842,-1.0,-1.0,1.0,1719,1719,0,diagnostic entropy from stored unregularized lambda/sum,2.32533742056118e-06
+random_positive_eigenvalue_triples_seed_20260726,spectral_entropy_trans,10000,-0.9918111028750279,-1.0,-0.9999999999999999,1.0,10000,10000,0,spectral_entropy = log(3 - 2*ODI),1.1102230246251565e-16
+random_positive_eigenvalue_triples_seed_20260726,effective_rank_trans,10000,-1.0,-1.0,-0.9999999999999999,1.0,10000,10000,0,effective_rank = 3 - 2*ODI,0.0

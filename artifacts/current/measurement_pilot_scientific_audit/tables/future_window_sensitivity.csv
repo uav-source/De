@@ -1,0 +1,9 @@
+window_seconds,definition,formal_result,count,median_future_error_growth_m,odi_spearman_rho,window_selected_post_hoc
+1.0,first_sample_at_or_after_target,False,278,-0.009836505761548098,0.03355387193680481,False
+1.0,exact_target_vector_interpolation_diagnostic,False,278,-0.008199083632111803,0.04664655372476212,False
+3.0,first_sample_at_or_after_target,False,278,-0.010265918405745394,-0.1268871940993845,False
+3.0,exact_target_vector_interpolation_diagnostic,False,278,-0.012413465076947544,-0.12939335267549323,False
+5.0,first_sample_at_or_after_target,True,278,-0.03496600694670554,-0.17295426497977115,False
+5.0,exact_target_vector_interpolation_diagnostic,False,278,-0.0353928792214037,-0.1762088640488564,False
+10.0,first_sample_at_or_after_target,False,278,-0.0995515638507973,-0.4240476723081765,False
+10.0,exact_target_vector_interpolation_diagnostic,False,278,-0.09945281419025684,-0.4170681854423296,False

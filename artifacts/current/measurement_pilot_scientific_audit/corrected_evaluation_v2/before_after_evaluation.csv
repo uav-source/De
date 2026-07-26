@@ -1,0 +1,5 @@
+item,before,after,before_value,after_value,before_gate_pass,after_gate_pass,material_gate_change
+future_5_second_index,first odometry sample at or after t+5,independent interpolation of aligned estimator and native RTK streams at exact t+5,-0.17295426497977115,-0.1762088640488564,False,False,False
+eigengap_ratio_semantics,higher_is_more_degenerate baseline,excluded from formal degeneration AUC; high means direction more identifiable,0.3661301174887428,NOT_A_FORMAL_DEGENERATION_SCORE,False,False,False
+correlation_gate_polarity,abs(Spearman) >= 0.4,semantically risk-oriented Spearman >= 0.4,-0.17295426497977115,-0.17295426497977115,False,False,False
+ODI_formal_AUROC,positive class structural candidate; raw ODI risk polarity,unchanged semantic formula and positive class,0.0019667719062160345,0.0019667719062160345,False,False,False
