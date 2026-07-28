@@ -1,0 +1,8 @@
+{
+  "PHASE_A_EXECUTION_CHAIN_ANALYSIS_PASS": true,
+  "PHASE_A_EXECUTION_CHAIN_FAILURE_CLASSIFICATION_PASS": true,
+  "PHASE_A_EXECUTION_CHAIN_FIXTURE_PASS": true,
+  "PHASE_A_EXECUTION_CHAIN_SCHEMA_PASS": true,
+  "input_checksum_pairing_violation_count": 0,
+  "metric_recomputation_mismatch_count": 0
+}

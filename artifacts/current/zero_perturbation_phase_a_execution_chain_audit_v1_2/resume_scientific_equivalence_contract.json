@@ -1,0 +1,159 @@
+{
+  "contract": {
+    "analysis_equivalence": {
+      "exact": [
+        "trial_ids",
+        "snapshot_ids",
+        "backend_inventory",
+        "failure_inventory",
+        "input_pairing_audit",
+        "decision"
+      ],
+      "final_decisions_must_be_identical": true,
+      "gate_decisions_must_be_identical": true,
+      "numeric_tolerance": [
+        "translation_summary",
+        "rotation_summary",
+        "runtime_summary"
+      ],
+      "runtime_summary_non_decisive": true
+    },
+    "comparison_classes": [
+      "EXACT",
+      "NUMERIC_TOLERANCE",
+      "IGNORED_RUNTIME_METADATA",
+      "NULL_CONSISTENCY",
+      "FAILURE_DETAIL_PRESENCE"
+    ],
+    "exact_fields": {
+      "catalog_field_count": 30,
+      "common": [
+        "schema_version",
+        "planned_trial_id",
+        "snapshot_id",
+        "scene_variant",
+        "condition",
+        "backend",
+        "protocol_sha256",
+        "snapshot_lock_sha256",
+        "snapshot_checksum",
+        "source_checksum",
+        "target_checksum",
+        "reference_pose_checksum",
+        "implementation_sha256",
+        "solver_failure",
+        "failure_classification",
+        "raw_rotation_finite",
+        "finite_output"
+      ],
+      "open3d_backend_diagnostics": [
+        "correspondence_set_size"
+      ],
+      "pcl_backend_diagnostics": [
+        "pcl_version",
+        "pcl_cli_sha256",
+        "exit_code",
+        "has_converged_raw",
+        "iteration_count",
+        "correspondence_count"
+      ],
+      "pcl_source_normal_statistics": [
+        "finite_count",
+        "zero_count",
+        "nan_count"
+      ],
+      "pcl_target_normal_statistics": [
+        "finite_count",
+        "zero_count",
+        "nan_count"
+      ]
+    },
+    "failure_detail": {
+      "failure_classification_exact": true,
+      "failure_requires_both_nonempty_strings": true,
+      "success_requires_both_null": true,
+      "text_identity_reported_but_non_decisive": true
+    },
+    "identity": {
+      "applies_to": "fixture_execution_chain_round_comparison",
+      "name": "fresh_resumed_scientific_equivalence",
+      "strict_existing_result_resume_validation_changed": false
+    },
+    "ignored_runtime_metadata": [
+      "runtime_ms",
+      "timestamp_utc",
+      "attempt_event_timestamp",
+      "temporary_directory_path",
+      "process_id",
+      "thread_id",
+      "execution_order",
+      "started_resumed_event_time_difference"
+    ],
+    "numeric_fields": {
+      "common_scalars": [
+        "translation_update_m",
+        "rotation_update_rad",
+        "raw_rotation_determinant",
+        "orthogonality_defect_fro",
+        "projection_correction_fro"
+      ],
+      "matrix": {
+        "element_count": 16,
+        "path": "final_transform_4x4"
+      },
+      "named_scalar_field_count": 14,
+      "open3d_backend_diagnostics": [
+        "fitness",
+        "inlier_rmse"
+      ],
+      "pcl_backend_diagnostics": [
+        "fitness_score"
+      ],
+      "pcl_source_normal_statistics": [
+        "norm_min",
+        "norm_median",
+        "norm_max"
+      ],
+      "pcl_target_normal_statistics": [
+        "norm_min",
+        "norm_median",
+        "norm_max"
+      ],
+      "scalar_comparison_slot_count_including_matrix": 30
+    },
+    "numeric_tolerance": {
+      "absolute_tolerance": 1e-12,
+      "finite_values_only": true,
+      "formula": "abs(a-b) <= absolute_tolerance + relative_tolerance * max(abs(a), abs(b))",
+      "relative_tolerance": 1e-12,
+      "rounding_before_comparison_forbidden": true,
+      "storage_precision_change_forbidden": true
+    },
+    "prohibitions": [
+      "changing_trial_result_schema",
+      "changing_strict_existing_result_resume_validation",
+      "changing_writer",
+      "changing_analysis_or_independent_verifier",
+      "changing_backend_or_backend_parameters",
+      "changing_scientific_metric_gate_threshold_or_quantile"
+    ],
+    "resume_flow_counts": {
+      "fresh_completed_trials": 6,
+      "resume_reexecuted_valid_results": 0,
+      "resume_skipped_valid_results": 2,
+      "resumed_completed_trials": 6
+    },
+    "schema_version": "phase_a_resume_scientific_equivalence_contract_v1",
+    "tolerance_negligibility": {
+      "gate": "NUMERIC_EQUIVALENCE_TOLERANCE_NEGLIGIBLE_RELATIVE_TO_SCIENTIFIC_GATES",
+      "minimum_required_ratio": "1.0e8",
+      "rotation_qualification_threshold_rad": 0.00017453292519943296,
+      "rotation_threshold_to_atol_ratio": 174532925.19943297,
+      "translation_qualification_threshold_m": 0.001,
+      "translation_threshold_to_atol_ratio": "1.0e9"
+    }
+  },
+  "contract_path": "configs/zero_perturbation/resume_scientific_equivalence_v1.yaml",
+  "contract_sha256": "d813d4c6d1959bcb9639059da06d91faeffc480cfe660211081a4cc81ceb3419",
+  "schema_version": "phase_a_resume_scientific_equivalence_contract_artifact_v1"
+}

@@ -1,0 +1,14 @@
+planned_trial_id,json_field_path,fresh_value,resumed_value,absolute_difference,relative_difference,allowed_tolerance,comparison_class,passed
+fixture-audit-v1/identity/open3d_point_to_plane,runtime_ms,3.697256004670635,2.2283930011326447,,,,IGNORED_RUNTIME_METADATA,True
+fixture-audit-v1/identity/pcl_point_to_plane,runtime_ms,93.96040099818492,66.49271700007375,,,,IGNORED_RUNTIME_METADATA,True
+fixture-audit-v1/no-correspondence/open3d_point_to_plane,runtime_ms,1.8914350002887659,1.8879060007748194,,,,IGNORED_RUNTIME_METADATA,True
+fixture-audit-v1/no-correspondence/pcl_point_to_plane,runtime_ms,89.4390530011151,63.52231900382321,,,,IGNORED_RUNTIME_METADATA,True
+fixture-audit-v1/nonidentity-reference/open3d_point_to_plane,runtime_ms,2.055154000117909,1.9953920054831542,,,,IGNORED_RUNTIME_METADATA,True
+fixture-audit-v1/nonidentity-reference/pcl_point_to_plane,runtime_ms,79.46588099730434,94.12192400486674,,,,IGNORED_RUNTIME_METADATA,True
+<analysis>,runtime_summary.open3d_point_to_plane.median,2.055154000117909,1.9953920054831542,0.059761994634754956,0.029079083431862655,3.055154000117909e-12,IGNORED_RUNTIME_METADATA,True
+<analysis>,runtime_summary.open3d_point_to_plane.q95_linear,3.5330458042153623,2.2050929015676957,1.3279529026476666,0.3758663137237717,4.5330458042153624e-12,IGNORED_RUNTIME_METADATA,True
+<analysis>,runtime_summary.open3d_point_to_plane.maximum,3.697256004670635,2.2283930011326447,1.4688630035379902,0.3972846353302067,4.697256004670635e-12,IGNORED_RUNTIME_METADATA,True
+<analysis>,runtime_summary.pcl_point_to_plane.median,89.4390530011151,66.49271700007375,22.946336001041345,0.25655835153750184,9.04390530011151e-11,IGNORED_RUNTIME_METADATA,True
+<analysis>,runtime_summary.pcl_point_to_plane.q95_linear,93.50826619847794,91.35900330438744,2.149262894090498,0.022984736873727662,9.450826619847793e-11,IGNORED_RUNTIME_METADATA,True
+<analysis>,runtime_summary.pcl_point_to_plane.maximum,93.96040099818492,94.12192400486674,0.16152300668181852,0.001716103961851297,9.512192400486673e-11,IGNORED_RUNTIME_METADATA,True
+<analysis>,attempt_event_count,12,17,,,,IGNORED_RUNTIME_METADATA,True

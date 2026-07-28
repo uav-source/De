@@ -1,0 +1,260 @@
+{
+  "attempt_event_count": 12,
+  "backend_inventory": [
+    {
+      "backend": "open3d_point_to_plane",
+      "failure_count": 1,
+      "success_count": 2,
+      "trial_count": 3
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "failure_count": 1,
+      "success_count": 2,
+      "trial_count": 3
+    }
+  ],
+  "decision": {
+    "PHASE_A_EXECUTION_CHAIN_ANALYSIS_PASS": true,
+    "PHASE_A_EXECUTION_CHAIN_FAILURE_CLASSIFICATION_PASS": true,
+    "PHASE_A_EXECUTION_CHAIN_FIXTURE_PASS": true,
+    "PHASE_A_EXECUTION_CHAIN_SCHEMA_PASS": true,
+    "input_checksum_pairing_violation_count": 0,
+    "metric_recomputation_mismatch_count": 0
+  },
+  "failure_inventory": [
+    {
+      "count": 4,
+      "failure_classification": "NONE"
+    },
+    {
+      "count": 2,
+      "failure_classification": "NO_CORRESPONDENCES"
+    }
+  ],
+  "fixture_summary": [
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_IDENTITY",
+      "failure_classification": "NONE",
+      "finite_output": true,
+      "rotation_update_rad": 0.0,
+      "solver_failure": false,
+      "translation_update_m": 0.0
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_IDENTITY",
+      "failure_classification": "NONE",
+      "finite_output": true,
+      "rotation_update_rad": 1.476578570471183e-09,
+      "solver_failure": false,
+      "translation_update_m": 1.4692796620711302e-09
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_NO_CORRESPONDENCE",
+      "failure_classification": "NO_CORRESPONDENCES",
+      "finite_output": true,
+      "rotation_update_rad": 0.0,
+      "solver_failure": true,
+      "translation_update_m": 0.0
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_NO_CORRESPONDENCE",
+      "failure_classification": "NO_CORRESPONDENCES",
+      "finite_output": true,
+      "rotation_update_rad": 0.0,
+      "solver_failure": true,
+      "translation_update_m": 0.0
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+      "failure_classification": "NONE",
+      "finite_output": true,
+      "rotation_update_rad": 1.7336640716374422e-10,
+      "solver_failure": false,
+      "translation_update_m": 5.276362628526608e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+      "failure_classification": "NONE",
+      "finite_output": true,
+      "rotation_update_rad": 5.506491058604584e-09,
+      "solver_failure": false,
+      "translation_update_m": 5.497296680144685e-09
+    }
+  ],
+  "input_pairing_audit": [
+    {
+      "backend": "open3d_point_to_plane",
+      "checksum_match": true,
+      "planned_trial_id": "fixture-audit-v1/identity/open3d_point_to_plane",
+      "snapshot_id": "fixture-audit-v1/identity"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "checksum_match": true,
+      "planned_trial_id": "fixture-audit-v1/identity/pcl_point_to_plane",
+      "snapshot_id": "fixture-audit-v1/identity"
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "checksum_match": true,
+      "planned_trial_id": "fixture-audit-v1/no-correspondence/open3d_point_to_plane",
+      "snapshot_id": "fixture-audit-v1/no-correspondence"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "checksum_match": true,
+      "planned_trial_id": "fixture-audit-v1/no-correspondence/pcl_point_to_plane",
+      "snapshot_id": "fixture-audit-v1/no-correspondence"
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "checksum_match": true,
+      "planned_trial_id": "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane",
+      "snapshot_id": "fixture-audit-v1/nonidentity-reference"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "checksum_match": true,
+      "planned_trial_id": "fixture-audit-v1/nonidentity-reference/pcl_point_to_plane",
+      "snapshot_id": "fixture-audit-v1/nonidentity-reference"
+    }
+  ],
+  "rotation_summary": [
+    {
+      "backend": "open3d_point_to_plane",
+      "count": 3,
+      "maximum": 1.7336640716374422e-10,
+      "median": 0.0,
+      "q95_linear": 1.560297664473698e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "count": 3,
+      "maximum": 5.506491058604584e-09,
+      "median": 1.476578570471183e-09,
+      "q95_linear": 5.103499809791243e-09
+    }
+  ],
+  "runtime_summary": [
+    {
+      "backend": "open3d_point_to_plane",
+      "count": 3,
+      "maximum": 3.697256004670635,
+      "median": 2.055154000117909,
+      "q95_linear": 3.5330458042153623
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "count": 3,
+      "maximum": 93.96040099818492,
+      "median": 89.4390530011151,
+      "q95_linear": 93.50826619847794
+    }
+  ],
+  "schema_version": "phase_a_execution_chain_analysis_v1",
+  "snapshot_ids": [
+    "fixture-audit-v1/identity",
+    "fixture-audit-v1/no-correspondence",
+    "fixture-audit-v1/nonidentity-reference"
+  ],
+  "translation_summary": [
+    {
+      "backend": "open3d_point_to_plane",
+      "count": 3,
+      "maximum": 5.276362628526608e-10,
+      "median": 0.0,
+      "q95_linear": 4.748726365673946e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "count": 3,
+      "maximum": 5.497296680144685e-09,
+      "median": 1.4692796620711302e-09,
+      "q95_linear": 5.094494978337329e-09
+    }
+  ],
+  "trial_count": 6,
+  "trial_ids": [
+    "fixture-audit-v1/identity/open3d_point_to_plane",
+    "fixture-audit-v1/identity/pcl_point_to_plane",
+    "fixture-audit-v1/no-correspondence/open3d_point_to_plane",
+    "fixture-audit-v1/no-correspondence/pcl_point_to_plane",
+    "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane",
+    "fixture-audit-v1/nonidentity-reference/pcl_point_to_plane"
+  ],
+  "trial_inventory": [
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_IDENTITY",
+      "failure_classification": "NONE",
+      "finite_output": true,
+      "planned_trial_id": "fixture-audit-v1/identity/open3d_point_to_plane",
+      "result_path": "raw_results/6eb862d2dc4253e82abb7be44edb788d1893bdf37317d73ccea5fb7897cc12a5.json",
+      "result_sha256": "a3e214449c88e7d2f899164ae80dbf1f1066686964e991c476e7a98017ba7a63",
+      "snapshot_id": "fixture-audit-v1/identity",
+      "solver_failure": false
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_IDENTITY",
+      "failure_classification": "NONE",
+      "finite_output": true,
+      "planned_trial_id": "fixture-audit-v1/identity/pcl_point_to_plane",
+      "result_path": "raw_results/1cd8274d364f7d1e86b695292cf65b607dfcbc333c397167d12aedc5c697fbe0.json",
+      "result_sha256": "4a7ca8b6b2421f1948903549a30166a7a8ae28fbf4539b5ed2a3b9e9c2085207",
+      "snapshot_id": "fixture-audit-v1/identity",
+      "solver_failure": false
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_NO_CORRESPONDENCE",
+      "failure_classification": "NO_CORRESPONDENCES",
+      "finite_output": true,
+      "planned_trial_id": "fixture-audit-v1/no-correspondence/open3d_point_to_plane",
+      "result_path": "raw_results/72dfbd85ebe9817849c211af9db6a11e9ee9ab12f9212d5f15fd433ca57c8722.json",
+      "result_sha256": "df20528ce2b9af460bce2b252babb70d3d37a4cbbd32ab4042f769783c276606",
+      "snapshot_id": "fixture-audit-v1/no-correspondence",
+      "solver_failure": true
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_NO_CORRESPONDENCE",
+      "failure_classification": "NO_CORRESPONDENCES",
+      "finite_output": true,
+      "planned_trial_id": "fixture-audit-v1/no-correspondence/pcl_point_to_plane",
+      "result_path": "raw_results/d9f058779d456ce4bf2e30929e91be452ae0c269c6b09bc3d017cfbaafdf9757.json",
+      "result_sha256": "3eb1f04606ded5683f2f141aac8d0d2fe1f2f7da4de59bb03a21482ca9b22845",
+      "snapshot_id": "fixture-audit-v1/no-correspondence",
+      "solver_failure": true
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+      "failure_classification": "NONE",
+      "finite_output": true,
+      "planned_trial_id": "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane",
+      "result_path": "raw_results/47683411aaf0a74f0afae9a46ba1b3f93b9d132fd3356a78801dce9d4f7509ea.json",
+      "result_sha256": "f5ffc509aec1e05e791a8befd805be8227a8a9247a30479c202cebeb0f71ca34",
+      "snapshot_id": "fixture-audit-v1/nonidentity-reference",
+      "solver_failure": false
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+      "failure_classification": "NONE",
+      "finite_output": true,
+      "planned_trial_id": "fixture-audit-v1/nonidentity-reference/pcl_point_to_plane",
+      "result_path": "raw_results/c23e0d0edb1b97e7453099a20dfc227394f8523817df1f6df798e222b896d724.json",
+      "result_sha256": "f972d66f39e697ffb6e2067a88253abff313b349f008d99e4291eb31d9879bdf",
+      "snapshot_id": "fixture-audit-v1/nonidentity-reference",
+      "solver_failure": false
+    }
+  ]
+}
