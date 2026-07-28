@@ -1,6 +1,7 @@
 import hashlib
 import json
 
+import matplotlib
 import pytest
 
 from capture_range.anchor_validity_pipeline import (
@@ -57,6 +58,8 @@ def test_pipeline_output_contract_requires_exact_files_checksums_and_fixed_test_
 
 
 def test_all_six_figures_render_with_locked_matplotlib_api(tmp_path):
+    original_font_size = matplotlib.rcParams["font.size"]
+    original_figure_dpi = matplotlib.rcParams["figure.dpi"]
     figures = tmp_path / "figures"
     figures.mkdir()
     formal = [
@@ -101,3 +104,5 @@ def test_all_six_figures_render_with_locked_matplotlib_api(tmp_path):
     _figures(figures, formal, noise, anchors, dispersion, mechanisms)
     assert {path.name for path in figures.iterdir()} == set(FIGURE_FILES)
     assert all((figures / name).read_bytes().startswith(b"\x89PNG") for name in FIGURE_FILES)
+    assert matplotlib.rcParams["font.size"] == original_font_size
+    assert matplotlib.rcParams["figure.dpi"] == original_figure_dpi

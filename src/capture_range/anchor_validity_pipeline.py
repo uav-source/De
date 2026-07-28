@@ -1016,7 +1016,25 @@ def _figures(
     dispersion_rows: Sequence[Mapping[str, Any]],
     mechanism_rows: Sequence[Mapping[str, Any]],
 ) -> None:
-    plt.rcParams.update({"figure.dpi": 110, "font.size": 8})
+    with plt.rc_context({"figure.dpi": 110, "font.size": 8}):
+        _render_figures(
+            figures,
+            formal_rows,
+            noise_summary,
+            anchor_rows,
+            dispersion_rows,
+            mechanism_rows,
+        )
+
+
+def _render_figures(
+    figures: Path,
+    formal_rows: Sequence[Mapping[str, Any]],
+    noise_summary: Sequence[Mapping[str, Any]],
+    anchor_rows: Sequence[Mapping[str, Any]],
+    dispersion_rows: Sequence[Mapping[str, Any]],
+    mechanism_rows: Sequence[Mapping[str, Any]],
+) -> None:
     scenes = sorted({str(row["scene_variant"]) for row in formal_rows})
     methods = ("full_reassociation", "frozen_jacobian")
 
