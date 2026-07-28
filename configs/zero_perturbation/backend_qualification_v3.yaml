@@ -1,0 +1,198 @@
+schema_version: zero_perturbation_pcl_backend_qualification_v3
+
+protocol:
+  name: pcl_backend_rotation_metric_validity_requalification_v3
+  version: "3.0.0"
+  protocol_type: rotation_metric_validity_requalification
+  status: prospectively_frozen_before_v3_metric_implementation_or_microtest_rerun
+  phase_a_authorized_before_run: false
+  phase_b_authorized: false
+  development_seed_access_authorized: false
+  confirmatory_seed_access_authorized: false
+  allowed_microtests_only:
+    - NONDEGENERATE_IDENTITY
+    - KNOWN_SMALL_TRANSFORM
+    - PLANAR_DEGENERACY_DIAGNOSTIC
+
+v2_archive:
+  branch: feature/zero-perturbation-pcl-backend-qualification-v2
+  commit: f43c11f615a9b03c9e20bd80fcbf2b6c604b5d35
+  tag: archive/zero-perturbation-pcl-backend-qualification-v2-fail
+  tag_target_commit: f43c11f615a9b03c9e20bd80fcbf2b6c604b5d35
+  bundle_path: /home/lj/zero_perturbation_pcl_backend_qualification_v2_fail_f43c11f.bundle
+  bundle_sha256: 7d7e53669718a61e099182440b7a340bc4cab109a24bb9fd2fab36bce77dacc2
+  preserved_decision:
+    test_a: PASS
+    test_b: FAIL
+    test_c: PASS
+    PCL_BACKEND_IMPLEMENTATION_VALID: false
+    PCL_BACKEND_PHASE_A_QUALIFICATION_AUTHORIZED: false
+  failure_reclassification:
+    V2_RAW_TRACE_ACOS_ROTATION_GATE_FAIL: true
+    V2_ROTATION_MATRIX_NEAR_SO3: true
+    V2_METRIC_VALIDITY_REQUIRES_AUDIT: true
+    v2_report_rewrite_forbidden: true
+
+v2_full_precision_numeric_record:
+  source_path: artifacts/current/zero_perturbation_backend_qualification_v2/raw/test_b_result.json
+  source_sha256: aa7acbb63d76c45598fbc34fbf60d5fbb79573fd915c8c128f4ef90be3d35a18
+  raw_rotation_3x3:
+    - [0.9999482035636902, 0.008726413361728191, 0.0052359639666974545]
+    - [-0.008744754828512669, 0.9999557137489319, 0.0034906044602394104]
+    - [-0.005205271299928427, -0.0035362106282263994, 0.9999801516532898]
+  orthogonality_defect_fro: 1.3075527226247165e-7
+  determinant: 0.9999999816350786
+  raw_trace_acos_argument: 0.9999999908175403
+  raw_trace_acos_rotation_error_rad: 1.355172291302067e-4
+  projection_correction_fro: 6.537763624716303e-8
+  projected_atan2_rotation_error_rad_diagnostic: 3.34878216948272e-9
+  maximum_elementwise_error_to_truth: 4.8335439650770695e-8
+
+immutable_inputs:
+  fixture_generator:
+    path: tests/data/pcl_backend_v2/generate_fixtures.py
+    sha256: 40ff3b4045bad58b42ac3fdfa331d2a62aead2df502146d1211ca8215208e498
+  nondegenerate_source:
+    path: tests/data/pcl_backend_v2/nondegenerate_source.pcd
+    sha256: 7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c
+  nondegenerate_target:
+    path: tests/data/pcl_backend_v2/nondegenerate_target.pcd
+    sha256: 7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c
+  known_small_transform_source:
+    path: tests/data/pcl_backend_v2/known_small_transform_source.pcd
+    sha256: d3b2bb34cecd6a33a277bee8057f97989a5b2ed50b9476cfe4c2133a21d6df6c
+  known_small_transform_truth:
+    path: tests/data/pcl_backend_v2/known_small_transform_truth.json
+    sha256: d23251eb12d17f49a9c79f5a5c15bb35ee34481885079c3d7ccee778da582e3c
+    passed_to_registration_cli: false
+  identity_config:
+    path: tests/data/pcl_backend_v2/nondegenerate_identity_config.json
+    sha256: 9283453df34f7dd092dc29b8f98895f11b163105950e04a38aba7a8954f36bd5
+  known_transform_config:
+    path: tests/data/pcl_backend_v2/known_small_transform_config.json
+    sha256: c87f76c98190899b96456aec444d7296d9c5bf3e2b0865ea3ff109ab02e050af
+  planar_diagnostic_config:
+    path: tests/data/pcl_backend_v2/planar_degeneracy_config.json
+    sha256: ac4814b890daff2fe29efdf178239068cf08d9e44daa1b003ab8de5e57a028ac
+  v1_planar_source:
+    path: tests/data/pcl_backend/identity_source.pcd
+    sha256: b34c107bbb291a99c139fdd7787bde5101911d7e0a506bb0bba2e1a0f4c40a10
+  v1_planar_target:
+    path: tests/data/pcl_backend/identity_target.pcd
+    sha256: af6967943369548ef7f2d31b5e759e25dc277bb15e6471f086b4e450c86d6a92
+
+immutable_backend_contract:
+  required_pcl_version: 1.15.1
+  registration_class: pcl::IterativeClosestPointWithNormals
+  transformation_estimation: pcl::registration::TransformationEstimationPointToPlaneLLS
+  normal_estimation:
+    implementation: pcl::NormalEstimationOMP
+    method: KSearch
+    k: 50
+    threads: 1
+  icp:
+    maximum_correspondence_distance_m: 0.50
+    maximum_iterations: 50
+    transformation_epsilon: 1.0e-10
+    euclidean_fitness_epsilon: 1.0e-10
+    use_reciprocal_correspondences: false
+    use_symmetric_objective: false
+    enforce_same_direction_normals: true
+  parameter_difference_from_v2_target: 0
+  normal_parameter_difference_from_v2_target: 0
+
+rotation_serialization:
+  input_source: highest_precision_numeric_values_from_raw_json
+  float_minimum_significant_digits: std::numeric_limits<float>::max_digits10
+  double_minimum_significant_digits: std::numeric_limits<double>::max_digits10
+  json_strategy: round_trip_numeric_serialization
+  icp_result_modification_forbidden: true
+
+nearest_so3_projection:
+  decomposition: R_raw = U * Sigma * V_transpose
+  reflection_handling:
+    D: diag(1, 1, sign(det(U * V_transpose)))
+    R_projected: U * D * V_transpose
+    require_projected_determinant_positive: true
+  truth_rotation:
+    finite_required: true
+    determinant_positive_required: true
+    orthogonality_verified: true
+    modification_forbidden: true
+
+rotation_matrix_quality_gate:
+  raw_rotation_finite: true
+  raw_rotation_determinant_positive: true
+  orthogonality_defect_fro_max: 1.0e-5
+  abs_raw_determinant_minus_one_max: 1.0e-5
+  projection_correction_fro_max: 1.0e-5
+  projection_cannot_rescue_quality_failure: true
+
+formal_rotation_error:
+  R_error: R_truth_transpose * R_projected
+  cos_theta: clip((trace(R_error) - 1) / 2, -1, 1)
+  sin_theta: 0.5 * norm([R21-R12, R02-R20, R10-R01])
+  rotation_error_rad: atan2(sin_theta, cos_theta)
+  raw_trace_acos_rotation_error_rad:
+    retained_as_diagnostic_only: true
+    formal_gate_use_forbidden: true
+
+cross_implementation_verification:
+  implementation_1: C++ Eigen JacobiSVD with reflection-safe projection and atan2
+  implementation_2: Python NumPy SVD with reflection-safe projection and atan2
+  maximum_absolute_difference_rad: 1.0e-10
+  choose_smaller_value_if_mismatch_forbidden: true
+  mismatch_stops_v3: true
+
+microtests:
+  NONDEGENERATE_IDENTITY:
+    fixture_and_initial_transform_changed_from_v2: false
+    gates:
+      translation_update_norm_m_max: 1.0e-8
+      rotation_update_norm_rad_max: 1.0e-8
+      rotation_matrix_quality_pass: true
+      rotation_metric_crosscheck_pass: true
+      has_converged_raw: true
+      final_transform_finite: true
+      fitness_finite: true
+      correspondence_count_min_exclusive: 0
+      invalid_normal_count: 0
+  KNOWN_SMALL_TRANSFORM:
+    fixture_truth_and_initial_transform_changed_from_v2: false
+    truth_passed_to_registration_cli: false
+    gates:
+      translation_error_to_truth_m_max: 1.0e-4
+      projected_atan2_rotation_error_to_truth_rad_max: 1.0e-4
+      rotation_matrix_quality_pass: true
+      rotation_metric_crosscheck_pass: true
+      has_converged_raw: true
+      final_transform_finite: true
+      fitness_finite: true
+  PLANAR_DEGENERACY_DIAGNOSTIC:
+    fixture_changed_from_v2: false
+    point_cloud_rank: 2
+    point_to_plane_jacobian_rank_max_exclusive: 6
+    rank_deficient: true
+    has_converged_raw_required: false
+
+authorization:
+  implementation_valid_expression: A_pass and B_pass and C_pass and rotation_matrix_quality_pass and rotation_metric_crosscheck_pass and parameter_fixture_truth_seed_firewalls_pass
+  if_expression_true:
+    PCL_BACKEND_IMPLEMENTATION_VALID: true
+    PCL_BACKEND_PHASE_A_QUALIFICATION_AUTHORIZED: true
+  otherwise:
+    PCL_BACKEND_IMPLEMENTATION_VALID: false
+    PCL_BACKEND_PHASE_A_QUALIFICATION_AUTHORIZED: false
+  authorization_scope_if_true: Phase_A_protocol_and_run_only
+  phase_a_execution_in_v3: false
+  phase_b_execution_in_v3: false
+  third_backend_substitution_forbidden: true
+
+protected_components:
+  open3d_modification_forbidden: true
+  native_modification_forbidden: true
+  odi_modification_forbidden: true
+  d50_restoration_forbidden: true
+  fast_lio2_modification_forbidden: true
+  scene_generator_modification_forbidden: true
+  git_push_forbidden: true
