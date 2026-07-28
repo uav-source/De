@@ -1,0 +1,12 @@
+{
+  "fixture_only": true,
+  "initial_transform": "identity",
+  "is_formal_phase_a": false,
+  "point_file": "nondegenerate_identity.xyz",
+  "point_file_sha256": "675050d33ddead9924d06439262337d6e44781dfa3ed7f9ea6b31bacf7ebb7b4",
+  "point_count": 911,
+  "point_covariance_rank": 3,
+  "random_seed_used": false,
+  "schema_version": "backend_phase_a_runner_fixture_v1",
+  "source_equals_target": true
+}
