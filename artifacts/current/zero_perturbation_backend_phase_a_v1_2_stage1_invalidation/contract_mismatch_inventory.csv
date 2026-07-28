@@ -1,0 +1,10 @@
+mismatch_id,component,required_contract,observed_contract,classification
+M01,common_result,scene_variant required,scene_variant absent,REQUIRED_FIELD_MISSING
+M02,common_result,snapshot_lock_sha256 required,snapshot_lock_sha256 absent,REQUIRED_FIELD_MISSING
+M03,common_result,solver_failure bool,solver_failed bool,OLD_ALIAS
+M04,common_result,failure_classification string,failure_classifications array,OLD_ALIAS
+M05,open3d_diagnostics,correspondence_set_size,correspondence_count,OLD_ALIAS
+M06,pcl_diagnostics,exit_code,cli_exit_code,OLD_ALIAS
+M07,resume,strict complete schema validation,partial identity and checksum validation,INCOMPLETE_VALIDATION
+M08,independent_verifier,frozen verifier required,absent,MISSING_COMPONENT
+M09,publisher,frozen publisher required,absent,MISSING_COMPONENT
