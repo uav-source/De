@@ -66,7 +66,12 @@ def _write_csv(
 ) -> None:
     names = list(fieldnames)
     with path.open("w", newline="", encoding="utf-8") as stream:
-        writer = csv.DictWriter(stream, fieldnames=names, extrasaction="ignore")
+        writer = csv.DictWriter(
+            stream,
+            fieldnames=names,
+            extrasaction="ignore",
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
 

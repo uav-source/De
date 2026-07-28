@@ -60,7 +60,9 @@ def _csv(path: Path, rows: list[dict[str, Any]]) -> None:
     if not rows:
         raise ValueError("cannot write empty planned manifest")
     with path.open("w", newline="", encoding="utf-8") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(
+            stream, fieldnames=list(rows[0]), lineterminator="\n"
+        )
         writer.writeheader()
         writer.writerows(rows)
 
