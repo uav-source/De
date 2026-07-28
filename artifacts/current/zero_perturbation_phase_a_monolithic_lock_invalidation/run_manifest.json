@@ -1,0 +1,9 @@
+{
+  "archive_bundle_path": "/tmp/Degen-LIO-zero-perturbation-monolithic-lock-architecture-fail.bundle",
+  "archive_bundle_sha256": "1136ae8f39690b3a13ce065b1325a672a5179fed97912681400f41da51eb2584",
+  "archive_tag": "archive/zero-perturbation-phase-a-monolithic-lock-architecture-fail",
+  "initial_branch": "feature/zero-perturbation-phase-a-final-resume-equivalence",
+  "initial_commit": "184fb9d1f00803c84d10d906846313626a7fb7fc",
+  "new_branch": "feature/zero-perturbation-phase-a-lock-architecture-v2",
+  "schema_version": "phase_a_monolithic_lock_invalidation_manifest_v1"
+}

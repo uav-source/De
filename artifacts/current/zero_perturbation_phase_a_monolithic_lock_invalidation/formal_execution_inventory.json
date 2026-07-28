@@ -1,0 +1,10 @@
+{
+  "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_SEED_ACCESS_COUNT": 0,
+  "FORMAL_TRIAL_RESULT_COUNT": 0,
+  "NATIVE_EXECUTION_COUNT": 0,
+  "SCIENTIFIC_RESULT_EXPOSURE_COUNT": 0,
+  "attempt_started_count": 0,
+  "schema_version": "phase_a_monolithic_lock_formal_execution_inventory_v1"
+}
+
