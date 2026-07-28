@@ -1,0 +1,31 @@
+Script started on 2026-07-28 16:46:28+08:00 [TERM="dumb" TTY="/dev/pts/3" COLUMNS="80" LINES="24"]
+Test project /home/lj/Degen-LIO/build/pcl_point_to_plane
+
+    Start 1: pcl_identical_cloud_identity
+
+1/1 Test #1: pcl_identical_cloud_identity .....***Failed  Required regular expression not found. Regex=["has_converged":true.*"translation_update_norm_m":0
+
+]  0.05 sec
+
+{"backend_name":"pcl_point_to_plane","failure_reason":"pcl_icp_did_not_converge_or_nonfinite","final_transformation_4x4":null,"finite_output":false,"fitness_score":null,"has_converged":false,"pcl_version":"1.15.1","reference_pose_checksum":"identity-pose","rotation_update_norm_rad":null,"runtime_ms":0.428671,"snapshot_checksum":"identity-snapshot","source_checksum":"identity-fixture","source_point_count":64,"target_checksum":"identity-fixture","target_point_count":64,"translation_update_norm_m":null,"trial_id":"pcl-cli-identical-cloud-identity"}
+
+
+
+
+
+0% tests passed, 1 tests failed out of 1
+
+
+
+Total Test time (real) =   0.05 sec
+
+
+
+The following tests FAILED:
+
+	  1 - pcl_identical_cloud_identity (Failed)
+
+Errors while running CTest
+
+
+Script done on 2026-07-28 16:46:29+08:00 [COMMAND_EXIT_CODE="8"]

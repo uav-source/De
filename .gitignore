@@ -25,6 +25,7 @@ data/**
 !data/.gitkeep
 
 results/**
+build/
 
 # Historical compact evidence is intentionally tracked
 !artifacts/

@@ -1,0 +1,28 @@
+{
+  "trial_id": "pcl-cli-identical-cloud-identity",
+  "source_path": "identity_source.pcd",
+  "target_path": "identity_target.pcd",
+  "initial_transformation_4x4": [
+    1.0, 0.0, 0.0, 0.0,
+    0.0, 1.0, 0.0, 0.0,
+    0.0, 0.0, 1.0, 0.0,
+    0.0, 0.0, 0.0, 1.0
+  ],
+  "parameters": {
+    "normal_estimation": {"method": "KSearch", "k": 50},
+    "icp": {
+      "maximum_correspondence_distance_m": 0.50,
+      "maximum_iterations": 50,
+      "transformation_epsilon": 1.0e-10,
+      "euclidean_fitness_epsilon": 1.0e-10,
+      "use_reciprocal_correspondences": false,
+      "use_symmetric_objective": false,
+      "enforce_same_direction_normals": true
+    }
+  },
+  "source_checksum": "identity-fixture",
+  "target_checksum": "identity-fixture",
+  "reference_pose_checksum": "identity-pose",
+  "snapshot_checksum": "identity-snapshot"
+}
+

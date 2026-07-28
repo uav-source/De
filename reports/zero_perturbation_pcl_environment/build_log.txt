@@ -1,0 +1,217 @@
+Script started on 2026-07-28 16:45:24+08:00 [TERM="dumb" TTY="/dev/pts/3" COLUMNS="80" LINES="24"]
+-- The C compiler identification is GNU 9.4.0
+
+-- The CXX compiler identification is GNU 9.4.0
+
+-- Detecting C compiler ABI info
+
+-- Detecting C compiler ABI info - done
+
+-- Check for working C compiler: /usr/bin/cc - skipped
+
+-- Detecting C compile features
+
+-- Detecting C compile features - done
+
+-- Detecting CXX compiler ABI info
+
+-- Detecting CXX compiler ABI info - done
+
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+
+-- Detecting CXX compile features
+
+-- Detecting CXX compile features - done
+
+-- Found nlohmann_json: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake (found version "3.12.0")
+
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+
+-- Looking for pthread_create in pthreads
+
+-- Looking for pthread_create in pthreads - not found
+
+-- Looking for pthread_create in pthread
+
+-- Looking for pthread_create in pthread - found
+
+-- Found Threads: TRUE
+
+-- Found utf8cpp: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include
+
+-- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.11")
+
+-- Found PNG: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpng.so (found version "1.6.58")
+
+-- Check if compiler accepts -pthread
+
+-- Check if compiler accepts -pthread - yes
+
+-- Found WrapVulkanHeaders: /usr/include
+
+-- Performing Test HAVE_STDATOMIC
+
+-- Performing Test HAVE_STDATOMIC - Success
+
+-- Found WrapAtomic: TRUE
+
+-- Found OpenGL: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libOpenGL.so
+
+-- Found WrapOpenGL: TRUE
+
+-- Found Eigen3: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/eigen3 (found version "..")
+
+-- Found X11: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include
+
+-- Looking for XOpenDisplay in /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libX11.so;/home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libXext.so
+
+-- Looking for XOpenDisplay in /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libX11.so;/home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libXext.so - found
+
+-- Looking for gethostbyname
+
+-- Looking for gethostbyname - found
+
+-- Looking for connect
+
+-- Looking for connect - found
+
+-- Looking for remove
+
+-- Looking for remove - found
+
+-- Looking for shmat
+
+-- Looking for shmat - found
+
+-- Looking for IceConnectionNumber in ICE
+
+-- Looking for IceConnectionNumber in ICE - found
+
+-- Found EXPAT: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libexpat.so (found suitable version "2.8.1", minimum required is "2.2.1")
+
+-- Found JPEG: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libjpeg.so (found version "80")
+
+-- Found TIFF: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libtiff.so (found version "4.7.2")
+
+-- Found LZ4: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/liblz4.so (found version "1.10.0")
+
+-- Found LZMA: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/liblzma.so (found version "5.8.3")
+
+-- Could NOT find freetype (missing: freetype_DIR)
+
+-- Found Freetype: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libfreetype.so (found version "2.14.3")
+
+-- Found OpenMP_CXX: -fopenmp (found version "4.5")
+
+-- Found OpenMP: TRUE (found version "4.5") found components: CXX
+
+-- Found flann version 1.9.2
+
+-- looking for PCL_COMMON
+
+-- Found PCL_COMMON: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpcl_common.so
+
+-- looking for PCL_OCTREE
+
+-- Found PCL_OCTREE: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpcl_octree.so
+
+-- looking for PCL_IO_PLY
+
+-- Found PCL_IO_PLY: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpcl_io_ply.so
+
+-- looking for PCL_IO
+
+-- Found PCL_IO: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpcl_io.so
+
+-- looking for PCL_SAMPLE_CONSENSUS
+
+-- Found PCL_SAMPLE_CONSENSUS: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpcl_sample_consensus.so
+
+-- looking for PCL_FILTERS
+
+-- Found PCL_FILTERS: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpcl_filters.so
+
+-- looking for PCL_2D
+
+-- Found PCL_2D: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/pcl-1.15
+
+-- looking for PCL_FEATURES
+
+-- Found PCL_FEATURES: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpcl_features.so
+
+-- looking for PCL_SEARCH
+
+-- Found PCL_SEARCH: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpcl_search.so
+
+-- looking for PCL_KDTREE
+
+-- Found PCL_KDTREE: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpcl_kdtree.so
+
+-- looking for PCL_REGISTRATION
+
+-- Found PCL_REGISTRATION: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/libpcl_registration.so
+
+-- Found PCL: pcl_common;pcl_octree;pcl_io_ply;pcl_io;pcl_sample_consensus;pcl_filters;pcl_features;pcl_search;pcl_kdtree;pcl_registration;Boost::iostreams;Boost::filesystem;Boost::serialization;VTK::ChartsCore;VTK::CommonColor;VTK::CommonComputationalGeometry;VTK::CommonCore;VTK::CommonDataModel;VTK::CommonExecutionModel;VTK::CommonMath;VTK::CommonMisc;VTK::CommonTransforms;VTK::FiltersCore;VTK::FiltersExtraction;VTK::FiltersGeneral;VTK::FiltersGeometry;VTK::FiltersModeling;VTK::FiltersSources;VTK::ImagingCore;VTK::ImagingSources;VTK::InteractionImage;VTK::InteractionStyle;VTK::InteractionWidgets;VTK::IOCore;VTK::IOGeometry;VTK::IOImage;VTK::IOLegacy;VTK::IOPLY;VTK::RenderingAnnotation;VTK::RenderingCore;VTK::RenderingContext2D;VTK::RenderingLOD;VTK::RenderingFreeType;VTK::ViewsCore;VTK::ViewsContext2D;VTK::RenderingOpenGL2;VTK::RenderingContextOpenGL2;VTK::GUISupportQt;FLANN::FLANN (Required is at least version "1.15")
+
+-- Found nlohmann_json: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake (found suitable version "3.12.0", minimum required is "3.2.0")
+
+-- Configuring done (1.8s)
+
+CMake Warning at CMakeLists.txt:7 (add_executable):
+
+  Cannot generate a safe runtime search path for target
+
+  pcl_point_to_plane_cli because files in some directories may conflict with
+
+  libraries in implicit directories:
+
+
+
+    runtime library [libgomp.so.1] in /usr/lib/gcc/x86_64-linux-gnu/9 may be hidden by files in:
+
+      /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib
+
+
+
+  Some of these libraries may not be found correctly.
+
+
+
+
+
+-- Generating done (0.0s)
+
+-- Build files have been written to: /home/lj/Degen-LIO/build/pcl_point_to_plane
+
+
+Script done on 2026-07-28 16:45:26+08:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2026-07-28 16:45:32+08:00 [TERM="dumb" TTY="/dev/pts/3" COLUMNS="80" LINES="24"]
+[1/2] Building CXX object CMakeFiles/pcl_point_to_plane_cli.dir/pcl_point_to_plane_cli.cpp.o
+
+FAILED: [code=1] CMakeFiles/pcl_point_to_plane_cli.dir/pcl_point_to_plane_cli.cpp.o 
+
+/usr/bin/c++ -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_IOSTREAMS_DYN_LINK -DBOOST_IOSTREAMS_NO_LIB -DBOOST_RANDOM_DYN_LINK -DBOOST_RANDOM_NO_LIB -DBOOST_REGEX_DYN_LINK -DBOOST_REGEX_NO_LIB -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_SERIALIZATION_NO_LIB -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_OPENGLWIDGETS_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/pcl-1.15 -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/eigen3 -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/vtk-9.6 -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/vtk-9.6/vtkscn/include -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/vtk-9.6/vtkscn -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/vtk-9.6/token -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/vtk-9.6/vtkkissfft -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/freetype2 -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/vtk-9.6/vtkglad -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/qt6/QtOpenGL -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/qt6 -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/qt6/QtCore -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/lib/qt6/mkspecs/linux-g++ -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/qt6/QtGui -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/qt6/QtWidgets -isystem /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/include/qt6/QtOpenGLWidgets -O3 -DNDEBUG -std=gnu++17 -fPIC -fopenmp -MD -MT CMakeFiles/pcl_point_to_plane_cli.dir/pcl_point_to_plane_cli.cpp.o -MF CMakeFiles/pcl_point_to_plane_cli.dir/pcl_point_to_plane_cli.cpp.o.d -o CMakeFiles/pcl_point_to_plane_cli.dir/pcl_point_to_plane_cli.cpp.o -c /home/lj/Degen-LIO/tools/pcl_point_to_plane/pcl_point_to_plane_cli.cpp
+
+/home/lj/Degen-LIO/tools/pcl_point_to_plane/pcl_point_to_plane_cli.cpp: In function ‘{anonymous}::json {anonymous}::run(const std::filesystem::__cxx11::path&)’:
+
+/home/lj/Degen-LIO/tools/pcl_point_to_plane/pcl_point_to_plane_cli.cpp:210:7: error: ‘class pcl::IterativeClosestPointWithNormals<pcl::PointNormal, pcl::PointNormal>’ has no member named ‘setMaximumCorrespondenceDistance’; did you mean ‘setMaxCorrespondenceDistance’?
+
+  210 |   icp.setMaximumCorrespondenceDistance(kMaximumCorrespondenceDistanceM);
+
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+      |       setMaxCorrespondenceDistance
+
+ninja: build stopped: subcommand failed.
+
+
+Script done on 2026-07-28 16:45:39+08:00 [COMMAND_EXIT_CODE="1"]
+Script started on 2026-07-28 16:45:56+08:00 [TERM="dumb" TTY="/dev/pts/3" COLUMNS="80" LINES="24"]
+[1/2] Building CXX object CMakeFiles/pcl_point_to_plane_cli.dir/pcl_point_to_plane_cli.cpp.o
+
+[2/2] Linking CXX executable pcl_point_to_plane_cli
+
+
+Script done on 2026-07-28 16:46:10+08:00 [COMMAND_EXIT_CODE="0"]
