@@ -1,0 +1,200 @@
+schema_version: directional_capture_range_anchor_validity_audit_v1
+
+authority:
+  name: directional_capture_range_anchor_validity_audit
+  protocol_type: development_only_diagnostic_audit
+  scientific_claim_authorized: false
+  confirmatory_test_authorized: false
+  confirmatory_test_seed_access: forbidden
+  generate_test_lock: false
+  modify_capture_range_protocol: false
+
+frozen_source:
+  branch: feature/directional-capture-range-day2-development
+  commit: 2fa148870cae0ede632de3e1b5c192bb7e37b65d
+  tag: archive/directional-capture-range-day2-development-result
+  development_protocol_path: configs/capture_range/day2_development_feasibility.yaml
+  development_protocol_sha256: efbc316542fd32f801d7df84a33f943d4f4ea2eabc5e9c95a5a0770b0383edec
+  artifact_root: artifacts/current/directional_capture_range_day2_development
+  result_root: results/capture_range/day2_development
+  compact_input_root: artifacts/history/directional_capture_range_day2_development_pre_anchor_audit
+  original_outputs_read_only: true
+
+seed_authority:
+  split: development
+  allowed_geometry_seeds: [1101, 1103, 1107]
+  allowed_measurement_seeds: [2101, 2111]
+  repeats: 5
+  inherit_runtime_firewall_from_development_protocol: true
+  parse_confirmatory_seed_split: false
+  allow_unknown_seed: false
+
+frozen_contract:
+  translation_success_threshold_m: 0.02
+  rotation_success_threshold_deg: 0.5
+  rotation_success_threshold_rad: 0.008726646259971648
+  amplitudes_unchanged: true
+  directions_unchanged: true
+  d50_d90_unchanged: true
+  isotonic_rule_unchanged: true
+  scene_geometry_unchanged: true
+  odi_unchanged: true
+  fast_lio2_unchanged: true
+  vision_used: false
+
+formal_zero_audit:
+  methods: [full_reassociation, frozen_jacobian]
+  signed_amplitude: 0.0
+  perturbation_type: translation
+  diagnostic_direction_id: anchor_zero_identity
+  diagnostic_direction: [1.0, 0.0, 0.0]
+  signed_side: 1
+  formal_runs_per_snapshot_method: 1
+  deterministic_rechecks_per_snapshot_method: 1
+  expected_base_snapshots: 210
+  expected_formal_rows: 420
+  deterministic_pose_difference_tolerance: 1.0e-10
+  minimum_valid_zero_recovery_probability: 0.95
+
+fixed_point_audit:
+  robust_gradient_norm_tolerance: 1.0e-8
+  first_step_translation_tolerance_m: 1.0e-5
+  first_step_rotation_tolerance_rad: 1.0e-5
+  stable_final_translation_tolerance_m: 1.0e-5
+  stable_final_rotation_tolerance_rad: 1.0e-5
+  reference_not_fixed_point_if_any_snapshot_method_satisfies_all:
+    - robust_gradient_above_tolerance
+    - deterministic_recheck_pass
+    - final_pose_shift_above_optimizer_tolerance
+  plane_fit_change_checksum_payload: [plane_normals, plane_centroids]
+
+noise_ablation:
+  conditions_in_order:
+    - condition_id: NOISE_FREE
+      scan_noise_sigma_m: 0.0
+      map_noise_sigma_m: 0.0
+      scan_dropout_fraction: 0.0
+    - condition_id: SCAN_NOISE_ONLY
+      scan_noise_sigma_m: 0.003
+      map_noise_sigma_m: 0.0
+      scan_dropout_fraction: 0.0
+    - condition_id: MAP_NOISE_ONLY
+      scan_noise_sigma_m: 0.0
+      map_noise_sigma_m: 0.001
+      scan_dropout_fraction: 0.0
+    - condition_id: LOCKED_FULL_NOISE
+      scan_noise_sigma_m: 0.003
+      map_noise_sigma_m: 0.001
+      scan_dropout_fraction: 0.01
+  map_dropout_fraction: 0.0
+  methods: [full_reassociation, frozen_jacobian]
+  expected_rows: 1680
+  noise_effect_minimum_success_rate_drop: 0.05
+  noise_effect_minimum_threshold_crossing_fraction: 0.05
+  dropout_causal_contrast_available: false
+  dropout_state_when_causal_contrast_unavailable: false
+  dropout_state_reason: CONFOUNDED_WITH_COMBINED_SCAN_AND_MAP_NOISE
+
+anchor_candidates:
+  candidates_in_order:
+    - GT_REFERENCE_ANCHOR
+    - FULL_ZERO_SOLUTION_ANCHOR
+    - NOISE_FREE_FULL_SOLUTION_ANCHOR
+  recommendation_priority:
+    - FULL_ZERO_SOLUTION_ANCHOR
+    - NOISE_FREE_FULL_SOLUTION_ANCHOR
+    - GT_REFERENCE_ANCHOR
+  full_zero_source_condition: LOCKED_FULL_NOISE
+  noise_free_source_condition: NOISE_FREE
+  absolute_translation_threshold_m: 0.02
+  absolute_rotation_threshold_deg: 0.5
+  absolute_rotation_threshold_rad: 0.008726646259971648
+  deterministic_pose_difference_tolerance: 1.0e-10
+  minimum_snapshot_acceptance_fraction: 0.95
+  repeat_cluster_translation_link_m: 0.02
+  repeat_cluster_rotation_link_deg: 0.5
+  repeat_cluster_rotation_link_rad: 0.008726646259971648
+  multiple_attractors_if_cluster_count_greater_than: 1
+  full_zero_required_for_common_anchor: true
+
+common_anchor:
+  translation_eligibility_threshold_m: 0.02
+  rotation_eligibility_threshold_deg: 0.5
+  rotation_eligibility_threshold_rad: 0.008726646259971648
+  minimum_route_eligible_fraction: 0.80
+  report_raw_distance_eligibility_even_when_anchor_invalid: true
+
+d50_zero_root_cause:
+  source_file: artifacts/current/directional_capture_range_day2_development/capture_radius_summary.csv
+  exact_zero_tolerance: 1.0e-12
+  primary_reason_precedence:
+    - MULTIPLE_ATTRACTORS
+    - ZERO_SOLVER_FAILURE
+    - SUCCESS_THRESHOLD_CONFLICT
+    - NOISE_SHIFT_EXCEEDS_THRESHOLD
+    - DROPOUT_SHIFT_EXCEEDS_THRESHOLD
+    - ZERO_ASSOCIATION_SWITCH
+    - REFERENCE_NOT_FIXED_POINT
+    - UNKNOWN
+  solver_failure_majority_fraction: 0.50
+  threshold_conflict_majority_fraction: 0.50
+  noise_explanation_minimum_noise_free_success_rate: 0.95
+  noise_explanation_maximum_locked_success_rate: 0.50
+  one_primary_reason_required: true
+  secondary_reasons_allowed: true
+
+full_frozen_difference_mechanism:
+  source_comparison_file: artifacts/current/directional_capture_range_day2_development/full_vs_frozen_development.csv
+  source_trial_file: artifacts/current/directional_capture_range_day2_development/trial_results.csv
+  only_original_descriptive_difference_rows: true
+  expected_rows: 32
+  anchor_mismatch_majority_fraction: 0.50
+  stable_raw_gap_minimum: 0.80
+  stable_repeat_recovery_mismatch_fraction: 0.80
+  nonlinear_candidate_requires:
+    - difference_observed
+    - no_anchor_mismatch_majority
+    - positive_correspondence_checksum_change
+    - stable_raw_gap
+
+route_gate:
+  requires_true:
+    - D50_ZERO_ROOT_CAUSE_IDENTIFIED
+    - AT_LEAST_ONE_ANCHOR_VALID
+    - RECOMMENDED_ANCHOR_GT_ACCURATE
+    - FULL_ZERO_SUCCESS_RATE_AT_LEAST_0P95
+    - FROZEN_COMMON_ANCHOR_ELIGIBLE_FRACTION_AT_LEAST_0P80
+    - FULL_REASSOCIATION_NONLINEAR_EFFECT_CANDIDATE
+    - NO_TEST_SEED_ACCESS
+    - NO_GT_LEAKAGE
+  confirmatory_test_authorized_fixed: false
+
+outputs:
+  artifact_root: artifacts/current/directional_capture_range_anchor_validity_audit
+  exact_table_files:
+    - zero_perturbation_results.csv
+    - zero_success_by_scene.csv
+    - fixed_point_gradient_audit.csv
+    - noise_ablation.csv
+    - anchor_candidate_comparison.csv
+    - anchor_gt_accuracy.csv
+    - anchor_repeat_dispersion.csv
+    - frozen_common_anchor_eligibility.csv
+    - d50_zero_root_cause.csv
+    - full_frozen_difference_mechanism.csv
+    - final_decision.csv
+  exact_figure_files:
+    - zero_pose_shift_by_scene.png
+    - zero_gradient_norm_by_scene.png
+    - noise_ablation_zero_success.png
+    - anchor_error_to_gt.png
+    - anchor_repeat_clusters.png
+    - full_frozen_correspondence_switch.png
+  exact_top_level_files:
+    - anchor_validity_report.md
+    - run_manifest.json
+    - final_decision.json
+    - SHA256SUMS
+  overwrite_existing_output: false
+  csv_encoding: UTF-8
+  csv_line_ending: LF
