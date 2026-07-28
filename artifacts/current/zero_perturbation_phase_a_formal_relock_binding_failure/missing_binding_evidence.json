@@ -1,0 +1,18 @@
+{
+  "FORMAL_LOCK_BINDING_ENFORCEMENT_PASS": false,
+  "FORMAL_LOCK_INDEPENDENT_VERIFIER_BINDING_REQUIRED": false,
+  "FORMAL_LOCK_PUBLISHER_BINDING_REQUIRED": false,
+  "FORMAL_LOCK_WITH_MISSING_BINDINGS_ACCEPTED": true,
+  "backend_execution_count": 0,
+  "evidence_input_sha256": "fbf624ab32360cc948b1f4c29b52183e5eba8749c1ea1ef15567442e131ba8ee",
+  "formal_seed_access_count": 0,
+  "formal_trial_result_count": 0,
+  "missing_implementation_bindings": [
+    "publisher_sha256",
+    "independent_verifier_sha256"
+  ],
+  "native_execution_count": 0,
+  "observed_validator_result": "ACCEPTED",
+  "root_cause": "The v1 validator compared one aggregate implementation SHA and inspected only the current manifest component names; the execution lock did not carry or bind publisher and independent-verifier SHA values.",
+  "schema_version": "phase_a_formal_relock_binding_failure_evidence_v1"
+}

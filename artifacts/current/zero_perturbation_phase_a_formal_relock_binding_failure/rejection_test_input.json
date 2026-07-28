@@ -1,0 +1,10 @@
+{
+  "PHASE_A_STAGE1_BACKEND_RUN_AUTHORIZED": true,
+  "implementation_sha256": "79378195d81bcf26567728514d9c6e54ec176c804e6170cb93a90dad28b05338",
+  "lock_payload_sha256": "329cb2f325da000f008fadeffa55d635edce436f0012e8598a66c013e44ef53c",
+  "old_v1_2_authorization_invalidated": true,
+  "protocol_lock_sha256": "7f4b108c365c867b73101e003294cec8123159f968034238440168916e535f75",
+  "schema_version": "phase_a_stage1_execution_lock_v1",
+  "snapshot_lock_sha256": "a63f8ea07e9420f72c08cf1c16812ee058f5e2bfa0575a5e3d39f6bda2f21f8a",
+  "trial_result_schema_version": "phase_a_trial_result_v1"
+}
