@@ -286,6 +286,7 @@ snapshots and six fixture trials are engineering evidence only.
     _json(artifact / "resume_audit.json", resume_audit)
     _json(artifact / "tamper_audit.json", tamper_audit)
     _json(artifact / "schema_contract.json", schema_contract)
+    _json(artifact / "implementation_manifest.json", fixture_run_manifest["implementation"])
     _json(artifact / "run_manifest.json", run_manifest)
     _json(artifact / "final_decision.json", decision)
 

@@ -32,6 +32,7 @@ ROOT_FILES = (
     "execution_chain_audit_report.md",
     "final_decision.json",
     "run_manifest.json",
+    "implementation_manifest.json",
     "schema_contract.json",
     "resume_audit.json",
     "tamper_audit.json",
