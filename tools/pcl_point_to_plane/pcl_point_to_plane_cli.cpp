@@ -8,6 +8,8 @@
 #include <pcl/registration/transformation_estimation_point_to_plane_lls.h>
 #include <pcl/search/kdtree.h>
 
+#include "rotation_metric_v3.hpp"
+
 #include <Eigen/Core>
 #include <Eigen/Eigenvalues>
 #include <Eigen/Geometry>
@@ -349,6 +351,66 @@ std::vector<double> flatten(const Eigen::Matrix4f& transform) {
   return values;
 }
 
+std::vector<double> flatten3(const Eigen::Matrix3d& matrix) {
+  std::vector<double> values;
+  values.reserve(9);
+  for (int row = 0; row < 3; ++row) {
+    for (int column = 0; column < 3; ++column) {
+      values.push_back(matrix(row, column));
+    }
+  }
+  return values;
+}
+
+void add_rotation_metric_audit(
+    json& output, const pcl_backend_v3::RotationMetricAudit& audit) {
+  output["raw_rotation_finite"] = audit.raw_rotation_finite;
+  output["raw_rotation_determinant_positive"] =
+      audit.raw_rotation_determinant_positive;
+  output["raw_rotation_3x3"] =
+      audit.raw_rotation_finite ? json(flatten3(audit.raw_rotation)) : json(nullptr);
+  output["R_est_transpose_R_est"] =
+      audit.raw_rotation_finite ? json(flatten3(audit.raw_transpose_raw)) : json(nullptr);
+  output["orthogonality_defect_fro"] =
+      finite_or_null(audit.orthogonality_defect_fro);
+  output["determinant"] = finite_or_null(audit.determinant);
+  output["raw_trace_acos_argument"] =
+      finite_or_null(audit.raw_trace_acos_argument);
+  output["raw_trace_acos_rotation_error_rad"] =
+      finite_or_null(audit.raw_trace_acos_rotation_error_rad);
+  output["nearest_so3_projection"] =
+      audit.nearest_so3_projection.allFinite()
+          ? json(flatten3(audit.nearest_so3_projection))
+          : json(nullptr);
+  output["projected_determinant"] =
+      finite_or_null(audit.projected_determinant);
+  output["projection_correction_fro"] =
+      finite_or_null(audit.projection_correction_fro);
+  output["singular_values"] =
+      audit.singular_values.allFinite()
+          ? json(std::vector<double>{audit.singular_values(0), audit.singular_values(1),
+                                     audit.singular_values(2)})
+          : json(nullptr);
+  output["truth_rotation_finite"] = audit.truth_rotation_finite;
+  output["truth_rotation_determinant"] =
+      finite_or_null(audit.truth_rotation_determinant);
+  output["truth_rotation_orthogonality_defect_fro"] =
+      finite_or_null(audit.truth_rotation_orthogonality_defect_fro);
+  output["truth_rotation_valid"] = audit.truth_rotation_valid;
+  output["maximum_elementwise_error_to_truth"] =
+      finite_or_null(audit.maximum_elementwise_error_to_truth);
+  output["cos_theta"] = finite_or_null(audit.cos_theta);
+  output["sin_theta"] = finite_or_null(audit.sin_theta);
+  output["rotation_matrix_quality_pass"] =
+      audit.rotation_matrix_quality_pass;
+  output["float_serialization_max_digits10"] =
+      std::numeric_limits<float>::max_digits10;
+  output["double_serialization_max_digits10"] =
+      std::numeric_limits<double>::max_digits10;
+  output["projection_reflection_handling"] =
+      "D=diag(1,1,sign(det(U*V^T)))";
+}
+
 bool finite_transform(const Eigen::Matrix4f& transform) {
   return transform.allFinite();
 }
@@ -366,6 +428,32 @@ json failure_result(const std::string& trial_id, const std::string& reason) {
       {"final_transformation_4x4", nullptr},
       {"translation_update_norm_m", nullptr},
       {"rotation_update_norm_rad", nullptr},
+      {"raw_rotation_finite", false},
+      {"raw_rotation_determinant_positive", false},
+      {"raw_rotation_3x3", nullptr},
+      {"R_est_transpose_R_est", nullptr},
+      {"orthogonality_defect_fro", nullptr},
+      {"determinant", nullptr},
+      {"raw_trace_acos_argument", nullptr},
+      {"raw_trace_acos_rotation_error_rad", nullptr},
+      {"nearest_so3_projection", nullptr},
+      {"projected_determinant", nullptr},
+      {"projection_correction_fro", nullptr},
+      {"singular_values", nullptr},
+      {"truth_rotation_finite", false},
+      {"truth_rotation_determinant", nullptr},
+      {"truth_rotation_orthogonality_defect_fro", nullptr},
+      {"truth_rotation_valid", false},
+      {"maximum_elementwise_error_to_truth", nullptr},
+      {"cos_theta", nullptr},
+      {"sin_theta", nullptr},
+      {"rotation_matrix_quality_pass", false},
+      {"float_serialization_max_digits10",
+       std::numeric_limits<float>::max_digits10},
+      {"double_serialization_max_digits10",
+       std::numeric_limits<double>::max_digits10},
+      {"projection_reflection_handling",
+       "D=diag(1,1,sign(det(U*V^T)))"},
       {"source_point_count", 0},
       {"target_point_count", 0},
       {"finite_output", false},
@@ -453,17 +541,21 @@ json run(const std::filesystem::path& config_path) {
 
   Eigen::Matrix4f delta = initial.inverse() * final;
   const double translation_update = static_cast<double>(delta.block<3, 1>(0, 3).norm());
-  const Eigen::Matrix3f rotation = delta.block<3, 3>(0, 0);
-  const double cosine = std::clamp(
-      (static_cast<double>(rotation.trace()) - 1.0) * 0.5, -1.0, 1.0);
-  const double rotation_update = std::acos(cosine);
+  const Eigen::Matrix3d raw_rotation =
+      final.block<3, 3>(0, 0).cast<double>();
+  const Eigen::Matrix3d initial_rotation =
+      initial.block<3, 3>(0, 0).cast<double>();
+  const auto rotation_audit =
+      pcl_backend_v3::evaluate_rotation_metric(raw_rotation, initial_rotation);
+  const double rotation_update = rotation_audit.rotation_error_rad;
   const bool finite_output = final_transform_finite && fitness_finite &&
                              std::isfinite(translation_update) &&
                              std::isfinite(rotation_update);
   const std::size_t correspondence_count = icp.final_correspondence_count();
   const bool qualification_pass = has_converged_raw && finite_output &&
                                   correspondence_count > 0 && normals_valid &&
-                                  !rank.rank_deficient;
+                                  !rank.rank_deficient &&
+                                  rotation_audit.rotation_matrix_quality_pass;
 
   std::vector<std::string> failure_flags;
   if (!normals_valid) {
@@ -474,6 +566,9 @@ json run(const std::filesystem::path& config_path) {
   }
   if (rank.rank_deficient) {
     failure_flags.emplace_back("RANK_DEFICIENT_DIAGNOSTIC");
+  }
+  if (!rotation_audit.rotation_matrix_quality_pass) {
+    failure_flags.emplace_back("ROTATION_MATRIX_QUALITY_FAILED");
   }
   if (!final_transform_finite) {
     failure_flags.emplace_back("NONFINITE_TRANSFORM");
@@ -488,6 +583,7 @@ json run(const std::filesystem::path& config_path) {
   for (const auto& candidate : {
            std::string("INVALID_NORMALS"), std::string("NO_CORRESPONDENCES"),
            std::string("RANK_DEFICIENT_DIAGNOSTIC"),
+           std::string("ROTATION_MATRIX_QUALITY_FAILED"),
            std::string("NONFINITE_TRANSFORM"), std::string("NONFINITE_FITNESS"),
            std::string("PCL_NOT_CONVERGED")}) {
     if (std::find(failure_flags.begin(), failure_flags.end(), candidate) !=
@@ -536,6 +632,7 @@ json run(const std::filesystem::path& config_path) {
       {"reference_pose_checksum", config.at("reference_pose_checksum")},
       {"snapshot_checksum", config.at("snapshot_checksum")},
   };
+  add_rotation_metric_audit(output, rotation_audit);
   add_normal_statistics(output, "source", source_estimated.statistics);
   add_normal_statistics(output, "target", target_estimated.statistics);
   return output;

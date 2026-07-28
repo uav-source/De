@@ -1,0 +1,78 @@
+{
+  "all_hashes_pass": true,
+  "files": [
+    {
+      "actual_sha256": "40ff3b4045bad58b42ac3fdfa331d2a62aead2df502146d1211ca8215208e498",
+      "expected_sha256": "40ff3b4045bad58b42ac3fdfa331d2a62aead2df502146d1211ca8215208e498",
+      "name": "fixture_generator",
+      "pass": true,
+      "path": "tests/data/pcl_backend_v2/generate_fixtures.py"
+    },
+    {
+      "actual_sha256": "7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c",
+      "expected_sha256": "7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c",
+      "name": "nondegenerate_source",
+      "pass": true,
+      "path": "tests/data/pcl_backend_v2/nondegenerate_source.pcd"
+    },
+    {
+      "actual_sha256": "7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c",
+      "expected_sha256": "7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c",
+      "name": "nondegenerate_target",
+      "pass": true,
+      "path": "tests/data/pcl_backend_v2/nondegenerate_target.pcd"
+    },
+    {
+      "actual_sha256": "d3b2bb34cecd6a33a277bee8057f97989a5b2ed50b9476cfe4c2133a21d6df6c",
+      "expected_sha256": "d3b2bb34cecd6a33a277bee8057f97989a5b2ed50b9476cfe4c2133a21d6df6c",
+      "name": "known_small_transform_source",
+      "pass": true,
+      "path": "tests/data/pcl_backend_v2/known_small_transform_source.pcd"
+    },
+    {
+      "actual_sha256": "d23251eb12d17f49a9c79f5a5c15bb35ee34481885079c3d7ccee778da582e3c",
+      "expected_sha256": "d23251eb12d17f49a9c79f5a5c15bb35ee34481885079c3d7ccee778da582e3c",
+      "name": "known_small_transform_truth",
+      "pass": true,
+      "path": "tests/data/pcl_backend_v2/known_small_transform_truth.json"
+    },
+    {
+      "actual_sha256": "9283453df34f7dd092dc29b8f98895f11b163105950e04a38aba7a8954f36bd5",
+      "expected_sha256": "9283453df34f7dd092dc29b8f98895f11b163105950e04a38aba7a8954f36bd5",
+      "name": "identity_config",
+      "pass": true,
+      "path": "tests/data/pcl_backend_v2/nondegenerate_identity_config.json"
+    },
+    {
+      "actual_sha256": "c87f76c98190899b96456aec444d7296d9c5bf3e2b0865ea3ff109ab02e050af",
+      "expected_sha256": "c87f76c98190899b96456aec444d7296d9c5bf3e2b0865ea3ff109ab02e050af",
+      "name": "known_transform_config",
+      "pass": true,
+      "path": "tests/data/pcl_backend_v2/known_small_transform_config.json"
+    },
+    {
+      "actual_sha256": "ac4814b890daff2fe29efdf178239068cf08d9e44daa1b003ab8de5e57a028ac",
+      "expected_sha256": "ac4814b890daff2fe29efdf178239068cf08d9e44daa1b003ab8de5e57a028ac",
+      "name": "planar_diagnostic_config",
+      "pass": true,
+      "path": "tests/data/pcl_backend_v2/planar_degeneracy_config.json"
+    },
+    {
+      "actual_sha256": "b34c107bbb291a99c139fdd7787bde5101911d7e0a506bb0bba2e1a0f4c40a10",
+      "expected_sha256": "b34c107bbb291a99c139fdd7787bde5101911d7e0a506bb0bba2e1a0f4c40a10",
+      "name": "v1_planar_source",
+      "pass": true,
+      "path": "tests/data/pcl_backend/identity_source.pcd"
+    },
+    {
+      "actual_sha256": "af6967943369548ef7f2d31b5e759e25dc277bb15e6471f086b4e450c86d6a92",
+      "expected_sha256": "af6967943369548ef7f2d31b5e759e25dc277bb15e6471f086b4e450c86d6a92",
+      "name": "v1_planar_target",
+      "pass": true,
+      "path": "tests/data/pcl_backend/identity_target.pcd"
+    }
+  ],
+  "fixture_difference_count": 0,
+  "schema_version": "pcl_backend_qualification_v3_fixture_checksum_audit_v1",
+  "truth_transform_difference_count": 0
+}

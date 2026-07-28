@@ -1,0 +1,446 @@
+{
+  "ROTATION_MATRIX_QUALITY_PASS": true,
+  "ROTATION_METRIC_CROSSCHECK_PASS": true,
+  "cli_command": [
+    "/home/lj/Degen-LIO/build/pcl_point_to_plane_v3/pcl_point_to_plane_cli",
+    "--config",
+    "/home/lj/Degen-LIO/tests/data/pcl_backend_v2/known_small_transform_config.json"
+  ],
+  "cli_exit_code": 0,
+  "cli_result": {
+    "R_est_transpose_R_est": [
+      0.9999999753965678,
+      7.442030922717377e-10,
+      2.983162813996465e-10,
+      7.442030922717377e-10,
+      1.0000000845349026,
+      6.200826106923796e-10,
+      2.983162813996465e-10,
+      6.200826106923796e-10,
+      0.9999999033386948
+    ],
+    "backend_name": "pcl_point_to_plane",
+    "condition_status": "FULL_RANK",
+    "correspondence_count": 806,
+    "cos_theta": 0.9999420436655642,
+    "determinant": 0.9999999816350785,
+    "diagnostic_correspondence_count": 806,
+    "double_serialization_max_digits10": 17,
+    "exception_message": null,
+    "failure_flags": [],
+    "failure_reason": "",
+    "final_transform_finite": true,
+    "final_transformation_4x4": [
+      0.9999482035636902,
+      0.008726413361728191,
+      0.0052359639666974545,
+      -0.00998203456401825,
+      -0.008744754828512669,
+      0.9999557137489319,
+      0.0034906044602394104,
+      0.01998184248805046,
+      -0.005205271299928427,
+      -0.0035362106282263994,
+      0.9999801516532898,
+      -0.030018072575330734,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "finite_output": true,
+    "fitness_finite": true,
+    "fitness_score": 2.5050990934412623e-15,
+    "float_serialization_max_digits10": 9,
+    "has_converged": true,
+    "has_converged_raw": true,
+    "iteration_count": 3,
+    "maximum_elementwise_error_to_truth": 0.008744754828512669,
+    "nearest_so3_projection": [
+      0.9999482158607415,
+      0.0087264126191792,
+      0.005235964067899051,
+      -0.008744755308693864,
+      0.9999556714855273,
+      0.0034906043202193888,
+      -0.005205271511801563,
+      -0.0035362107868580636,
+      0.9999801999848597
+    ],
+    "orthogonality_defect_fro": 1.3075527226247165e-07,
+    "pcl_version": "1.15.1",
+    "point_cloud_covariance_eigenvalues": [
+      0.16219735136717406,
+      0.16384882205206255,
+      0.23050542118858003
+    ],
+    "point_cloud_rank": 3,
+    "point_cloud_rank_tolerance": 1.7896795156957523e-13,
+    "point_to_plane_hessian_eigenvalues": [
+      115.85113122084158,
+      117.75905396215076,
+      122.29245306394479,
+      241.7930878053705,
+      290.84483118581545,
+      305.9428763541642
+    ],
+    "point_to_plane_jacobian_rank": 6,
+    "point_to_plane_rank_tolerance": 5.47539698784086e-11,
+    "projected_determinant": 1.000000000000001,
+    "projection_correction_fro": 6.53776363429221e-08,
+    "projection_reflection_handling": "D=diag(1,1,sign(det(U*V^T)))",
+    "qualification_pass": true,
+    "rank_deficient": false,
+    "raw_rotation_3x3": [
+      0.9999482035636902,
+      0.008726413361728191,
+      0.0052359639666974545,
+      -0.008744754828512669,
+      0.9999557137489319,
+      0.0034906044602394104,
+      -0.005205271299928427,
+      -0.0035362106282263994,
+      0.9999801516532898
+    ],
+    "raw_rotation_determinant_positive": true,
+    "raw_rotation_finite": true,
+    "raw_trace_acos_argument": 0.9999420344829559,
+    "raw_trace_acos_rotation_error_rad": 0.010767179487026126,
+    "reference_pose_checksum": "identity-pose-v2",
+    "rotation_matrix_quality_pass": true,
+    "rotation_update_norm_rad": 0.010766326603606373,
+    "runtime_ms": 20.461622,
+    "sin_theta": 0.010766118610527639,
+    "singular_values": [
+      1.0000000422710558,
+      0.9999999876963471,
+      0.9999999516676781
+    ],
+    "snapshot_checksum": "pcl-v2-known-small-transform-snapshot",
+    "source_checksum": "d3b2bb34cecd6a33a277bee8057f97989a5b2ed50b9476cfe4c2133a21d6df6c",
+    "source_normal_direction_rank": 3,
+    "source_normal_finite_count": 806,
+    "source_normal_nan_count": 0,
+    "source_normal_norm_max": 1.0000001070329354,
+    "source_normal_norm_median": 0.9999999987336934,
+    "source_normal_norm_min": 0.999999885959997,
+    "source_normal_zero_count": 0,
+    "source_point_count": 806,
+    "target_checksum": "7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c",
+    "target_normal_direction_rank": 3,
+    "target_normal_finite_count": 806,
+    "target_normal_nan_count": 0,
+    "target_normal_norm_max": 1.0000000884329288,
+    "target_normal_norm_median": 1.0,
+    "target_normal_norm_min": 0.9999998987129718,
+    "target_normal_zero_count": 0,
+    "target_point_count": 806,
+    "translation_update_norm_m": 0.037416569888591766,
+    "trial_id": "pcl-v2-known-small-transform",
+    "truth_rotation_determinant": 1.0,
+    "truth_rotation_finite": true,
+    "truth_rotation_orthogonality_defect_fro": 0.0,
+    "truth_rotation_valid": true
+  },
+  "cli_stderr": "",
+  "cpp_metric_command": [
+    "/home/lj/Degen-LIO/build/pcl_point_to_plane_v3/rotation_metric_v3_cli",
+    "--input",
+    "/tmp/tmp1stj_1s4.json"
+  ],
+  "cpp_metric_exit_code": 0,
+  "cpp_metric_stderr": "",
+  "cpp_projected_rotation_error_rad": 3.348782239246911e-09,
+  "cpp_rotation_metric": {
+    "R_est_transpose_R_est": [
+      0.9999999753965678,
+      7.442030922717377e-10,
+      2.983162813996465e-10,
+      7.442030922717377e-10,
+      1.0000000845349026,
+      6.200826106923796e-10,
+      2.983162813996465e-10,
+      6.200826106923796e-10,
+      0.9999999033386948
+    ],
+    "cos_theta": 1.0,
+    "determinant": 0.9999999816350785,
+    "double_serialization_max_digits10": 17,
+    "float_serialization_max_digits10": 9,
+    "maximum_elementwise_error_to_truth": 4.8335439650770695e-08,
+    "nearest_so3_projection": [
+      0.9999482158607415,
+      0.0087264126191792,
+      0.005235964067899051,
+      -0.008744755308693864,
+      0.9999556714855273,
+      0.0034906043202193888,
+      -0.005205271511801563,
+      -0.0035362107868580636,
+      0.9999801999848597
+    ],
+    "orthogonality_defect_fro": 1.3075527226247165e-07,
+    "projected_determinant": 1.000000000000001,
+    "projection_correction_fro": 6.53776363429221e-08,
+    "projection_reflection_handling": "D=diag(1,1,sign(det(U*V^T)))",
+    "raw_rotation_3x3": [
+      0.9999482035636902,
+      0.008726413361728191,
+      0.0052359639666974545,
+      -0.008744754828512669,
+      0.9999557137489319,
+      0.0034906044602394104,
+      -0.005205271299928427,
+      -0.0035362106282263994,
+      0.9999801516532898
+    ],
+    "raw_rotation_determinant_positive": true,
+    "raw_rotation_finite": true,
+    "raw_trace_acos_argument": 0.9999999908175403,
+    "raw_trace_acos_rotation_error_rad": 0.0001355172291302067,
+    "rotation_error_rad": 3.348782239246911e-09,
+    "rotation_matrix_quality_pass": true,
+    "sin_theta": 3.348782239246911e-09,
+    "singular_values": [
+      1.0000000422710558,
+      0.9999999876963471,
+      0.9999999516676781
+    ],
+    "truth_rotation_determinant": 0.9999999999999999,
+    "truth_rotation_finite": true,
+    "truth_rotation_orthogonality_defect_fro": 2.482577426862245e-16,
+    "truth_rotation_valid": true
+  },
+  "estimated_source_to_target_transform_4x4": [
+    [
+      0.9999482035636902,
+      0.008726413361728191,
+      0.0052359639666974545,
+      -0.00998203456401825
+    ],
+    [
+      -0.008744754828512669,
+      0.9999557137489319,
+      0.0034906044602394104,
+      0.01998184248805046
+    ],
+    [
+      -0.005205271299928427,
+      -0.0035362106282263994,
+      0.9999801516532898,
+      -0.030018072575330734
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "formal_metric_implementation": "C++ Eigen reflection-safe SVD plus atan2",
+  "formal_rotation_error_rad": 3.348782239246911e-09,
+  "gate_checks": {
+    "ROTATION_MATRIX_QUALITY_PASS": {
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    "ROTATION_METRIC_CROSSCHECK_PASS": {
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    "cli_exit_code": {
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    "double_serialization_precision": {
+      "actual": 17,
+      "expected": ">= 17",
+      "pass": true
+    },
+    "failure_reason_vocabulary": {
+      "actual": "",
+      "expected": [
+        "",
+        "EXCEPTION",
+        "INVALID_NORMALS",
+        "NONFINITE_FITNESS",
+        "NONFINITE_TRANSFORM",
+        "NO_CORRESPONDENCES",
+        "PCL_NOT_CONVERGED",
+        "RANK_DEFICIENT_DIAGNOSTIC",
+        "ROTATION_MATRIX_QUALITY_FAILED"
+      ],
+      "pass": true
+    },
+    "final_transform_available": {
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    "final_transform_finite": {
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    "fitness_finite": {
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    "float_serialization_precision": {
+      "actual": 9,
+      "expected": ">= 9",
+      "pass": true
+    },
+    "has_converged_raw": {
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    "required_fields_present": {
+      "actual": [],
+      "expected": [],
+      "pass": true
+    },
+    "rotation_error_to_truth_rad": {
+      "actual": 3.348782239246911e-09,
+      "expected": "<= 1e-4",
+      "pass": true
+    },
+    "rotation_metric_abs_difference_rad": {
+      "actual": 7.094163232227006e-17,
+      "expected": "<= 1e-10",
+      "pass": true
+    },
+    "stdout_is_one_json_document": {
+      "actual": "",
+      "expected": "",
+      "pass": true
+    },
+    "translation_error_to_truth_m": {
+      "actual": 5.251625722670734e-09,
+      "expected": "<= 1e-4",
+      "pass": true
+    },
+    "v1_unified_failure_reason_absent": {
+      "actual": "",
+      "expected": "not pcl_icp_did_not_converge_or_nonfinite",
+      "pass": true
+    }
+  },
+  "microtest": "KNOWN_SMALL_TRANSFORM",
+  "microtest_pass": true,
+  "python_projected_rotation_error_rad": 3.3487821683052786e-09,
+  "python_rotation_metric": {
+    "R_est_transpose_R_est": [
+      [
+        0.9999999753965678,
+        7.442030922717377e-10,
+        2.983162813996465e-10
+      ],
+      [
+        7.442030922717377e-10,
+        1.0000000845349026,
+        6.200826106923796e-10
+      ],
+      [
+        2.983162813996465e-10,
+        6.200826106923796e-10,
+        0.9999999033386948
+      ]
+    ],
+    "cos_theta": 0.9999999999999998,
+    "determinant": 0.9999999816350786,
+    "maximum_elementwise_error_to_truth": 4.8335439650770695e-08,
+    "nearest_so3_projection": [
+      [
+        0.9999482158607409,
+        0.008726412619179343,
+        0.005235964067899052
+      ],
+      [
+        -0.008744755308693872,
+        0.9999556714855266,
+        0.003490604320219466
+      ],
+      [
+        -0.005205271511801561,
+        -0.0035362107868580567,
+        0.9999801999848597
+      ]
+    ],
+    "orthogonality_defect_fro": 1.3075527226247165e-07,
+    "projected_determinant": 0.9999999999999997,
+    "projection_correction_fro": 6.537763673916432e-08,
+    "raw_rotation_3x3": [
+      [
+        0.9999482035636902,
+        0.008726413361728191,
+        0.0052359639666974545
+      ],
+      [
+        -0.008744754828512669,
+        0.9999557137489319,
+        0.0034906044602394104
+      ],
+      [
+        -0.005205271299928427,
+        -0.0035362106282263994,
+        0.9999801516532898
+      ]
+    ],
+    "raw_rotation_determinant_positive": true,
+    "raw_rotation_finite": true,
+    "raw_trace_acos_argument": 0.9999999908175401,
+    "raw_trace_acos_rotation_error_rad": 0.00013551723076870393,
+    "rotation_error_rad": 3.3487821683052786e-09,
+    "rotation_matrix_quality_pass": true,
+    "sin_theta": 3.3487821683052778e-09,
+    "singular_values": [
+      1.0000000422710558,
+      0.9999999876963467,
+      0.9999999516676784
+    ],
+    "truth_rotation_determinant": 1.0,
+    "truth_rotation_finite": true,
+    "truth_rotation_orthogonality_defect_fro": 2.4825678321528405e-16,
+    "truth_rotation_valid": true
+  },
+  "raw_trace_acos_rotation_error_rad": 0.0001355172291302067,
+  "rotation_error_to_truth_rad": 3.348782239246911e-09,
+  "rotation_metric_abs_difference_rad": 7.094163232227006e-17,
+  "schema_version": "pcl_backend_qualification_v3_microtest_result_v1",
+  "smaller_value_selection_used": false,
+  "translation_error_to_truth_m": 5.251625722670734e-09,
+  "truth_argument_passed_to_registration_cli": false,
+  "truth_passed_to_cli": false,
+  "truth_source_to_target_transform_4x4": [
+    [
+      0.9999482158335473,
+      0.0087264158771845,
+      0.00523596383141958,
+      -0.009982032755734373
+    ],
+    [
+      -0.008744758561962294,
+      0.9999556714597083,
+      0.0034906035662378124,
+      0.019981842907826657
+    ],
+    [
+      -0.005205271270404538,
+      -0.0035362100477866485,
+      0.9999801999887294,
+      -0.030018077487913568
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ]
+}

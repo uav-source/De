@@ -1,0 +1,235 @@
+{
+  "ROTATION_MATRIX_QUALITY_PASS": true,
+  "ROTATION_METRIC_CROSSCHECK_PASS": true,
+  "R_est_transpose_R_est": [
+    [
+      0.9999999753965678,
+      7.442030922717377e-10,
+      2.983162813996465e-10
+    ],
+    [
+      7.442030922717377e-10,
+      1.0000000845349026,
+      6.200826106923796e-10
+    ],
+    [
+      2.983162813996465e-10,
+      6.200826106923796e-10,
+      0.9999999033386948
+    ]
+  ],
+  "cpp_eigen": {
+    "R_est_transpose_R_est": [
+      0.9999999753965678,
+      7.442030922717377e-10,
+      2.983162813996465e-10,
+      7.442030922717377e-10,
+      1.0000000845349026,
+      6.200826106923796e-10,
+      2.983162813996465e-10,
+      6.200826106923796e-10,
+      0.9999999033386948
+    ],
+    "cos_theta": 1.0,
+    "determinant": 0.9999999816350785,
+    "double_serialization_max_digits10": 17,
+    "float_serialization_max_digits10": 9,
+    "maximum_elementwise_error_to_truth": 4.8335439650770695e-08,
+    "nearest_so3_projection": [
+      0.9999482158607415,
+      0.0087264126191792,
+      0.005235964067899051,
+      -0.008744755308693864,
+      0.9999556714855273,
+      0.0034906043202193888,
+      -0.005205271511801563,
+      -0.0035362107868580636,
+      0.9999801999848597
+    ],
+    "orthogonality_defect_fro": 1.3075527226247165e-07,
+    "projected_determinant": 1.000000000000001,
+    "projection_correction_fro": 6.53776363429221e-08,
+    "projection_reflection_handling": "D=diag(1,1,sign(det(U*V^T)))",
+    "raw_rotation_3x3": [
+      0.9999482035636902,
+      0.008726413361728191,
+      0.0052359639666974545,
+      -0.008744754828512669,
+      0.9999557137489319,
+      0.0034906044602394104,
+      -0.005205271299928427,
+      -0.0035362106282263994,
+      0.9999801516532898
+    ],
+    "raw_rotation_determinant_positive": true,
+    "raw_rotation_finite": true,
+    "raw_trace_acos_argument": 0.9999999908175403,
+    "raw_trace_acos_rotation_error_rad": 0.0001355172291302067,
+    "rotation_error_rad": 3.348782239246911e-09,
+    "rotation_matrix_quality_pass": true,
+    "sin_theta": 3.348782239246911e-09,
+    "singular_values": [
+      1.0000000422710558,
+      0.9999999876963471,
+      0.9999999516676781
+    ],
+    "truth_rotation_determinant": 0.9999999999999999,
+    "truth_rotation_finite": true,
+    "truth_rotation_orthogonality_defect_fro": 2.482577426862245e-16,
+    "truth_rotation_valid": true
+  },
+  "cpp_projected_rotation_error_rad": 3.348782239246911e-09,
+  "determinant": 0.9999999816350786,
+  "maximum_elementwise_error_to_truth": 4.8335439650770695e-08,
+  "nearest_so3_projection": [
+    0.9999482158607415,
+    0.0087264126191792,
+    0.005235964067899051,
+    -0.008744755308693864,
+    0.9999556714855273,
+    0.0034906043202193888,
+    -0.005205271511801563,
+    -0.0035362107868580636,
+    0.9999801999848597
+  ],
+  "orthogonality_defect_fro": 1.3075527226247165e-07,
+  "projected_determinant": 1.000000000000001,
+  "projected_rotation_error_rad": 3.348782239246911e-09,
+  "projection_correction_fro": 6.53776363429221e-08,
+  "python_numpy": {
+    "R_est_transpose_R_est": [
+      [
+        0.9999999753965678,
+        7.442030922717377e-10,
+        2.983162813996465e-10
+      ],
+      [
+        7.442030922717377e-10,
+        1.0000000845349026,
+        6.200826106923796e-10
+      ],
+      [
+        2.983162813996465e-10,
+        6.200826106923796e-10,
+        0.9999999033386948
+      ]
+    ],
+    "cos_theta": 0.9999999999999998,
+    "determinant": 0.9999999816350786,
+    "maximum_elementwise_error_to_truth": 4.8335439650770695e-08,
+    "nearest_so3_projection": [
+      [
+        0.9999482158607409,
+        0.008726412619179343,
+        0.005235964067899052
+      ],
+      [
+        -0.008744755308693872,
+        0.9999556714855266,
+        0.003490604320219466
+      ],
+      [
+        -0.005205271511801561,
+        -0.0035362107868580567,
+        0.9999801999848597
+      ]
+    ],
+    "orthogonality_defect_fro": 1.3075527226247165e-07,
+    "projected_determinant": 0.9999999999999997,
+    "projection_correction_fro": 6.537763673916432e-08,
+    "raw_rotation_3x3": [
+      [
+        0.9999482035636902,
+        0.008726413361728191,
+        0.0052359639666974545
+      ],
+      [
+        -0.008744754828512669,
+        0.9999557137489319,
+        0.0034906044602394104
+      ],
+      [
+        -0.005205271299928427,
+        -0.0035362106282263994,
+        0.9999801516532898
+      ]
+    ],
+    "raw_rotation_determinant_positive": true,
+    "raw_rotation_finite": true,
+    "raw_trace_acos_argument": 0.9999999908175401,
+    "raw_trace_acos_rotation_error_rad": 0.00013551723076870393,
+    "rotation_error_rad": 3.3487821683052786e-09,
+    "rotation_matrix_quality_pass": true,
+    "sin_theta": 3.3487821683052778e-09,
+    "singular_values": [
+      1.0000000422710558,
+      0.9999999876963467,
+      0.9999999516676784
+    ],
+    "truth_rotation_determinant": 1.0,
+    "truth_rotation_finite": true,
+    "truth_rotation_orthogonality_defect_fro": 2.4825678321528405e-16,
+    "truth_rotation_valid": true
+  },
+  "python_projected_rotation_error_rad": 3.3487821683052786e-09,
+  "raw_rotation_3x3": [
+    [
+      0.9999482035636902,
+      0.008726413361728191,
+      0.0052359639666974545
+    ],
+    [
+      -0.008744754828512669,
+      0.9999557137489319,
+      0.0034906044602394104
+    ],
+    [
+      -0.005205271299928427,
+      -0.0035362106282263994,
+      0.9999801516532898
+    ]
+  ],
+  "raw_rotation_determinant_positive": true,
+  "raw_rotation_finite": true,
+  "raw_trace_acos_argument": 0.9999999908175403,
+  "raw_trace_acos_rotation_error_rad": 0.0001355172291302067,
+  "raw_trace_acos_used_as_formal_gate": false,
+  "rotation_metric_abs_difference_rad": 7.094163232227006e-17,
+  "schema_version": "pcl_backend_qualification_v3_rotation_metric_audit_v1",
+  "singular_values": [
+    1.0000000422710558,
+    0.9999999876963471,
+    0.9999999516676781
+  ],
+  "smaller_value_selection_used": false,
+  "source": "v2 raw Test B JSON at full available float precision",
+  "source_sha256": "aa7acbb63d76c45598fbc34fbf60d5fbb79573fd915c8c128f4ef90be3d35a18",
+  "v2_frozen_pre_run_diagnostic": {
+    "determinant": 0.9999999816350786,
+    "maximum_elementwise_error_to_truth": 4.8335439650770695e-08,
+    "orthogonality_defect_fro": 1.3075527226247165e-07,
+    "projected_atan2_rotation_error_rad_diagnostic": 3.34878216948272e-09,
+    "projection_correction_fro": 6.537763624716303e-08,
+    "raw_rotation_3x3": [
+      [
+        0.9999482035636902,
+        0.008726413361728191,
+        0.0052359639666974545
+      ],
+      [
+        -0.008744754828512669,
+        0.9999557137489319,
+        0.0034906044602394104
+      ],
+      [
+        -0.005205271299928427,
+        -0.0035362106282263994,
+        0.9999801516532898
+      ]
+    ],
+    "raw_trace_acos_argument": 0.9999999908175403,
+    "raw_trace_acos_rotation_error_rad": 0.0001355172291302067,
+    "source_path": "artifacts/current/zero_perturbation_backend_qualification_v2/raw/test_b_result.json",
+    "source_sha256": "aa7acbb63d76c45598fbc34fbf60d5fbb79573fd915c8c128f4ef90be3d35a18"
+  }
+}

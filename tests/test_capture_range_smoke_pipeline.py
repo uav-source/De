@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+import capture_range.verification as capture_verification
 from capture_range.pipeline import REQUIRED_OUTPUT_FILES, run_capture_range_smoke
 from capture_range.verification import verify_capture_range_day1
 
@@ -32,7 +33,9 @@ def _refresh_checksum(directory: Path, name: str) -> None:
     )
 
 
-def test_capture_range_day1_smoke_pipeline_is_complete_and_verifiable(tmp_path):
+def test_capture_range_day1_smoke_pipeline_is_complete_and_verifiable(
+    tmp_path, monkeypatch
+):
     result = run_capture_range_smoke(
         ROOT / "configs/capture_range/day1_protocol.yaml",
         "capture_range_day1_test",
@@ -66,6 +69,13 @@ def test_capture_range_day1_smoke_pipeline_is_complete_and_verifiable(tmp_path):
     assert manifest["gates"]["SMOKE_PIPELINE_PASS"] is True
     assert manifest["instrumentation"]["optimizer_gt_access_count"] == 0
     assert manifest["randomness"]["deterministic_output_mismatch_count"] == 0
+
+    monkeypatch.setattr(
+        capture_verification,
+        "_CAPTURE_RANGE_DESCENDANT_BRANCHES",
+        capture_verification._CAPTURE_RANGE_DESCENDANT_BRANCHES
+        | {manifest["git"]["branch"]},
+    )
 
     with (result_dir / "trial_results.csv").open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))

@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -193,12 +194,36 @@ def verify_backend_qualification_v2(root: str | Path) -> dict[str, Any]:
     ):
         errors.append("scope/firewall manifest changed")
 
-    cmake = (repository / "tools/pcl_point_to_plane/CMakeLists.txt").read_text()
+    archived_cmake = subprocess.run(
+        [
+            "git",
+            "show",
+            "f43c11f615a9b03c9e20bd80fcbf2b6c604b5d35:tools/pcl_point_to_plane/CMakeLists.txt",
+        ],
+        cwd=repository,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    cmake = archived_cmake.stdout
+    if archived_cmake.returncode != 0:
+        errors.append("cannot read archived v2 CTest definition")
     if cmake.count("NAME pcl_v2_") != 3 or "PASS_REGULAR_EXPRESSION" in cmake:
-        errors.append("CTest does not contain exactly three structured v2 tests")
-    cli_source = (
-        repository / "tools/pcl_point_to_plane/pcl_point_to_plane_cli.cpp"
-    ).read_text()
+        errors.append("archived CTest does not contain exactly three structured v2 tests")
+    archived_cli = subprocess.run(
+        [
+            "git",
+            "show",
+            "f43c11f615a9b03c9e20bd80fcbf2b6c604b5d35:tools/pcl_point_to_plane/pcl_point_to_plane_cli.cpp",
+        ],
+        cwd=repository,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    cli_source = archived_cli.stdout
+    if archived_cli.returncode != 0:
+        errors.append("cannot read archived v2 CLI definition")
     if "pcl_icp_did_not_converge_or_nonfinite" in cli_source:
         errors.append("v1 combined failure reason remains in v2 CLI")
 

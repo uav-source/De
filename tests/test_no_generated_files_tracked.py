@@ -6,6 +6,8 @@ ROOT = Path(__file__).resolve().parents[1]
 FROZEN_EVIDENCE_LOGS = {
     "reports/zero_perturbation_environment/environment_creation.log",
     "reports/zero_perturbation_pcl_environment/environment_creation.log",
+    "artifacts/current/zero_perturbation_backend_qualification_v2/raw/ctest_last_test.log",
+    "artifacts/current/zero_perturbation_backend_qualification_v2/raw/ctest_last_tests_failed.log",
 }
 
 

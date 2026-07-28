@@ -1,0 +1,185 @@
+{
+  "cli_command": [
+    "/home/lj/Degen-LIO/build/pcl_point_to_plane_v3/pcl_point_to_plane_cli",
+    "--config",
+    "/home/lj/Degen-LIO/tests/data/pcl_backend_v2/planar_degeneracy_config.json"
+  ],
+  "cli_exit_code": 0,
+  "cli_result": {
+    "R_est_transpose_R_est": null,
+    "backend_name": "pcl_point_to_plane",
+    "condition_status": "RANK_DEFICIENT",
+    "correspondence_count": 64,
+    "cos_theta": null,
+    "determinant": null,
+    "diagnostic_correspondence_count": 64,
+    "double_serialization_max_digits10": 17,
+    "exception_message": null,
+    "failure_flags": [
+      "RANK_DEFICIENT_DIAGNOSTIC",
+      "ROTATION_MATRIX_QUALITY_FAILED",
+      "NONFINITE_TRANSFORM"
+    ],
+    "failure_reason": "RANK_DEFICIENT_DIAGNOSTIC",
+    "final_transform_finite": false,
+    "final_transformation_4x4": null,
+    "finite_output": false,
+    "fitness_finite": true,
+    "fitness_score": 0.0,
+    "float_serialization_max_digits10": 9,
+    "has_converged": true,
+    "has_converged_raw": true,
+    "iteration_count": 2,
+    "maximum_elementwise_error_to_truth": null,
+    "nearest_so3_projection": null,
+    "orthogonality_defect_fro": null,
+    "pcl_version": "1.15.1",
+    "point_cloud_covariance_eigenvalues": [
+      0.0,
+      0.05249999942258002,
+      0.052499999422580046
+    ],
+    "point_cloud_rank": 2,
+    "point_cloud_rank_tolerance": 1.4210854715202004e-14,
+    "point_to_plane_hessian_eigenvalues": [
+      0.0,
+      0.0,
+      0.0,
+      3.359999963045121,
+      3.359999963045123,
+      64.0
+    ],
+    "point_to_plane_jacobian_rank": 3,
+    "point_to_plane_rank_tolerance": 9.094947017729282e-13,
+    "projected_determinant": null,
+    "projection_correction_fro": null,
+    "projection_reflection_handling": "D=diag(1,1,sign(det(U*V^T)))",
+    "qualification_pass": false,
+    "rank_deficient": true,
+    "raw_rotation_3x3": null,
+    "raw_rotation_determinant_positive": false,
+    "raw_rotation_finite": false,
+    "raw_trace_acos_argument": null,
+    "raw_trace_acos_rotation_error_rad": null,
+    "reference_pose_checksum": "identity-pose-v2",
+    "rotation_matrix_quality_pass": false,
+    "rotation_update_norm_rad": null,
+    "runtime_ms": 1.189534,
+    "sin_theta": null,
+    "singular_values": null,
+    "snapshot_checksum": "pcl-v2-planar-degeneracy-diagnostic-snapshot",
+    "source_checksum": "b34c107bbb291a99c139fdd7787bde5101911d7e0a506bb0bba2e1a0f4c40a10",
+    "source_normal_direction_rank": 1,
+    "source_normal_finite_count": 64,
+    "source_normal_nan_count": 0,
+    "source_normal_norm_max": 1.0,
+    "source_normal_norm_median": 1.0,
+    "source_normal_norm_min": 1.0,
+    "source_normal_zero_count": 0,
+    "source_point_count": 64,
+    "target_checksum": "af6967943369548ef7f2d31b5e759e25dc277bb15e6471f086b4e450c86d6a92",
+    "target_normal_direction_rank": 1,
+    "target_normal_finite_count": 64,
+    "target_normal_nan_count": 0,
+    "target_normal_norm_max": 1.0,
+    "target_normal_norm_median": 1.0,
+    "target_normal_norm_min": 1.0,
+    "target_normal_zero_count": 0,
+    "target_point_count": 64,
+    "translation_update_norm_m": null,
+    "trial_id": "pcl-v2-planar-degeneracy-diagnostic",
+    "truth_rotation_determinant": null,
+    "truth_rotation_finite": true,
+    "truth_rotation_orthogonality_defect_fro": null,
+    "truth_rotation_valid": false
+  },
+  "cli_stderr": "",
+  "gate_checks": {
+    "cli_exit_code": {
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    "condition_status": {
+      "actual": "RANK_DEFICIENT",
+      "expected": "RANK_DEFICIENT",
+      "pass": true
+    },
+    "double_serialization_precision": {
+      "actual": 17,
+      "expected": ">= 17",
+      "pass": true
+    },
+    "failure_reason": {
+      "actual": "RANK_DEFICIENT_DIAGNOSTIC",
+      "expected": "RANK_DEFICIENT_DIAGNOSTIC",
+      "pass": true
+    },
+    "failure_reason_vocabulary": {
+      "actual": "RANK_DEFICIENT_DIAGNOSTIC",
+      "expected": [
+        "",
+        "EXCEPTION",
+        "INVALID_NORMALS",
+        "NONFINITE_FITNESS",
+        "NONFINITE_TRANSFORM",
+        "NO_CORRESPONDENCES",
+        "PCL_NOT_CONVERGED",
+        "RANK_DEFICIENT_DIAGNOSTIC",
+        "ROTATION_MATRIX_QUALITY_FAILED"
+      ],
+      "pass": true
+    },
+    "float_serialization_precision": {
+      "actual": 9,
+      "expected": ">= 9",
+      "pass": true
+    },
+    "hessian_eigenvalues_available": {
+      "actual": [
+        0.0,
+        0.0,
+        0.0,
+        3.359999963045121,
+        3.359999963045123,
+        64.0
+      ],
+      "expected": "six finite sorted values",
+      "pass": true
+    },
+    "point_cloud_rank": {
+      "actual": 2,
+      "expected": 2,
+      "pass": true
+    },
+    "point_to_plane_jacobian_rank": {
+      "actual": 3,
+      "expected": "< 6",
+      "pass": true
+    },
+    "rank_deficient": {
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    "required_fields_present": {
+      "actual": [],
+      "expected": [],
+      "pass": true
+    },
+    "stdout_is_one_json_document": {
+      "actual": "",
+      "expected": "",
+      "pass": true
+    },
+    "v1_unified_failure_reason_absent": {
+      "actual": "RANK_DEFICIENT_DIAGNOSTIC",
+      "expected": "not pcl_icp_did_not_converge_or_nonfinite",
+      "pass": true
+    }
+  },
+  "microtest": "PLANAR_DEGENERACY_DIAGNOSTIC",
+  "microtest_pass": true,
+  "schema_version": "pcl_backend_qualification_v3_microtest_result_v1",
+  "truth_argument_passed_to_registration_cli": false
+}
