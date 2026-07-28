@@ -1,0 +1,112 @@
+{
+  "analysis_commit": "a3170bfc9c43946471ff6ec41cf649e565ef121d",
+  "branch": "feature/zero-perturbation-development",
+  "chart_map": [
+    {
+      "family": "comparison",
+      "figure": "ideal_matched_control.png",
+      "palette": "blue-orange plus neutral gate",
+      "question": "Do both deciding backends pass the ideal control?"
+    },
+    {
+      "family": "comparison",
+      "figure": "scene_translation_error.png",
+      "palette": "blue-orange",
+      "question": "How does median translation error (mm) vary by scene and backend?"
+    },
+    {
+      "family": "comparison",
+      "figure": "scene_rotation_error.png",
+      "palette": "blue-orange",
+      "question": "How does median rotation error (deg) vary by scene and backend?"
+    },
+    {
+      "family": "comparison",
+      "figure": "systematic_offset_vectors.png",
+      "palette": "blue-orange with marker shapes",
+      "question": "Which vector components make up the systematic offsets?"
+    },
+    {
+      "family": "relationship",
+      "figure": "repeatability_vs_systematic_offset.png",
+      "palette": "blue-gold-orange plus marker shapes",
+      "question": "Are repeatability dispersion and systematic offset distinct?"
+    },
+    {
+      "family": "relationship",
+      "figure": "full_vs_frozen_paired.png",
+      "palette": "single blue root plus neutral reference",
+      "question": "How do full and frozen endpoint errors differ on paired snapshots?"
+    },
+    {
+      "family": "relationship",
+      "figure": "turnover_vs_full_frozen_difference.png",
+      "palette": "single orange root",
+      "question": "Does correspondence turnover track the full/frozen endpoint difference?"
+    },
+    {
+      "family": "comparison",
+      "figure": "noise_condition_effects.png",
+      "palette": "blue-gold-orange",
+      "question": "How do the six frozen measurement conditions change endpoint error?"
+    },
+    {
+      "family": "relationship",
+      "figure": "backend_scene_ranking.png",
+      "palette": "single blue root with direct labels",
+      "question": "Do native and Open3D rank scene errors similarly?"
+    }
+  ],
+  "confirmatory_run_executed": false,
+  "confirmatory_seed_instantiation_count": 0,
+  "figure_files": [
+    "backend_scene_ranking.png",
+    "full_vs_frozen_paired.png",
+    "ideal_matched_control.png",
+    "noise_condition_effects.png",
+    "repeatability_vs_systematic_offset.png",
+    "scene_rotation_error.png",
+    "scene_translation_error.png",
+    "systematic_offset_vectors.png",
+    "turnover_vs_full_frozen_difference.png"
+  ],
+  "formal_p_values_computed": false,
+  "gt_optimization_leakage_count": 0,
+  "matplotlib_version": "3.8.2",
+  "numpy_version": "1.26.4",
+  "old_capture_range_test_seed_access_count": 0,
+  "open3d_version": "0.19.0+b012259",
+  "pandas_version": "2.1.4",
+  "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+  "python_version": "3.11.15",
+  "raw_result_manifest": "results/zero_perturbation/development/smoke-20260728-v2/raw_run_manifest.json",
+  "real_data_used": false,
+  "run_id": "smoke-20260728-v2",
+  "schema_version": "zero_perturbation_development_artifact_v1",
+  "scipy_version": "1.11.4",
+  "seed_schedule_sha256": "1006b76427b19151389f35a82b04e2b93abca339310bf8d56a5b92a27131f050",
+  "smoke": true,
+  "snapshot_count": 42,
+  "snapshot_pairing_violation_count": 0,
+  "table_files": [
+    "backend_agreement.csv",
+    "correspondence_turnover.csv",
+    "full_frozen_comparison.csv",
+    "gate_summary.csv",
+    "multi_attractor_summary.csv",
+    "noise_condition_summary.csv",
+    "normal_turnover.csv",
+    "protocol_summary.csv",
+    "repeatability_summary.csv",
+    "runtime_summary.csv",
+    "scene_contrast.csv",
+    "scene_inventory.csv",
+    "snapshot_inventory.csv",
+    "systematic_offset_summary.csv",
+    "traditional_metric_correlations.csv",
+    "trial_results.csv",
+    "zero_initialization_error.csv"
+  ],
+  "trial_count": 126,
+  "vision_used": false
+}

@@ -1,0 +1,67 @@
+{
+  "ALL_1260_SNAPSHOTS_COMPLETE": false,
+  "ALL_3780_TRIALS_COMPLETE": false,
+  "DEVELOPMENT_PIPELINE_EXECUTABLE": true,
+  "FULL_DEVELOPMENT_RUN_EXECUTED": false,
+  "IDEAL_MATCHED_CONTROL_PASS": false,
+  "MEASUREMENT_PAPER_MAINLINE_AUTHORIZED": false,
+  "NEW_PROTOCOL_AMBIGUITIES_FOUND": false,
+  "NO_CONFIRMATORY_SEED_ACCESS": true,
+  "NO_GT_OPTIMIZATION_LEAKAGE": true,
+  "NO_OLD_CAPTURE_TEST_SEED_ACCESS": true,
+  "OPEN3D_BACKEND_PASS": true,
+  "PRELIMINARY_CROSS_BACKEND_SIGNAL_OBSERVED": false,
+  "PRELIMINARY_REASSOCIATION_EFFECT_OBSERVED": false,
+  "PRELIMINARY_SCENE_EFFECT_OBSERVED": false,
+  "PRELIMINARY_SCIENTIFIC_SIGNALS_EVALUATED": false,
+  "REAL_DATA_VALIDATION_AUTHORIZED": false,
+  "SNAPSHOT_PAIRING_PASS": true,
+  "ZERO_PERTURBATION_CONFIRMATORY_LOCK_AUTHORIZED": false,
+  "ZERO_PERTURBATION_CONFIRMATORY_RUN_AUTHORIZED": false,
+  "ideal_matched_backend_details": [
+    {
+      "backend": "native_full",
+      "pass": false,
+      "q95_rotation_error_deg": 0.032892013916264416,
+      "q95_translation_error_m": 0.20539310615193157,
+      "solver_failure_count": 2
+    },
+    {
+      "backend": "open3d_full",
+      "pass": true,
+      "q95_rotation_error_deg": 3.9820935418237415e-17,
+      "q95_translation_error_m": 1.4318462612614925e-16,
+      "solver_failure_count": 0
+    }
+  ],
+  "native_frozen_solver_failure_count": 0,
+  "native_full_solver_failure_count": 22,
+  "open3d_solver_failure_count": 0,
+  "reassociation_scene_ratios": [
+    {
+      "rich_room_median_m": 9.688380111790221e-06,
+      "weak_median_m": 0.17878346805088663,
+      "weak_over_rich_ratio": 18453.391174580058,
+      "weak_scene": "LONG_CORRIDOR"
+    },
+    {
+      "rich_room_median_m": 9.688380111790221e-06,
+      "weak_median_m": 0.00261432846094205,
+      "weak_over_rich_ratio": 269.84164852910317,
+      "weak_scene": "PARALLEL_WALLS"
+    },
+    {
+      "rich_room_median_m": 9.688380111790221e-06,
+      "weak_median_m": 0.0244228581034738,
+      "weak_over_rich_ratio": 2520.8402046233236,
+      "weak_scene": "END_FACE_TRANSITION_WEAK"
+    },
+    {
+      "rich_room_median_m": 9.688380111790221e-06,
+      "weak_median_m": 0.1124465920190214,
+      "weak_over_rich_ratio": 11606.335705406535,
+      "weak_scene": "END_FACE_TRANSITION_ABSENT"
+    }
+  ],
+  "turnover_full_frozen_spearman_rho": 0.6442175301418049
+}

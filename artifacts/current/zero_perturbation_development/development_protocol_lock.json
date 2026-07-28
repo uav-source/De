@@ -1,0 +1,11 @@
+{
+  "confirmatory_lock_generated": false,
+  "confirmatory_run_authorized": false,
+  "development_run_id": "smoke-20260728-v2",
+  "protocol_lock_commit": "92e989f6f1b5f42f586883fd6742f2669929981d",
+  "protocol_lock_tag": "archive/zero-perturbation-development-protocol-lock",
+  "protocol_lock_tag_commit": "92e989f6f1b5f42f586883fd6742f2669929981d",
+  "protocol_path": "configs/zero_perturbation/development_v1.yaml",
+  "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+  "schema_version": "zero_perturbation_development_protocol_lock_v1"
+}

@@ -1,0 +1,13 @@
+protocol_field,value
+protocol_type,zero_perturbation_development
+protocol_sha256,8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e
+scene_count,7
+condition_count,6
+expected_snapshot_count,1260
+expected_trial_count,3780
+repeat_count,5
+open3d_version,0.19.0+b012259
+bootstrap_repetitions,1000
+formal_p_values,False
+confirmatory_claim_authorized,False
+confirmatory_run_authorized,False
