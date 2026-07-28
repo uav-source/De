@@ -1,26 +1,19 @@
-"""Cache-backed Phase A Stage-1 runner, not executed during the Stage-0 round."""
+"""Future formal Stage-1 runner guarded by a new result-contract execution lock.
+
+The old v1.2 authorization is intentionally not accepted. This module is not
+called by the concentrated execution-chain audit.
+"""
 
 from __future__ import annotations
 
-import hashlib
-from concurrent.futures import ThreadPoolExecutor
+import json
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 
 from .backend_phase_a_protocol import load_backend_phase_a_protocol
-from .backend_phase_a_v1_1 import (
-    DEFAULT_PCL_CLI_RELATIVE,
-    OPEN3D_BACKEND,
-    PCL_BACKEND,
-    RunnerContractError,
-    _run_open3d,
-    _run_pcl,
-    atomic_write_json,
-    git_worktree_clean,
-    validate_existing_result,
-)
+from .backend_phase_a_v1_1 import RunnerContractError, git_worktree_clean
 from .backend_phase_a_v1_2 import (
     V1_2_PROTOCOL_SHA256,
     planned_rows,
@@ -29,10 +22,73 @@ from .backend_phase_a_v1_2 import (
     validate_snapshot_directory,
     validate_snapshot_lock,
 )
+from .phase_a_attempt_events import append_attempt_event
+from .phase_a_execution_chain_audit import (
+    DEFAULT_PCL_CLI_RELATIVE,
+    execute_open3d_fixture,
+    execute_pcl_fixture,
+    implementation_manifest,
+)
+from .phase_a_execution_chain_fixture import FixtureSnapshot
+from .phase_a_trial_result_schema import (
+    OPEN3D_BACKEND,
+    PCL_BACKEND,
+    SCHEMA_VERSION,
+    canonical_json_bytes,
+    canonical_json_sha256,
+    file_sha256,
+)
+from .phase_a_trial_result_writer import (
+    atomic_write_bytes,
+    result_filename,
+    write_phase_a_trial_result,
+)
+from .phase_a_trial_resume import validate_existing_trial_result_for_resume
 
 
-def _result_path(directory: Path, trial_id: str) -> Path:
-    return directory / f"{hashlib.sha256(trial_id.encode('utf-8')).hexdigest()}.json"
+def validate_stage1_execution_lock(
+    path: str | Path,
+    *,
+    root: str | Path,
+    protocol_lock: str | Path,
+    snapshot_lock: str | Path,
+) -> dict[str, Any]:
+    repository = Path(root).resolve()
+    candidate = Path(path).resolve()
+    if not candidate.is_file():
+        raise FileNotFoundError("a new Stage-1 execution lock is required")
+    value = json.loads(candidate.read_text(encoding="utf-8"))
+    stored = value.get("lock_payload_sha256")
+    payload = {key: item for key, item in value.items() if key != "lock_payload_sha256"}
+    if stored != canonical_json_sha256(payload):
+        raise RunnerContractError("Stage-1 execution lock payload SHA mismatch")
+    if (
+        value.get("schema_version") != "phase_a_stage1_execution_lock_v1"
+        or value.get("trial_result_schema_version") != SCHEMA_VERSION
+        or value.get("old_v1_2_authorization_invalidated") is not True
+    ):
+        raise RunnerContractError("old v1.2 or unknown Stage-1 execution lock is rejected")
+    if value.get("PHASE_A_STAGE1_BACKEND_RUN_AUTHORIZED") is not True:
+        raise PermissionError("Stage-1 backend execution is not authorized")
+    if value.get("protocol_lock_sha256") != file_sha256(protocol_lock):
+        raise RunnerContractError("Stage-1 protocol lock SHA mismatch")
+    if value.get("snapshot_lock_sha256") != file_sha256(snapshot_lock):
+        raise RunnerContractError("Stage-1 snapshot lock SHA mismatch")
+    current = implementation_manifest(repository)
+    if value.get("implementation_sha256") != current["implementation_sha256"]:
+        raise RunnerContractError("Stage-1 implementation manifest SHA mismatch")
+    required = {
+        "trial_schema",
+        "schema_validator",
+        "writer",
+        "resume",
+        "analysis",
+        "independent_verifier",
+        "publisher",
+    }
+    if not required <= set(current["files"]):
+        raise RunnerContractError("Stage-1 lock lacks verifier/publisher contract hashes")
+    return value
 
 
 def _arguments(run_id: str, output_dir: Path, workers: int) -> None:
@@ -50,6 +106,7 @@ def dry_run_stage1(
     root: str | Path,
     protocol_lock: str | Path,
     snapshot_lock: str | Path,
+    execution_lock: str | Path,
     run_id: str,
     output_dir: str | Path,
     workers: int,
@@ -59,22 +116,28 @@ def dry_run_stage1(
     _arguments(run_id, destination, workers)
     protocol = validate_protocol_lock(protocol_lock, repository)
     snapshots = validate_snapshot_lock(snapshot_lock, repository)
+    execution = validate_stage1_execution_lock(
+        execution_lock,
+        root=repository,
+        protocol_lock=protocol_lock,
+        snapshot_lock=snapshot_lock,
+    )
     plan, trials = planned_rows(repository)
     return {
-        "schema_version": "backend_phase_a_v1_2_stage1_dry_run_v1",
-        "run_id": run_id,
-        "output_dir": str(destination),
-        "workers": int(workers),
-        "protocol_sha256": V1_2_PROTOCOL_SHA256,
-        "implementation_sha256": protocol["implementation_sha256"],
-        "snapshot_lock_sha256": snapshots["lock_payload_sha256"],
-        "snapshot_lock_required": True,
+        "DRY_RUN_BACKEND_EXECUTION_COUNT": 0,
         "DRY_RUN_PLANNED_SNAPSHOT_COUNT": len(plan),
         "DRY_RUN_PLANNED_TRIAL_COUNT": len(trials),
         "DRY_RUN_SNAPSHOT_GENERATION_COUNT": 0,
-        "DRY_RUN_BACKEND_EXECUTION_COUNT": 0,
         "DRY_RUN_TRIAL_RESULT_COUNT": 0,
         "dry_run_pass": len(plan) == 210 and len(trials) == 420,
+        "implementation_sha256": execution["implementation_sha256"],
+        "output_dir": str(destination),
+        "protocol_sha256": V1_2_PROTOCOL_SHA256,
+        "run_id": run_id,
+        "schema_version": "backend_phase_a_v1_2_stage1_dry_run_v2",
+        "snapshot_lock_sha256": file_sha256(snapshot_lock),
+        "trial_result_schema_version": SCHEMA_VERSION,
+        "workers": int(workers),
     }
 
 
@@ -83,124 +146,169 @@ def execute_stage1_from_cache(
     root: str | Path,
     protocol_lock: str | Path,
     snapshot_lock: str | Path,
+    execution_lock: str | Path,
     run_id: str,
     output_dir: str | Path,
     workers: int,
     resume: bool,
 ) -> dict[str, Any]:
-    """Execute backends only from a verified Stage-0 cache.
-
-    This function is implemented for the separately authorized Stage-1 round;
-    the v1.2 Stage-0 workflow never calls it.
-    """
-
     repository = Path(root).resolve()
     destination = Path(output_dir).resolve()
     _arguments(run_id, destination, workers)
     protocol = validate_protocol_lock(protocol_lock, repository)
     snapshot_lock_value = validate_snapshot_lock(snapshot_lock, repository)
+    execution = validate_stage1_execution_lock(
+        execution_lock,
+        root=repository,
+        protocol_lock=protocol_lock,
+        snapshot_lock=snapshot_lock,
+    )
     if not git_worktree_clean(repository):
-        raise RunnerContractError("formal Stage 1 requires a clean Git worktree")
+        raise RunnerContractError("formal Stage-1 requires a clean Git worktree")
     cache_root = repository / str(snapshot_lock_value["snapshot_cache_root"])
     plans, _ = planned_rows(repository)
     base = load_backend_phase_a_protocol(repository)
-    pcl_contract = protocol.get("pcl_cli_binary", {})
-    pcl_cli = repository / str(
-        pcl_contract.get("path", DEFAULT_PCL_CLI_RELATIVE.as_posix())
-    )
+    pcl_cli = repository / DEFAULT_PCL_CLI_RELATIVE
     run_root = destination / run_id
     if run_root.exists() and not resume:
         raise FileExistsError("formal Stage-1 output exists; use --resume")
     run_root.mkdir(parents=True, exist_ok=True)
+    results_dir = run_root / "raw_results"
+    result_manifest_path = run_root / "raw_result_manifest.json"
+    if result_manifest_path.exists():
+        result_manifest = json.loads(result_manifest_path.read_text(encoding="utf-8"))
+    else:
+        result_manifest = {
+            "results": {},
+            "run_id": run_id,
+            "schema_version": "phase_a_raw_result_manifest_v1",
+        }
     completed: list[str] = []
     failed: list[str] = []
     resumed_ids: list[str] = []
     backend_execution_count = 0
-    trial_result_count = 0
+    snapshot_lock_sha = file_sha256(snapshot_lock)
     for plan in plans:
         snapshot_id = str(plan["snapshot_id"])
         directory = snapshot_directory(cache_root, snapshot_id)
         metadata = validate_snapshot_directory(directory)
-        source = np.load(directory / "source_points.npy", allow_pickle=False)
-        target = np.load(directory / "target_points.npy", allow_pickle=False)
-        reference = np.load(directory / "reference_pose.npy", allow_pickle=False)
-        checksums = {
-            "source_checksum": metadata["source_raw_checksum"],
-            "target_checksum": metadata["target_raw_checksum"],
-            "reference_pose_checksum": metadata["reference_pose_raw_checksum"],
-            "snapshot_checksum": metadata["snapshot_checksum"],
-        }
-        existing: dict[str, dict[str, Any]] = {}
-        futures = {}
-        with ThreadPoolExecutor(max_workers=min(int(workers), 2)) as pool:
-            for backend in (OPEN3D_BACKEND, PCL_BACKEND):
-                trial_id = f"{snapshot_id}/{backend}"
-                result_path = _result_path(run_root / "trials", trial_id)
-                if result_path.exists():
-                    if not resume:
-                        raise FileExistsError(f"trial exists without --resume: {trial_id}")
-                    existing[backend] = validate_existing_result(
-                        result_path,
-                        trial_id=trial_id,
-                        protocol_sha256=V1_2_PROTOCOL_SHA256,
-                        implementation_sha256=protocol["implementation_sha256"],
-                        checksums=checksums,
-                    )
-                elif backend == OPEN3D_BACKEND:
-                    futures[backend] = pool.submit(
-                        _run_open3d,
-                        source=source,
-                        target=target,
-                        reference=reference,
-                        trial_id=trial_id,
-                        snapshot_id=snapshot_id,
-                        checksums=checksums,
-                        protocol_sha256=V1_2_PROTOCOL_SHA256,
-                        implementation_sha256=protocol["implementation_sha256"],
+        fixture = FixtureSnapshot(
+            snapshot_id=snapshot_id,
+            scene_variant=str(plan["scene_variant"]),
+            condition="IDEAL_MATCHED",
+            source=np.load(directory / "source_points.npy", allow_pickle=False),
+            target=np.load(directory / "target_points.npy", allow_pickle=False),
+            reference=np.load(directory / "reference_pose.npy", allow_pickle=False),
+            expected_failure_classifications=("NONE",),
+            checksums={
+                "source_checksum": metadata["source_raw_checksum"],
+                "target_checksum": metadata["target_raw_checksum"],
+                "reference_pose_checksum": metadata["reference_pose_raw_checksum"],
+                "snapshot_checksum": metadata["snapshot_checksum"],
+            },
+        )
+        for backend in (OPEN3D_BACKEND, PCL_BACKEND):
+            trial_id = f"{snapshot_id}/{backend}"
+            common = {
+                "backend": backend,
+                "condition": "IDEAL_MATCHED",
+                "implementation_sha256": execution["implementation_sha256"],
+                "planned_trial_id": trial_id,
+                "protocol_sha256": V1_2_PROTOCOL_SHA256,
+                "reference_pose_checksum": fixture.checksums["reference_pose_checksum"],
+                "scene_variant": fixture.scene_variant,
+                "schema_version": SCHEMA_VERSION,
+                "snapshot_checksum": fixture.checksums["snapshot_checksum"],
+                "snapshot_id": snapshot_id,
+                "snapshot_lock_sha256": snapshot_lock_sha,
+                "source_checksum": fixture.checksums["source_checksum"],
+                "target_checksum": fixture.checksums["target_checksum"],
+            }
+            result_path = results_dir / result_filename(trial_id)
+            if result_path.exists():
+                if not resume:
+                    raise FileExistsError(f"trial exists without --resume: {trial_id}")
+                payload = validate_existing_trial_result_for_resume(
+                    result_path,
+                    manifest_entry=result_manifest["results"].get(trial_id),
+                    expected=common,
+                )
+                resumed_ids.append(trial_id)
+                append_attempt_event(
+                    run_root / "attempt_events.ndjson",
+                    planned_trial_id=trial_id,
+                    snapshot_id=snapshot_id,
+                    backend=backend,
+                    event_type="SKIPPED_VALID_RESULT",
+                    detail=None,
+                )
+            else:
+                append_attempt_event(
+                    run_root / "attempt_events.ndjson",
+                    planned_trial_id=trial_id,
+                    snapshot_id=snapshot_id,
+                    backend=backend,
+                    event_type="STARTED",
+                    detail=None,
+                )
+                if backend == OPEN3D_BACKEND:
+                    payload = execute_open3d_fixture(
+                        fixture=fixture,
+                        common=common,
                         parameters=base.data["open3d_parameter_contract"]["parameters"],
-                        fixture_only=False,
                     )
                 else:
-                    futures[backend] = pool.submit(
-                        _run_pcl,
-                        source=source,
-                        target=target,
-                        reference=reference,
-                        trial_id=trial_id,
-                        snapshot_id=snapshot_id,
-                        checksums=checksums,
-                        protocol_sha256=V1_2_PROTOCOL_SHA256,
-                        implementation_sha256=protocol["implementation_sha256"],
+                    payload = execute_pcl_fixture(
+                        fixture=fixture,
+                        common=common,
                         parameters=base.data["pcl_parameter_contract"]["parameters"],
                         pcl_cli=pcl_cli,
-                        fixture_only=False,
                     )
-            for backend in (OPEN3D_BACKEND, PCL_BACKEND):
-                trial_id = f"{snapshot_id}/{backend}"
-                if backend in existing:
-                    payload = existing[backend]
-                    resumed_ids.append(trial_id)
-                else:
-                    payload = futures[backend].result()
-                    atomic_write_json(_result_path(run_root / "trials", trial_id), payload)
-                    backend_execution_count += 1
-                    trial_result_count += 1
-                completed.append(trial_id)
-                if payload.get("solver_failed"):
-                    failed.append(trial_id)
+                path, sha = write_phase_a_trial_result(results_dir, payload)
+                result_manifest["results"][trial_id] = {
+                    "path": path.name,
+                    "planned_trial_id": trial_id,
+                    "sha256": sha,
+                }
+                atomic_write_bytes(
+                    result_manifest_path,
+                    canonical_json_bytes(result_manifest),
+                    replace=result_manifest_path.exists(),
+                )
+                append_attempt_event(
+                    run_root / "attempt_events.ndjson",
+                    planned_trial_id=trial_id,
+                    snapshot_id=snapshot_id,
+                    backend=backend,
+                    event_type="COMPLETED",
+                    detail=None,
+                )
+                backend_execution_count += 1
+            completed.append(trial_id)
+            if payload["solver_failure"]:
+                failed.append(trial_id)
     manifest = {
-        "schema_version": "backend_phase_a_v1_2_stage1_run_manifest_v1",
-        "run_id": run_id,
+        "backend_execution_count": backend_execution_count,
         "completed_trial_ids": completed,
         "failed_trial_ids": failed,
         "resumed_trial_ids": resumed_ids,
+        "run_id": run_id,
+        "schema_version": "backend_phase_a_v1_2_stage1_run_manifest_v2",
         "snapshot_generation_count": 0,
-        "backend_execution_count": backend_execution_count,
-        "trial_result_count": trial_result_count,
-        "snapshot_lock_sha256": snapshot_lock_value["lock_payload_sha256"],
+        "snapshot_lock_sha256": snapshot_lock_sha,
+        "trial_result_count": backend_execution_count,
+        "trial_result_schema_version": SCHEMA_VERSION,
     }
-    atomic_write_json(run_root / "run_manifest.json", manifest, allow_replace=resume)
+    atomic_write_bytes(
+        run_root / "run_manifest.json",
+        canonical_json_bytes(manifest),
+        replace=resume,
+    )
     return manifest
 
 
-__all__ = ["dry_run_stage1", "execute_stage1_from_cache"]
+__all__ = [
+    "dry_run_stage1",
+    "execute_stage1_from_cache",
+    "validate_stage1_execution_lock",
+]

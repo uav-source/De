@@ -23,6 +23,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--protocol-lock", type=Path, required=True)
     parser.add_argument("--snapshot-lock", type=Path, required=True)
+    parser.add_argument("--execution-lock", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--workers", type=int, required=True)
@@ -37,6 +38,7 @@ def execution_entry(args: argparse.Namespace) -> dict:
             root=ROOT,
             protocol_lock=args.protocol_lock,
             snapshot_lock=args.snapshot_lock,
+            execution_lock=args.execution_lock,
             run_id=args.run_id,
             output_dir=args.output_dir,
             workers=args.workers,
@@ -45,6 +47,7 @@ def execution_entry(args: argparse.Namespace) -> dict:
         root=ROOT,
         protocol_lock=args.protocol_lock,
         snapshot_lock=args.snapshot_lock,
+        execution_lock=args.execution_lock,
         run_id=args.run_id,
         output_dir=args.output_dir,
         workers=args.workers,
