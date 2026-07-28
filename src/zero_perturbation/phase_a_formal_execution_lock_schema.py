@@ -26,11 +26,11 @@ LOCK_TYPE = "phase_a_stage1_formal_execution_lock"
 LOCK_VERSION = "1.1"
 SCHEMA_RELATIVE_PATH = Path("schemas/phase_a_formal_execution_lock_v1.schema.json")
 FORMAL_LOCK_RELATIVE_PATH = Path(
-    "artifacts/current/zero_perturbation_backend_phase_a_stage1_formal_lock_v1_1/"
+    "artifacts/current/zero_perturbation_backend_phase_a_stage1_formal_lock_v1_2/"
     "backend_phase_a_stage1_formal_execution_lock.json"
 )
 IMPLEMENTATION_MANIFEST_RELATIVE_PATH = Path(
-    "artifacts/current/zero_perturbation_phase_a_execution_chain_audit_v1_1/"
+    "artifacts/current/zero_perturbation_phase_a_execution_chain_audit_v1_2/"
     "implementation_manifest.json"
 )
 PROTOCOL_RELATIVE_PATH = Path("configs/zero_perturbation/backend_phase_a_v1_2.yaml")
@@ -149,13 +149,29 @@ IMPLEMENTATION_BINDING_FIELDS = frozenset(
         "rotation_metric_sha256",
     }
 )
-IMPLEMENTATION_MANIFEST_MAPPING = {
+V1_IMPLEMENTATION_MANIFEST_MAPPING = {
     "formal_runner_sha256": ("files", "formal_runner"),
     "trial_result_schema_sha256": ("files", "trial_schema"),
     "trial_result_validator_sha256": ("files", "schema_validator"),
     "trial_result_writer_sha256": ("files", "writer"),
     "trial_resume_validator_sha256": ("files", "resume"),
     "attempt_event_writer_sha256": ("files", "attempt_event_schema"),
+    "stage1_analysis_sha256": ("files", "analysis"),
+    "independent_verifier_sha256": ("files", "independent_verifier"),
+    "publisher_sha256": ("files", "publisher"),
+    "artifact_verifier_sha256": ("files", "artifact_verifier"),
+    "open3d_adapter_sha256": ("files", "open3d_adapter"),
+    "pcl_adapter_sha256": ("files", "pcl_adapter"),
+    "pcl_cli_sha256": ("pcl_cli_binary", None),
+    "rotation_metric_sha256": ("files", "rotation_metric"),
+}
+V1_2_IMPLEMENTATION_MANIFEST_MAPPING = {
+    "formal_runner_sha256": ("files", "formal_runner"),
+    "trial_result_schema_sha256": ("files", "trial_result_schema"),
+    "trial_result_validator_sha256": ("files", "trial_result_validator"),
+    "trial_result_writer_sha256": ("files", "trial_result_writer"),
+    "trial_resume_validator_sha256": ("files", "strict_resume_validator"),
+    "attempt_event_writer_sha256": ("files", "attempt_event_writer"),
     "stage1_analysis_sha256": ("files", "analysis"),
     "independent_verifier_sha256": ("files", "independent_verifier"),
     "publisher_sha256": ("files", "publisher"),
@@ -242,8 +258,14 @@ def implementation_bindings_from_manifest(value: Mapping[str, Any]) -> dict[str,
     """Extract the exact 14 lock bindings; never synthesize missing manifest entries."""
 
     output: dict[str, str] = {}
+    mapping = (
+        V1_2_IMPLEMENTATION_MANIFEST_MAPPING
+        if value.get("schema_version")
+        == "phase_a_execution_chain_implementation_manifest_v1_2"
+        else V1_IMPLEMENTATION_MANIFEST_MAPPING
+    )
     try:
-        for binding, (section, name) in IMPLEMENTATION_MANIFEST_MAPPING.items():
+        for binding, (section, name) in mapping.items():
             entry = value[section] if name is None else value[section][name]
             output[binding] = _require_sha(entry["sha256"], f"manifest.{binding}")
     except (KeyError, TypeError) as error:
@@ -254,12 +276,58 @@ def implementation_bindings_from_manifest(value: Mapping[str, Any]) -> dict[str,
     return output
 
 
+def implementation_manifest_v1_2(root: str | Path) -> dict[str, Any]:
+    """Recompute every file bound by execution-chain audit v1.2."""
+
+    repository = Path(root).resolve()
+    paths = {
+        "formal_runner": "scripts/168_run_backend_phase_a.py",
+        "formal_lock_schema": "schemas/phase_a_formal_execution_lock_v1.schema.json",
+        "formal_lock_validator": "src/zero_perturbation/phase_a_formal_execution_lock_schema.py",
+        "trial_result_schema": "schemas/phase_a_trial_result_v1.schema.json",
+        "trial_result_validator": "src/zero_perturbation/phase_a_trial_result_schema.py",
+        "trial_result_writer": "src/zero_perturbation/phase_a_trial_result_writer.py",
+        "strict_resume_validator": "src/zero_perturbation/phase_a_trial_resume.py",
+        "attempt_event_writer": "src/zero_perturbation/phase_a_attempt_events.py",
+        "scientific_equivalence_comparator": "src/zero_perturbation/phase_a_resume_scientific_equivalence.py",
+        "analysis": "src/zero_perturbation/phase_a_stage1_analysis.py",
+        "independent_verifier": "src/zero_perturbation/phase_a_stage1_independent_verifier.py",
+        "publisher": "src/zero_perturbation/phase_a_stage1_publisher.py",
+        "artifact_verifier": "src/zero_perturbation/phase_a_execution_chain_v1_2_artifact_verifier.py",
+        "execution_chain_audit_v1_2_runner": "scripts/176_run_phase_a_execution_chain_audit_v1_2.py",
+        "open3d_adapter": "src/zero_perturbation/open3d_backend.py",
+        "pcl_adapter": "src/zero_perturbation/pcl_backend.py",
+        "pcl_cli_source": "tools/pcl_point_to_plane/pcl_point_to_plane_cli.cpp",
+        "rotation_metric": "src/zero_perturbation/rotation_metrics.py",
+    }
+    manifest: dict[str, Any] = {
+        "files": {
+            name: {"path": path, "sha256": file_sha256(repository / path)}
+            for name, path in paths.items()
+        },
+        "pcl_cli_binary": {
+            "path": "build/pcl_point_to_plane_v3/pcl_point_to_plane_cli",
+            "sha256": file_sha256(
+                repository / "build/pcl_point_to_plane_v3/pcl_point_to_plane_cli"
+            ),
+        },
+        "schema_version": "phase_a_execution_chain_implementation_manifest_v1_2",
+    }
+    manifest["implementation_sha256"] = canonical_json_sha256(manifest)
+    return manifest
+
+
 def _load_current_implementation_bindings(
     repository: Path, implementation_manifest_path: Path
 ) -> dict[str, str]:
     frozen = _load_json_object(implementation_manifest_path, "implementation manifest")
     try:
-        current = implementation_manifest(repository)
+        current = (
+            implementation_manifest_v1_2(repository)
+            if frozen.get("schema_version")
+            == "phase_a_execution_chain_implementation_manifest_v1_2"
+            else implementation_manifest(repository)
+        )
     except (OSError, KeyError, ValueError) as error:
         _reject("FORMAL_LOCK_IMPLEMENTATION_BINDING_MISMATCH", str(error))
     if frozen != current:
@@ -573,5 +641,6 @@ __all__ = [
     "build_phase_a_formal_execution_lock",
     "implementation_binding_sha256",
     "implementation_bindings_from_manifest",
+    "implementation_manifest_v1_2",
     "validate_phase_a_formal_execution_lock_strict",
 ]

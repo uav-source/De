@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent command-line verifier for Formal Execution Lock v1.1."""
+"""Independent command-line verifier for Formal Execution Lock release v1.2."""
 
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ from zero_perturbation.phase_a_trial_result_schema import file_sha256
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Verify Formal Execution Lock v1.1")
+    parser = argparse.ArgumentParser(description="Verify Formal Execution Lock release v1.2")
     parser.add_argument(
         "--formal-execution-lock", type=Path, default=ROOT / FORMAL_LOCK_RELATIVE_PATH
     )
@@ -51,7 +51,7 @@ def main() -> int:
         "FORMAL_LOCK_V1_1_ARTIFACT_VERIFICATION_PASS": True,
         "formal_lock_sha256": file_sha256(args.formal_execution_lock),
         "implementation_binding_count": len(value["implementation_bindings"]),
-        "schema_version": "phase_a_formal_execution_lock_verification_v1_1",
+        "schema_version": "phase_a_formal_execution_lock_verification_v1_2",
     }
     print(json.dumps(output, indent=2, sort_keys=True, allow_nan=False))
     return 0

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the complete Phase A Stage-1 Formal Execution Lock v1.1."""
+"""Build the complete Phase A Stage-1 Formal Execution Lock release v1.2."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ from zero_perturbation.phase_a_trial_result_schema import canonical_json_bytes, 
 from zero_perturbation.phase_a_trial_result_writer import atomic_write_bytes
 
 
-AUDIT_ROOT = ROOT / "artifacts/current/zero_perturbation_phase_a_execution_chain_audit_v1_1"
+AUDIT_ROOT = ROOT / "artifacts/current/zero_perturbation_phase_a_execution_chain_audit_v1_2"
 
 
 def _json(path: Path) -> dict:
@@ -36,14 +36,14 @@ def _json(path: Path) -> dict:
     return value
 
 
-def _require_execution_chain_v1_1_pass() -> None:
+def _require_execution_chain_v1_2_pass() -> None:
     decision = _json(AUDIT_ROOT / "final_decision.json")
     verification = _json(AUDIT_ROOT / "artifact_verification.json")
     if (
-        decision.get("PHASE_A_EXECUTION_CHAIN_AUDIT_PASS") is not True
-        or verification.get("PHASE_A_EXECUTION_CHAIN_ARTIFACT_VERIFICATION_PASS") is not True
+        decision.get("EXECUTION_CHAIN_AUDIT_V1_2_PASS") is not True
+        or verification.get("EXECUTION_CHAIN_ARTIFACT_VERIFICATION_PASS") is not True
     ):
-        raise PermissionError("execution-chain audit v1.1 must pass before formal lock construction")
+        raise PermissionError("execution-chain audit v1.2 must pass before formal lock construction")
 
 
 def _head_commit() -> str:
@@ -57,7 +57,7 @@ def _head_commit() -> str:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Build Formal Execution Lock v1.1")
+    parser = argparse.ArgumentParser(description="Build Formal Execution Lock release v1.2")
     parser.add_argument("--output", type=Path, default=ROOT / FORMAL_LOCK_RELATIVE_PATH)
     parser.add_argument(
         "--implementation-manifest",
@@ -71,7 +71,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = build_parser().parse_args()
-    _require_execution_chain_v1_1_pass()
+    _require_execution_chain_v1_2_pass()
     output = args.output.resolve()
     if output.exists():
         raise FileExistsError(f"formal lock already exists: {output}")
@@ -96,7 +96,7 @@ def main() -> int:
         "formal_lock_path": str(output),
         "formal_lock_sha256": file_sha256(output),
         "implementation_binding_count": len(validated["implementation_bindings"]),
-        "schema_version": "phase_a_formal_execution_lock_builder_result_v1_1",
+        "schema_version": "phase_a_formal_execution_lock_builder_result_v1_2",
     }
     print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
     return 0
