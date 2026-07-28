@@ -1,0 +1,26 @@
+{
+  "schema_version": "zero_perturbation_pcl_environment_v1",
+  "environment_name": "degen-lio-pcl-backend",
+  "environment_prefix": "/home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend",
+  "dependency_ready": true,
+  "required_pkg_config_probe": {
+    "command": "pkg-config --modversion pcl_registration",
+    "exit_code": 0,
+    "stdout": "1.15.1"
+  },
+  "packages": {
+    "pcl": "1.15.1",
+    "cmake": "4.4.0",
+    "compiler": "c++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0",
+    "eigen": "5.0.1",
+    "boost": "1.90.0",
+    "flann": "1.9.2",
+    "nlohmann_json": "3.12.0",
+    "ninja": "1.13.2",
+    "pkg_config": "0.29.2"
+  },
+  "dependency_resolution_note": "The first unconstrained solve installed PCL 1.11.1, whose conda package omitted PCL pkg-config metadata. Before implementation or qualification trials, the isolated environment was upgraded to PCL 1.15.1, whose package supplies pcl_registration.pc, pcl_common.pc, and pcl_features.pc. No registration result existed during dependency resolution.",
+  "open3d_environment_modified": false,
+  "system_python_modified": false,
+  "sudo_used": false
+}

@@ -1,0 +1,4552 @@
+Script started on 2026-07-28 16:33:58+08:00 [TERM="dumb" TTY="/dev/pts/3" COLUMNS="80" LINES="24"]
+Using Cached Shard Index for conda-forge/linux-64                                                   ✔ Done
+
+Using Cached Shard Index for conda-forge/noarch                                                     ✔ Done
+
+
+Fetching and Parsing Packages' Shards                                                           ⧖ Starting
+Fetching and Parsing Packages' Shards                                                    ✔ Done (10.5 sec)
+
+
+
+
+Resolving Environment                                                                           ⧖ Starting
+Resolving Environment                                                                     ✔ Done (0.5 sec)
+
+
+
+Transaction
+
+
+
+  Prefix: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend
+
+
+
+  Updating specs:
+
+
+
+   - pcl
+
+   - cmake
+
+   - ninja
+
+   - pkg-config
+
+   - eigen
+
+   - boost-cpp
+
+   - flann
+
+   - nlohmann_json
+
+
+
+
+
+  Package                 Version  Build               Channel           Size
+
+───────────────────────────────────────────────────────────────────────────────
+
+  Install:
+
+───────────────────────────────────────────────────────────────────────────────
+
+
+
+  + _openmp_mutex             4.5  20_gnu              conda-forge     Cached
+
+  + boost-cpp              1.74.0  h75c5d50_8          conda-forge       17MB
+
+  + bzip2                   1.0.8  hda65f42_9          conda-forge     Cached
+
+  + c-ares                 1.34.8  hb03c661_0          conda-forge     Cached
+
+  + ca-certificates     2026.7.22  hbd8a1cb_0          conda-forge     Cached
+
+  + cmake                   4.4.0  hc85cc9f_0          conda-forge       24MB
+
+  + eigen                   5.0.1  hc65338a_0          conda-forge        1MB
+
+  + flann                   1.9.1  hdd4cb9a_1014       conda-forge        2MB
+
+  + hdf5                   1.14.3  nompi_h2d575fe_109  conda-forge        4MB
+
+  + icu                      70.1  h27087fc_0          conda-forge       14MB
+
+  + keyutils                1.6.3  hb9d3cd8_0          conda-forge     Cached
+
+  + krb5                   1.22.2  hbde042b_1          conda-forge     Cached
+
+  + libaec                  1.1.5  h088129d_0          conda-forge     Cached
+
+  + libcurl                8.21.0  hcf29cc6_1          conda-forge      479kB
+
+  + libedit          3.1.20250104  pl5321h7949ede_0    conda-forge     Cached
+
+  + libev                    4.33  hd590300_2          conda-forge     Cached
+
+  + libexpat                2.8.1  hecca717_1          conda-forge     Cached
+
+  + libgcc                 15.2.0  he0feb66_20         conda-forge     Cached
+
+  + libgcc-ng              15.2.0  h69a702a_20         conda-forge     Cached
+
+  + libgfortran            15.2.0  h69a702a_20         conda-forge     Cached
+
+  + libgfortran5           15.2.0  h68bc16d_20         conda-forge     Cached
+
+  + libgomp                15.2.0  he0feb66_20         conda-forge     Cached
+
+  + liblzma                 5.8.3  hb03c661_0          conda-forge     Cached
+
+  + liblzma-devel           5.8.3  hb03c661_0          conda-forge      491kB
+
+  + libnghttp2             1.68.1  h877daf1_0          conda-forge     Cached
+
+  + libssh2                1.11.1  hcf80075_0          conda-forge     Cached
+
+  + libstdcxx              15.2.0  h934c35e_20         conda-forge     Cached
+
+  + libstdcxx-ng           15.2.0  hdf11a46_20         conda-forge     Cached
+
+  + libuv                  1.52.1  h280c20c_0          conda-forge      420kB
+
+  + libzlib                 1.3.2  h25fd6f3_2          conda-forge     Cached
+
+  + ncurses                   6.6  hdb14827_0          conda-forge     Cached
+
+  + ninja                  1.13.2  h171cf75_0          conda-forge      186kB
+
+  + nlohmann_json          3.12.0  h54a6638_1          conda-forge     Cached
+
+  + openssl                 3.6.3  h35e630c_0          conda-forge     Cached
+
+  + pcl                    1.11.1  h39b1736_3          conda-forge       21MB
+
+  + pkg-config             0.29.2  h4bc722e_1009       conda-forge      115kB
+
+  + qhull                  2020.2  h434a139_5          conda-forge     Cached
+
+  + rhash                   1.4.6  hb9d3cd8_1          conda-forge      194kB
+
+  + xz                      5.8.3  ha02ee65_0          conda-forge       24kB
+
+  + xz-gpl-tools            5.8.3  ha02ee65_0          conda-forge       34kB
+
+  + xz-tools                5.8.3  hb03c661_0          conda-forge       96kB
+
+  + zstd                    1.5.7  hb78ec9c_6          conda-forge     Cached
+
+
+
+  Summary:
+
+
+
+  Install: 42 packages
+
+
+
+  Total download: 85MB
+
+
+
+───────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
+
+Transaction starting
+
+[+] 0.0s
+
+Downloading      ╸━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.1s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.2s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.3s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.4s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.5s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.6s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.7s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.8s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B cmake                      0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B cmake                      0.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B cmake                      0.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B cmake                      0.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━  27.7kB hdf5                       0.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━  60.0kB hdf5                       0.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 113.4kB hdf5                       0.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 117.9kB hdf5                       0.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 219.5kB icu                        0.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 346.9kB icu                        0.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 507.7kB icu                        1.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 585.7kB icu                        1.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 615.3kB pcl                        1.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 644.9kB pcl                        1.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 754.2kB pcl                        1.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 795.9kB pcl                        1.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 909.0kB boost-cpp                  1.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 909.0kB boost-cpp                  1.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━ 909.0kB boost-cpp                  1.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   1.0MB boost-cpp                  1.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   1.1MB cmake                      2.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   1.1MB cmake                      2.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   1.1MB cmake                      2.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   1.2MB cmake                      2.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   1.4MB hdf5                       2.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   1.6MB hdf5                       2.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   1.6MB hdf5                       2.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   2.0MB hdf5                       2.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   2.0MB icu                        2.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   2.1MB icu                        2.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   2.2MB icu                        3.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   2.2MB icu                        3.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   2.3MB pcl                        3.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   2.4MB pcl                        3.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   2.6MB pcl                        3.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   3.3MB pcl                        3.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.4s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━   4.1MB boost-cpp                  3.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.5s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━   4.8MB boost-cpp                  3.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.6s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━   5.0MB boost-cpp                  3.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.7s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━   5.3MB boost-cpp                  3.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.8s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━   5.6MB cmake                      4.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.9s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━   5.6MB cmake                      4.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 5.0s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━   5.7MB cmake                      4.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 5.1s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━   5.7MB cmake                      4.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 5.2s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━   6.2MB hdf5                       4.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 5.3s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   7.7MB hdf5                       4.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 5.4s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   8.5MB hdf5                       4.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0shdf5                                                 3.9MB @ 685.2kB/s  4.7s
+
+[+] 5.5s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   8.9MB boost-cpp                  4.7s
+
+Extracting   (1) ━━━━━━━━━━━━━━━╸━━━━━━━       0 hdf5                       0.0s[+] 5.6s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   9.2MB boost-cpp                  4.8s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 5.7s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   9.3MB boost-cpp                  4.9s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 5.8s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   9.5MB boost-cpp                  5.0s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 5.9s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   9.5MB cmake                      5.1s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.0s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   9.5MB cmake                      5.2s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.1s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   9.5MB cmake                      5.3s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.2s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   9.5MB cmake                      5.4s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.3s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━   9.7MB flann                      5.5s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.4s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━  10.9MB flann                      5.6s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.5s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  12.2MB flann                      5.7s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.6s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  12.6MB flann                      5.8s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       1                            0.1sflann                                                2.1MB @   1.7MB/s  1.1s
+
+[+] 6.7s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  13.1MB boost-cpp                  5.9s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 6.8s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  13.2MB boost-cpp                  6.0s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 6.9s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  13.2MB boost-cpp                  6.1s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 7.0s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  13.2MB boost-cpp                  6.2s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 7.1s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  13.5MB cmake                      6.3s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 7.2s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  13.5MB cmake                      6.4s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 7.3s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  13.5MB cmake                      6.5s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 7.4s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  13.5MB cmake                      6.6s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 7.5s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  13.8MB eigen                      6.7s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 7.6s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  13.9MB eigen                      6.8s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 7.7s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  14.1MB eigen                      6.9s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 7.8s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  14.3MB eigen                      7.0s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 7.9s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  14.5MB icu                        7.1s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 8.0s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  15.0MB icu                        7.2s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 8.1s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  15.2MB icu                        7.3s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 8.2s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  15.6MB icu                        7.4s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 8.3s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  16.4MB pcl                        7.5s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 8.4s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  17.0MB pcl                        7.6s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 8.5s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  17.2MB pcl                        7.7s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 8.6s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  17.5MB pcl                        7.8s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 8.7s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  17.7MB boost-cpp                  7.9s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 8.8s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  18.0MB boost-cpp                  8.0s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 8.9s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  18.2MB boost-cpp                  8.1s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 9.0s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  18.3MB boost-cpp                  8.2s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 9.1s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  18.4MB cmake                      8.3s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 9.2s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  18.5MB cmake                      8.4s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 9.3s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  18.8MB cmake                      8.5s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 9.4s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  18.9MB cmake                      8.6s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 9.5s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  19.2MB eigen                      8.7s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 9.6s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  19.2MB eigen                      8.8s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 9.7s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  19.7MB eigen                      8.9s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 9.8s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  19.8MB eigen                      9.0s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 9.9s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  19.8MB icu                        9.1s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 10.0s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  20.6MB icu                        9.2s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 10.1s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  20.6MB icu                        9.3s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 10.2s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  21.0MB icu                        9.4s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 10.3s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  21.0MB pcl                        9.5s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1s[+] 10.4s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  21.8MB pcl                        9.6s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━       2                            0.1seigen                                                1.3MB @ 337.5kB/s  3.8s
+
+[+] 10.5s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  21.9MB pcl                        9.7s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1s[+] 10.6s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  22.1MB pcl                        9.8s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1s[+] 10.7s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  22.4MB boost-cpp                  9.9s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1s[+] 10.8s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  22.8MB boost-cpp                 10.0s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1s[+] 10.9s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  23.0MB boost-cpp                 10.1s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1s[+] 11.0s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  23.0MB boost-cpp                 10.2s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1s[+] 11.1s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  23.1MB cmake                     10.3s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1s[+] 11.2s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  23.4MB cmake                     10.4s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1s[+] 11.3s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  23.7MB cmake                     10.5s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1s[+] 11.4s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  24.0MB cmake                     10.6s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1s[+] 11.5s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  24.1MB icu                       10.7s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━       3                            0.1sliblzma-devel                                      491.4kB @ 151.8kB/s  1.1s
+
+[+] 11.6s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  24.7MB icu                       10.8s
+
+Extracting   (1) ━━━╸━╸━━━━━━━━━━━━━━━━━       3 liblzma-devel              0.1s[+] 11.7s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  25.2MB icu                       10.9s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━       4                            0.2s[+] 11.8s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  25.7MB icu                       11.0s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━       4                            0.2s[+] 11.9s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  25.7MB libcurl                   11.1s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━       4                            0.2s[+] 12.0s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  26.2MB libcurl                   11.2s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━       4                            0.2s[+] 12.1s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  26.2MB libcurl                   11.3s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━       4                            0.2s[+] 12.2s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  26.3MB libcurl                   11.4s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━       4                            0.2s[+] 12.3s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  27.1MB pcl                       11.5s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━       4                            0.2s[+] 12.4s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  27.1MB pcl                       11.6s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━       4                            0.2s[+] 12.5s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  27.7MB pcl                       11.7s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━       4                            0.2s[+] 12.6s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  28.0MB pcl                       11.8s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━       4                            0.2slibcurl                                            478.9kB @ 394.9kB/s  1.1s
+
+[+] 12.7s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  28.1MB boost-cpp                 11.9s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 12.8s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  28.5MB boost-cpp                 12.0s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 12.9s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  28.8MB boost-cpp                 12.1s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 13.0s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  28.8MB boost-cpp                 12.2s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 13.1s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  29.0MB cmake                     12.3s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 13.2s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  29.2MB cmake                     12.4s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 13.3s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  29.2MB cmake                     12.5s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 13.4s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  29.3MB cmake                     12.6s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 13.5s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  30.0MB icu                       12.7s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 13.6s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  30.2MB icu                       12.8s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 13.7s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  30.4MB icu                       12.9s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 13.8s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  31.1MB icu                       13.0s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 13.9s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  31.6MB libuv                     13.1s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2s[+] 14.0s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  31.7MB libuv                     13.2s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━       5                            0.2slibuv                                              419.9kB @ 231.2kB/s  1.4s
+
+[+] 14.1s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  32.0MB boost-cpp                 13.3s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━       6                            0.2s[+] 14.2s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  32.4MB boost-cpp                 13.4s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━       6                            0.2s[+] 14.3s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  33.3MB boost-cpp                 13.5s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━       6                            0.2s[+] 14.4s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  34.0MB boost-cpp                 13.6s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━       6                            0.2s[+] 14.5s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  34.1MB cmake                     13.7s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━       6                            0.2s[+] 14.6s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  34.1MB cmake                     13.8s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━       6                            0.2s[+] 14.7s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  34.5MB cmake                     13.9s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━       6                            0.2s[+] 14.8s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  34.7MB cmake                     14.0s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━       6                            0.2s[+] 14.9s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  34.7MB icu                       14.1s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━       6                            0.2srhash                                              193.8kB @  55.0kB/s  0.9s
+
+[+] 15.0s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  35.3MB icu                       14.2s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━       7                            0.2s[+] 15.1s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  35.9MB icu                       14.3s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━       7                            0.2s[+] 15.2s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  35.9MB icu                       14.4s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━       7                            0.2s[+] 15.3s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  36.6MB ninja                     14.5s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━       7                            0.2s[+] 15.4s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  37.0MB ninja                     14.6s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━       7                            0.2s[+] 15.5s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  37.2MB ninja                     14.7s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━       7                            0.2s[+] 15.6s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  37.3MB ninja                     14.8s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━       7                            0.2sninja                                              186.3kB @   4.9kB/s  0.7s
+
+[+] 15.7s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  38.7MB boost-cpp                 14.9s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━       8                            0.2s[+] 15.8s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  38.8MB boost-cpp                 15.0s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━       8                            0.2s[+] 15.9s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  38.8MB boost-cpp                 15.1s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━       8                            0.2s[+] 16.0s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  39.0MB boost-cpp                 15.2s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━       8                            0.2s[+] 16.1s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  39.0MB cmake                     15.3s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━       8                            0.2s[+] 16.2s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  39.4MB cmake                     15.4s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━       8                            0.2s[+] 16.3s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  40.4MB cmake                     15.5s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━       8                            0.2spkg-config                                         115.2kB @  83.6kB/s  0.7s
+
+[+] 16.4s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  40.9MB cmake                     15.6s
+
+Extracting   (1) ━━━━━━━━━━╸━╸━━━━━━━━━━       8 pkg-config                 0.2s[+] 16.5s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  41.1MB icu                       15.7s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━       9                            0.3s[+] 16.6s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  41.4MB icu                       15.8s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━       9                            0.3s[+] 16.7s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  41.8MB icu                       15.9s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━       9                            0.3s[+] 16.8s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  41.9MB icu                       16.0s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━       9                            0.3s[+] 16.9s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  42.0MB pcl                       16.1s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━       9                            0.3sxz-tools                                            96.0kB @ 177.5kB/s  0.5s
+
+[+] 17.0s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  42.6MB pcl                       16.2s
+
+Extracting       ━━━━━━━━━━━━━╸━━━━━━━━━      10                            0.3s[+] 17.1s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  43.5MB pcl                       16.3s
+
+Extracting       ━━━━━━━━━━━━━╸━━━━━━━━━      10                            0.3s[+] 17.2s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  43.8MB pcl                       16.4s
+
+Extracting       ━━━━━━━━━━━━━╸━━━━━━━━━      10                            0.3sxz-gpl-tools                                        34.2kB @  ??.?MB/s  0.4s
+
+[+] 17.3s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  44.2MB xz                        16.5s
+
+Extracting   (1) ━━━━━━━━━━━━━╸━╸━━━━━━━      10 xz-gpl-tools               0.3s[+] 17.4s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  44.3MB xz                        16.6s
+
+Extracting       ━━━━━━━━━━━━━━╸━━━━━━━━      11                            0.4s[+] 17.5s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  44.4MB xz                        16.7s
+
+Extracting       ━━━━━━━━━━━━━━╸━━━━━━━━      11                            0.4s[+] 17.6s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━  44.5MB xz                        16.8s
+
+Extracting       ━━━━━━━━━━━━━━╸━━━━━━━━      11                            0.4sxz                                                  24.4kB @  ??.?MB/s  0.4s
+
+[+] 17.7s
+
+Downloading  (4) ━━━━━━━━━━╸━━━━━━━━━━━━  44.8MB boost-cpp                 16.9s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 17.8s
+
+Downloading  (4) ━━━━━━━━━━━╸━━━━━━━━━━━  45.6MB boost-cpp                 17.0s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 17.9s
+
+Downloading  (4) ━━━━━━━━━━━╸━━━━━━━━━━━  45.6MB boost-cpp                 17.1s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 18.0s
+
+Downloading  (4) ━━━━━━━━━━━╸━━━━━━━━━━━  45.8MB boost-cpp                 17.2s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 18.1s
+
+Downloading  (4) ━━━━━━━━━━━╸━━━━━━━━━━━  46.0MB cmake                     17.3s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 18.2s
+
+Downloading  (4) ━━━━━━━━━━━╸━━━━━━━━━━━  46.8MB cmake                     17.4s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 18.3s
+
+Downloading  (4) ━━━━━━━━━━━╸━━━━━━━━━━━  47.5MB cmake                     17.5s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 18.4s
+
+Downloading  (4) ━━━━━━━━━━━╸━━━━━━━━━━━  47.6MB cmake                     17.6s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 18.5s
+
+Downloading  (4) ━━━━━━━━━━━╸━━━━━━━━━━━  47.7MB icu                       17.7s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 18.6s
+
+Downloading  (4) ━━━━━━━━━━━╸━━━━━━━━━━━  47.8MB icu                       17.8s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 18.7s
+
+Downloading  (4) ━━━━━━━━━━━╸━━━━━━━━━━━  48.3MB icu                       17.9s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 18.8s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  48.7MB icu                       18.0s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 18.9s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  48.7MB pcl                       18.1s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 19.0s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  48.7MB pcl                       18.2s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 19.1s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  49.1MB pcl                       18.3s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 19.2s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  49.4MB pcl                       18.4s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 19.3s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  50.4MB boost-cpp                 18.5s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 19.4s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  50.4MB boost-cpp                 18.6s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 19.5s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  50.8MB boost-cpp                 18.7s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 19.6s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  51.0MB boost-cpp                 18.8s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 19.7s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  51.0MB cmake                     18.9s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 19.8s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  51.3MB cmake                     19.0s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 19.9s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  51.4MB cmake                     19.1s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 20.0s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  51.4MB cmake                     19.2s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 20.1s
+
+Downloading  (4) ━━━━━━━━━━━━╸━━━━━━━━━━  51.7MB icu                       19.3s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 20.2s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  52.2MB icu                       19.4s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 20.3s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  52.2MB icu                       19.5s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 20.4s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  53.2MB icu                       19.6s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 20.5s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  53.2MB pcl                       19.7s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 20.6s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  53.2MB pcl                       19.8s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 20.7s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  54.0MB pcl                       19.9s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 20.8s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  54.9MB pcl                       20.0s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 20.9s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  55.0MB boost-cpp                 20.1s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 21.0s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  55.0MB boost-cpp                 20.2s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 21.1s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  55.2MB boost-cpp                 20.3s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 21.2s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  55.3MB boost-cpp                 20.4s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 21.3s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  55.5MB cmake                     20.5s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 21.4s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  55.7MB cmake                     20.6s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 21.5s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  55.7MB cmake                     20.7s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 21.6s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  55.7MB cmake                     20.8s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 21.7s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  55.9MB icu                       20.9s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 21.8s
+
+Downloading  (4) ━━━━━━━━━━━━━╸━━━━━━━━━  56.3MB icu                       21.0s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 21.9s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  56.6MB icu                       21.1s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 22.0s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  57.4MB icu                       21.2s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 22.1s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  57.4MB pcl                       21.3s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 22.2s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  57.6MB pcl                       21.4s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 22.3s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  57.7MB pcl                       21.5s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 22.4s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  57.8MB pcl                       21.6s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 22.5s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  58.5MB boost-cpp                 21.7s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 22.6s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  58.7MB boost-cpp                 21.8s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 22.7s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  58.9MB boost-cpp                 21.9s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 22.8s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  59.2MB boost-cpp                 22.0s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 22.9s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  59.5MB cmake                     22.1s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 23.0s
+
+Downloading  (4) ━━━━━━━━━━━━━━╸━━━━━━━━  59.7MB cmake                     22.2s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 23.1s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  59.8MB cmake                     22.3s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 23.2s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  59.9MB cmake                     22.4s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 23.3s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  60.0MB icu                       22.5s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 23.4s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  60.0MB icu                       22.6s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 23.5s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  60.1MB icu                       22.7s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 23.6s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  60.3MB icu                       22.8s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 23.7s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  60.9MB pcl                       22.9s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 23.8s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  60.9MB pcl                       23.0s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 23.9s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  61.3MB pcl                       23.1s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 24.0s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  61.9MB pcl                       23.2s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 24.1s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  61.9MB boost-cpp                 23.3s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 24.2s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  62.1MB boost-cpp                 23.4s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 24.3s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  62.1MB boost-cpp                 23.5s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 24.4s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  62.2MB boost-cpp                 23.6s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 24.5s
+
+Downloading  (4) ━━━━━━━━━━━━━━━╸━━━━━━━  62.4MB cmake                     23.7s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 24.6s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━╸━━━━━━  64.1MB cmake                     23.8s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 24.7s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━╸━━━━━━  64.6MB cmake                     23.9s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 24.8s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━╸━━━━━━  66.0MB cmake                     24.0s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 24.9s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━╸━━━━━━  66.6MB icu                       24.1s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 25.0s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━╸━━━━━━  66.7MB icu                       24.2s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 25.1s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━╸━━━━━  67.9MB icu                       24.3s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4s[+] 25.2s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━╸━━━━━  68.3MB icu                       24.4s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      12                            0.4sicu                                                 14.2MB @ 552.7kB/s 24.5s
+
+[+] 25.3s
+
+Downloading  (3) ━━━━━━━━━━━━━━━━━╸━━━━━  68.7MB boost-cpp                 24.5s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━╸━╸━━━━      12 icu                        0.4s[+] 25.4s
+
+Downloading  (3) ━━━━━━━━━━━━━━━━━╸━━━━━  69.1MB boost-cpp                 24.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━╸━╸━━━━      12 icu                        0.5sboost-cpp                                           17.0MB @ 664.6kB/s 24.6s
+
+[+] 25.5s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  69.6MB cmake                     24.7s
+
+Extracting   (2) ━━━━━━━━━━━━━━━━╸━━━╸━━      12 icu                        0.6s[+] 25.6s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  69.7MB cmake                     24.8s
+
+Extracting   (2) ━━━━━━━━━━━━━━━━╸━━━╸━━      12 icu                        0.7s[+] 25.7s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  69.9MB cmake                     24.9s
+
+Extracting   (2) ━━━━━━━━━━━━━━━━╸━━━╸━━      12 boost-cpp                  0.8s[+] 25.8s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  70.0MB cmake                     25.0s
+
+Extracting   (2) ━━━━━━━━━━━━━━━━╸━━━╸━━      12 boost-cpp                  0.9s[+] 25.9s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  70.2MB pcl                       25.1s
+
+Extracting   (2) ━━━━━━━━━━━━━━━━╸━━━╸━━      12 boost-cpp                  1.0s[+] 26.0s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  70.3MB pcl                       25.2s
+
+Extracting   (2) ━━━━━━━━━━━━━━━━╸━━━╸━━      12 boost-cpp                  1.1s[+] 26.1s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  70.7MB pcl                       25.3s
+
+Extracting   (2) ━━━━━━━━━━━━━━━━╸━━━╸━━      12 icu                        1.2s[+] 26.2s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  70.7MB pcl                       25.4s
+
+Extracting   (2) ━━━━━━━━━━━━━━━━╸━━━╸━━      12 icu                        1.3s[+] 26.3s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  70.7MB cmake                     25.5s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  1.4s[+] 26.4s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  70.7MB cmake                     25.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  1.5s[+] 26.5s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━╸━━━━━  70.7MB cmake                     25.7s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  1.6s[+] 26.6s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  71.1MB cmake                     25.8s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  1.7s[+] 26.7s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  71.1MB pcl                       25.9s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  1.8s[+] 26.8s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  71.2MB pcl                       26.0s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  1.9s[+] 26.9s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  71.3MB pcl                       26.1s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  2.0s[+] 27.0s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  71.3MB pcl                       26.2s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  2.1s[+] 27.1s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  71.9MB cmake                     26.3s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  2.2s[+] 27.2s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  72.4MB cmake                     26.4s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  2.3s[+] 27.3s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  72.7MB cmake                     26.5s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  2.4s[+] 27.4s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  72.7MB cmake                     26.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  2.5s[+] 27.5s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  72.7MB pcl                       26.7s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  2.6s[+] 27.6s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  72.7MB pcl                       26.8s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  2.7s[+] 27.7s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  72.7MB pcl                       26.9s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  2.8s[+] 27.8s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  73.0MB pcl                       27.0s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━╸━━╸━━      13 boost-cpp                  2.9s[+] 27.9s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  73.5MB cmake                     27.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━╸━━━      14                            3.0s[+] 28.0s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━╸━━━━  73.7MB cmake                     27.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━╸━━━      14                            3.0s[+] 28.1s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━╸━━━  74.3MB cmake                     27.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━╸━━━      14                            3.0s[+] 28.2s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━╸━━━  74.3MB cmake                     27.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━╸━━━      14                            3.0s[+] 28.3s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━╸━━━  74.6MB pcl                       27.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━╸━━━      14                            3.0scmake                                               23.7MB @ 819.4kB/s 27.6s
+
+[+] 28.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.1MB pcl                       27.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━╸━╸━      14 cmake                      3.0s[+] 28.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.1MB pcl                       27.7s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━╸━╸━      14 cmake                      3.1s[+] 28.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.3MB pcl                       27.8s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━╸━╸━      14 cmake                      3.2s[+] 28.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.6MB pcl                       27.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 28.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.6MB pcl                       28.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 28.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.6MB pcl                       28.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 29.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.6MB pcl                       28.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 29.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.6MB pcl                       28.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 29.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.6MB pcl                       28.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 29.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.6MB pcl                       28.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 29.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.6MB pcl                       28.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 29.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.6MB pcl                       28.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 29.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.6MB pcl                       28.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 29.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.8MB pcl                       28.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 29.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.9MB pcl                       29.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 29.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.9MB pcl                       29.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 30.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.9MB pcl                       29.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 30.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.9MB pcl                       29.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 30.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  75.9MB pcl                       29.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 30.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  76.2MB pcl                       29.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 30.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  76.2MB pcl                       29.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 30.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  76.4MB pcl                       29.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 30.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  76.8MB pcl                       29.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 30.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.1MB pcl                       29.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 30.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.1MB pcl                       30.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 30.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.1MB pcl                       30.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 31.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.1MB pcl                       30.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 31.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.1MB pcl                       30.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 31.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.1MB pcl                       30.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 31.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.1MB pcl                       30.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 31.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.1MB pcl                       30.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 31.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.1MB pcl                       30.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 31.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.2MB pcl                       30.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 31.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.2MB pcl                       30.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 31.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.6MB pcl                       31.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 31.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.8MB pcl                       31.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 32.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.9MB pcl                       31.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 32.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.9MB pcl                       31.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 32.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.9MB pcl                       31.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 32.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  77.9MB pcl                       31.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 32.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.1MB pcl                       31.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 32.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.2MB pcl                       31.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 32.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.3MB pcl                       31.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 32.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.3MB pcl                       31.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 32.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.3MB pcl                       32.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 32.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.3MB pcl                       32.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 33.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.3MB pcl                       32.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 33.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.4MB pcl                       32.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 33.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.4MB pcl                       32.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 33.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.4MB pcl                       32.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 33.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.4MB pcl                       32.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 33.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.4MB pcl                       32.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 33.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━╸━━━  78.5MB pcl                       32.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 33.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  78.6MB pcl                       32.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 33.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  78.9MB pcl                       33.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 33.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  78.9MB pcl                       33.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 34.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  78.9MB pcl                       33.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 34.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.0MB pcl                       33.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 34.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.0MB pcl                       33.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 34.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.0MB pcl                       33.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 34.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.0MB pcl                       33.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 34.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.0MB pcl                       33.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 34.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.0MB pcl                       33.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 34.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.0MB pcl                       33.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 34.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.0MB pcl                       34.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 34.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.1MB pcl                       34.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 35.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.4MB pcl                       34.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 35.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.4MB pcl                       34.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 35.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.4MB pcl                       34.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 35.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.4MB pcl                       34.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 35.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.7MB pcl                       34.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 35.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.7MB pcl                       34.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 35.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.7MB pcl                       34.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 35.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.7MB pcl                       34.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 35.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.7MB pcl                       35.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 35.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.7MB pcl                       35.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 36.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  79.9MB pcl                       35.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 36.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.2MB pcl                       35.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 36.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.2MB pcl                       35.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 36.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.2MB pcl                       35.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 36.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.3MB pcl                       35.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 36.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.6MB pcl                       35.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 36.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.7MB pcl                       35.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 36.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.7MB pcl                       35.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 36.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.8MB pcl                       36.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 36.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.8MB pcl                       36.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 37.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.8MB pcl                       36.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 37.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.8MB pcl                       36.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 37.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.9MB pcl                       36.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 37.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.9MB pcl                       36.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 37.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  80.9MB pcl                       36.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 37.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       36.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 37.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       36.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 37.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       36.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 37.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       37.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 37.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       37.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 38.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       37.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 38.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       37.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 38.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       37.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 38.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       37.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 38.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       37.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 38.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       37.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 38.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.0MB pcl                       37.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 38.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.1MB pcl                       37.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 38.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.1MB pcl                       38.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 38.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.1MB pcl                       38.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 39.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.2MB pcl                       38.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 39.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.3MB pcl                       38.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 39.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.3MB pcl                       38.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 39.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.4MB pcl                       38.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 39.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.5MB pcl                       38.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 39.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.6MB pcl                       38.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 39.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.7MB pcl                       38.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 39.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.8MB pcl                       38.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 39.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.8MB pcl                       39.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 39.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.9MB pcl                       39.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 40.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  81.9MB pcl                       39.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 40.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  82.0MB pcl                       39.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 40.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  82.0MB pcl                       39.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 40.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━╸━━  82.0MB pcl                       39.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 40.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.0MB pcl                       39.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 40.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.1MB pcl                       39.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 40.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.4MB pcl                       39.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 40.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.5MB pcl                       39.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 40.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.5MB pcl                       40.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 40.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.5MB pcl                       40.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 41.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.6MB pcl                       40.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 41.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.6MB pcl                       40.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 41.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.7MB pcl                       40.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 41.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.8MB pcl                       40.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 41.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.8MB pcl                       40.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 41.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  82.9MB pcl                       40.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 41.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.0MB pcl                       40.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 41.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.0MB pcl                       40.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 41.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.0MB pcl                       41.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 41.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.0MB pcl                       41.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 42.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.0MB pcl                       41.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 42.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.3MB pcl                       41.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 42.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.3MB pcl                       41.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 42.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.4MB pcl                       41.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 42.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.4MB pcl                       41.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 42.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.5MB pcl                       41.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 42.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.5MB pcl                       41.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 42.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.6MB pcl                       41.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 42.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.6MB pcl                       42.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 42.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.9MB pcl                       42.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 43.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.9MB pcl                       42.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 43.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.9MB pcl                       42.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 43.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  83.9MB pcl                       42.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 43.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.1MB pcl                       42.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 43.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.1MB pcl                       42.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 43.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.1MB pcl                       42.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 43.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.2MB pcl                       42.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 43.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.3MB pcl                       42.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 43.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.4MB pcl                       43.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 43.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.4MB pcl                       43.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 44.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.4MB pcl                       43.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 44.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.5MB pcl                       43.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 44.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.5MB pcl                       43.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 44.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.6MB pcl                       43.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 44.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.7MB pcl                       43.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 44.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.9MB pcl                       43.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 44.6s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.9MB pcl                       43.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 44.7s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.9MB pcl                       43.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 44.8s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  84.9MB pcl                       44.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 44.9s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  85.0MB pcl                       44.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 45.0s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  85.1MB pcl                       44.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 45.1s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  85.1MB pcl                       44.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 45.2s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  85.1MB pcl                       44.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3s[+] 45.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━  85.1MB pcl                       44.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      15                            3.3spcl                                                 21.2MB @ 464.3kB/s 44.6s
+
+[+] 45.4s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        3.3s[+] 45.5s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        3.4s[+] 45.6s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        3.5s[+] 45.7s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        3.6s[+] 45.8s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        3.7s[+] 45.9s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        3.8s[+] 46.0s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        3.9s[+] 46.1s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        4.0s[+] 46.2s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        4.1s[+] 46.3s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        4.2s[+] 46.4s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        4.3s[+] 46.5s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        4.4s[+] 46.6s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        4.5s[+] 46.7s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        4.6s[+] 46.8s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        4.7s[+] 46.9s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        4.8s[+] 47.0s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        4.9s[+] 47.1s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        5.0s[+] 47.2s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        5.1s[+] 47.3s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        5.2s[+] 47.4s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        5.3s[+] 47.5s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        5.4s[+] 47.6s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        5.5s[+] 47.7s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        5.6s[+] 47.8s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━  85.4MB                           44.6s
+
+Extracting   (1) ━━━━━━━━━━━━━━━━━━━━╸━━      15 pcl                        5.7sLinking libzlib-1.3.2-h25fd6f3_2
+
+Linking eigen-5.0.1-hc65338a_0
+
+Linking nlohmann_json-3.12.0-h54a6638_1
+
+Linking libgomp-15.2.0-he0feb66_20
+
+Linking zstd-1.5.7-hb78ec9c_6
+
+Linking _openmp_mutex-4.5-20_gnu
+
+Linking libgcc-15.2.0-he0feb66_20
+
+Linking keyutils-1.6.3-hb9d3cd8_0
+
+Linking rhash-1.4.6-hb9d3cd8_1
+
+Linking libexpat-2.8.1-hecca717_1
+
+Linking bzip2-1.0.8-hda65f42_9
+
+Linking c-ares-1.34.8-hb03c661_0
+
+Linking libgfortran5-15.2.0-h68bc16d_20
+
+Linking libstdcxx-15.2.0-h934c35e_20
+
+Linking libgcc-ng-15.2.0-h69a702a_20
+
+Linking libuv-1.52.1-h280c20c_0
+
+Linking liblzma-5.8.3-hb03c661_0
+
+Linking ncurses-6.6-hdb14827_0
+
+Linking libgfortran-15.2.0-h69a702a_20
+
+Linking libaec-1.1.5-h088129d_0
+
+Linking libstdcxx-ng-15.2.0-hdf11a46_20
+
+Linking ninja-1.13.2-h171cf75_0
+
+Linking libev-4.33-hd590300_2
+
+Linking pkg-config-0.29.2-h4bc722e_1009
+
+Linking liblzma-devel-5.8.3-hb03c661_0
+
+Linking xz-tools-5.8.3-hb03c661_0
+
+Linking xz-gpl-tools-5.8.3-ha02ee65_0
+
+Linking libedit-3.1.20250104-pl5321h7949ede_0
+
+Linking qhull-2020.2-h434a139_5
+
+Linking icu-70.1-h27087fc_0
+
+Linking xz-5.8.3-ha02ee65_0
+
+Linking boost-cpp-1.74.0-h75c5d50_8
+
+Linking ca-certificates-2026.7.22-hbd8a1cb_0
+
+Linking openssl-3.6.3-h35e630c_0
+
+Linking libssh2-1.11.1-hcf80075_0
+
+Linking krb5-1.22.2-hbde042b_1
+
+Linking libnghttp2-1.68.1-h877daf1_0
+
+Linking libcurl-8.21.0-hcf29cc6_1
+
+Linking hdf5-1.14.3-nompi_h2d575fe_109
+
+Linking cmake-4.4.0-hc85cc9f_0
+
+Linking flann-1.9.1-hdd4cb9a_1014
+
+Linking pcl-1.11.1-h39b1736_3
+
+
+
+Transaction finished
+
+
+
+
+
+To activate this environment, use:
+
+
+
+    micromamba activate degen-lio-pcl-backend
+
+
+
+Or to execute a single command in this environment, use:
+
+
+
+    micromamba run -n degen-lio-pcl-backend mycommand
+
+
+
+
+Script done on 2026-07-28 16:34:59+08:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2026-07-28 16:38:35+08:00 [TERM="dumb" TTY="/dev/pts/3" COLUMNS="80" LINES="24"]
+Using Cached Shard Index for conda-forge/linux-64                                                   ✔ Done
+
+Using Cached Shard Index for conda-forge/noarch                                                     ✔ Done
+
+
+Fetching and Parsing Packages' Shards                                                           ⧖ Starting
+Fetching and Parsing Packages' Shards                                                     ✔ Done (0.2 sec)
+
+
+
+
+Resolving Environment                                                                           ⧖ Starting
+Resolving Environment                                                                     ✔ Done (1.1 sec)
+
+
+
+Transaction
+
+
+
+  Prefix: /home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend
+
+
+
+  Updating specs:
+
+
+
+   - pcl=1.15.1
+
+
+
+
+
+  Package                                     Version  Build                  Channel           Size
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Install:
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+  + aiohappyeyeballs                            2.7.1  pyhd8ed1ab_0           conda-forge     Cached
+
+  + aiohttp                                    3.14.3  pyhf64b827_0           conda-forge      523kB
+
+  + aiosignal                                   1.4.0  pyhd8ed1ab_0           conda-forge     Cached
+
+  + alsa-lib                                 1.2.16.1  hb03c661_0             conda-forge     Cached
+
+  + aom                                        3.14.1  pl5321h039972f_1       conda-forge        3MB
+
+  + async-timeout                               5.0.1  pyhcf101f3_2           conda-forge       14kB
+
+  + attrs                                      26.1.0  pyhcf101f3_0           conda-forge     Cached
+
+  + blosc                                      1.21.6  he440d0b_1             conda-forge     Cached
+
+  + brotli                                      1.2.0  hed03a55_1             conda-forge     Cached
+
+  + brotli-bin                                  1.2.0  hb03c661_1             conda-forge     Cached
+
+  + cairo                                      1.18.4  he90730b_1             conda-forge     Cached
+
+  + cli11                                       2.6.2  h54a6638_0             conda-forge     Cached
+
+  + contourpy                                   1.3.3  py314h97ea11e_4        conda-forge      324kB
+
+  + cuda-version                                 12.9  h4f385c5_3             conda-forge     Cached
+
+  + cycler                                     0.12.1  pyhcf101f3_2           conda-forge     Cached
+
+  + cyrus-sasl                                 2.1.28  hac629b4_1             conda-forge     Cached
+
+  + dav1d                                       1.2.1  hd590300_0             conda-forge      760kB
+
+  + dbus                                       1.16.2  h24cb091_1             conda-forge     Cached
+
+  + double-conversion                           3.4.0  hecca717_0             conda-forge     Cached
+
+  + eigen-abi                                5.0.1.80  hf414acd_0             conda-forge     Cached
+
+  + expat                                       2.8.1  hecca717_1             conda-forge      148kB
+
+  + ffmpeg                                      8.1.2  gpl_h54862ce_904       conda-forge       13MB
+
+  + fmt                                        12.1.0  hff5e90c_0             conda-forge     Cached
+
+  + font-ttf-dejavu-sans-mono                    2.37  hab24e00_0             conda-forge     Cached
+
+  + font-ttf-inconsolata                        3.000  h77eed37_0             conda-forge     Cached
+
+  + font-ttf-source-code-pro                    2.038  h77eed37_0             conda-forge     Cached
+
+  + font-ttf-ubuntu                              0.83  h77eed37_3             conda-forge     Cached
+
+  + fontconfig                                 2.18.2  h27c8c51_0             conda-forge     Cached
+
+  + fonts-conda-ecosystem                           1  0                      conda-forge     Cached
+
+  + fonts-conda-forge                               1  hc364b38_1             conda-forge     Cached
+
+  + fonttools                                  4.63.0  pyh7db6752_0           conda-forge      846kB
+
+  + freetype                                   2.14.3  ha770c72_0             conda-forge     Cached
+
+  + fribidi                                    1.0.16  hb03c661_0             conda-forge     Cached
+
+  + frozenlist                                  1.8.0  pyhf298e5d_0           conda-forge       20kB
+
+  + gdk-pixbuf                                 2.44.7  h2b0a6b4_0             conda-forge      582kB
+
+  + gl2ps                                       1.4.2  h36e74d4_2             conda-forge     Cached
+
+  + glew                                        2.3.0  h71661d4_0             conda-forge     Cached
+
+  + glslang                                    16.3.0  h96af755_0             conda-forge        1MB
+
+  + gmp                                         6.3.0  hac33072_2             conda-forge      460kB
+
+  + graphite2                                  1.3.15  hecca717_0             conda-forge     Cached
+
+  + harfbuzz                                   14.2.1  ha770c72_1             conda-forge     Cached
+
+  + hdf4                                       4.2.15  h2a13503_7             conda-forge     Cached
+
+  + idna                                         3.18  pyhcf101f3_0           conda-forge     Cached
+
+  + intel-gmmlib                              22.10.0  hb700be7_0             conda-forge        1MB
+
+  + intel-media-driver                         26.1.6  hecca717_0             conda-forge        9MB
+
+  + jsoncpp                                     1.9.8  h171cf75_0             conda-forge     Cached
+
+  + kiwisolver                                  1.5.0  py314h97ea11e_0        conda-forge       77kB
+
+  + lame                                        3.100  h166bdaf_1003          conda-forge     Cached
+
+  + lcms2                                      2.19.1  h0c24ade_1             conda-forge     Cached
+
+  + ld_impl_linux-64                           2.46.1  default_hbd61a6d_102   conda-forge     Cached
+
+  + lerc                                        4.2.0  hdb68285_0             conda-forge     Cached
+
+  + level-zero                                 1.29.0  hb700be7_0             conda-forge      876kB
+
+  + libabseil                              20260526.0  cxx17_h7b12aa8_1       conda-forge        1MB
+
+  + libass                                     0.17.5  h434b012_0             conda-forge      155kB
+
+  + libblas                                    3.11.0  8_h4a7cf45_openblas    conda-forge       19kB
+
+  + libboost                                   1.90.0  hd24cca6_1             conda-forge        3MB
+
+  + libboost-devel                             1.90.0  hfcd1e18_1             conda-forge       39kB
+
+  + libboost-headers                           1.90.0  ha770c72_1             conda-forge       15MB
+
+  + libbrotlicommon                             1.2.0  hb03c661_1             conda-forge     Cached
+
+  + libbrotlidec                                1.2.0  hb03c661_1             conda-forge     Cached
+
+  + libbrotlienc                                1.2.0  hb03c661_1             conda-forge     Cached
+
+  + libcap                                       2.78  hd0affe5_0             conda-forge     Cached
+
+  + libcblas                                   3.11.0  8_h0358290_openblas    conda-forge       19kB
+
+  + libcups                                     2.3.3  h7a8fb5f_6             conda-forge     Cached
+
+  + libdeflate                                   1.25  h17f619e_0             conda-forge     Cached
+
+  + libdovi                                     3.4.0  ha23c83e_0             conda-forge      405kB
+
+  + libdrm                                    2.4.127  hb03c661_0             conda-forge     Cached
+
+  + libegl                                      1.7.0  ha4b6fd6_3             conda-forge     Cached
+
+  + libegl-devel                                1.7.0  ha4b6fd6_3             conda-forge     Cached
+
+  + libffi                                      3.5.2  h3435931_0             conda-forge     Cached
+
+  + libflac                                     1.5.0  he200343_1             conda-forge     Cached
+
+  + libfreetype                                2.14.3  ha770c72_0             conda-forge     Cached
+
+  + libfreetype6                               2.14.3  h73754d4_0             conda-forge     Cached
+
+  + libgl                                       1.7.0  ha4b6fd6_3             conda-forge     Cached
+
+  + libgl-devel                                 1.7.0  ha4b6fd6_3             conda-forge     Cached
+
+  + libglib                                    2.88.2  h0d30a3d_0             conda-forge     Cached
+
+  + libglu                                      9.0.3  h5888daf_1             conda-forge     Cached
+
+  + libglvnd                                    1.7.0  ha4b6fd6_3             conda-forge     Cached
+
+  + libglx                                      1.7.0  ha4b6fd6_3             conda-forge     Cached
+
+  + libglx-devel                                1.7.0  ha4b6fd6_3             conda-forge     Cached
+
+  + libharfbuzz                                14.2.1  h17a8019_1             conda-forge     Cached
+
+  + libharfbuzz-devel                          14.2.1  h17a8019_1             conda-forge     Cached
+
+  + libhwloc                                   2.13.0  default_he001693_1000  conda-forge     Cached
+
+  + libhwy                                      1.4.0  h3a9caae_0             conda-forge        1MB
+
+  + libiconv                                     1.18  h3b78370_2             conda-forge     Cached
+
+  + libjpeg-turbo                               3.2.0  hb03c661_0             conda-forge     Cached
+
+  + libjxl                                     0.12.0  h174a0a3_1             conda-forge        2MB
+
+  + liblapack                                  3.11.0  8_h47877c9_openblas    conda-forge       19kB
+
+  + libmpdec                                    4.0.0  hb03c661_1             conda-forge       92kB
+
+  + libnetcdf                                  4.10.0  nompi_h3fa17b5_205     conda-forge     Cached
+
+  + libntlm                                       1.8  hb9d3cd8_0             conda-forge     Cached
+
+  + libogg                                      1.3.5  hd0c01bc_1             conda-forge     Cached
+
+  + libopenblas                                0.3.33  pthreads_h94d23a6_0    conda-forge        6MB
+
+  + libopengl                                   1.7.0  ha4b6fd6_3             conda-forge     Cached
+
+  + libopengl-devel                             1.7.0  ha4b6fd6_3             conda-forge       17kB
+
+  + libopenvino                              2026.2.1  h1f0fae8_1             conda-forge        7MB
+
+  + libopenvino-auto-batch-plugin            2026.2.1  h7e124b3_1             conda-forge      115kB
+
+  + libopenvino-auto-plugin                  2026.2.1  h7e124b3_1             conda-forge      251kB
+
+  + libopenvino-hetero-plugin                2026.2.1  hd41364c_1             conda-forge      215kB
+
+  + libopenvino-intel-cpu-plugin             2026.2.1  h1f0fae8_1             conda-forge       14MB
+
+  + libopenvino-intel-gpu-plugin             2026.2.1  h1f0fae8_1             conda-forge       12MB
+
+  + libopenvino-intel-npu-plugin             2026.2.1  h1f0fae8_1             conda-forge        3MB
+
+  + libopenvino-ir-frontend                  2026.2.1  hd41364c_1             conda-forge      201kB
+
+  + libopenvino-onnx-frontend                2026.2.1  h607c73d_1             conda-forge        2MB
+
+  + libopenvino-paddle-frontend              2026.2.1  h607c73d_1             conda-forge      690kB
+
+  + libopenvino-pytorch-frontend             2026.2.1  hecca717_1             conda-forge        1MB
+
+  + libopenvino-tensorflow-frontend          2026.2.1  h21c0c73_1             conda-forge        1MB
+
+  + libopenvino-tensorflow-lite-frontend     2026.2.1  hecca717_1             conda-forge      502kB
+
+  + libopus                                     1.6.1  h280c20c_0             conda-forge     Cached
+
+  + libpciaccess                                 0.19  hb03c661_0             conda-forge     Cached
+
+  + libplacebo                                7.360.1  hc50b9dd_1             conda-forge      551kB
+
+  + libpng                                     1.6.58  h421ea60_0             conda-forge     Cached
+
+  + libpq                                        18.4  hd5a49e9_1             conda-forge     Cached
+
+  + libprotobuf                                7.35.1  h2840a7c_2             conda-forge        4MB
+
+  + libraqm                                    0.11.0  h6406941_0             conda-forge       34kB
+
+  + librsvg                                    2.62.3  h4c96295_0             conda-forge        3MB
+
+  + libsndfile                                  1.2.2  hc7d488a_2             conda-forge     Cached
+
+  + libsqlite                                  3.53.4  hf4e2dac_0             conda-forge     Cached
+
+  + libsystemd0                                257.13  h084b8d7_1             conda-forge     Cached
+
+  + libtheora                                   1.2.0  h85c0a6d_0             conda-forge     Cached
+
+  + libtiff                                     4.7.2  h9d88235_0             conda-forge     Cached
+
+  + libudev1                                   257.13  h084b8d7_1             conda-forge      146kB
+
+  + libunwind                                   1.8.3  h65a8314_0             conda-forge       76kB
+
+  + liburing                                     2.14  hb700be7_0             conda-forge      154kB
+
+  + libusb                                     1.0.29  h73b1eb8_0             conda-forge       90kB
+
+  + libuuid                                    2.42.2  h5347b49_0             conda-forge     Cached
+
+  + libva                                      2.24.1  he1eb515_0             conda-forge      223kB
+
+  + libvorbis                                   1.3.7  h54a6638_2             conda-forge     Cached
+
+  + libvpl                                     2.16.0  h54a6638_0             conda-forge      288kB
+
+  + libvpx                                     1.15.2  hecca717_0             conda-forge        1MB
+
+  + libvulkan-loader                        1.4.350.1  h5279c79_0             conda-forge     Cached
+
+  + libwebp-base                                1.6.0  hd42ef1d_0             conda-forge     Cached
+
+  + libxcb                                     1.17.0  h8a09558_0             conda-forge     Cached
+
+  + libxcrypt                                  4.4.36  hd590300_1             conda-forge     Cached
+
+  + libxkbcommon                               1.13.2  hca5e8e5_0             conda-forge     Cached
+
+  + libxkbfile                                  1.2.0  hb03c661_0             conda-forge     Cached
+
+  + libxml2                                    2.15.3  h49c6c72_0             conda-forge     Cached
+
+  + libxml2-16                                 2.15.3  hca6bf5a_0             conda-forge     Cached
+
+  + libzip                                     1.11.2  h6991a6a_0             conda-forge     Cached
+
+  + lz4-c                                      1.10.0  h5888daf_1             conda-forge     Cached
+
+  + matplotlib-base                            3.11.1  py314h9a9c090_2        conda-forge        9MB
+
+  + mpg123                                     1.32.9  hc50e24c_0             conda-forge     Cached
+
+  + msgpack-python                              1.2.1  py314h97ea11e_1        conda-forge      113kB
+
+  + multidict                                   6.7.1  pyh62beb40_0           conda-forge       38kB
+
+  + munkres                                     1.1.4  pyhd8ed1ab_1           conda-forge     Cached
+
+  + nanoflann                                   1.6.1  hff21bea_0             conda-forge       26kB
+
+  + numpy                                       2.5.1  py314h2b28147_0        conda-forge        9MB
+
+  + ocl-icd                                     2.3.4  hb03c661_1             conda-forge      110kB
+
+  + opencl-headers                         2025.06.13  hecca717_0             conda-forge       56kB
+
+  + openh264                                    2.6.0  h65dd3cf_1             conda-forge      726kB
+
+  + openjpeg                                    2.5.4  h55fea9a_0             conda-forge     Cached
+
+  + openldap                                   2.6.13  hbde042b_0             conda-forge     Cached
+
+  + packaging                                    26.2  pyhc364b38_0           conda-forge     Cached
+
+  + pango                                      1.58.0  hda50119_0             conda-forge     Cached
+
+  + pcre2                                       10.47  haa7fec5_0             conda-forge     Cached
+
+  + pillow                                     12.3.0  py314h8ec4b1a_0        conda-forge        1MB
+
+  + pixman                                     0.46.4  h54a6638_2             conda-forge     Cached
+
+  + proj                                        9.8.1  he0df7b0_0             conda-forge     Cached
+
+  + propcache                                   0.5.2  pyh7db6752_0           conda-forge       20kB
+
+  + pthread-stubs                                 0.4  hb9d3cd8_1002          conda-forge     Cached
+
+  + pugixml                                      1.15  h3f63f65_0             conda-forge     Cached
+
+  + pulseaudio-client                            17.0  h9a6aba3_3             conda-forge     Cached
+
+  + pyparsing                                   3.3.2  pyhcf101f3_0           conda-forge     Cached
+
+  + python                                     3.14.6  habeac84_101_cp314     conda-forge       37MB
+
+  + python-dateutil                       2.9.0.post0  pyhe01879c_2           conda-forge     Cached
+
+  + python_abi                                   3.14  8_cp314                conda-forge        7kB
+
+  + qt6-main                                   6.11.1  pl5321h16c4a6b_1       conda-forge     Cached
+
+  + readline                                      8.3  h853b02a_0             conda-forge     Cached
+
+  + sdl2                                      2.32.56  h54a6638_0             conda-forge      589kB
+
+  + sdl3                                       3.4.12  hdeec2a5_0             conda-forge        2MB
+
+  + shaderc                                    2026.3  h1b60276_0             conda-forge      114kB
+
+  + six                                        1.17.0  pyhe01879c_1           conda-forge     Cached
+
+  + snappy                                      1.2.2  h03e3b7b_1             conda-forge     Cached
+
+  + spirv-tools                                2026.2  hb700be7_1             conda-forge        2MB
+
+  + sqlite                                     3.53.4  h04a0ce9_0             conda-forge     Cached
+
+  + svt-av1                                     4.2.0  hecca717_0             conda-forge        3MB
+
+  + tbb                                      2023.0.0  hab88423_2             conda-forge     Cached
+
+  + tbb-devel                                2023.0.0  hab88423_2             conda-forge        1MB
+
+  + tk                                         8.6.13  noxft_hd70dff1_3       conda-forge     Cached
+
+  + typing-extensions                          4.16.0  h69aa097_0             conda-forge     Cached
+
+  + typing_extensions                          4.16.0  pyhcf101f3_0           conda-forge     Cached
+
+  + tzdata                                      2026c  h151e31d_0             conda-forge     Cached
+
+  + unicodedata2                               17.0.1  py314h5bd0f2a_0        conda-forge      410kB
+
+  + utfcpp                                       4.09  ha770c72_0             conda-forge     Cached
+
+  + viskores                                    1.1.1  cuda12.9_h14fae2a_1    conda-forge     Cached
+
+  + vtk                                         9.6.2  py314hd5da0b9_6        conda-forge       29kB
+
+  + vtk-base                                    9.6.2  py314h3f6d339_6        conda-forge       86MB
+
+  + vtk-io-ffmpeg                               9.6.2  py314h87a7d94_6        conda-forge      114kB
+
+  + wayland                                    1.26.0  hd6090a7_0             conda-forge     Cached
+
+  + wayland-protocols                            1.49  hd8ed1ab_0             conda-forge      148kB
+
+  + wslink                                      2.5.7  pyhd8ed1ab_0           conda-forge     Cached
+
+  + x264                                   1!164.3095  h166bdaf_2             conda-forge      898kB
+
+  + x265                                          3.5  h924138e_3             conda-forge        3MB
+
+  + xcb-util                                    0.4.1  h4f16b4b_2             conda-forge     Cached
+
+  + xcb-util-cursor                             0.1.6  hb03c661_0             conda-forge     Cached
+
+  + xcb-util-image                              0.4.0  hb711507_2             conda-forge     Cached
+
+  + xcb-util-keysyms                            0.4.1  hb711507_0             conda-forge     Cached
+
+  + xcb-util-renderutil                        0.3.10  hb711507_0             conda-forge     Cached
+
+  + xcb-util-wm                                 0.4.2  hb711507_0             conda-forge     Cached
+
+  + xkeyboard-config                             2.48  h280c20c_0             conda-forge     Cached
+
+  + xorg-libice                                 1.1.2  hb9d3cd8_0             conda-forge     Cached
+
+  + xorg-libsm                                  1.2.6  he73a12e_0             conda-forge     Cached
+
+  + xorg-libx11                                1.8.13  he1eb515_0             conda-forge     Cached
+
+  + xorg-libxau                                1.0.12  hb03c661_1             conda-forge     Cached
+
+  + xorg-libxcomposite                          0.4.7  hb03c661_0             conda-forge     Cached
+
+  + xorg-libxcursor                             1.2.3  hb9d3cd8_0             conda-forge     Cached
+
+  + xorg-libxdamage                             1.1.6  hb9d3cd8_0             conda-forge     Cached
+
+  + xorg-libxdmcp                               1.1.5  hb03c661_1             conda-forge     Cached
+
+  + xorg-libxext                                1.3.7  hb03c661_0             conda-forge     Cached
+
+  + xorg-libxfixes                              6.0.2  hb03c661_0             conda-forge     Cached
+
+  + xorg-libxi                                  1.8.3  hb03c661_0             conda-forge     Cached
+
+  + xorg-libxrandr                              1.5.5  hb03c661_0             conda-forge     Cached
+
+  + xorg-libxrender                            0.9.12  hb9d3cd8_0             conda-forge     Cached
+
+  + xorg-libxscrnsaver                          1.2.4  hb9d3cd8_0             conda-forge       14kB
+
+  + xorg-libxtst                                1.2.5  hb9d3cd8_3             conda-forge     Cached
+
+  + xorg-libxxf86vm                             1.1.7  hb03c661_0             conda-forge     Cached
+
+  + xorg-xorgproto                             2025.1  hb03c661_0             conda-forge     Cached
+
+  + yarl                                       1.24.5  pyh7db6752_0           conda-forge       96kB
+
+  + zfp                                         1.0.1  h909a3a2_5             conda-forge     Cached
+
+  + zlib-ng                                     2.3.3  hceb46e0_1             conda-forge     Cached
+
+
+
+  Remove:
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+  - boost-cpp                                  1.74.0  h75c5d50_8             conda-forge     Cached
+
+
+
+  Upgrade:
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+  - flann                                       1.9.1  hdd4cb9a_1014          conda-forge     Cached
+
+  + flann                                       1.9.2  he1b7b50_6             conda-forge        2MB
+
+  - hdf5                                       1.14.3  nompi_h2d575fe_109     conda-forge     Cached
+
+  + hdf5                                       1.14.6  nompi_h19486de_110     conda-forge     Cached
+
+  - icu                                          70.1  h27087fc_0             conda-forge     Cached
+
+  + icu                                          78.3  h54a6638_2             conda-forge     Cached
+
+  - pcl                                        1.11.1  h39b1736_3             conda-forge     Cached
+
+  + pcl                                        1.15.1  h1259f1f_14            conda-forge       18MB
+
+
+
+  Summary:
+
+
+
+  Install: 220 packages
+
+  Remove: 1 packages
+
+  Upgrade: 4 packages
+
+
+
+  Total download: 290MB
+
+
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+
+
+
+
+
+Transaction starting
+
+[+] 0.0s
+
+Downloading      ╸━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.1s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.2s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.3s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.4s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.5s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.6s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.7s
+
+Downloading      ━━━━━━━━━━━━━━━━━━━━━━━   0.0 B                            0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 0.8s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━   0.0 B libopenvino-intel-cpu-plugin  0.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 0.9s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━   0.0 B libopenvino-intel-cpu-plugin  0.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 1.0s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━   0.0 B libopenvino-intel-cpu-plugin  0.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 1.1s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━   0.0 B libopenvino-intel-cpu-plugin  0.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 1.2s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━━━━   7.2kB python                     0.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.3s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━━━━ 107.9kB python                     0.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.4s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━━━━ 107.9kB python                     0.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.5s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━━━━ 133.3kB python                     0.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 1.6s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━ 133.3kB libopenvino-intel-cpu-plugin  0.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 1.7s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━ 133.3kB libopenvino-intel-cpu-plugin  0.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 1.8s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━ 219.9kB libopenvino-intel-cpu-plugin  1.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 1.9s
+
+Downloading  (3) ━━━━━━━━━━━━━━━━━━━━ 374.1kB libopenvino-intel-cpu-plugin  1.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 2.0s
+
+Downloading  (3) ━━━━━━━━━━━━━━━━━━━━━━━ 433.3kB pcl                        1.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.1s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━━━ 458.1kB pcl                        1.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.2s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━━━ 650.5kB pcl                        1.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.3s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━━━ 803.8kB pcl                        1.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.4s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━━━ 876.4kB python                     1.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.5s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━━━   1.0MB python                     1.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.6s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━━━   1.3MB python                     1.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.7s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━━━   1.8MB python                     1.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.8s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━━━   1.9MB libboost-headers           2.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 2.9s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━━━   1.9MB libboost-headers           2.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.0s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━━━   2.0MB libboost-headers           2.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   2.4MB libboost-headers           2.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━   3.4MB libopenvino-intel-cpu-plugin  2.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 3.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━   3.9MB libopenvino-intel-cpu-plugin  2.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 3.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━   3.9MB libopenvino-intel-cpu-plugin  2.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 3.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━   4.2MB libopenvino-intel-cpu-plugin  2.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 3.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   5.6MB pcl                        2.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   6.2MB pcl                        2.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   7.2MB pcl                        3.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 3.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   7.9MB pcl                        3.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━━━   8.2MB python                     3.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.1s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━  10.4MB python                     3.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.2s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━  11.9MB python                     3.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.3s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━  12.0MB python                     3.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.4s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━  12.0MB vtk-base                   3.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.5s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━  12.0MB vtk-base                   3.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.6s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━  12.0MB vtk-base                   3.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.7s
+
+Downloading  (5) ╸━━━━━━━━━━━━━━━━━━━━━━  12.1MB vtk-base                   3.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.8s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━  17.9MB libboost-headers           4.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 4.9s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━  20.4MB libboost-headers           4.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 5.0s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━  21.6MB libboost-headers           4.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 5.1s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━  22.8MB libboost-headers           4.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 5.2s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━  22.9MB libopenvino-intel-cpu-plugin  4.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 5.3s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━  22.9MB libopenvino-intel-cpu-plugin  4.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 5.4s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━  22.9MB libopenvino-intel-cpu-plugin  4.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 5.5s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━  22.9MB libopenvino-intel-cpu-plugin  4.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━       0                               0.0s[+] 5.6s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━  22.9MB pcl                        4.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0s[+] 5.7s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━━━━  23.4MB pcl                        4.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       0                            0.0slibopenvino-intel-cpu-plugin                        13.6MB @   2.1MB/s  5.0s
+
+[+] 5.8s
+
+Downloading  (5) ━╸━━━━━━━━━━━━━━━━━━  26.7MB    pcl                        5.0s
+
+Extracting   (1) ╸━━━━━━━━━━━━━━━╸━━━       0 libopenvino-intel-cpu-plugin  0.0s[+] 5.9s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  28.5MB pcl                        5.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.0s
+
+Downloading  (5) ━━╸━━━━━━━━━━━━━━━━━━━━  32.7MB python                     5.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.1s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  38.0MB python                     5.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.2s
+
+Downloading  (5) ━━━╸━━━━━━━━━━━━━━━━━━━  38.0MB python                     5.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.3s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  44.9MB python                     5.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.4s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  47.1MB vtk-base                   5.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.5s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  47.6MB vtk-base                   5.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.6s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  47.6MB vtk-base                   5.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.7s
+
+Downloading  (5) ━━━━╸━━━━━━━━━━━━━━━━━━  48.2MB vtk-base                   5.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.8s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  53.1MB ffmpeg                     6.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 6.9s
+
+Downloading  (5) ━━━━━╸━━━━━━━━━━━━━━━━━  56.5MB ffmpeg                     6.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 7.0s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  56.9MB ffmpeg                     6.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 7.1s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  57.3MB ffmpeg                     6.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 7.2s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  60.3MB libboost-headers           6.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 7.3s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  60.7MB libboost-headers           6.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 7.4s
+
+Downloading  (5) ━━━━━━╸━━━━━━━━━━━━━━━━  61.2MB libboost-headers           6.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 7.5s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  64.0MB libboost-headers           6.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 7.6s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  64.1MB pcl                        6.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1s[+] 7.7s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  71.3MB pcl                        6.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       1                            0.1spython                                              36.9MB @   4.7MB/s  7.0s
+
+[+] 7.8s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  77.2MB pcl                        7.0s
+
+Extracting   (1) ━━━━━━━━━━╸━━━━━━━━━━━━       1 python                     0.1s[+] 7.9s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━━━━  77.2MB pcl                        7.1s
+
+Extracting   (1) ━━━━━━━━━━━╸━━━━━━━━━━━       1 python                     0.2s[+] 8.0s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━━━━  79.2MB vtk-base                   7.2s
+
+Extracting   (1) ━━━━━━━━━━━━━╸━━━━━━━━━       1 python                     0.3s[+] 8.1s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  86.4MB vtk-base                   7.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       2                            0.4s[+] 8.2s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  89.5MB vtk-base                   7.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━━━       2                            0.4sffmpeg                                              13.0MB @   4.9MB/s  2.6s
+
+[+] 8.3s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  94.0MB vtk-base                   7.5s
+
+Extracting   (1) ━━━━━━━━╸━━━━━━━━━━━━━━       2 ffmpeg                     0.4slibboost-headers                                    14.7MB @   1.6MB/s  6.3s
+
+[+] 8.4s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━  97.7MB libopenvino-intel-gpu-plugin  7.6s
+
+Extracting   (1) ━━━━━━━╸━━━━━━━━━━━━       3    libboost-headers           0.5spcl                                                 18.1MB @   2.1MB/s  6.6s
+
+[+] 8.5s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━  98.9MB libopenvino-intel-gpu-plugin  7.7s
+
+Extracting   (2) ━━━━━━━━╸━━━━━━━━━━━       3    libboost-headers           0.6s[+] 8.6s
+
+Downloading  (5) ━━━━━━━╸━━━━━━━━━━━━  99.1MB libopenvino-intel-gpu-plugin  7.8s
+
+Extracting   (2) ━━━━━━━━━╸━━━━━━━━━━       3    libboost-headers           0.7s[+] 8.7s
+
+Downloading  (5) ━━━━━━━━╸━━━━━━━━━━━  99.8MB libopenvino-intel-gpu-plugin  7.9s
+
+Extracting   (1) ━━━━━━━━━━╸━━━━━━━━━       4    libboost-headers           0.8s[+] 8.8s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  99.8MB matplotlib-base            8.0s
+
+Extracting   (1) ╸╸━━━━━━━━━━━━━━━━━━━━━       4 libboost-headers           0.9s[+] 8.9s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  99.8MB matplotlib-base            8.1s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       5                            1.0s[+] 9.0s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━  99.8MB matplotlib-base            8.2s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       5                            1.0s[+] 9.1s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━ 101.6MB matplotlib-base            8.3s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       5                            1.0s[+] 9.2s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━━━━ 104.9MB numpy                      8.4s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       5                            1.0s[+] 9.3s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━ 110.4MB numpy                      8.5s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       5                            1.0s[+] 9.4s
+
+Downloading  (5) ━━━━━━━━━━╸━━━━━━━━━━━━ 111.3MB numpy                      8.6s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       5                            1.0s[+] 9.5s
+
+Downloading  (5) ━━━━━━━━━━━╸━━━━━━━━━━━ 118.2MB numpy                      8.7s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       5                            1.0slibopenvino-intel-gpu-plugin                        12.4MB @   6.3MB/s  1.9s
+
+[+] 9.6s
+
+Downloading  (5) ━━━━━━━━━╸━━━━━━━━━━ 120.1MB    vtk-base                   8.8s
+
+Extracting   (1) ╸╸━━━━━━━━━━━━━━━━━━       5 libopenvino-intel-gpu-plugin  1.0s[+] 9.7s
+
+Downloading  (5) ━━━━━━━━━━━╸━━━━━━━━━━━ 122.9MB vtk-base                   8.9s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       6                            1.1s[+] 9.8s
+
+Downloading  (5) ━━━━━━━━━━━╸━━━━━━━━━━━ 122.9MB vtk-base                   9.0s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       6                            1.1s[+] 9.9s
+
+Downloading  (5) ━━━━━━━━━━━╸━━━━━━━━━━━ 126.6MB vtk-base                   9.1s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       6                            1.1s[+] 10.0s
+
+Downloading  (5) ━━━━━━━━━━━╸━━━━━━━━━━━ 128.2MB intel-media-driver         9.2s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       6                            1.1s[+] 10.1s
+
+Downloading  (5) ━━━━━━━━━━━╸━━━━━━━━━━━ 129.8MB intel-media-driver         9.3s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       6                            1.1s[+] 10.2s
+
+Downloading  (5) ━━━━━━━━━━━╸━━━━━━━━━━━ 129.8MB intel-media-driver         9.4s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       6                            1.1s[+] 10.3s
+
+Downloading  (5) ━━━━━━━━━━━╸━━━━━━━━━━━ 129.9MB intel-media-driver         9.5s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       6                            1.1s[+] 10.4s
+
+Downloading  (5) ━━━━━━━━━━━━╸━━━━━━━━━━ 134.9MB libopenvino                9.6s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       6                            1.1s[+] 10.5s
+
+Downloading  (5) ━━━━━━━━━━━━╸━━━━━━━━━━ 135.0MB libopenvino                9.7s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       6                            1.1smatplotlib-base                                      9.1MB @   3.8MB/s  2.2s
+
+[+] 10.6s
+
+Downloading  (5) ━━━━━━━━━━━━╸━━━━━━━━━━ 136.6MB libopenvino                9.8s
+
+Extracting   (1) ╸╸━━━━━━━━━━━━━━━━━━━━━       6 matplotlib-base            1.1s[+] 10.7s
+
+Downloading  (5) ━━━━━━━━━━━━╸━━━━━━━━━━ 137.0MB libopenvino                9.9s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       7                            1.2s[+] 10.8s
+
+Downloading  (5) ━━━━━━━━━━━━╸━━━━━━━━━━ 137.7MB numpy                     10.0s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       7                            1.2s[+] 10.9s
+
+Downloading  (5) ━━━━━━━━━━━━━╸━━━━━━━━━ 144.1MB numpy                     10.1s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       7                            1.2s[+] 11.0s
+
+Downloading  (5) ━━━━━━━━━━━━━╸━━━━━━━━━ 145.7MB numpy                     10.2s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       7                            1.2s[+] 11.1s
+
+Downloading  (5) ━━━━━━━━━━━━━╸━━━━━━━━━ 148.6MB numpy                     10.3s
+
+Extracting       ╸━━━━━━━━━━━━━━━━━━━━━━       7                            1.2sintel-media-driver                                   8.8MB @   2.6MB/s  2.8s
+
+[+] 11.2s
+
+Downloading  (5) ━━━━━━━━━━━━━╸━━━━━━━━━ 152.1MB vtk-base                  10.4s
+
+Extracting   (1) ╸━╸━━━━━━━━━━━━━━━━━━━━       7 intel-media-driver         1.2slibopenvino                                          6.8MB @   2.9MB/s  1.7s
+
+[+] 11.3s
+
+Downloading  (5) ━━━━━━━━━━━━━╸━━━━━━━━━ 154.5MB vtk-base                  10.5s
+
+Extracting   (1) ━╸╸━━━━━━━━━━━━━━━━━━━━       8 libopenvino                1.3snumpy                                                9.1MB @   2.8MB/s  3.0s
+
+[+] 11.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━╸━━━━━━━━ 162.2MB vtk-base                  10.6s
+
+Extracting   (1) ━╸╸━━━━━━━━━━━━━━━━━━━━       9 numpy                      1.4s[+] 11.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━╸━━━━━━━━ 166.2MB vtk-base                  10.7s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━      10                            1.5s[+] 11.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━╸━━━━━━━━ 170.5MB x265                      10.8s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━      10                            1.5slibopenblas                                          5.9MB @   4.4MB/s  1.1s
+
+[+] 11.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━╸━━━━━━━ 179.0MB x265                      10.9s
+
+Extracting   (1) ━╸━╸━━━━━━━━━━━━━━━━━━━      10 libopenblas                1.5s[+] 11.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━╸━━━━━━━ 181.1MB x265                      11.0s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━      11                            1.6s[+] 11.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━╸━━━━━━━ 181.6MB x265                      11.1s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━      11                            1.6s[+] 12.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━╸━━━━━━ 186.9MB libboost                  11.2s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━      11                            1.6s[+] 12.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━╸━━━━━━ 187.5MB libboost                  11.3s
+
+Extracting       ━╸━━━━━━━━━━━━━━━━━━━━━      11                            1.6sx265                                                 3.4MB @   3.0MB/s  0.9s
+
+[+] 12.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━╸━━━━━━ 190.9MB libboost                  11.4s
+
+Extracting   (1) ━━╸╸━━━━━━━━━━━━━━━━━━━      11 x265                       1.6s[+] 12.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━╸━━━━━━ 192.0MB libboost                  11.5s
+
+Extracting   (1) ━━╸╸━━━━━━━━━━━━━━━━━━━      11 x265                       1.7s[+] 12.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━╸━━━━━━ 192.4MB libprotobuf               11.6s
+
+Extracting   (1) ━━╸╸━━━━━━━━━━━━━━━━━━━      11 x265                       1.8slibrsvg                                              3.5MB @   1.9MB/s  1.2s
+
+[+] 12.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━╸━━━━━━ 195.0MB libprotobuf               11.7s
+
+Extracting   (1) ━━╸╸━━━━━━━━━━━━━━━━━━━      12 x265                       1.9s[+] 12.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━╸━━━━━━ 195.7MB libprotobuf               11.8s
+
+Extracting   (1) ━━╸╸━━━━━━━━━━━━━━━━━━━      12 x265                       2.0s[+] 12.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━╸━━━━━ 201.0MB libprotobuf               11.9s
+
+Extracting       ━━╸━━━━━━━━━━━━━━━━━━━━      13                            2.1slibboost                                             3.2MB @   2.7MB/s  1.1s
+
+libprotobuf                                          3.8MB @   1.7MB/s  1.6s
+
+[+] 12.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━╸━━━━━ 206.8MB aom                       12.0s
+
+Extracting   (2) ━━╸━╸━━━━━━━━━━━━━━━━━━      13 libboost                   2.1s[+] 12.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━╸━━━━━ 207.4MB aom                       12.1s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      15                            2.2s[+] 13.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━╸━━━━━ 208.2MB aom                       12.2s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      15                            2.2s[+] 13.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━╸━━━━━ 210.3MB aom                       12.3s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      15                            2.2s[+] 13.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━╸━━━━ 216.1MB libopenvino-intel-npu-plugin 12.4s
+
+Extracting       ━━╸━━━━━━━━━━━━━━━━━      15                               2.2s[+] 13.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━╸━━━ 223.4MB libopenvino-intel-npu-plugin 12.5s
+
+Extracting       ━━╸━━━━━━━━━━━━━━━━━      15                               2.2saom                                                  3.1MB @   2.5MB/s  1.2s
+
+[+] 13.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━╸━━━ 223.7MB libopenvino-intel-npu-plugin 12.6s
+
+Extracting       ━━╸━━━━━━━━━━━━━━━━━      16                               2.2ssvt-av1                                              2.7MB @   2.6MB/s  1.0s
+
+[+] 13.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━╸━━━ 225.8MB libopenvino-intel-npu-plugin 12.7s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━      17                               2.2s[+] 13.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━╸━━━━ 227.3MB sdl3                      12.8s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      17                            2.2s[+] 13.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 229.8MB sdl3                      12.9s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      17                            2.2s[+] 13.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 234.5MB sdl3                      13.0s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      17                            2.2s[+] 13.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 234.5MB sdl3                      13.1s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      17                            2.2s[+] 14.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 234.9MB spirv-tools               13.2s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      17                            2.2s[+] 14.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 235.8MB spirv-tools               13.3s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      17                            2.2slibopenvino-intel-npu-plugin                         2.6MB @   1.6MB/s  1.4s
+
+[+] 14.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 236.7MB spirv-tools               13.4s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2s[+] 14.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 237.2MB spirv-tools               13.5s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2s[+] 14.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 238.6MB vtk-base                  13.6s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2s[+] 14.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 239.0MB vtk-base                  13.7s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2s[+] 14.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 240.6MB vtk-base                  13.8s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2s[+] 14.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━╸━━━ 243.8MB vtk-base                  13.9s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2s[+] 14.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━╸━━ 246.3MB flann                     14.0s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2s[+] 14.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━╸━━ 246.3MB flann                     14.1s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2s[+] 15.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━╸━━ 246.3MB flann                     14.2s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2s[+] 15.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━╸━━ 246.3MB flann                     14.3s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2s[+] 15.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━╸━━ 246.3MB libopenvino-onnx-frontend 14.4s
+
+Extracting       ━━━╸━━━━━━━━━━━━━━━━━━━      18                            2.2ssdl3                                                 2.2MB @  92.5kB/s  1.9s
+
+spirv-tools                                          2.4MB @ 857.9kB/s  2.5s
+
+[+] 15.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━╸━━ 250.8MB libopenvino-onnx-frontend 14.5s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━      20                            2.2s[+] 15.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━╸━━ 254.0MB libopenvino-onnx-frontend 14.6s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━      20                            2.2s[+] 15.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━╸━━ 255.6MB libopenvino-onnx-frontend 14.7s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━      20                            2.2s[+] 15.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 258.8MB vtk-base                  14.8s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━      20                            2.2s[+] 15.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 262.3MB vtk-base                  14.9s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━      20                            2.2sflann                                                2.0MB @ 841.6kB/s  2.3s
+
+[+] 15.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 263.8MB vtk-base                  15.0s
+
+Extracting       ━━━━╸━━━━━━━━━━━━━━━━━━      21                            2.2svtk-base                                            86.0MB @   5.4MB/s 12.8s
+
+[+] 15.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 264.8MB glslang                   15.1s
+
+Extracting   (1) ━━━━╸━╸━━━━━━━━━━━━━━━━      21 vtk-base                   2.2s[+] 16.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 265.2MB glslang                   15.2s
+
+Extracting   (1) ━━━━╸━╸━━━━━━━━━━━━━━━━      21 vtk-base                   2.3slibopenvino-onnx-frontend                            1.9MB @ 782.9kB/s  2.0s
+
+[+] 16.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 265.7MB glslang                   15.3s
+
+Extracting   (2) ━━━━╸━╸━━━━━━━━━━━━━━━━      21 vtk-base                   2.4s[+] 16.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 265.8MB glslang                   15.4s
+
+Extracting   (1) ━━━━━╸╸━━━━━━━━━━━━━━━━      22 vtk-base                   2.5slibjxl                                               1.8MB @   1.3MB/s  1.1s
+
+[+] 16.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 267.2MB libabseil                 15.5s
+
+Extracting   (2) ━━━━━╸╸━━━━━━━━━━━━━━━━      22 libjxl                     2.6slibabseil                                            1.4MB @ 561.3kB/s  1.1s
+
+[+] 16.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 268.4MB glslang                   15.6s
+
+Extracting   (1) ━━━━━╸╸━━━━━━━━━━━━━━━━      24 vtk-base                   2.7s[+] 16.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 268.5MB glslang                   15.7s
+
+Extracting       ━━━━━╸━━━━━━━━━━━━━━━━━      25                            2.8slibhwy                                               1.4MB @ 190.9kB/s  0.8s
+
+[+] 16.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 271.7MB glslang                   15.8s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━      26                            2.8s[+] 16.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 271.9MB glslang                   15.9s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━      26                            2.8s[+] 16.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━╸━ 272.0MB libopenvino-pytorch-frontend 16.0s
+
+Extracting       ━━━━━╸━━━━━━━━━━━━━━      26                               2.8slibopenvino-tensorflow-frontend                      1.3MB @   1.1MB/s  0.8s
+
+[+] 16.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━╸━ 273.7MB libopenvino-pytorch-frontend 16.1s
+
+Extracting       ━━━━━╸━━━━━━━━━━━━━━      27                               2.8s[+] 17.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━╸━ 273.7MB libopenvino-pytorch-frontend 16.2s
+
+Extracting       ━━━━━╸━━━━━━━━━━━━━━      27                               2.8sglslang                                              1.4MB @   1.1MB/s  1.2s
+
+[+] 17.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━╸━ 273.9MB libopenvino-pytorch-frontend 16.3s
+
+Extracting   (1) ━━━━━╸╸━━━━━━━━━━━━━      27    glslang                    2.8slibopenvino-pytorch-frontend                         1.2MB @   1.1MB/s  0.9s
+
+[+] 17.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 274.3MB intel-gmmlib              16.4s
+
+Extracting       ━━━━━━╸━━━━━━━━━━━━━━━━      29                            2.9spillow                                               1.1MB @   1.3MB/s  0.8s
+
+[+] 17.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 275.3MB intel-gmmlib              16.5s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━      30                            2.9stbb-devel                                            1.1MB @ 667.2kB/s  1.0s
+
+[+] 17.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 276.4MB intel-gmmlib              16.6s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━      31                            2.9s[+] 17.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 276.8MB intel-gmmlib              16.7s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━      31                            2.9slibvpx                                               1.1MB @   1.4MB/s  0.7s
+
+intel-gmmlib                                         1.0MB @ 808.4kB/s  0.5s
+
+[+] 17.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 278.2MB dav1d                     16.8s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━      33                            2.9s[+] 17.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 278.6MB dav1d                     16.9s
+
+Extracting       ━━━━━━━╸━━━━━━━━━━━━━━━      33                            2.9sx264                                               897.5kB @   1.5MB/s  0.6s
+
+level-zero                                         875.8kB @   1.7MB/s  0.5s
+
+[+] 17.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 280.2MB dav1d                     17.0s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━      35                            2.9s[+] 17.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 280.3MB dav1d                     17.1s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━      35                            2.9sfonttools                                          846.0kB @   1.1MB/s  0.6s
+
+[+] 18.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 280.7MB gdk-pixbuf                17.2s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━      36                            2.9s[+] 18.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 281.0MB gdk-pixbuf                17.3s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━      36                            2.9s[+] 18.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 281.9MB gdk-pixbuf                17.4s
+
+Extracting       ━━━━━━━━╸━━━━━━━━━━━━━━      36                            2.9ssdl2                                               589.1kB @ 305.8kB/s  0.5s
+
+[+] 18.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 282.6MB gdk-pixbuf                17.5s
+
+Extracting       ━━━━━━━━━╸━━━━━━━━━━━━━      37                            2.9slibopenvino-paddle-frontend                        690.2kB @   1.2MB/s  0.6s
+
+[+] 18.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 283.0MB libplacebo                17.6s
+
+Extracting       ━━━━━━━━━╸━━━━━━━━━━━━━      38                            2.9s[+] 18.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 283.0MB libplacebo                17.7s
+
+Extracting       ━━━━━━━━━╸━━━━━━━━━━━━━      38                            2.9s[+] 18.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 283.2MB libplacebo                17.8s
+
+Extracting       ━━━━━━━━━╸━━━━━━━━━━━━━      38                            2.9s[+] 18.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 283.2MB libplacebo                17.9s
+
+Extracting       ━━━━━━━━━╸━━━━━━━━━━━━━      38                            2.9s[+] 18.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 283.6MB openh264                  18.0s
+
+Extracting       ━━━━━━━━━╸━━━━━━━━━━━━━      38                            2.9s[+] 18.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 283.6MB openh264                  18.1s
+
+Extracting       ━━━━━━━━━╸━━━━━━━━━━━━━      38                            2.9saiohttp                                            522.6kB @ 827.3kB/s  0.6s
+
+gdk-pixbuf                                         581.6kB @ 480.2kB/s  1.0s
+
+[+] 19.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 284.4MB openh264                  18.2s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━      40                            2.9slibplacebo                                         550.8kB @ 643.6kB/s  0.8s
+
+[+] 19.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 284.4MB openh264                  18.3s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━      41                            2.9s[+] 19.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 284.4MB unicodedata2              18.4s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━      41                            2.9sdav1d                                              760.2kB @ 223.9kB/s  1.8s
+
+[+] 19.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 284.8MB unicodedata2              18.5s
+
+Extracting   (1) ━━━━━━━━━━╸╸━━━━━━━━━━━      41 dav1d                      2.9s[+] 19.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 285.1MB unicodedata2              18.6s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━      42                            3.0s[+] 19.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 285.1MB unicodedata2              18.7s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━      42                            3.0s[+] 19.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 285.2MB gmp                       18.8s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━      42                            3.0s[+] 19.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 285.2MB gmp                       18.9s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━      42                            3.0s[+] 19.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 285.5MB gmp                       19.0s
+
+Extracting       ━━━━━━━━━━╸━━━━━━━━━━━━      42                            3.0sunicodedata2                                       409.6kB @  ??.?MB/s  0.8s
+
+libdovi                                            405.0kB @ 355.4kB/s  0.6s
+
+[+] 19.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 286.1MB gmp                       19.1s
+
+Extracting   (2) ━━━━━━━━━━╸━╸━━━━━━━━━━      42 libdovi                    3.0slibopenvino-tensorflow-lite-frontend               501.9kB @ 462.0kB/s  1.0s
+
+[+] 20.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 286.3MB libopenvino-auto-plugin   19.2s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━      45                            3.1s[+] 20.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 286.3MB libopenvino-auto-plugin   19.3s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━      45                            3.1s[+] 20.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 286.3MB libopenvino-auto-plugin   19.4s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━      45                            3.1s[+] 20.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 286.3MB libopenvino-auto-plugin   19.5s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━      45                            3.1s[+] 20.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 286.7MB libvpl                    19.6s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━      45                            3.1s[+] 20.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 286.7MB libvpl                    19.7s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━━━━━      45                            3.1scontourpy                                          324.0kB @ 373.3kB/s  0.7s
+
+[+] 20.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 286.9MB libvpl                    19.8s
+
+Extracting   (1) ━━━━━━━━━━━╸╸━━━━━━━━━━      45 contourpy                  3.1slibvpl                                             288.0kB @ 332.5kB/s  0.7s
+
+libopenvino-auto-plugin                            250.9kB @  67.5kB/s  0.6s
+
+[+] 20.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 287.2MB gmp                       19.9s
+
+Extracting       ━━━━━━━━━━━━╸━━━━━━━━━━      48                            3.2s[+] 20.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 287.2MB gmp                       20.0s
+
+Extracting       ━━━━━━━━━━━━╸━━━━━━━━━━      48                            3.2s[+] 20.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 287.2MB gmp                       20.1s
+
+Extracting       ━━━━━━━━━━━━╸━━━━━━━━━━      48                            3.2s[+] 21.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 287.5MB gmp                       20.2s
+
+Extracting       ━━━━━━━━━━━━╸━━━━━━━━━━      48                            3.2s[+] 21.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 287.5MB libopenvino-hetero-plugin 20.3s
+
+Extracting       ━━━━━━━━━━━━╸━━━━━━━━━━      48                            3.2s[+] 21.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 287.5MB libopenvino-hetero-plugin 20.4s
+
+Extracting       ━━━━━━━━━━━━╸━━━━━━━━━━      48                            3.2s[+] 21.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 287.5MB libopenvino-hetero-plugin 20.5s
+
+Extracting       ━━━━━━━━━━━━╸━━━━━━━━━━      48                            3.2s[+] 21.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 287.8MB libopenvino-hetero-plugin 20.6s
+
+Extracting       ━━━━━━━━━━━━╸━━━━━━━━━━      48                            3.2slibopenvino-hetero-plugin                          215.5kB @ 106.8kB/s  0.8s
+
+[+] 21.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.0MB gmp                       20.7s
+
+Extracting       ━━━━━━━━━━━━╸━━━━━━━━━━      49                            3.2sopenh264                                           726.5kB @ 173.6kB/s  4.0s
+
+libopenvino-ir-frontend                            201.1kB @ 201.6kB/s  1.0s
+
+[+] 21.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.1MB gmp                       20.8s
+
+Extracting   (1) ━━━━━━━━━━━━╸━╸━━━━━━━━      50 libopenvino-ir-frontend    3.2s[+] 21.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.1MB gmp                       20.9s
+
+Extracting       ━━━━━━━━━━━━━╸━━━━━━━━━      51                            3.3slibva                                              222.7kB @ 167.0kB/s  1.1s
+
+[+] 21.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.2MB gmp                       21.0s
+
+Extracting       ━━━━━━━━━━━━━╸━━━━━━━━━      52                            3.3s[+] 21.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.3MB libass                    21.1s
+
+Extracting       ━━━━━━━━━━━━━╸━━━━━━━━━      52                            3.3s[+] 22.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.3MB libass                    21.2s
+
+Extracting       ━━━━━━━━━━━━━╸━━━━━━━━━      52                            3.3s[+] 22.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.5MB libass                    21.3s
+
+Extracting       ━━━━━━━━━━━━━╸━━━━━━━━━      52                            3.3slibass                                             155.0kB @ 163.7kB/s  0.7s
+
+wayland-protocols                                  148.0kB @ 199.5kB/s  0.6s
+
+[+] 22.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.7MB expat                     21.4s
+
+Extracting       ━━━━━━━━━━━━━╸━━━━━━━━━      54                            3.3sexpat                                              147.8kB @ 270.5kB/s  0.5s
+
+[+] 22.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.8MB gmp                       21.5s
+
+Extracting       ━━━━━━━━━━━━━━╸━━━━━━━━      55                            3.3s[+] 22.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.8MB gmp                       21.6s
+
+Extracting       ━━━━━━━━━━━━━━╸━━━━━━━━      55                            3.3s[+] 22.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 288.8MB gmp                       21.7s
+
+Extracting       ━━━━━━━━━━━━━━╸━━━━━━━━      55                            3.3sgmp                                                460.1kB @ 117.6kB/s  3.6s
+
+[+] 22.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━╸━ 288.9MB libopenvino-auto-batch-plugin 21.8s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━      56                                3.3s[+] 22.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━╸━ 288.9MB libopenvino-auto-batch-plugin 21.9s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━      56                                3.3s[+] 22.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━╸━ 288.9MB libopenvino-auto-batch-plugin 22.0s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━      56                                3.3s[+] 22.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━╸━ 289.0MB libopenvino-auto-batch-plugin 22.1s
+
+Extracting       ━━━━━━━━━━━╸━━━━━━━      56                                3.3s[+] 23.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.1MB libudev1                  22.2s
+
+Extracting       ━━━━━━━━━━━━━━╸━━━━━━━━      56                            3.3sliburing                                           154.2kB @ 104.2kB/s  1.5s
+
+[+] 23.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.2MB libudev1                  22.3s
+
+Extracting       ━━━━━━━━━━━━━━╸━━━━━━━━      57                            3.3slibopenvino-auto-batch-plugin                      114.6kB @ 117.3kB/s  1.0s
+
+[+] 23.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.2MB libudev1                  22.4s
+
+Extracting       ━━━━━━━━━━━━━━╸━━━━━━━━      58                            3.3sshaderc                                            114.3kB @ 101.6kB/s  1.1s
+
+[+] 23.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.2MB libudev1                  22.5s
+
+Extracting       ━━━━━━━━━━━━━━━╸━━━━━━━      59                            3.3s[+] 23.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.3MB msgpack-python            22.6s
+
+Extracting       ━━━━━━━━━━━━━━━╸━━━━━━━      59                            3.3slibudev1                                           146.0kB @  95.0kB/s  1.3s
+
+[+] 23.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.3MB msgpack-python            22.7s
+
+Extracting       ━━━━━━━━━━━━━━━╸━━━━━━━      60                            3.3s[+] 23.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.3MB msgpack-python            22.8s
+
+Extracting       ━━━━━━━━━━━━━━━╸━━━━━━━      60                            3.3s[+] 23.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.4MB msgpack-python            22.9s
+
+Extracting       ━━━━━━━━━━━━━━━╸━━━━━━━      60                            3.3s[+] 23.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.4MB ocl-icd                   23.0s
+
+Extracting       ━━━━━━━━━━━━━━━╸━━━━━━━      60                            3.3s[+] 23.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.4MB ocl-icd                   23.1s
+
+Extracting       ━━━━━━━━━━━━━━━╸━━━━━━━      60                            3.3socl-icd                                            109.6kB @  46.4kB/s  0.8s
+
+yarl                                                96.1kB @  34.2kB/s  0.7s
+
+[+] 24.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.6MB kiwisolver                23.2s
+
+Extracting   (1) ━━━━━━━━━━━━━━━╸━╸━━━━━      61 yarl                       3.3s[+] 24.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.6MB kiwisolver                23.3s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      62                            3.4slibmpdec                                            92.4kB @ 113.0kB/s  0.6s
+
+[+] 24.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.7MB kiwisolver                23.4s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      63                            3.4s[+] 24.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.7MB kiwisolver                23.5s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      63                            3.4smsgpack-python                                     113.3kB @  81.4kB/s  1.3s
+
+[+] 24.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.7MB libunwind                 23.6s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      64                            3.4s[+] 24.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.7MB libunwind                 23.7s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      64                            3.4s[+] 24.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.8MB libunwind                 23.8s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      64                            3.4s[+] 24.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.8MB libunwind                 23.9s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      64                            3.4s[+] 24.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.8MB libusb                    24.0s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      64                            3.4s[+] 24.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.8MB libusb                    24.1s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      64                            3.4s[+] 25.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.9MB libusb                    24.2s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      64                            3.4s[+] 25.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.9MB libusb                    24.3s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      64                            3.4slibusb                                              89.6kB @  84.8kB/s  1.2s
+
+[+] 25.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.9MB kiwisolver                24.4s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      65                            3.4s[+] 25.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.9MB kiwisolver                24.5s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      65                            3.4s[+] 25.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.9MB kiwisolver                24.6s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      65                            3.4s[+] 25.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.9MB kiwisolver                24.7s
+
+Extracting       ━━━━━━━━━━━━━━━━╸━━━━━━      65                            3.4skiwisolver                                          77.4kB @  18.1kB/s  1.6s
+
+[+] 25.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 289.9MB libboost-devel            24.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━╸━━━━━      66                            3.4slibboost-devel                                      38.6kB @  49.8kB/s  0.5s
+
+[+] 25.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.0MB libraqm                   24.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━╸━━━━━      67                            3.4s[+] 25.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.0MB libraqm                   25.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━╸━━━━━      67                            3.4s[+] 25.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.0MB libraqm                   25.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━╸━━━━━      67                            3.4sopencl-headers                                      55.8kB @  42.1kB/s  1.6s
+
+[+] 26.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.0MB libraqm                   25.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━╸━━━━━      68                            3.4smultidict                                           37.7kB @  74.2kB/s  0.5s
+
+[+] 26.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.1MB libunwind                 25.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━╸━━━━      69                            3.4s[+] 26.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.1MB libunwind                 25.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━╸━━━━      69                            3.4svtk-io-ffmpeg                                      113.5kB @   7.6kB/s  3.7s
+
+[+] 26.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.2MB libunwind                 25.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━╸━━━━      70                            3.4slibraqm                                             34.0kB @  59.1kB/s  0.7s
+
+[+] 26.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.2MB libunwind                 25.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━╸━━━━      71                            3.4s[+] 26.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.2MB nanoflann                 25.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━╸━━━━      71                            3.4s[+] 26.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.2MB nanoflann                 25.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━╸━━━━      71                            3.4svtk                                                 28.5kB @  62.2kB/s  0.7s
+
+[+] 26.7s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.2MB nanoflann                 25.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━╸━━━━      72                            3.4spropcache                                           19.9kB @  41.6kB/s  0.5s
+
+[+] 26.8s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.2MB nanoflann                 26.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━╸━━━      73                            3.4sfrozenlist                                          19.9kB @  ??.?MB/s  0.5s
+
+nanoflann                                           25.9kB @  20.4kB/s  0.8s
+
+[+] 26.9s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.3MB libblas                   26.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━╸━━━      75                            3.4s[+] 27.0s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.3MB libblas                   26.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━╸━━━      75                            3.4s[+] 27.1s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.3MB libblas                   26.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━╸━━━      75                            3.4slibblas                                             18.8kB @  18.3kB/s  0.5s
+
+[+] 27.2s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.3MB libcblas                  26.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━╸━━━      76                            3.4sliblapack                                           18.8kB @  32.9kB/s  0.5s
+
+[+] 27.3s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.3MB libcblas                  26.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      77                            3.4slibcblas                                            18.8kB @  40.6kB/s  0.5s
+
+[+] 27.4s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.3MB async-timeout             26.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      78                            3.4s[+] 27.5s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.3MB async-timeout             26.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      78                            3.4s[+] 27.6s
+
+Downloading  (5) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.3MB async-timeout             26.8s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      78                            3.4slibopengl-devel                                     16.7kB @  ??.?MB/s  0.8s
+
+[+] 27.7s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.4MB async-timeout             26.9s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      79                            3.4s[+] 27.8s
+
+Downloading  (4) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.4MB libunwind                 27.0s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━╸━━      79                            3.4spython_abi                                           7.0kB @  ??.?MB/s  0.6s
+
+[+] 27.9s
+
+Downloading  (3) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.4MB libunwind                 27.1s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━╸━      80                            3.4sxorg-libxscrnsaver                                  14.4kB @  18.7kB/s  0.8s
+
+[+] 28.0s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.4MB libunwind                 27.2s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━╸━      81                            3.4s[+] 28.1s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.4MB libunwind                 27.3s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━╸━      81                            3.4s[+] 28.2s
+
+Downloading  (2) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.4MB async-timeout             27.4s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━╸━      81                            3.4slibunwind                                           76.0kB @   6.9kB/s  4.1s
+
+[+] 28.3s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.5MB async-timeout             27.5s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━╸━      82                            3.4s[+] 28.4s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.5MB async-timeout             27.6s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━╸━      82                            3.4s[+] 28.5s
+
+Downloading  (1) ━━━━━━━━━━━━━━━━━━━━━╸━ 290.5MB async-timeout             27.7s
+
+Extracting       ━━━━━━━━━━━━━━━━━━━━━╸━      82                            3.4sasync-timeout                                       13.6kB @  10.5kB/s  1.3s
+
+Unlinking hdf5-1.14.3-nompi_h2d575fe_109
+
+Unlinking flann-1.9.1-hdd4cb9a_1014
+
+Unlinking boost-cpp-1.74.0-h75c5d50_8
+
+Unlinking icu-70.1-h27087fc_0
+
+Unlinking pcl-1.11.1-h39b1736_3
+
+Linking eigen-abi-5.0.1.80-hf414acd_0
+
+Linking libpng-1.6.58-h421ea60_0
+
+Linking libboost-headers-1.90.0-ha770c72_1
+
+Linking hdf5-1.14.6-nompi_h19486de_110
+
+Linking lz4-c-1.10.0-h5888daf_1
+
+Linking pcre2-10.47-haa7fec5_0
+
+Linking double-conversion-3.4.0-hecca717_0
+
+Linking libcups-2.3.3-h7a8fb5f_6
+
+Linking libwebp-base-1.6.0-hd42ef1d_0
+
+Linking xorg-libice-1.1.2-hb9d3cd8_0
+
+Linking libpciaccess-0.19-hb03c661_0
+
+Linking libglvnd-1.7.0-ha4b6fd6_3
+
+Linking nanoflann-1.6.1-hff21bea_0
+
+Linking xorg-libxdmcp-1.1.5-hb03c661_1
+
+Linking xorg-libxau-1.0.12-hb03c661_1
+
+Linking pthread-stubs-0.4-hb9d3cd8_1002
+
+Linking libntlm-1.8-hb9d3cd8_0
+
+Linking graphite2-1.3.15-hecca717_0
+
+Linking libdeflate-1.25-h17f619e_0
+
+Linking libjpeg-turbo-3.2.0-hb03c661_0
+
+Linking libuuid-2.42.2-h5347b49_0
+
+Linking alsa-lib-1.2.16.1-hb03c661_0
+
+Linking libbrotlicommon-1.2.0-hb03c661_1
+
+Linking xorg-xorgproto-2025.1-hb03c661_0
+
+Linking pixman-0.46.4-h54a6638_2
+
+Linking libxcrypt-4.4.36-hd590300_1
+
+Linking libiconv-1.18-h3b78370_2
+
+Linking lerc-4.2.0-hdb68285_0
+
+Linking expat-2.8.1-hecca717_1
+
+Linking fmt-12.1.0-hff5e90c_0
+
+Linking pugixml-1.15-h3f63f65_0
+
+Linking jsoncpp-1.9.8-h171cf75_0
+
+Linking libffi-3.5.2-h3435931_0
+
+Linking svt-av1-4.2.0-hecca717_0
+
+Linking libvpx-1.15.2-hecca717_0
+
+Linking libopus-1.6.1-h280c20c_0
+
+Linking dav1d-1.2.1-hd590300_0
+
+Linking fribidi-1.0.16-hb03c661_0
+
+Linking libdovi-3.4.0-ha23c83e_0
+
+Linking libzip-1.11.2-h6991a6a_0
+
+Linking utfcpp-4.09-ha770c72_0
+
+Linking readline-8.3-h853b02a_0
+
+Linking cli11-2.6.2-h54a6638_0
+
+Linking libogg-1.3.5-hd0c01bc_1
+
+Linking spirv-tools-2026.2-hb700be7_1
+
+Linking zfp-1.0.1-h909a3a2_5
+
+Linking snappy-1.2.2-h03e3b7b_1
+
+Linking libopenblas-0.3.33-pthreads_h94d23a6_0
+
+Linking intel-gmmlib-22.10.0-hb700be7_0
+
+Linking liburing-2.14-hb700be7_0
+
+Linking libunwind-1.8.3-h65a8314_0
+
+Linking libcap-2.78-hd0affe5_0
+
+Linking zlib-ng-2.3.3-hceb46e0_1
+
+Linking tk-8.6.13-noxft_hd70dff1_3
+
+Linking libmpdec-4.0.0-hb03c661_1
+
+Linking ld_impl_linux-64-2.46.1-default_hbd61a6d_102
+
+Linking x264-1!164.3095-h166bdaf_2
+
+Linking level-zero-1.29.0-hb700be7_0
+
+Linking gmp-6.3.0-hac33072_2
+
+Linking lame-3.100-h166bdaf_1003
+
+Linking aom-3.14.1-pl5321h039972f_1
+
+Linking x265-3.5-h924138e_3
+
+Linking openh264-2.6.0-h65dd3cf_1
+
+Linking mpg123-1.32.9-hc50e24c_0
+
+Linking libabseil-20260526.0-cxx17_h7b12aa8_1
+
+Linking libhwy-1.4.0-h3a9caae_0
+
+Linking opencl-headers-2025.06.13-hecca717_0
+
+Linking libfreetype6-2.14.3-h73754d4_0
+
+Linking flann-1.9.2-he1b7b50_6
+
+Linking libdrm-2.4.127-hb03c661_0
+
+Linking libopengl-1.7.0-ha4b6fd6_3
+
+Linking libegl-1.7.0-ha4b6fd6_3
+
+Linking libxcb-1.17.0-h8a09558_0
+
+Linking hdf4-4.2.15-h2a13503_7
+
+Linking xorg-libsm-1.2.6-he73a12e_0
+
+Linking libbrotlienc-1.2.0-hb03c661_1
+
+Linking libbrotlidec-1.2.0-hb03c661_1
+
+Linking cyrus-sasl-2.1.28-hac629b4_1
+
+Linking libtiff-4.7.2-h9d88235_0
+
+Linking wayland-1.26.0-hd6090a7_0
+
+Linking libglib-2.88.2-h0d30a3d_0
+
+Linking libflac-1.5.0-he200343_1
+
+Linking libvorbis-1.3.7-h54a6638_2
+
+Linking glslang-16.3.0-h96af755_0
+
+Linking blosc-1.21.6-he440d0b_1
+
+Linking libblas-3.11.0-8_h4a7cf45_openblas
+
+Linking libsystemd0-257.13-h084b8d7_1
+
+Linking libudev1-257.13-h084b8d7_1
+
+Linking libprotobuf-7.35.1-h2840a7c_2
+
+Linking ocl-icd-2.3.4-hb03c661_1
+
+Linking libfreetype-2.14.3-ha770c72_0
+
+Linking libopengl-devel-1.7.0-ha4b6fd6_3
+
+Linking libglu-9.0.3-h5888daf_1
+
+Linking xcb-util-0.4.1-h4f16b4b_2
+
+Linking xcb-util-renderutil-0.3.10-hb711507_0
+
+Linking xcb-util-keysyms-0.4.1-hb711507_0
+
+Linking xcb-util-wm-0.4.2-hb711507_0
+
+Linking xorg-libx11-1.8.13-he1eb515_0
+
+Linking brotli-bin-1.2.0-hb03c661_1
+
+Linking libjxl-0.12.0-h174a0a3_1
+
+Linking openldap-2.6.13-hbde042b_0
+
+Linking lcms2-2.19.1-h0c24ade_1
+
+Linking openjpeg-2.5.4-h55fea9a_0
+
+Linking gdk-pixbuf-2.44.7-h2b0a6b4_0
+
+
+
+Linking dbus-1.16.2-h24cb091_1
+
+Linking libsndfile-1.2.2-hc7d488a_2
+
+Linking libtheora-1.2.0-h85c0a6d_0
+
+Linking shaderc-2026.3-h1b60276_0
+
+Linking liblapack-3.11.0-8_h47877c9_openblas
+
+Linking libcblas-3.11.0-8_h0358290_openblas
+
+Linking libusb-1.0.29-h73b1eb8_0
+
+Linking fontconfig-2.18.2-h27c8c51_0
+
+Linking freetype-2.14.3-ha770c72_0
+
+Linking xcb-util-image-0.4.0-hb711507_2
+
+Linking libxkbfile-1.2.0-hb03c661_0
+
+Linking xkeyboard-config-2.48-h280c20c_0
+
+Linking libglx-1.7.0-ha4b6fd6_3
+
+Linking xorg-libxrender-0.9.12-hb9d3cd8_0
+
+Linking xorg-libxext-1.3.7-hb03c661_0
+
+Linking xorg-libxfixes-6.0.2-hb03c661_0
+
+Linking brotli-1.2.0-hed03a55_1
+
+Linking pulseaudio-client-17.0-h9a6aba3_3
+
+Linking xcb-util-cursor-0.1.6-hb03c661_0
+
+Linking libglx-devel-1.7.0-ha4b6fd6_3
+
+Linking libgl-1.7.0-ha4b6fd6_3
+
+Linking xorg-libxscrnsaver-1.2.4-hb9d3cd8_0
+
+Linking xorg-libxxf86vm-1.1.7-hb03c661_0
+
+Linking xorg-libxrandr-1.5.5-hb03c661_0
+
+Linking xorg-libxi-1.8.3-hb03c661_0
+
+Linking xorg-libxcomposite-0.4.7-hb03c661_0
+
+Linking xorg-libxdamage-1.1.6-hb9d3cd8_0
+
+Linking xorg-libxcursor-1.2.3-hb9d3cd8_0
+
+Linking gl2ps-1.4.2-h36e74d4_2
+
+Linking libgl-devel-1.7.0-ha4b6fd6_3
+
+Linking glew-2.3.0-h71661d4_0
+
+Linking libvulkan-loader-1.4.350.1-h5279c79_0
+
+Linking xorg-libxtst-1.2.5-hb9d3cd8_3
+
+Linking libegl-devel-1.7.0-ha4b6fd6_3
+
+Linking libplacebo-7.360.1-hc50b9dd_1
+
+Linking font-ttf-dejavu-sans-mono-2.37-hab24e00_0
+
+Linking font-ttf-inconsolata-3.000-h77eed37_0
+
+Linking font-ttf-source-code-pro-2.038-h77eed37_0
+
+Linking font-ttf-ubuntu-0.83-h77eed37_3
+
+Linking python_abi-3.14-8_cp314
+
+Linking cuda-version-12.9-h4f385c5_3
+
+Linking wayland-protocols-1.49-hd8ed1ab_0
+
+Linking tzdata-2026c-h151e31d_0
+
+Linking fonts-conda-forge-1-hc364b38_1
+
+Linking fonts-conda-ecosystem-1-0
+
+Linking viskores-1.1.1-cuda12.9_h14fae2a_1
+
+Linking libva-2.24.1-he1eb515_0
+
+Linking icu-78.3-h54a6638_2
+
+Linking libsqlite-3.53.4-hf4e2dac_0
+
+Linking intel-media-driver-26.1.6-hecca717_0
+
+Linking libxml2-16-2.15.3-hca6bf5a_0
+
+Linking cairo-1.18.4-he90730b_1
+
+Linking libpq-18.4-hd5a49e9_1
+
+Linking libboost-1.90.0-hd24cca6_1
+
+Linking sqlite-3.53.4-h04a0ce9_0
+
+Linking python-3.14.6-habeac84_101_cp314
+
+Linking libvpl-2.16.0-h54a6638_0
+
+Linking libxml2-2.15.3-h49c6c72_0
+
+Linking libharfbuzz-14.2.1-h17a8019_1
+
+Linking libboost-devel-1.90.0-hfcd1e18_1
+
+Linking proj-9.8.1-he0df7b0_0
+
+Linking unicodedata2-17.0.1-py314h5bd0f2a_0
+
+Linking kiwisolver-1.5.0-py314h97ea11e_0
+
+Linking pillow-12.3.0-py314h8ec4b1a_0
+
+Linking msgpack-python-1.2.1-py314h97ea11e_1
+
+Linking numpy-2.5.1-py314h2b28147_0
+
+Linking libhwloc-2.13.0-default_he001693_1000
+
+Linking libnetcdf-4.10.0-nompi_h3fa17b5_205
+
+Linking libxkbcommon-1.13.2-hca5e8e5_0
+
+Linking pango-1.58.0-hda50119_0
+
+Linking libraqm-0.11.0-h6406941_0
+
+Linking libharfbuzz-devel-14.2.1-h17a8019_1
+
+Linking contourpy-1.3.3-py314h97ea11e_4
+
+Linking tbb-2023.0.0-hab88423_2
+
+Linking sdl3-3.4.12-hdeec2a5_0
+
+Linking harfbuzz-14.2.1-ha770c72_1
+
+Linking libopenvino-2026.2.1-h1f0fae8_1
+
+Linking tbb-devel-2023.0.0-hab88423_2
+
+Linking sdl2-2.32.56-h54a6638_0
+
+Linking libass-0.17.5-h434b012_0
+
+Linking librsvg-2.62.3-h4c96295_0
+
+
+
+Linking qt6-main-6.11.1-pl5321h16c4a6b_1
+
+Linking libopenvino-auto-plugin-2026.2.1-h7e124b3_1
+
+Linking libopenvino-onnx-frontend-2026.2.1-h607c73d_1
+
+Linking libopenvino-intel-cpu-plugin-2026.2.1-h1f0fae8_1
+
+Linking libopenvino-hetero-plugin-2026.2.1-hd41364c_1
+
+Linking libopenvino-intel-gpu-plugin-2026.2.1-h1f0fae8_1
+
+Linking libopenvino-auto-batch-plugin-2026.2.1-h7e124b3_1
+
+Linking libopenvino-intel-npu-plugin-2026.2.1-h1f0fae8_1
+
+Linking libopenvino-paddle-frontend-2026.2.1-h607c73d_1
+
+Linking libopenvino-ir-frontend-2026.2.1-hd41364c_1
+
+Linking libopenvino-tensorflow-lite-frontend-2026.2.1-hecca717_1
+
+Linking libopenvino-tensorflow-frontend-2026.2.1-h21c0c73_1
+
+Linking libopenvino-pytorch-frontend-2026.2.1-hecca717_1
+
+Linking ffmpeg-8.1.2-gpl_h54862ce_904
+
+Linking munkres-1.1.4-pyhd8ed1ab_1
+
+Linking six-1.17.0-pyhe01879c_1
+
+Linking idna-3.18-pyhcf101f3_0
+
+Linking cycler-0.12.1-pyhcf101f3_2
+
+Linking pyparsing-3.3.2-pyhcf101f3_0
+
+Linking packaging-26.2-pyhc364b38_0
+
+Linking propcache-0.5.2-pyh7db6752_0
+
+Linking frozenlist-1.8.0-pyhf298e5d_0
+
+Linking aiohappyeyeballs-2.7.1-pyhd8ed1ab_0
+
+Linking typing_extensions-4.16.0-pyhcf101f3_0
+
+Linking async-timeout-5.0.1-pyhcf101f3_2
+
+Linking attrs-26.1.0-pyhcf101f3_0
+
+Linking fonttools-4.63.0-pyh7db6752_0
+
+Linking python-dateutil-2.9.0.post0-pyhe01879c_2
+
+Linking typing-extensions-4.16.0-h69aa097_0
+
+Linking aiosignal-1.4.0-pyhd8ed1ab_0
+
+Linking multidict-6.7.1-pyh62beb40_0
+
+Linking yarl-1.24.5-pyh7db6752_0
+
+Linking aiohttp-3.14.3-pyhf64b827_0
+
+Linking wslink-2.5.7-pyhd8ed1ab_0
+
+Linking matplotlib-base-3.11.1-py314h9a9c090_2
+
+Linking vtk-base-9.6.2-py314h3f6d339_6
+
+Linking vtk-io-ffmpeg-9.6.2-py314h87a7d94_6
+
+Linking vtk-9.6.2-py314hd5da0b9_6
+
+Linking pcl-1.15.1-h1259f1f_14
+
+
+
+Transaction finished
+
+
+
+
+Script done on 2026-07-28 16:39:10+08:00 [COMMAND_EXIT_CODE="0"]

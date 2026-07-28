@@ -1,0 +1,6 @@
+environment_pkg_config=/home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-pcl-backend/bin/pkg-config
+pcl_registration=1.15.1
+pcl_common=1.15.1
+pcl_features=1.15.1
+eigen3=5.0.1
+flann=1.9.2
