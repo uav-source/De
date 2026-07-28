@@ -5,6 +5,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 FROZEN_EVIDENCE_LOGS = {
     "reports/zero_perturbation_environment/environment_creation.log",
+    "reports/zero_perturbation_pcl_environment/environment_creation.log",
 }
 
 

@@ -41,6 +41,7 @@ _CAPTURE_RANGE_DESCENDANT_BRANCHES = frozenset(
         "feature/directional-capture-range-day2-development",
         "audit/directional-capture-range-anchor-validity",
         "feature/zero-perturbation-development",
+        "feature/zero-perturbation-backend-qualification",
     }
 )
 
