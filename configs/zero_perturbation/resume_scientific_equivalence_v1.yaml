@@ -1,0 +1,139 @@
+schema_version: phase_a_resume_scientific_equivalence_contract_v1
+
+identity:
+  name: fresh_resumed_scientific_equivalence
+  applies_to: fixture_execution_chain_round_comparison
+  strict_existing_result_resume_validation_changed: false
+
+numeric_tolerance:
+  absolute_tolerance: 1.0e-12
+  relative_tolerance: 1.0e-12
+  formula: abs(a-b) <= absolute_tolerance + relative_tolerance * max(abs(a), abs(b))
+  finite_values_only: true
+  rounding_before_comparison_forbidden: true
+  storage_precision_change_forbidden: true
+
+exact_fields:
+  common:
+    - schema_version
+    - planned_trial_id
+    - snapshot_id
+    - scene_variant
+    - condition
+    - backend
+    - protocol_sha256
+    - snapshot_lock_sha256
+    - snapshot_checksum
+    - source_checksum
+    - target_checksum
+    - reference_pose_checksum
+    - implementation_sha256
+    - solver_failure
+    - failure_classification
+    - raw_rotation_finite
+    - finite_output
+  open3d_backend_diagnostics:
+    - correspondence_set_size
+  pcl_backend_diagnostics:
+    - pcl_version
+    - pcl_cli_sha256
+    - exit_code
+    - has_converged_raw
+    - iteration_count
+    - correspondence_count
+  pcl_source_normal_statistics:
+    - finite_count
+    - zero_count
+    - nan_count
+  pcl_target_normal_statistics:
+    - finite_count
+    - zero_count
+    - nan_count
+  catalog_field_count: 30
+
+numeric_fields:
+  common_scalars:
+    - translation_update_m
+    - rotation_update_rad
+    - raw_rotation_determinant
+    - orthogonality_defect_fro
+    - projection_correction_fro
+  open3d_backend_diagnostics:
+    - fitness
+    - inlier_rmse
+  pcl_backend_diagnostics:
+    - fitness_score
+  pcl_source_normal_statistics:
+    - norm_min
+    - norm_median
+    - norm_max
+  pcl_target_normal_statistics:
+    - norm_min
+    - norm_median
+    - norm_max
+  matrix:
+    path: final_transform_4x4
+    element_count: 16
+  named_scalar_field_count: 14
+  scalar_comparison_slot_count_including_matrix: 30
+
+ignored_runtime_metadata:
+  - runtime_ms
+  - timestamp_utc
+  - attempt_event_timestamp
+  - temporary_directory_path
+  - process_id
+  - thread_id
+  - execution_order
+  - started_resumed_event_time_difference
+
+failure_detail:
+  success_requires_both_null: true
+  failure_requires_both_nonempty_strings: true
+  text_identity_reported_but_non_decisive: true
+  failure_classification_exact: true
+
+analysis_equivalence:
+  exact:
+    - trial_ids
+    - snapshot_ids
+    - backend_inventory
+    - failure_inventory
+    - input_pairing_audit
+    - decision
+  numeric_tolerance:
+    - translation_summary
+    - rotation_summary
+    - runtime_summary
+  runtime_summary_non_decisive: true
+  gate_decisions_must_be_identical: true
+  final_decisions_must_be_identical: true
+
+resume_flow_counts:
+  fresh_completed_trials: 6
+  resumed_completed_trials: 6
+  resume_skipped_valid_results: 2
+  resume_reexecuted_valid_results: 0
+
+comparison_classes:
+  - EXACT
+  - NUMERIC_TOLERANCE
+  - IGNORED_RUNTIME_METADATA
+  - NULL_CONSISTENCY
+  - FAILURE_DETAIL_PRESENCE
+
+tolerance_negligibility:
+  translation_qualification_threshold_m: 1.0e-3
+  rotation_qualification_threshold_rad: 1.7453292519943296e-4
+  translation_threshold_to_atol_ratio: 1.0e9
+  rotation_threshold_to_atol_ratio: 174532925.19943297
+  minimum_required_ratio: 1.0e8
+  gate: NUMERIC_EQUIVALENCE_TOLERANCE_NEGLIGIBLE_RELATIVE_TO_SCIENTIFIC_GATES
+
+prohibitions:
+  - changing_trial_result_schema
+  - changing_strict_existing_result_resume_validation
+  - changing_writer
+  - changing_analysis_or_independent_verifier
+  - changing_backend_or_backend_parameters
+  - changing_scientific_metric_gate_threshold_or_quantile
