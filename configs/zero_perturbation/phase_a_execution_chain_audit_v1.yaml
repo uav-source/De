@@ -1,0 +1,78 @@
+schema_version: phase_a_execution_chain_audit_protocol_v1
+
+protocol:
+  name: zero_perturbation_phase_a_execution_chain_audit
+  protocol_type: phase_a_execution_chain_end_to_end_audit
+  protocol_version: 1
+  scientific_experiment: false
+  formal_phase_a_data_access_authorized: false
+  formal_phase_a_backend_execution_authorized: false
+  formal_seed_access_authorized: false
+  fixture_backend_execution_authorized: true
+
+baseline:
+  commit: 02b24c2a0d2d492b756a0dfb8f762410352455fa
+  invalidated_authorization: phase_a_v1_2_stage1
+  formal_stage1_run_id_created: false
+  formal_stage1_backend_execution_count: 0
+  formal_stage1_trial_result_count: 0
+  scientific_result_exposure_count: 0
+
+forbidden_paths:
+  - data/zero_perturbation/backend_phase_a_v1_2_stage0
+
+trial_result_contract:
+  schema_version: phase_a_trial_result_v1
+  schema_path: schemas/phase_a_trial_result_v1.schema.json
+  old_aliases_rejected:
+    - solver_failed
+    - failure_classifications
+    - cli_exit_code
+  open3d_correspondence_alias_rejected: correspondence_count
+  canonical_json:
+    encoding: UTF-8
+    sort_keys: true
+    allow_nan: false
+    trailing_newline: true
+  atomic_write:
+    temporary_suffix: .tmp
+    flush: true
+    fsync_file: true
+    atomic_replace: true
+    fsync_directory: true
+
+fixture_plan:
+  fixture_only: true
+  formal_phase_a: false
+  random_seed_used: false
+  snapshot_count: 3
+  backends:
+    - open3d_point_to_plane
+    - pcl_point_to_plane
+  planned_trial_count: 6
+  native_trial_count: 0
+  conditions:
+    - FIXTURE_IDENTITY
+    - FIXTURE_NONIDENTITY_REFERENCE
+    - FIXTURE_NO_CORRESPONDENCE
+  parameters:
+    source: configs/zero_perturbation/backend_phase_a_v1.yaml
+    open3d_contract: open3d_parameter_contract
+    pcl_contract: pcl_parameter_contract
+
+analysis:
+  q95_method: linear
+  fixture_results_are_scientific_data: false
+  fixture_results_may_qualify_backends: false
+  independent_verifier_required: true
+  publisher_requires_verifier_pass: true
+
+authorization:
+  phase_a_stage1_backend_run_authorized: false
+  phase_a_stage1_backend_executed: false
+  phase_b_authorized: false
+  full_development_authorized: false
+  confirmatory_authorized: false
+  real_data_authorized: false
+  measurement_paper_mainline_authorized: false
+  maximum_success_authority: phase_a_stage1_relock_authorized

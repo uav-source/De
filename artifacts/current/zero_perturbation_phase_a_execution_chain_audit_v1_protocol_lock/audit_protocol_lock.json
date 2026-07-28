@@ -1,0 +1,15 @@
+{
+  "audit_protocol_document_path": "docs/zero_perturbation_phase_a_execution_chain_audit_v1.md",
+  "audit_protocol_document_sha256": "bae5ced2d561770c05236fd6367a57b7f0ec5fd21d930d2fcc23c3b72daec925",
+  "audit_protocol_path": "configs/zero_perturbation/phase_a_execution_chain_audit_v1.yaml",
+  "audit_protocol_sha256": "8d17cf682850ba6f573f1696c6e09275c26da189b050324956fc4ee0d5ce0312",
+  "baseline_commit": "02b24c2a0d2d492b756a0dfb8f762410352455fa",
+  "fixture_backend_execution_authorized": true,
+  "formal_phase_a_backend_execution_authorized": false,
+  "formal_phase_a_data_access_authorized": false,
+  "formal_seed_access_authorized": false,
+  "lock_payload_sha256": "58ace00c866d8eb1be130d7be74739cb241ba3e8ae41efe51ccdb33b34f9ef8a",
+  "protocol_type": "phase_a_execution_chain_end_to_end_audit",
+  "protocol_version": 1,
+  "schema_version": "phase_a_execution_chain_audit_protocol_lock_v1"
+}
