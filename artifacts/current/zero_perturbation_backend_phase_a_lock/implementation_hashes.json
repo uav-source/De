@@ -1,0 +1,61 @@
+{
+  "files": {
+    "open3d_backend": {
+      "path": "src/zero_perturbation/open3d_backend.py",
+      "sha256": "eb327dd5d13f7cf099469e5e1a315e23c41d593cd7301d278135b4276b9f255f"
+    },
+    "pcl_cli_source": {
+      "path": "tools/pcl_point_to_plane/pcl_point_to_plane_cli.cpp",
+      "sha256": "2a7203b82cc9401c558fe3ad410d7eb5a2f253ca0578db7e2c2f069715fad56c"
+    },
+    "pcl_python_adapter": {
+      "path": "src/zero_perturbation/pcl_backend.py",
+      "sha256": "25e45b31bc90c93bc578104c994992c3f913437b12bf46389a8380d1d06b9e31"
+    },
+    "phase_a_metrics": {
+      "path": "src/zero_perturbation/backend_phase_a_metrics.py",
+      "sha256": "1ca6cdf0529e4f26e67dce30a8f49793f8d7a0425fa289adec062c67bd1b2816"
+    },
+    "phase_a_prepare": {
+      "path": "scripts/166_prepare_backend_phase_a_lock.py",
+      "sha256": "ccda0adcf0c839879f21bb45ad795849267baa449c7d941c114e3014383c4677"
+    },
+    "phase_a_protocol_loader": {
+      "path": "src/zero_perturbation/backend_phase_a_protocol.py",
+      "sha256": "d9a875f39abbc4a07075c347fcca39df9af752a6e6aa57aa9a51330d7e92b833"
+    },
+    "phase_a_runner": {
+      "path": "scripts/168_run_backend_phase_a.py",
+      "sha256": "9b53842e090e69e5d8a2ff5aa5de534c53394401571cbe0b0e20d8c3565fce84"
+    },
+    "phase_a_verifier": {
+      "path": "src/zero_perturbation/backend_phase_a_verification.py",
+      "sha256": "dac84b330c220d1c530eba591edc048d2c0b36b7d89e8320308a08fd1bb93f15"
+    },
+    "protocol_markdown": {
+      "path": "docs/zero_perturbation_backend_phase_a_protocol.md",
+      "sha256": "acaf543dbd7a1ca517e1584187c9437b33be0fe12b83de4d9d472bffb00a9905"
+    },
+    "protocol_yaml": {
+      "path": "configs/zero_perturbation/backend_phase_a_v1.yaml",
+      "sha256": "d5e657862294a79c1d01fc349d6f668501d07d3ec965d2d8807171dc3b952b8c"
+    },
+    "rotation_metric": {
+      "path": "src/zero_perturbation/rotation_metrics.py",
+      "sha256": "0ed2f040d275f013e26cfc3d9be0610511be436ba512333fed610daa663ffb8a"
+    },
+    "scene_generator": {
+      "path": "src/capture_range/day2_development_scene.py",
+      "sha256": "f1632095ab6c433e1e917cf0c9a49551683fce2f106761d41c3c3a5e6517b922"
+    },
+    "snapshot_builder": {
+      "path": "src/zero_perturbation/snapshot_builder.py",
+      "sha256": "6718fc442439e52327e01622df6356a0167456a6d7d8070f25d6e684ef69b72e"
+    }
+  },
+  "pcl_cli_binary": {
+    "path": "build/pcl_point_to_plane_v3/pcl_point_to_plane_cli",
+    "sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff"
+  },
+  "schema_version": "backend_phase_a_implementation_hashes_v1"
+}

@@ -1,0 +1,24 @@
+{
+  "canonical_reference_pose_dtype": "little-endian float64 4x4 C-contiguous",
+  "canonical_source_dtype": "little-endian float32 C-contiguous",
+  "canonical_target_dtype": "little-endian float32 C-contiguous",
+  "checksum": "SHA256(raw C-order bytes)",
+  "median": {
+    "implementation": "numpy.median"
+  },
+  "q95": {
+    "implementation": "numpy.quantile",
+    "method": "linear",
+    "q": 0.95
+  },
+  "raw_trace_acos_gate_forbidden": true,
+  "rotation_matrix_quality_gate": {
+    "abs_raw_determinant_minus_one_max": 1e-05,
+    "failure_classification": "solver_output_failure",
+    "orthogonality_defect_fro_max": 1e-05,
+    "projection_cannot_rescue_quality_failure": true,
+    "projection_correction_fro_max": 1e-05,
+    "raw_rotation_determinant_positive": true,
+    "raw_rotation_finite": true
+  }
+}

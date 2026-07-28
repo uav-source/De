@@ -1,0 +1,94 @@
+{
+  "ARTIFACT_SHA_VERIFICATION_PASS": true,
+  "BACKEND_PHASE_A_COMPLETE": false,
+  "BACKEND_PHASE_A_EXECUTED": false,
+  "BACKEND_PHASE_A_PROTOCOL_LOCK_PASS": true,
+  "BACKEND_PHASE_A_RUN_AUTHORIZED": true,
+  "CONFIRMATORY_AUTHORIZED": false,
+  "DAY1_SCIENTIFIC_VALIDATION_PASS": "NOT_EVALUATED",
+  "FULL_DEVELOPMENT_AUTHORIZED": false,
+  "MEASUREMENT_PAPER_MAINLINE_AUTHORIZED": false,
+  "NEW_PROTOCOL_AMBIGUITIES_FOUND": false,
+  "OPEN3D_PARAMETER_LOCK_PASS": true,
+  "PCL_PARAMETER_LOCK_PASS": true,
+  "PCL_V3_QUALIFICATION_REMAINS_VALID": true,
+  "PHASE_B_AUTHORIZED": false,
+  "REAL_DATA_AUTHORIZED": false,
+  "TWO_INDEPENDENT_BACKENDS_QUALIFIED": false,
+  "d50_restored": false,
+  "fast_lio2_modified": false,
+  "final_worktree_clean_after_commit_required": true,
+  "git_push_performed": false,
+  "native_modified": false,
+  "odi_modified": false,
+  "open3d_modified": false,
+  "pcl_parameters_or_implementation_modified": false,
+  "protocol_self_audit": [
+    {
+      "name": "PROTOCOL_HAS_EXACTLY_7_SCENES",
+      "result": true
+    },
+    {
+      "name": "PROTOCOL_HAS_EXACTLY_3_GEOMETRY_SEEDS",
+      "result": true
+    },
+    {
+      "name": "PROTOCOL_HAS_EXACTLY_2_MEASUREMENT_SEEDS",
+      "result": true
+    },
+    {
+      "name": "PROTOCOL_HAS_EXACTLY_5_REPEATS",
+      "result": true
+    },
+    {
+      "name": "PROTOCOL_HAS_ONLY_IDEAL_MATCHED",
+      "result": true
+    },
+    {
+      "name": "PROTOCOL_HAS_EXACTLY_2_BACKENDS",
+      "result": true
+    },
+    {
+      "name": "PLANNED_SNAPSHOT_COUNT",
+      "result": 210
+    },
+    {
+      "name": "PLANNED_TRIAL_COUNT",
+      "result": 420
+    },
+    {
+      "name": "NATIVE_PLANNED_TRIAL_COUNT",
+      "result": 0
+    },
+    {
+      "name": "OPEN3D_PLANNED_TRIAL_COUNT",
+      "result": 210
+    },
+    {
+      "name": "PCL_PLANNED_TRIAL_COUNT",
+      "result": 210
+    },
+    {
+      "name": "PHASE_A_RNG_INSTANTIATION_COUNT",
+      "result": 0
+    },
+    {
+      "name": "PHASE_A_SNAPSHOT_GENERATION_COUNT",
+      "result": 0
+    },
+    {
+      "name": "PHASE_A_BACKEND_EXECUTION_COUNT",
+      "result": 0
+    },
+    {
+      "name": "PHASE_A_TRIAL_RESULT_COUNT",
+      "result": 0
+    },
+    {
+      "name": "NEW_PROTOCOL_AMBIGUITIES_FOUND",
+      "result": false
+    }
+  ],
+  "scene_generator_modified": false,
+  "schema_version": "backend_phase_a_lock_decision_v1"
+}

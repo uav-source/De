@@ -1,0 +1,7 @@
+{
+  "T_delta": "inverse(T_reference) @ T_estimated",
+  "T_estimated_direction": "source_frame_to_target_map_frame",
+  "T_reference_direction": "source_frame_to_target_map_frame",
+  "rotation_update": "reflection_safe_nearest_SO3_SVD_then_atan2_geodesic",
+  "translation_update": "norm(T_delta[0:3, 3])"
+}

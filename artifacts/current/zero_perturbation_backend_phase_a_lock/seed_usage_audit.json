@@ -1,0 +1,28 @@
+{
+  "CONFIRMATORY_RNG_INSTANTIATION_COUNT": 0,
+  "NATIVE_FORMAL_EXECUTION_COUNT": 0,
+  "OLD_CAPTURE_TEST_RNG_INSTANTIATION_COUNT": 0,
+  "PHASE_A_BACKEND_EXECUTION_COUNT": 0,
+  "PHASE_A_RNG_INSTANTIATION_COUNT": 0,
+  "PHASE_A_SNAPSHOT_GENERATION_COUNT": 0,
+  "PHASE_A_TRIAL_RESULT_COUNT": 0,
+  "development_geometry_seeds": [
+    1850310744,
+    1957656152,
+    1334931069
+  ],
+  "development_measurement_seeds": [
+    217775206,
+    1664898153
+  ],
+  "plan_generation_method": "deterministic Cartesian enumeration only",
+  "repeat_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "scene_generator_imported_or_called": false,
+  "schema_version": "backend_phase_a_seed_usage_audit_v1"
+}

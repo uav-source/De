@@ -1,0 +1,10 @@
+{
+  "pcl_v3_ctest_command": "ctest --test-dir build/pcl_point_to_plane_v3 -V --output-on-failure",
+  "pcl_v3_ctest_status": "PASS",
+  "pcl_v3_ctest_summary": "3/3 passed in 0.59s",
+  "phase_a_runner_test_invocation_count": 0,
+  "python_full_pytest_command": "/home/lj/.local/bin/micromamba run -n degen-lio-zprm-py311 python -m pytest -q",
+  "python_full_pytest_status": "PASS",
+  "python_full_pytest_summary": "1581 passed, 1 skipped, 262 warnings in 73.63s",
+  "schema_version": "backend_phase_a_lock_test_report_v1"
+}
