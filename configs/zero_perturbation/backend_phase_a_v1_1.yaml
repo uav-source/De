@@ -1,0 +1,146 @@
+schema_version: zero_perturbation_backend_phase_a_v1_1
+
+protocol:
+  name: zero_perturbation_dual_backend_phase_a_qualification_v1_1
+  protocol_type: dual_independent_backend_phase_a_qualification
+  protocol_version: 1.1
+  amendment_type: implementation_only_correction
+  status: prospectively_frozen_before_any_formal_phase_a_snapshot_or_trial
+  scientific_claim_authorized: false
+  formal_execution_authorized_before_v1_1_lock: false
+  phase_b_authorized: false
+  full_development_authorized: false
+  confirmatory_authorized: false
+  real_data_authorized: false
+  measurement_paper_authorized: false
+
+base_protocol:
+  path: configs/zero_perturbation/backend_phase_a_v1.yaml
+  sha256: d5e657862294a79c1d01fc349d6f668501d07d3ec965d2d8807171dc3b952b8c
+  protocol_lock_path: artifacts/current/zero_perturbation_backend_phase_a_lock/backend_phase_a_protocol_lock.json
+  invalidated_run_authorization: true
+  static_scientific_contract_retained: true
+
+v1_invalidation:
+  artifact_root: artifacts/current/zero_perturbation_backend_phase_a_v1_invalidation
+  archive_tag: archive/zero-perturbation-backend-phase-a-v1-runner-placeholder
+  placeholder_runner_sha256: 9b53842e090e69e5d8a2ff5aa5de534c53394401571cbe0b0e20d8c3565fce84
+  formal_v1_snapshot_count: 0
+  formal_v1_trial_count: 0
+
+inherited_scientific_contract:
+  source: base_protocol
+  byte_exact_sections:
+    - formal_backends
+    - immutable_inputs
+    - phase_a_matrix
+    - ideal_matched
+    - transform_semantics
+    - canonical_backend_input
+    - open3d_parameter_contract
+    - pcl_parameter_contract
+    - rotation_matrix_quality_gate
+    - solver_failure_definitions
+    - phase_a_hard_gates
+    - quantile_contract
+    - snapshot_diversity_gate
+  required_difference_counts:
+    scientific_parameter_difference_count: 0
+    scene_difference_count: 0
+    seed_difference_count: 0
+    threshold_difference_count: 0
+    backend_parameter_difference_count: 0
+    metric_difference_count: 0
+  runner_implementation_difference_count_min: 1
+
+implementation_amendment:
+  allowed_changes:
+    - replace_placeholder_runner_with_executable_runner
+    - runner_tests
+    - atomic_result_writes
+    - resume_validation
+    - run_logging
+    - implementation_hashes
+    - v1_1_lock_artifact
+  all_other_changes_forbidden: true
+
+runner_contract:
+  path: scripts/168_run_backend_phase_a.py
+  required_cli_arguments:
+    - --protocol-lock
+    - --run-id
+    - --output-dir
+    - --workers
+  optional_cli_arguments:
+    - --resume
+    - --dry-run
+  forbidden_cli_arguments:
+    - --ignore-lock
+    - --override-parameters
+    - --change-thresholds
+    - --exclude-scene
+    - --skip-failure
+    - --replace-seed
+    - --backend-subset
+    - --native
+  formal_authority_lock_field: formal_execution_authorized
+  old_v1_lock_must_be_rejected: true
+  formal_execution_before_v1_1_lock_forbidden: true
+  snapshot_build_once: true
+  shared_canonical_input: true
+  atomic_write:
+    temporary_suffix: .tmp
+    fsync_before_replace: true
+    replace_operation: atomic_rename
+  resume:
+    overwrite_forbidden: true
+    existing_result_requires_matching_protocol_and_implementation_sha: true
+    corrupt_existing_result_action: stop
+    corrupt_existing_result_classification: CORRUPT_EXISTING_RESULT
+  final_classifications:
+    - SCIENTIFIC_SOLVER_FAILURE
+    - INFRASTRUCTURE_INTERRUPTION
+    - LOCK_MISMATCH
+    - CORRUPT_EXISTING_RESULT
+    - BACKEND_EXCEPTION
+    - NONFINITE_OUTPUT
+
+fixture_contract:
+  root: tests/data/backend_phase_a_runner_fixture
+  is_formal_phase_a: false
+  fixture_only: true
+  snapshot_count: 1
+  trial_count: 2
+  random_seed_used: false
+  formal_scene_generator_used: false
+  development_seed_used: false
+  confirmatory_seed_used: false
+  old_capture_range_test_seed_used: false
+  source_equals_target: true
+  initial_transform: identity
+
+dry_run_contract:
+  planned_snapshot_count: 210
+  planned_trial_count: 420
+  rng_instantiation_count: 0
+  backend_execution_count: 0
+  snapshot_construction_forbidden: true
+  trial_result_write_forbidden: true
+
+lock_decision_contract:
+  artifact_root: artifacts/current/zero_perturbation_backend_phase_a_v1_1_lock
+  if_all_requirements_pass:
+    BACKEND_PHASE_A_V1_1_PROTOCOL_LOCK_PASS: true
+    BACKEND_PHASE_A_V1_1_RUN_AUTHORIZED: true
+    formal_execution_authorized: true
+  fixed_correction_round_state:
+    BACKEND_PHASE_A_V1_1_EXECUTED: false
+    BACKEND_PHASE_A_COMPLETE: false
+    TWO_INDEPENDENT_BACKENDS_QUALIFIED: false
+    DAY1_SCIENTIFIC_VALIDATION_PASS: NOT_EVALUATED
+    PHASE_B_AUTHORIZED: false
+    FULL_DEVELOPMENT_AUTHORIZED: false
+    CONFIRMATORY_AUTHORIZED: false
+    REAL_DATA_AUTHORIZED: false
+    MEASUREMENT_PAPER_MAINLINE_AUTHORIZED: false
+
