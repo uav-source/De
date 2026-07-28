@@ -1,0 +1,2 @@
+planned_trial_id,json_field_path,fresh_value,resumed_value,absolute_difference,comparison_rule,v1_1_result
+fixture-audit-v1/nonidentity-reference/open3d_point_to_plane,backend_diagnostics.inlier_rmse,2.0296317638433184e-08,2.029631763843318e-08,3.308722450212111e-24,exact_float_equality,FAIL

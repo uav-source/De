@@ -1,0 +1,12 @@
+{
+  "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_SEED_ACCESS_COUNT": 0,
+  "FORMAL_TRIAL_RESULT_COUNT": 0,
+  "NATIVE_EXECUTION_COUNT": 0,
+  "archived_commit": "e985f3a9bf5b35d2ea6c9ff0de6d84c25129ca49",
+  "archived_tag": "archive/zero-perturbation-phase-a-execution-chain-audit-v1.1-resume-exact-fail",
+  "difference_count": 1,
+  "maximum_absolute_difference": 3.308722450212111e-24,
+  "run_id": "phase-a-execution-chain-audit-v1-1-resume-exact-invalidation",
+  "schema_version": "phase_a_execution_chain_audit_v1_1_invalidation_run_manifest_v1"
+}
