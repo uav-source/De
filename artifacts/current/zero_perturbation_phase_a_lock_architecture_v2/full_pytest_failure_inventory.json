@@ -1,0 +1,17 @@
+{
+  "failure_count": 2,
+  "failures": [
+    {
+      "classification": "OUT_OF_SCOPE_LEGACY_RUNNER_TEST_CONFLICT",
+      "nodeid": "tests/test_backend_phase_a_runner_no_placeholder.py::test_runner_has_no_unconditional_runtime_error_placeholder",
+      "reason": "The existing legacy v1 runner contains a conditional RuntimeError integrity guard; the old test rejects every RuntimeError AST node. This round does not authorize changing the legacy runner or its test."
+    },
+    {
+      "classification": "FROZEN_SCIENTIFIC_LOCK_HISTORICAL_SCANNER_CONFLICT",
+      "nodeid": "tests/test_stage2_failure_day13_seed_exclusion.py::test_real_historical_seed_scan_is_parseable_and_disjoint",
+      "reason": "The historical scanner accepts only integer elements under geometry_seeds, while Scientific Lock v2 preserves the frozen source seed index/label/value objects. Resolving it would change the frozen lock schema or an out-of-scope historical scanner."
+    }
+  ],
+  "schema_version": "phase_a_lock_architecture_v2_full_pytest_failure_inventory_v1",
+  "summary": "2 failed, 1758 passed, 1 skipped, 262 warnings in 88.66s"
+}

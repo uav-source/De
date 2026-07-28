@@ -1,0 +1,10 @@
+{
+  "LOCK_ARCHITECTURE_V2_ARTIFACT_VERIFICATION_PASS": false,
+  "missing_files": [],
+  "schema_version": "phase_a_lock_architecture_v2_artifact_verification_v1",
+  "semantic_failures": [
+    "PHASE_A_LOCK_ARCHITECTURE_V2_PASS"
+  ],
+  "sha256_mismatches": [],
+  "sha256_missing_files": []
+}

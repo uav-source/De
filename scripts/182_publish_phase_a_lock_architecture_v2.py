@@ -99,6 +99,22 @@ def publish(args: argparse.Namespace) -> dict:
         "FORMAL_TRIAL_RESULT_COUNT": dry["FORMAL_TRIAL_RESULT_COUNT"],
         "NATIVE_EXECUTION_COUNT": dry["NATIVE_EXECUTION_COUNT"],
     }
+    pcl_test_pass = "0 failed" in args.pcl_ctest_summary.lower()
+    targeted_test_pass = (
+        "passed" in args.targeted_pytest_summary.lower()
+        and "failed" not in args.targeted_pytest_summary.lower()
+    )
+    full_test_pass = (
+        "passed" in args.full_pytest_summary.lower()
+        and "failed" not in args.full_pytest_summary.lower()
+    )
+    test_requirements_pass = (
+        pcl_test_pass
+        and targeted_test_pass
+        and full_test_pass
+        and "pending" not in args.targeted_pytest_summary.lower()
+        and "pending" not in args.full_pytest_summary.lower()
+    )
     pass_conditions = (
         all(value is True for key, value in gate_values.items() if key.endswith("PASS") or key in {
             "LOCK_GRAPH_ACYCLIC", "EXECUTION_FIXTURE_RESUME_EQUIVALENCE_PASS",
@@ -107,7 +123,10 @@ def publish(args: argparse.Namespace) -> dict:
         })
         and all(value == 0 for key, value in gate_values.items() if key.endswith("COUNT"))
         and all_science_zero
+        and test_requirements_pass
     )
+    if not pass_conditions:
+        gate_values["LOCK_ARCHITECTURE_V2_ARTIFACT_VERIFICATION_PASS"] = False
     decision = {
         **gate_values,
         "BACKEND_PHASE_A_COMPLETE": False,
@@ -132,6 +151,7 @@ def publish(args: argparse.Namespace) -> dict:
         "NATIVE_EXECUTION_COUNT": dry["NATIVE_EXECUTION_COUNT"],
         "attempt_started_count": dry["ATTEMPT_STARTED_COUNT"],
         "dry_run_cache_sha_verification_count": dry["SNAPSHOT_CACHE_SHA_VERIFICATION_COUNT"],
+        "full_pytest_pass": full_test_pass,
         "full_pytest_summary": args.full_pytest_summary,
         "git_push_performed": False,
         "initial_branch": "feature/zero-perturbation-phase-a-final-resume-equivalence",
@@ -144,6 +164,7 @@ def publish(args: argparse.Namespace) -> dict:
         "recorded_dry_run_count": 1,
         "schema_version": "phase_a_lock_architecture_v2_run_manifest_v1",
         "script_numbering_note": "176 was occupied; v2 scripts use 177-182",
+        "targeted_pytest_pass": targeted_test_pass,
         "targeted_pytest_summary": args.targeted_pytest_summary,
     }
     report = f"""# Phase A Lock Architecture v2 Decision
@@ -170,6 +191,17 @@ implementation, and formal authorization into an acyclic three-edge graph.
 - Targeted pytest: {args.targeted_pytest_summary}
 - Full pytest: {args.full_pytest_summary}
 
+Full-suite blockers requiring manual review:
+
+1. `tests/test_backend_phase_a_runner_no_placeholder.py` rejects an existing
+   conditional `RuntimeError` integrity guard in the legacy v1 runner. The v2
+   scope does not authorize modifying that runner or the legacy test.
+2. `tests/test_stage2_failure_day13_seed_exclusion.py` scans the new Scientific
+   Lock and expects `geometry_seeds` to be integer scalars, while the frozen v2
+   schema preserves each source seed's index/label/value object. Correcting this
+   now would require changing a frozen lock schema or an out-of-scope historical
+   seed scanner.
+
 `PHASE_A_LOCK_ARCHITECTURE_V2_PASS = {str(pass_conditions).lower()}`  
 `PHASE_A_STAGE1_BACKEND_RUN_AUTHORIZED = {str(pass_conditions).lower()}`  
 `PHASE_A_STAGE1_BACKEND_EXECUTED = false`  
@@ -178,11 +210,12 @@ implementation, and formal authorization into an acyclic three-edge graph.
     _write(artifact / "final_decision.json", decision, replace=True)
     _write(artifact / "run_manifest.json", manifest, replace=True)
     _write(artifact / "lock_architecture_v2_report.md", report.encode("utf-8"), replace=True)
+    semantic_failures = [] if pass_conditions else ["PHASE_A_LOCK_ARCHITECTURE_V2_PASS"]
     verification = {
-        "LOCK_ARCHITECTURE_V2_ARTIFACT_VERIFICATION_PASS": True,
+        "LOCK_ARCHITECTURE_V2_ARTIFACT_VERIFICATION_PASS": pass_conditions,
         "missing_files": [],
         "schema_version": "phase_a_lock_architecture_v2_artifact_verification_v1",
-        "semantic_failures": [],
+        "semantic_failures": semantic_failures,
         "sha256_mismatches": [],
         "sha256_missing_files": [],
     }

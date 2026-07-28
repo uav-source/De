@@ -1,0 +1,261 @@
+{
+  "LOCK_ARCHITECTURE_V2_TAMPER_REJECTION_PASS": true,
+  "case_count": 23,
+  "cases": [
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "scientific_add_runner_sha",
+      "case_number": 1,
+      "failure_classification": "SCIENTIFIC_LOCK_INVALID",
+      "failure_message": "SCIENTIFIC_LOCK_INVALID: SCIENTIFIC_LOCK_INVALID: Additional properties are not allowed ('runner_sha256' was unexpected)",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "scientific_modify_scene",
+      "case_number": 2,
+      "failure_classification": "SCIENTIFIC_LOCK_INVALID",
+      "failure_message": "SCIENTIFIC_LOCK_INVALID: SCIENTIFIC_LOCK_INVALID: frozen projection changed: ['scenes', 'scientific_payload_sha256']",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "scientific_modify_seed",
+      "case_number": 3,
+      "failure_classification": "SCIENTIFIC_LOCK_INVALID",
+      "failure_message": "SCIENTIFIC_LOCK_INVALID: SCIENTIFIC_LOCK_INVALID: frozen projection changed: ['geometry_seeds', 'scientific_payload_sha256']",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "scientific_modify_threshold",
+      "case_number": 4,
+      "failure_classification": "SCIENTIFIC_LOCK_INVALID",
+      "failure_message": "SCIENTIFIC_LOCK_INVALID: SCIENTIFIC_LOCK_INVALID: frozen projection changed: ['qualification_gates', 'scientific_payload_sha256']",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "scientific_modify_backend_parameter",
+      "case_number": 5,
+      "failure_classification": "SCIENTIFIC_LOCK_INVALID",
+      "failure_message": "SCIENTIFIC_LOCK_INVALID: SCIENTIFIC_LOCK_INVALID: frozen projection changed: ['backend_parameters', 'scientific_payload_sha256']",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "scientific_unknown_top_level",
+      "case_number": 6,
+      "failure_classification": "SCIENTIFIC_LOCK_INVALID",
+      "failure_message": "SCIENTIFIC_LOCK_INVALID: SCIENTIFIC_LOCK_INVALID: Additional properties are not allowed ('unknown' was unexpected)",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "implementation_missing_publisher",
+      "case_number": 7,
+      "failure_classification": "IMPLEMENTATION_LOCK_INVALID",
+      "failure_message": "IMPLEMENTATION_LOCK_INVALID: IMPLEMENTATION_LOCK_INVALID: 'publisher_sha256' is a required property",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "implementation_missing_independent_verifier",
+      "case_number": 8,
+      "failure_classification": "IMPLEMENTATION_LOCK_INVALID",
+      "failure_message": "IMPLEMENTATION_LOCK_INVALID: IMPLEMENTATION_LOCK_INVALID: 'independent_verifier_sha256' is a required property",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "implementation_modify_runner",
+      "case_number": 9,
+      "failure_classification": "IMPLEMENTATION_SHA_MISMATCH",
+      "failure_message": "IMPLEMENTATION_SHA_MISMATCH: IMPLEMENTATION_SHA_MISMATCH: ['formal_runner_sha256']",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "implementation_modify_engine",
+      "case_number": 10,
+      "failure_classification": "IMPLEMENTATION_SHA_MISMATCH",
+      "failure_message": "IMPLEMENTATION_SHA_MISMATCH: IMPLEMENTATION_SHA_MISMATCH: ['execution_engine_sha256']",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "implementation_add_translation_threshold",
+      "case_number": 11,
+      "failure_classification": "IMPLEMENTATION_LOCK_INVALID",
+      "failure_message": "IMPLEMENTATION_LOCK_INVALID: IMPLEMENTATION_LOCK_INVALID: Additional properties are not allowed ('translation_threshold_m' was unexpected)",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "implementation_add_geometry_seed",
+      "case_number": 12,
+      "failure_classification": "IMPLEMENTATION_LOCK_INVALID",
+      "failure_message": "IMPLEMENTATION_LOCK_INVALID: IMPLEMENTATION_LOCK_INVALID: Additional properties are not allowed ('geometry_seed' was unexpected)",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "implementation_unknown_binding",
+      "case_number": 13,
+      "failure_classification": "IMPLEMENTATION_LOCK_INVALID",
+      "failure_message": "IMPLEMENTATION_LOCK_INVALID: IMPLEMENTATION_LOCK_INVALID: Additional properties are not allowed ('unknown_sha256' was unexpected)",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "snapshot_binding_modify_lock_sha",
+      "case_number": 14,
+      "failure_classification": "SNAPSHOT_LOCK_INVALID",
+      "failure_message": "SNAPSHOT_LOCK_INVALID: SNAPSHOT_LOCK_INVALID: bound snapshot SHA",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "snapshot_binding_modify_cache_root",
+      "case_number": 15,
+      "failure_classification": "SNAPSHOT_LOCK_INVALID",
+      "failure_message": "SNAPSHOT_LOCK_INVALID: SNAPSHOT_LOCK_INVALID: cache root",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "snapshot_binding_modify_count",
+      "case_number": 16,
+      "failure_classification": "SNAPSHOT_LOCK_INVALID",
+      "failure_message": "SNAPSHOT_LOCK_INVALID: SNAPSHOT_LOCK_INVALID: snapshot count",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "formal_modify_planned_trial_sha",
+      "case_number": 17,
+      "failure_classification": "TRIAL_PLAN_MISMATCH",
+      "failure_message": "TRIAL_PLAN_MISMATCH: TRIAL_PLAN_MISMATCH: planned_trials SHA",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "formal_planned_trial_count_419",
+      "case_number": 18,
+      "failure_classification": "FORMAL_RUN_LOCK_INVALID",
+      "failure_message": "FORMAL_RUN_LOCK_INVALID: FORMAL_RUN_LOCK_INVALID: 420 was expected",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "formal_add_native",
+      "case_number": 19,
+      "failure_classification": "FORMAL_RUN_LOCK_INVALID",
+      "failure_message": "FORMAL_RUN_LOCK_INVALID: FORMAL_RUN_LOCK_INVALID: Native backend allowed",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "formal_authorization_false",
+      "case_number": 20,
+      "failure_classification": "FORMAL_RUN_LOCK_INVALID",
+      "failure_message": "FORMAL_RUN_LOCK_INVALID: FORMAL_RUN_LOCK_INVALID: True was expected",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "formal_modify_scientific_sha",
+      "case_number": 21,
+      "failure_classification": "SCIENTIFIC_LOCK_INVALID",
+      "failure_message": "SCIENTIFIC_LOCK_INVALID: scientific lock file SHA mismatch",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "formal_modify_implementation_sha",
+      "case_number": 22,
+      "failure_classification": "IMPLEMENTATION_LOCK_INVALID",
+      "failure_message": "IMPLEMENTATION_LOCK_INVALID: implementation lock file SHA mismatch",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    },
+    {
+      "backend_execution_count": 0,
+      "cache_read_count": 0,
+      "case_name": "formal_unknown_top_level",
+      "case_number": 23,
+      "failure_classification": "FORMAL_RUN_LOCK_INVALID",
+      "failure_message": "FORMAL_RUN_LOCK_INVALID: FORMAL_RUN_LOCK_INVALID: Additional properties are not allowed ('unknown' was unexpected)",
+      "rejected": true,
+      "seed_access_count": 0,
+      "trial_result_count": 0
+    }
+  ],
+  "rejected_case_count": 23,
+  "schema_version": "phase_a_lock_architecture_v2_tamper_rejection_v1"
+}

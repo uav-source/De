@@ -1,0 +1,23 @@
+{
+  "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_SEED_ACCESS_COUNT": 0,
+  "FORMAL_TRIAL_RESULT_COUNT": 0,
+  "NATIVE_EXECUTION_COUNT": 0,
+  "attempt_started_count": 0,
+  "dry_run_cache_sha_verification_count": 210,
+  "full_pytest_pass": false,
+  "full_pytest_summary": "2 failed, 1758 passed, 1 skipped, 262 warnings in 88.66s",
+  "git_push_performed": false,
+  "initial_branch": "feature/zero-perturbation-phase-a-final-resume-equivalence",
+  "initial_commit": "184fb9d1f00803c84d10d906846313626a7fb7fc",
+  "new_branch": "feature/zero-perturbation-phase-a-lock-architecture-v2",
+  "pcl_v3_ctest_summary": "100% tests passed, 0 failed, 3/3",
+  "phase_a_stage1_backend_executed": false,
+  "phase_b_executed": false,
+  "preflight_dry_run_count": 1,
+  "recorded_dry_run_count": 1,
+  "schema_version": "phase_a_lock_architecture_v2_run_manifest_v1",
+  "script_numbering_note": "176 was occupied; v2 scripts use 177-182",
+  "targeted_pytest_pass": true,
+  "targeted_pytest_summary": "27 passed in 3.20s"
+}

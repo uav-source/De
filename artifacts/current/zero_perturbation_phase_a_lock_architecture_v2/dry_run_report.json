@@ -1,0 +1,31 @@
+{
+  "ATTEMPT_STARTED_COUNT": 0,
+  "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_DRY_RUN_PASS": true,
+  "FORMAL_RUN_LOCK_VERIFICATION": "PASS",
+  "FORMAL_SEED_ACCESS_COUNT": 0,
+  "FORMAL_TRIAL_RESULT_COUNT": 0,
+  "IMPLEMENTATION_LOCK_VERIFICATION": "PASS",
+  "NATIVE_EXECUTION_COUNT": 0,
+  "PLANNED_NATIVE_TRIAL_COUNT": 0,
+  "PLANNED_OPEN3D_TRIAL_COUNT": 210,
+  "PLANNED_PCL_TRIAL_COUNT": 210,
+  "PLANNED_SNAPSHOT_COUNT": 210,
+  "PLANNED_TRIAL_COUNT": 420,
+  "SCIENTIFIC_LOCK_VERIFICATION": "PASS",
+  "SNAPSHOT_CACHE_SHA_VERIFICATION_COUNT": 210,
+  "SNAPSHOT_LOCK_VERIFICATION": "PASS",
+  "output_dir": "/tmp/phase-a-lock-v2-recorded-dry-output-tw6RKQ",
+  "run_id": "backend-phase-a-v2-dry-run-recorded",
+  "schema_version": "backend_phase_a_v2_dry_run_v1",
+  "validation_steps": [
+    "formal_run_lock_read",
+    "formal_run_lock_schema_and_payload_verified",
+    "scientific_lock_verified",
+    "snapshot_lock_verified",
+    "implementation_lock_verified",
+    "trial_plan_and_authorization_verified",
+    "environment_verified"
+  ],
+  "workers": 4
+}
