@@ -12,6 +12,7 @@ def test_formal_runner_cli_requires_new_execution_lock_and_rejects_missing_lock(
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     options = {option for action in module.build_parser()._actions for option in action.option_strings}
-    assert "--execution-lock" in options
+    assert "--formal-execution-lock" in options
+    assert "--execution-lock" not in options
     with pytest.raises(FileNotFoundError):
         validate_stage1_execution_lock(tmp_path / "missing.json", root=ROOT, protocol_lock=tmp_path / "protocol.json", snapshot_lock=tmp_path / "snapshot.json")
