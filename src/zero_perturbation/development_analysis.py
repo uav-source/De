@@ -310,6 +310,9 @@ def _build_figures(
 ) -> list[dict[str, str]]:
     figures.mkdir(parents=True, exist_ok=True)
     chart_map: list[dict[str, str]] = []
+    snapshot_count = len(diagnostics)
+    is_smoke = snapshot_count == 42
+    scope_label = "Early-stop smoke" if is_smoke else "Complete Development"
 
     ideal = trials[
         (trials["noise_condition"] == "IDEAL_MATCHED")
@@ -330,7 +333,11 @@ def _build_figures(
     for axis in axes:
         _style_axis(axis)
         axis.tick_params(axis="x", rotation=15)
-    fig.suptitle("IDEAL_MATCHED hard control\nq95 over 210 shared snapshots per backend", color=INK)
+    ideal_per_backend = len(ideal) // 2
+    fig.suptitle(
+        f"IDEAL_MATCHED hard control\nq95 over {ideal_per_backend} shared {scope_label.lower()} snapshots per backend",
+        color=INK,
+    )
     path = figures / "ideal_matched_control.png"
     _save_figure(fig, path)
     chart_map.append({"figure": path.name, "family": "comparison", "question": "Do both deciding backends pass the ideal control?", "palette": "blue-orange plus neutral gate"})
@@ -356,7 +363,11 @@ def _build_figures(
             axis.set_ylabel(ylabel)
             axis.legend(frameon=False)
             _style_axis(axis)
-        fig.suptitle(f"Scene {ylabel.split('median ')[-1]}\nDevelopment medians across geometry, measurement, and repeat blocks", color=INK)
+        fig.suptitle(
+            f"Scene {ylabel.split('median ')[-1]}\n{scope_label} medians across the saved geometry, measurement, and repeat blocks",
+            color=INK,
+        )
+        fig.subplots_adjust(top=0.78, wspace=0.20)
         path = figures / filename
         _save_figure(fig, path)
         chart_map.append({"figure": path.name, "family": "comparison", "question": f"How does {ylabel} vary by scene and backend?", "palette": "blue-orange"})
@@ -377,7 +388,15 @@ def _build_figures(
         _style_axis(axis)
     axes[0].set_ylabel("systematic translation vector component (mm)")
     axes[0].legend(frameon=False)
-    fig.suptitle("Systematic offset vectors under FULL_NOISE\nOne point per scene × geometry-seed repeat group", color=INK)
+    vector_subtitle = (
+        "Smoke groups contain one trial; vectors are single-trial offsets"
+        if is_smoke
+        else "One point per scene × geometry-seed repeat group"
+    )
+    fig.suptitle(
+        f"Systematic offset vectors under FULL_NOISE\n{vector_subtitle}", color=INK
+    )
+    fig.subplots_adjust(top=0.78, wspace=0.18)
     path = figures / "systematic_offset_vectors.png"
     _save_figure(fig, path)
     chart_map.append({"figure": path.name, "family": "comparison", "question": "Which vector components make up the systematic offsets?", "palette": "blue-orange with marker shapes"})
@@ -385,22 +404,29 @@ def _build_figures(
     fig, axis = plt.subplots(figsize=(7.2, 5.6))
     for backend, color, marker in (("native_full", BLUE, "o"), ("native_frozen", GOLD, "^"), ("open3d_full", ORANGE, "s")):
         subset = repeated[repeated["registration_backend"] == backend]
-        axis.scatter(
-            np.maximum(subset["systematic_translation_offset_m"] * 1000, 1.0e-9),
-            np.maximum(subset["translation_repeatability_rms_m"] * 1000, 1.0e-9),
-            s=22,
-            alpha=0.55,
-            color=color,
-            marker=marker,
-            label=backend,
+        x_values = np.maximum(subset["systematic_translation_offset_m"] * 1000, 1.0e-9)
+        y_values = (
+            np.zeros(len(subset), dtype=float)
+            if is_smoke
+            else np.maximum(subset["translation_repeatability_rms_m"] * 1000, 1.0e-9)
         )
+        axis.scatter(x_values, y_values, s=22, alpha=0.55, color=color, marker=marker, label=backend)
     axis.set_xscale("log")
-    axis.set_yscale("log")
     axis.set_xlabel("systematic translation offset (mm, log scale)")
-    axis.set_ylabel("translation repeatability RMS (mm, log scale)")
+    if is_smoke:
+        axis.set_ylim(-0.08, 0.20)
+        axis.set_ylabel("translation repeatability RMS (mm; n=1 groups shown at 0)")
+    else:
+        axis.set_yscale("log")
+        axis.set_ylabel("translation repeatability RMS (mm, log scale)")
     axis.legend(frameon=False)
     _style_axis(axis)
-    axis.set_title("Repeatability dispersion versus systematic offset\n378 frozen repeat groups; zeros floored only for display")
+    repeat_subtitle = (
+        f"{len(repeated)} one-row smoke groups; repeatability is not estimable"
+        if is_smoke
+        else f"{len(repeated)} frozen repeat groups; zeros floored only for display"
+    )
+    axis.set_title(f"Repeatability dispersion versus systematic offset\n{repeat_subtitle}")
     path = figures / "repeatability_vs_systematic_offset.png"
     _save_figure(fig, path)
     chart_map.append({"figure": path.name, "family": "relationship", "question": "Are repeatability dispersion and systematic offset distinct?", "palette": "blue-gold-orange plus marker shapes"})
@@ -424,7 +450,9 @@ def _build_figures(
     axis.set_ylabel("native full translation error (mm, log scale)")
     axis.legend(frameon=False)
     _style_axis(axis)
-    axis.set_title("Native full versus frozen zero-initialization error\n1260 paired snapshots; Frozen is a local baseline, not truth")
+    axis.set_title(
+        f"Native full versus frozen zero-initialization error\n{snapshot_count} paired {scope_label.lower()} snapshots; Frozen is a local baseline, not truth"
+    )
     path = figures / "full_vs_frozen_paired.png"
     _save_figure(fig, path)
     chart_map.append({"figure": path.name, "family": "relationship", "question": "How do full and frozen endpoint errors differ on paired snapshots?", "palette": "single blue root plus neutral reference"})
@@ -445,7 +473,11 @@ def _build_figures(
         diagnostics["correspondence_turnover"],
         diagnostics["full_frozen_translation_difference_m"],
     )
-    axis.set_title(f"Turnover versus native full/frozen difference\n1260 snapshots; Spearman rho = {rho:.3f}" if rho is not None else "Turnover versus native full/frozen difference\nSpearman undefined")
+    axis.set_title(
+        f"Turnover versus native full/frozen difference\n{snapshot_count} {scope_label.lower()} snapshots; Spearman rho = {rho:.3f}"
+        if rho is not None
+        else f"Turnover versus native full/frozen difference\n{snapshot_count} snapshots; Spearman undefined"
+    )
     path = figures / "turnover_vs_full_frozen_difference.png"
     _save_figure(fig, path)
     chart_map.append({"figure": path.name, "family": "relationship", "question": "Does correspondence turnover track the full/frozen endpoint difference?", "palette": "single orange root"})
@@ -462,7 +494,9 @@ def _build_figures(
     axis.set_ylabel("median translation error (mm)")
     axis.legend(frameon=False)
     _style_axis(axis)
-    axis.set_title("Noise-condition effects across all scenes\nMedians over each condition × backend Development population")
+    axis.set_title(
+        f"Noise-condition effects across all scenes\nMedians over each condition × backend {scope_label.lower()} population"
+    )
     path = figures / "noise_condition_effects.png"
     _save_figure(fig, path)
     chart_map.append({"figure": path.name, "family": "comparison", "question": "How do the six frozen measurement conditions change endpoint error?", "palette": "blue-gold-orange"})
@@ -474,14 +508,30 @@ def _build_figures(
         other = subset[subset["registration_backend"] == "open3d_full"].set_index("scene_variant")
         xvalues = [float(native.loc[scene, "translation_error_median_m"]) * 1000 for scene in SCENE_ORDER]
         yvalues = [float(other.loc[scene, "translation_error_median_m"]) * 1000 for scene in SCENE_ORDER]
-        axis.scatter(xvalues, yvalues, color=BLUE, s=45)
-        for scene, xvalue, yvalue in zip(SCENE_ORDER, xvalues, yvalues):
-            axis.annotate(_short_scene(scene), (xvalue, yvalue), xytext=(4, 3), textcoords="offset points", fontsize=8)
+        axis.scatter(xvalues, yvalues, color=BLUE, s=75)
+        for number, (xvalue, yvalue) in enumerate(zip(xvalues, yvalues), start=1):
+            axis.annotate(
+                str(number),
+                (xvalue, yvalue),
+                ha="center",
+                va="center",
+                fontsize=7,
+                fontweight="bold",
+                color="white",
+            )
         axis.set_xlabel("native full scene median (mm)")
         axis.set_ylabel("Open3D scene median (mm)")
         axis.set_title(condition.replace("_", " ").title())
         _style_axis(axis)
-    fig.suptitle("Cross-backend scene ranking\nSeven scene medians per frozen signal condition", color=INK)
+    scene_key = " · ".join(
+        f"{index} {_short_scene(scene)}" for index, scene in enumerate(SCENE_ORDER, start=1)
+    )
+    fig.suptitle(
+        f"Cross-backend scene ranking\nSeven {scope_label.lower()} scene medians per frozen signal condition",
+        color=INK,
+    )
+    fig.text(0.5, 0.01, scene_key, ha="center", va="bottom", fontsize=8, color=INK)
+    fig.subplots_adjust(top=0.80, bottom=0.14, wspace=0.20)
     path = figures / "backend_scene_ranking.png"
     _save_figure(fig, path)
     chart_map.append({"figure": path.name, "family": "relationship", "question": "Do native and Open3D rank scene errors similarly?", "palette": "single blue root with direct labels"})
@@ -685,7 +735,9 @@ The three preliminary engineering signals are: scene effect `{str(decisions['PRE
 
 {chr(10).join(ideal_lines)}
 
-See [ideal_matched_control.png](figures/ideal_matched_control.png). This hard control is evaluated only on native full reassociation and Open3D full ICP; native frozen is reported but does not decide the gate.
+The control chart makes the threshold failure visually explicit; the exact values above remain authoritative. This hard control is evaluated only on native full reassociation and Open3D full ICP; native frozen is reported but does not decide the gate.
+
+![IDEAL_MATCHED hard-control q95 values](figures/ideal_matched_control.png)
 
 ## Scene effects and backend agreement remain preliminary
 
@@ -697,9 +749,35 @@ Cross-backend ranking:
 
 These are smoke-only descriptive contrasts. They are not evaluated as Development Go/No-Go signals because IDEAL_MATCHED failed, and they are not confirmatory estimates or paper claims. Exact scene × condition × backend summaries and exploratory geometry-block bootstrap calculations are in [noise_condition_summary.csv](tables/noise_condition_summary.csv).
 
+The translation chart shows that weak-scene displacement dominates the rich-room smoke result, while the rotation chart shows a different backend ordering; this divergence is one reason neither chart is promoted to a scientific signal after the hard-gate failure.
+
+![Scene translation-error smoke medians](figures/scene_translation_error.png)
+
+![Scene rotation-error smoke medians](figures/scene_rotation_error.png)
+
 ## Reassociation changes are measured explicitly
 
 Across all {raw['snapshot_count']} native pairs in this run, correspondence-turnover versus full/frozen translation difference has descriptive Spearman rho `{turnover_rho if turnover_rho is not None else 'null'}`. Because the hard gate failed, this value does not evaluate Signal C. Full and frozen are two algorithms on one snapshot; Frozen is never treated as ground truth. See [turnover_vs_full_frozen_difference.png](figures/turnover_vs_full_frozen_difference.png), [correspondence_turnover.csv](tables/correspondence_turnover.csv), and [full_frozen_comparison.csv](tables/full_frozen_comparison.csv).
+
+The paired endpoint chart shows which snapshots diverge from the equal-error diagonal; the turnover chart then relates that divergence to explicit Jaccard correspondence change rather than a checksum proxy.
+
+![Native full versus frozen paired endpoints](figures/full_vs_frozen_paired.png)
+
+![Correspondence turnover versus full/frozen difference](figures/turnover_vs_full_frozen_difference.png)
+
+## Smoke-only offset and condition diagnostics
+
+The component plot shows the direction of each single-trial smoke offset. The repeatability panel deliberately places all one-row groups at zero and labels repeatability as non-estimable; it must not be read as evidence of perfect repeatability.
+
+![Systematic-offset vector components](figures/systematic_offset_vectors.png)
+
+![Repeatability versus systematic offset](figures/repeatability_vs_systematic_offset.png)
+
+The condition chart compares the six frozen realizations without changing backend parameters. The numbered ranking chart avoids label collisions and exposes only descriptive smoke ordering because the prerequisite hard control failed.
+
+![Noise-condition effects](figures/noise_condition_effects.png)
+
+![Cross-backend scene ranking](figures/backend_scene_ranking.png)
 
 ## Scope, data, and metric definitions
 
