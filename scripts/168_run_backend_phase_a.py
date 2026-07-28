@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Guarded future Phase A execution entry; never invoked by the lock round."""
+"""Guarded Phase A v1.1 dry-run and formal execution entry."""
 
 from __future__ import annotations
 
@@ -11,8 +11,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from zero_perturbation.backend_phase_a_protocol import (
-    validate_protocol_lock_document,
+from zero_perturbation.backend_phase_a_v1_1 import (
+    dry_run,
+    execute_formal_phase_a,
 )
 
 
@@ -21,29 +22,39 @@ def build_parser() -> argparse.ArgumentParser:
         description="Run the locked dual-backend Phase A matrix"
     )
     parser.add_argument("--protocol-lock", type=Path, required=True)
-    parser.add_argument("--pcl-cli", type=Path, required=True)
-    parser.add_argument("--output-root", type=Path, required=True)
+    parser.add_argument("--run-id", required=True)
+    parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--workers", type=int, required=True)
+    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--dry-run", action="store_true")
     return parser
 
 
-def execution_entry(
-    protocol_lock: Path, pcl_cli: Path, output_root: Path
-) -> None:
-    """Validate authority first; formal execution is implemented in the run round."""
-
-    validate_protocol_lock_document(protocol_lock, ROOT)
-    if not pcl_cli.is_file():
-        raise FileNotFoundError("frozen PCL CLI does not exist")
-    if output_root.exists() and any(output_root.iterdir()):
-        raise FileExistsError("Phase A output root must be absent or empty")
-    raise RuntimeError(
-        "Phase A execution body is intentionally deferred to the authorized run round"
+def execution_entry(args: argparse.Namespace) -> dict:
+    if args.dry_run:
+        return dry_run(
+            root=ROOT,
+            protocol_lock=args.protocol_lock,
+            run_id=args.run_id,
+            output_dir=args.output_dir,
+            workers=args.workers,
+        )
+    return execute_formal_phase_a(
+        root=ROOT,
+        protocol_lock=args.protocol_lock,
+        run_id=args.run_id,
+        output_dir=args.output_dir,
+        workers=args.workers,
+        resume=args.resume,
     )
 
 
 def main() -> int:
     args = build_parser().parse_args()
-    execution_entry(args.protocol_lock, args.pcl_cli, args.output_root)
+    import json
+
+    result = execution_entry(args)
+    print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
     return 0
 
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import subprocess
 from collections import Counter
@@ -89,6 +90,20 @@ def _git_unchanged(repository: Path, *paths: str) -> bool:
             check=False,
         ).returncode
         == 0
+    )
+
+
+def _git_blob_sha256(repository: Path, revision: str, path: str) -> str:
+    completed = subprocess.run(
+        ["git", "show", f"{revision}:{path}"],
+        cwd=repository,
+        check=False,
+        capture_output=True,
+    )
+    return (
+        hashlib.sha256(completed.stdout).hexdigest()
+        if completed.returncode == 0
+        else ""
     )
 
 
@@ -228,9 +243,31 @@ def verify_backend_phase_a_lock(
         errors.append("seed audit differs from Development schedule")
 
     hashes = _read_json(artifact / "implementation_hashes.json")
+    invalidation_path = (
+        repository
+        / "artifacts/current/zero_perturbation_backend_phase_a_v1_invalidation"
+        / "final_decision.json"
+    )
+    v1_invalidated = False
+    if invalidation_path.is_file():
+        invalidation = _read_json(invalidation_path)
+        v1_invalidated = bool(
+            invalidation.get("PHASE_A_V1_RUN_AUTHORIZATION_INVALIDATED") is True
+            and invalidation.get("PHASE_A_V1_FORMAL_TRIALS_EXECUTED") == 0
+        )
     for label, item in hashes["files"].items():
         path = repository / item["path"]
-        if not path.is_file() or file_sha256(path) != item["sha256"]:
+        current_matches = bool(
+            path.is_file() and file_sha256(path) == item["sha256"]
+        )
+        archived_matches = bool(
+            v1_invalidated
+            and _git_blob_sha256(
+                repository, LOCK_PASS_TAG, str(item["path"])
+            )
+            == item["sha256"]
+        )
+        if not current_matches and not archived_matches:
             errors.append(f"implementation hash mismatch: {label}")
     binary = hashes.get("pcl_cli_binary")
     if binary:
