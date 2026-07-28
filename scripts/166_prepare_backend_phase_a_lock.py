@@ -329,9 +329,13 @@ def main() -> None:
     }
     write_json(ARTIFACT / "test_report.json", test_report)
 
+    protocol_self_audit = [
+        {"name": name, "result": result}
+        for name, result in audit.items()
+    ]
     decision = {
         "schema_version": "backend_phase_a_lock_decision_v1",
-        **audit,
+        "protocol_self_audit": protocol_self_audit,
         "PCL_V3_QUALIFICATION_REMAINS_VALID": pcl_v3_valid,
         "OPEN3D_PARAMETER_LOCK_PASS": parameter_lock_pass,
         "PCL_PARAMETER_LOCK_PASS": parameter_lock_pass,
@@ -430,6 +434,10 @@ IDs: seven scenes × three Development geometry seeds × two Development
 measurement seeds × five repeats × IDEAL_MATCHED only. Open3D and PCL each have
 210 planned rows; Native has zero. CSV construction used Cartesian enumeration
 only and contains no coordinates or point-cloud paths.
+
+The exact protocol self-audit results are:
+
+{chr(10).join(f"- `{item['name']}={item['result']}`" for item in protocol_self_audit)}
 
 ## Input and transform contracts
 

@@ -273,9 +273,12 @@ def verify_backend_phase_a_lock(
             errors.append(f"fixed non-execution decision changed: {field}")
     if decision.get("NEW_PROTOCOL_AMBIGUITIES_FOUND") is not False:
         errors.append("protocol ambiguities are not false")
-    for field, expected in self_audit.items():
-        if field in decision and decision[field] != expected:
-            errors.append(f"decision self-audit mismatch: {field}")
+    expected_self_audit = [
+        {"name": name, "result": result}
+        for name, result in self_audit.items()
+    ]
+    if decision.get("protocol_self_audit") != expected_self_audit:
+        errors.append("decision protocol self-audit list changed")
 
     protected = {
         "open3d_modified": not _git_unchanged(
