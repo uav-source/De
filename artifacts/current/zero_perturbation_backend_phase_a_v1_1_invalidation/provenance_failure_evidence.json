@@ -1,0 +1,11 @@
+{
+  "V1_1_BYTEWISE_ROUNDTRIP_ASSERTION_INVALID": true,
+  "actual_exception": "RunnerContractError: IDEAL_MATCHED source provenance check failed",
+  "classification": "IMPLEMENTATION_PROVENANCE_CONTRACT_DEFECT",
+  "failure_location": "src/zero_perturbation/backend_phase_a_v1_1.py:950",
+  "invalid_required_identity": "Q32(T_reference * Q32(inverse(T_reference) * p_target)) == Q32(p_target)",
+  "open3d_called_before_stop": false,
+  "pcl_called_before_stop": false,
+  "replacement_contract": "source_parent_target_indices plus float32 quantization closure audit",
+  "schema_version": "backend_phase_a_v1_1_provenance_failure_evidence_v1"
+}

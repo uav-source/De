@@ -1,0 +1,14 @@
+{
+  "archive_bundle_path": "/tmp/Degen-LIO-zero-perturbation-phase-a-v1.1-provenance-invalid.bundle",
+  "archive_bundle_sha256": "7c853deac0bbff5c4b3e992c6f880585c7dfd466816228c2eee123acc60c6014",
+  "archive_tag": "archive/zero-perturbation-backend-phase-a-v1.1-provenance-invalid",
+  "baseline_commit": "29fdae5f665d342f833e7094cb47306e432dcaed",
+  "backend_execution_count": 0,
+  "completed_snapshot_count": 0,
+  "git_push_performed": false,
+  "old_v1_1_artifact_modified": false,
+  "scientific_result_exposure_count": 0,
+  "schema_version": "backend_phase_a_v1_1_invalidation_manifest_v1",
+  "snapshot_build_attempt_count": 1,
+  "trial_result_count": 0
+}
