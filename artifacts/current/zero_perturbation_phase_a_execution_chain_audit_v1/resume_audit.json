@@ -1,0 +1,7 @@
+{
+  "FINAL_TRIAL_COUNT_AFTER_RESUME": 6,
+  "RESUMED_AND_FRESH_RESULT_EQUIVALENT": true,
+  "RESUME_REEXECUTED_VALID_RESULT_COUNT": 0,
+  "RESUME_SKIPPED_VALID_RESULT_COUNT": 2,
+  "schema_version": "phase_a_execution_chain_resume_audit_v1"
+}

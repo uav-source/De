@@ -1,0 +1,6 @@
+{
+  "TAMPERED_RESULT_NOT_OVERWRITTEN": true,
+  "TAMPERED_RESULT_REJECTED": true,
+  "TRIAL_COUNT_AFTER_TAMPER_REJECTION": 1,
+  "schema_version": "phase_a_execution_chain_tamper_audit_v1"
+}

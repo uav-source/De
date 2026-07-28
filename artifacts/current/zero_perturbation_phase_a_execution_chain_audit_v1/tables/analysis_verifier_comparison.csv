@@ -1,0 +1,11 @@
+field,difference
+backend_inventory,False
+decision,False
+failure_inventory,False
+input_pairing_audit,False
+rotation_summary,False
+runtime_summary,False
+snapshot_ids,False
+translation_summary,False
+trial_count,False
+trial_ids,False
