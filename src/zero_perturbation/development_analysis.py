@@ -662,6 +662,12 @@ def _render_report(
     ]
     turnover_rho = decisions["turnover_full_frozen_spearman_rho"]
     run_scope = "the complete Development matrix" if not raw.get("smoke", False) else "the frozen 42-snapshot smoke matrix"
+    repeat_scope = (
+        "two measurement seeds × five repeats"
+        if not raw.get("smoke", False)
+        else "one measurement seed × one repeat in this smoke; the frozen full design would use two × five"
+    )
+    geometry_scope = 3 if not raw.get("smoke", False) else 1
     stop_note = (
         "The smoke failed the first hard gate, so the complete 1260-snapshot / 3780-trial Development matrix was not run, exactly as required by the frozen stopping rule."
         if raw.get("smoke", False)
@@ -689,15 +695,15 @@ Cross-backend ranking:
 
 {chr(10).join(agreement_lines)}
 
-The scene comparisons are Development Go/No-Go signals, not confirmatory estimates or paper claims. Exact scene × condition × backend summaries and exploratory geometry-block bootstrap intervals are in [noise_condition_summary.csv](tables/noise_condition_summary.csv).
+These are smoke-only descriptive contrasts. They are not evaluated as Development Go/No-Go signals because IDEAL_MATCHED failed, and they are not confirmatory estimates or paper claims. Exact scene × condition × backend summaries and exploratory geometry-block bootstrap calculations are in [noise_condition_summary.csv](tables/noise_condition_summary.csv).
 
 ## Reassociation changes are measured explicitly
 
-Across all 1260 native pairs, correspondence-turnover versus full/frozen translation difference has Spearman rho `{turnover_rho if turnover_rho is not None else 'null'}`. Full and frozen are two algorithms on one snapshot; Frozen is never treated as ground truth. See [turnover_vs_full_frozen_difference.png](figures/turnover_vs_full_frozen_difference.png), [correspondence_turnover.csv](tables/correspondence_turnover.csv), and [full_frozen_comparison.csv](tables/full_frozen_comparison.csv).
+Across all {raw['snapshot_count']} native pairs in this run, correspondence-turnover versus full/frozen translation difference has descriptive Spearman rho `{turnover_rho if turnover_rho is not None else 'null'}`. Because the hard gate failed, this value does not evaluate Signal C. Full and frozen are two algorithms on one snapshot; Frozen is never treated as ground truth. See [turnover_vs_full_frozen_difference.png](figures/turnover_vs_full_frozen_difference.png), [correspondence_turnover.csv](tables/correspondence_turnover.csv), and [full_frozen_comparison.csv](tables/full_frozen_comparison.csv).
 
 ## Scope, data, and metric definitions
 
-Every trial begins at `T_initial = T_reference`. Translation error is `||p_estimated - p_reference||`; rotation error is `||Log(R_reference^T R_estimated)||`. A repeated-measurement group fixes scene, geometry seed, condition, and backend, then aggregates two measurement seeds × five repeats. The norm of the group mean is systematic offset; repeatability RMS is the square root of the covariance trace with `ddof=1`. A single-trial displacement is not called bias.
+Every trial begins at `T_initial = T_reference`. Translation error is `||p_estimated - p_reference||`; rotation error is `||Log(R_reference^T R_estimated)||`. A repeated-measurement group fixes scene, geometry seed, condition, and backend, then aggregates {repeat_scope}. The norm of the group mean is systematic offset; repeatability RMS is the square root of the covariance trace with `ddof=1`. In this early-stop smoke, one-row groups have zero covariance by definition and do not estimate repeatability. A single-trial displacement is not called bias.
 
 The six frozen conditions and seven frozen synthetic scenes contain no real or visual data. The historical 0.02 m / 0.5° capture-range thresholds are not used.
 
@@ -710,7 +716,7 @@ Traditional Hessian metrics use the native initial correspondence system, the na
 ## Limitations, uncertainty, and robustness checks
 
 - Synthetic Development evidence cannot establish real-data validity, causal mechanism, or Measurement-paper readiness.
-- Only three geometry seeds underlie the exploratory block intervals; these intervals are diagnostic, not confirmatory inference.
+- Only {geometry_scope} geometry seed(s) underlie the saved exploratory block calculations; in the early-stop smoke the one-block interval collapses and is not an uncertainty estimate.
 - Open3D exposes the final correspondence set, fitness, and RMSE but not a portable per-iteration convergence flag; the backend failure contract therefore requires a finite transform/metrics and a non-empty final correspondence set.
 - `multi_attractor_summary.csv` is an audit-only endpoint-bin proxy at 1e-4 m/rad and does not authorize a formal multi-attractor claim.
 - All nine figures were generated from the saved CSV evidence and are subordinate to exact tables.
@@ -868,6 +874,7 @@ def analyze_development(root: str | Path, *, run_id: str) -> Path:
     manifest = {
         "schema_version": "zero_perturbation_development_artifact_v1",
         "run_id": run_id,
+        "smoke": bool(raw.get("smoke", False)),
         "branch": _git(repository, "branch", "--show-current"),
         "analysis_commit": _git(repository, "rev-parse", "HEAD"),
         "protocol_sha256": protocol.source_sha256,
