@@ -1,0 +1,16 @@
+{
+  "artifact_integrity_pass": true,
+  "dry_run_qualification_pass": false,
+  "file_sha256": {
+    "backend_phase_a_stage1_formal_execution_lock.json": "627692476dc0680f8707d0ab7240ac0b2381c998ce431ad1f31cff83b856ef16",
+    "dry_run_failure.json": "a52bea1ce57502ebc3cd3ffd4a32dfa4d65c0132d63e37ef67c22a70dd7e7dd7",
+    "final_decision.json": "be4fcf3035c6bfe1d0ed8ab2e31680fbdc6436fe0a5a2d68c725c2a2beec8137",
+    "formal_lock_v1_2_report.md": "f230ccdb7c248513a8758de7b0f63958448c39f9d983304df07ed0af3aa73ef2",
+    "formal_relock_scientific_diff.json": "c609ee612620e13a2552d4094b13351d744849961e516ff88f6954e62c7405b0",
+    "run_manifest.json": "db21fa7d124bd52ec00012c848c1141198f76e61c01913d6467244c5e0397138"
+  },
+  "formal_lock_artifact_verification_pass": false,
+  "missing_files": [],
+  "schema_version": "phase_a_formal_lock_v1_2_failed_artifact_verification_v1",
+  "sha256_validation_pass": true
+}

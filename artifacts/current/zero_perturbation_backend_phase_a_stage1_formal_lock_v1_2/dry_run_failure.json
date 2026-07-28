@@ -1,0 +1,29 @@
+{
+  "ATTEMPT_STARTED_EVENT_COUNT": 0,
+  "DRY_RUN_BACKEND_EXECUTION_COUNT": 0,
+  "DRY_RUN_TRIAL_RESULT_COUNT": 0,
+  "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_SEED_ACCESS_COUNT": 0,
+  "FORMAL_STAGE0_CACHE_READ_COUNT": 0,
+  "FORMAL_TRIAL_RESULT_COUNT": 0,
+  "NATIVE_EXECUTION_COUNT": 0,
+  "failure_classification": "UPSTREAM_PROTOCOL_IMPLEMENTATION_BINDING_MISMATCH",
+  "failure_message": "Stage0ContractError: v1.2 implementation SHA mismatch",
+  "formal_lock_strict_validation_passed_before_failure": true,
+  "mismatches": [
+    {
+      "current_sha256": "50d1b630180530d834a8c63c31ad32cdb9c85f273c6ae2ac81a4cc400fcfe186",
+      "locked_sha256": "5c037a8a05ddc84ed62c8cea5587ba5a74c690341cdb0ecbd966fad844d9b168",
+      "name": "stage1_engine",
+      "path": "src/zero_perturbation/backend_phase_a_stage1.py"
+    },
+    {
+      "current_sha256": "b0ef3155a2f46f0edfe20244a57ac21662f3ab14210916560707492caa000901",
+      "locked_sha256": "2cca101b5d1ba6fb582e54e9d4f651da501bad20ce29c5d98823db964b2d06ec",
+      "name": "stage1_runner",
+      "path": "scripts/168_run_backend_phase_a.py"
+    }
+  ],
+  "output_directory_created": false,
+  "schema_version": "phase_a_formal_lock_v1_2_dry_run_failure_v1"
+}

@@ -1,0 +1,19 @@
+{
+  "backend_parameter_difference_count": 0,
+  "condition_difference_count": 0,
+  "execution_audit_version_difference_count": 1,
+  "failure_definition_difference_count": 0,
+  "formal_lock_binding_artifact_difference_count": 1,
+  "formal_runner_scientific_execution_difference_count": 0,
+  "metric_difference_count": 0,
+  "planned_snapshot_difference_count": 0,
+  "planned_trial_difference_count": 0,
+  "quantile_method_difference_count": 0,
+  "repeat_difference_count": 0,
+  "resume_equivalence_comparator_difference_count": 1,
+  "scene_difference_count": 0,
+  "schema_version": "phase_a_formal_relock_scientific_diff_v1_2",
+  "seed_difference_count": 0,
+  "threshold_difference_count": 0,
+  "trial_result_schema_difference_count": 0
+}
