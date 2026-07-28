@@ -15,6 +15,16 @@ from zero_perturbation.backend_phase_a_stage1 import (
     dry_run_stage1,
     execute_stage1_from_cache,
 )
+from zero_perturbation.phase_a_trial_result_schema import file_sha256
+
+
+FORMAL_RUNNER_ENGINE_SHA256 = "50d1b630180530d834a8c63c31ad32cdb9c85f273c6ae2ac81a4cc400fcfe186"
+
+
+def _verify_formal_runner_engine_integrity() -> None:
+    engine = ROOT / "src/zero_perturbation/backend_phase_a_stage1.py"
+    if file_sha256(engine) != FORMAL_RUNNER_ENGINE_SHA256:
+        raise RuntimeError("FORMAL_LOCK_IMPLEMENTATION_BINDING_MISMATCH: formal runner engine SHA mismatch")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -23,7 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--protocol-lock", type=Path, required=True)
     parser.add_argument("--snapshot-lock", type=Path, required=True)
-    parser.add_argument("--execution-lock", type=Path, required=True)
+    parser.add_argument("--formal-execution-lock", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--workers", type=int, required=True)
@@ -33,12 +43,13 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def execution_entry(args: argparse.Namespace) -> dict:
+    _verify_formal_runner_engine_integrity()
     if args.dry_run:
         return dry_run_stage1(
             root=ROOT,
             protocol_lock=args.protocol_lock,
             snapshot_lock=args.snapshot_lock,
-            execution_lock=args.execution_lock,
+            formal_execution_lock=args.formal_execution_lock,
             run_id=args.run_id,
             output_dir=args.output_dir,
             workers=args.workers,
@@ -47,7 +58,7 @@ def execution_entry(args: argparse.Namespace) -> dict:
         root=ROOT,
         protocol_lock=args.protocol_lock,
         snapshot_lock=args.snapshot_lock,
-        execution_lock=args.execution_lock,
+        formal_execution_lock=args.formal_execution_lock,
         run_id=args.run_id,
         output_dir=args.output_dir,
         workers=args.workers,

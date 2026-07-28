@@ -27,15 +27,18 @@ from .phase_a_execution_chain_audit import (
     DEFAULT_PCL_CLI_RELATIVE,
     execute_open3d_fixture,
     execute_pcl_fixture,
-    implementation_manifest,
 )
 from .phase_a_execution_chain_fixture import FixtureSnapshot
+from .phase_a_formal_execution_lock_schema import (
+    IMPLEMENTATION_MANIFEST_RELATIVE_PATH,
+    implementation_binding_sha256,
+    validate_phase_a_formal_execution_lock_strict,
+)
 from .phase_a_trial_result_schema import (
     OPEN3D_BACKEND,
     PCL_BACKEND,
     SCHEMA_VERSION,
     canonical_json_bytes,
-    canonical_json_sha256,
     file_sha256,
 )
 from .phase_a_trial_result_writer import (
@@ -52,43 +55,23 @@ def validate_stage1_execution_lock(
     root: str | Path,
     protocol_lock: str | Path,
     snapshot_lock: str | Path,
+    implementation_manifest_path: str | Path | None = None,
 ) -> dict[str, Any]:
+    """Compatibility name with strict v1 semantics; legacy lock formats are rejected."""
+
     repository = Path(root).resolve()
-    candidate = Path(path).resolve()
-    if not candidate.is_file():
-        raise FileNotFoundError("a new Stage-1 execution lock is required")
-    value = json.loads(candidate.read_text(encoding="utf-8"))
-    stored = value.get("lock_payload_sha256")
-    payload = {key: item for key, item in value.items() if key != "lock_payload_sha256"}
-    if stored != canonical_json_sha256(payload):
-        raise RunnerContractError("Stage-1 execution lock payload SHA mismatch")
-    if (
-        value.get("schema_version") != "phase_a_stage1_execution_lock_v1"
-        or value.get("trial_result_schema_version") != SCHEMA_VERSION
-        or value.get("old_v1_2_authorization_invalidated") is not True
-    ):
-        raise RunnerContractError("old v1.2 or unknown Stage-1 execution lock is rejected")
-    if value.get("PHASE_A_STAGE1_BACKEND_RUN_AUTHORIZED") is not True:
-        raise PermissionError("Stage-1 backend execution is not authorized")
-    if value.get("protocol_lock_sha256") != file_sha256(protocol_lock):
-        raise RunnerContractError("Stage-1 protocol lock SHA mismatch")
-    if value.get("snapshot_lock_sha256") != file_sha256(snapshot_lock):
-        raise RunnerContractError("Stage-1 snapshot lock SHA mismatch")
-    current = implementation_manifest(repository)
-    if value.get("implementation_sha256") != current["implementation_sha256"]:
-        raise RunnerContractError("Stage-1 implementation manifest SHA mismatch")
-    required = {
-        "trial_schema",
-        "schema_validator",
-        "writer",
-        "resume",
-        "analysis",
-        "independent_verifier",
-        "publisher",
-    }
-    if not required <= set(current["files"]):
-        raise RunnerContractError("Stage-1 lock lacks verifier/publisher contract hashes")
-    return value
+    manifest = (
+        Path(implementation_manifest_path).resolve()
+        if implementation_manifest_path is not None
+        else repository / IMPLEMENTATION_MANIFEST_RELATIVE_PATH
+    )
+    return validate_phase_a_formal_execution_lock_strict(
+        path,
+        root=repository,
+        protocol_lock=protocol_lock,
+        snapshot_lock=snapshot_lock,
+        implementation_manifest_path=manifest,
+    )
 
 
 def _arguments(run_id: str, output_dir: Path, workers: int) -> None:
@@ -106,31 +89,55 @@ def dry_run_stage1(
     root: str | Path,
     protocol_lock: str | Path,
     snapshot_lock: str | Path,
-    execution_lock: str | Path,
+    formal_execution_lock: str | Path,
     run_id: str,
     output_dir: str | Path,
     workers: int,
+    implementation_manifest_path: str | Path | None = None,
 ) -> dict[str, Any]:
     repository = Path(root).resolve()
     destination = Path(output_dir).resolve()
-    _arguments(run_id, destination, workers)
-    protocol = validate_protocol_lock(protocol_lock, repository)
-    snapshots = validate_snapshot_lock(snapshot_lock, repository)
     execution = validate_stage1_execution_lock(
-        execution_lock,
+        formal_execution_lock,
         root=repository,
         protocol_lock=protocol_lock,
         snapshot_lock=snapshot_lock,
+        implementation_manifest_path=implementation_manifest_path,
     )
+    _arguments(run_id, destination, workers)
+    validate_protocol_lock(protocol_lock, repository)
+    snapshot_lock_value = validate_snapshot_lock(snapshot_lock, repository)
     plan, trials = planned_rows(repository)
+    cache_root = repository / str(snapshot_lock_value["snapshot_cache_root"])
+    cache_validation_count = 0
+    for row in plan:
+        validate_snapshot_directory(snapshot_directory(cache_root, str(row["snapshot_id"])))
+        cache_validation_count += 1
     return {
+        "ATTEMPT_STARTED_EVENT_COUNT": 0,
+        "DRY_RUN_CACHE_VALIDATION_COUNT": cache_validation_count,
         "DRY_RUN_BACKEND_EXECUTION_COUNT": 0,
+        "DRY_RUN_NATIVE_PLANNED_TRIAL_COUNT": 0,
+        "DRY_RUN_OPEN3D_PLANNED_TRIAL_COUNT": sum(
+            row["backend"] == OPEN3D_BACKEND for row in trials
+        ),
+        "DRY_RUN_PCL_PLANNED_TRIAL_COUNT": sum(
+            row["backend"] == PCL_BACKEND for row in trials
+        ),
         "DRY_RUN_PLANNED_SNAPSHOT_COUNT": len(plan),
         "DRY_RUN_PLANNED_TRIAL_COUNT": len(trials),
         "DRY_RUN_SNAPSHOT_GENERATION_COUNT": 0,
         "DRY_RUN_TRIAL_RESULT_COUNT": 0,
-        "dry_run_pass": len(plan) == 210 and len(trials) == 420,
-        "implementation_sha256": execution["implementation_sha256"],
+        "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+        "FORMAL_SEED_ACCESS_COUNT": 0,
+        "FORMAL_TRIAL_RESULT_COUNT": 0,
+        "NATIVE_EXECUTION_COUNT": 0,
+        "dry_run_pass": (
+            len(plan) == 210
+            and len(trials) == 420
+            and cache_validation_count == 210
+        ),
+        "implementation_sha256": implementation_binding_sha256(execution),
         "output_dir": str(destination),
         "protocol_sha256": V1_2_PROTOCOL_SHA256,
         "run_id": run_id,
@@ -146,7 +153,7 @@ def execute_stage1_from_cache(
     root: str | Path,
     protocol_lock: str | Path,
     snapshot_lock: str | Path,
-    execution_lock: str | Path,
+    formal_execution_lock: str | Path,
     run_id: str,
     output_dir: str | Path,
     workers: int,
@@ -154,17 +161,17 @@ def execute_stage1_from_cache(
 ) -> dict[str, Any]:
     repository = Path(root).resolve()
     destination = Path(output_dir).resolve()
-    _arguments(run_id, destination, workers)
-    protocol = validate_protocol_lock(protocol_lock, repository)
-    snapshot_lock_value = validate_snapshot_lock(snapshot_lock, repository)
     execution = validate_stage1_execution_lock(
-        execution_lock,
+        formal_execution_lock,
         root=repository,
         protocol_lock=protocol_lock,
         snapshot_lock=snapshot_lock,
     )
+    _arguments(run_id, destination, workers)
     if not git_worktree_clean(repository):
         raise RunnerContractError("formal Stage-1 requires a clean Git worktree")
+    validate_protocol_lock(protocol_lock, repository)
+    snapshot_lock_value = validate_snapshot_lock(snapshot_lock, repository)
     cache_root = repository / str(snapshot_lock_value["snapshot_cache_root"])
     plans, _ = planned_rows(repository)
     base = load_backend_phase_a_protocol(repository)
@@ -188,6 +195,7 @@ def execute_stage1_from_cache(
     resumed_ids: list[str] = []
     backend_execution_count = 0
     snapshot_lock_sha = file_sha256(snapshot_lock)
+    implementation_sha = implementation_binding_sha256(execution)
     for plan in plans:
         snapshot_id = str(plan["snapshot_id"])
         directory = snapshot_directory(cache_root, snapshot_id)
@@ -212,7 +220,7 @@ def execute_stage1_from_cache(
             common = {
                 "backend": backend,
                 "condition": "IDEAL_MATCHED",
-                "implementation_sha256": execution["implementation_sha256"],
+                "implementation_sha256": implementation_sha,
                 "planned_trial_id": trial_id,
                 "protocol_sha256": V1_2_PROTOCOL_SHA256,
                 "reference_pose_checksum": fixture.checksums["reference_pose_checksum"],
