@@ -1,0 +1,17 @@
+gate,value,evaluated,reason
+NATIVE_BACKEND_QUALIFICATION_PASS,false,true,Frozen prior failure
+PCL_DEPENDENCY_READY,true,true,Required pkg-config probe returned 1.15.1
+PCL_BACKEND_BUILD_PASS,false,true,Identical-cloud identity CTest failed
+OPEN3D_BACKEND_QUALIFICATION_PASS,false,false,Phase A not run
+PCL_BACKEND_QUALIFICATION_PASS,false,false,Phase A not run
+IDEAL_MATCHED_SNAPSHOT_DIVERSITY_PASS,false,false,Phase A snapshots not generated
+BACKEND_INPUT_PAIRING_PASS,false,false,No qualification trials were run
+TWO_INDEPENDENT_BACKENDS_QUALIFIED,false,false,Phase A not run
+CROSS_BACKEND_SCENE_SIGNAL_OBSERVED,false,false,Phase B not authorized
+ZERO_PERTURBATION_FULL_DEVELOPMENT_REDESIGN_AUTHORIZED,false,true,Required conjunction failed at PCL build smoke
+ZERO_PERTURBATION_FULL_DEVELOPMENT_RUN_AUTHORIZED,false,true,Fixed false for this task
+ZERO_PERTURBATION_CONFIRMATORY_LOCK_AUTHORIZED,false,true,Fixed false for this task
+ZERO_PERTURBATION_CONFIRMATORY_RUN_AUTHORIZED,false,true,Fixed false for this task
+REAL_DATA_VALIDATION_AUTHORIZED,false,true,Fixed false for this task
+MEASUREMENT_PAPER_MAINLINE_AUTHORIZED,false,true,Fixed false for this task
+

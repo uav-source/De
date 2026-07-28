@@ -1,0 +1,7 @@
+step,status,exit_code,sha256,detail
+cmake_configure,pass,0,,Release Ninja configuration completed
+cmake_build_first_attempt,fail,1,,PCL 1.15 API uses setMaxCorrespondenceDistance
+cmake_build_api_correction,pass,0,,Frozen 0.50 m value unchanged
+pcl_cli_executable,pass,0,829eacdfc0cc8b3eb1a291c22e5e1af9d4ff4f0c696babec2bf3fcdf97f44aa1,ELF executable generated
+identical_cloud_identity_ctest,fail,8,,has_converged=false and finite_output=false; stop rule triggered
+

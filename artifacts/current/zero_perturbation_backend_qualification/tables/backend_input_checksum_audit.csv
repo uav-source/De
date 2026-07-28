@@ -1,0 +1,4 @@
+phase,snapshot_count,trial_count,checksum_mismatch_count,evaluated,pairing_pass,reason
+PHASE_A_IDEAL_MATCHED,0,0,0,false,false,PCL identity build gate failed before Phase A
+PHASE_B_SCENE_SIGNAL,0,0,0,false,false,Phase B was not authorized
+

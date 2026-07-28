@@ -1,0 +1,4 @@
+registration_backend,qualification_evaluated,trial_count,solver_failure_count,nonfinite_output_count,q95_translation_update_m,q95_rotation_update_deg,fraction_translation_at_most_0_001,qualification_pass,reason
+open3d_point_to_plane,false,0,0,0,,,,false,PCL identity build gate failed before Phase A
+pcl_point_to_plane,false,0,0,0,,,,false,PCL identity build gate failed before Phase A
+

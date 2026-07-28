@@ -1,0 +1,2 @@
+snapshot_id,scene_variant,geometry_seed,noise_condition,registration_backend,translation_error_m,rotation_error_rad,source_checksum,target_checksum,reference_pose_checksum,snapshot_checksum
+

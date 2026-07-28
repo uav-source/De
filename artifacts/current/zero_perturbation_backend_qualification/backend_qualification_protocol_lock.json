@@ -1,0 +1,15 @@
+{
+  "schema_version": "zero_perturbation_backend_qualification_protocol_lock_v1",
+  "protocol_type": "independent_backend_qualification",
+  "protocol_path": "configs/zero_perturbation/backend_qualification_v1.yaml",
+  "protocol_sha256": "109426c0da08f2ebb1647735d617a8693d0ae21b57c8c80474c81d224f6c45b8",
+  "protocol_document_path": "docs/zero_perturbation_backend_qualification_protocol.md",
+  "protocol_document_sha256": "f23e2340a6476abb01b5e63a8883e48181edeb5fc33da8fe961974b27fb2e957",
+  "lock_commit": "ddfcecfd699f018399036a3170fcfe1a54dd6d2e",
+  "lock_tag": "archive/zero-perturbation-backend-qualification-protocol-lock",
+  "formal_scientific_claim_authorized": false,
+  "full_development_authorized": false,
+  "confirmatory_authorized": false,
+  "real_data_authorized": false
+}
+

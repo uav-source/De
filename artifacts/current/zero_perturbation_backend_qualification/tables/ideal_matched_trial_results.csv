@@ -1,0 +1,2 @@
+trial_id,snapshot_id,registration_backend,solver_converged,finite_output,translation_update_norm_m,rotation_update_norm_rad,fitness_score,runtime_ms,failure_reason,source_checksum,target_checksum,reference_pose_checksum,snapshot_checksum
+

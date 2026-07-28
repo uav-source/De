@@ -1,0 +1,9 @@
+check_id,scope,command,expected,observed,pass,note
+system_cmake,system,command -v cmake,present,/usr/bin/cmake,true,Read-only dependency probe
+system_ninja,system,command -v ninja,present,/usr/bin/ninja,true,Read-only dependency probe
+system_pkg_config,system,command -v pkg-config,present,/usr/bin/pkg-config,true,Read-only dependency probe
+system_pcl_registration,system,pkg-config --modversion pcl_registration,version,not found,false,System PCL was incomplete
+isolated_environment,isolated,degen-lio-pcl-backend,present,present,true,Open3D environment was not modified
+initial_conda_pcl_probe,isolated,pkg-config --modversion pcl_registration,version,not found,false,PCL 1.11.1 package omitted pkg-config metadata
+final_conda_pcl_probe,isolated,pkg-config --modversion pcl_registration,version,1.15.1,true,Required continuation probe passed before implementation
+
