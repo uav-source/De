@@ -1,0 +1,22 @@
+{
+  "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_STAGE0_SNAPSHOT_BUILD_COUNT": 0,
+  "FORMAL_TRIAL_RESULT_COUNT": 0,
+  "baseline_commit": "29fdae5f665d342f833e7094cb47306e432dcaed",
+  "d50_restored": false,
+  "fast_lio2_modified": false,
+  "full_pytest_summary": "1625 passed, 1 skipped, 262 warnings in 72.80s",
+  "git_push_performed": false,
+  "implementation_sha256": "72f0f09938bd96a7fe6c9e2971c2bb176f09698a7d269a075d06f83761241fe3",
+  "native_modified": false,
+  "odi_modified": false,
+  "open3d_modified": false,
+  "pcl_modified": false,
+  "pcl_v3_ctest_summary": "100% tests passed, 0 failed, 3/3",
+  "protocol_lock_commit": "3bc2e7d572a5cf4028d26eb37ee7bbfc29809593",
+  "protocol_sha256": "d412c9bb74fd4e3828c830d17144e1fb4440a27936941ce000e9daa87afabf81",
+  "scene_modified": false,
+  "schema_version": "backend_phase_a_v1_2_lock_run_manifest_v1",
+  "seed_modified": false,
+  "targeted_pytest_summary": "24 passed, 13 warnings in 1.52s"
+}

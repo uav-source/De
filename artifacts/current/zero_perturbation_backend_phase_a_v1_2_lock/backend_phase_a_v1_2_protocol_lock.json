@@ -1,0 +1,108 @@
+{
+  "PHASE_A_V1_2_PROTOCOL_LOCK_PASS": true,
+  "SEED_CONTINUATION_AFTER_PRE_BACKEND_ABORT_JUSTIFIED": true,
+  "implementation": {
+    "files": {
+      "development_protocol_loader": {
+        "path": "src/zero_perturbation/protocol.py",
+        "sha256": "b744409a669cdea7f14b5e6b3ed0a10f7dbf488c19d5b3e98a11b734faed28f7"
+      },
+      "open3d_backend": {
+        "path": "src/zero_perturbation/open3d_backend.py",
+        "sha256": "eb327dd5d13f7cf099469e5e1a315e23c41d593cd7301d278135b4276b9f255f"
+      },
+      "pcl_cli_source": {
+        "path": "tools/pcl_point_to_plane/pcl_point_to_plane_cli.cpp",
+        "sha256": "2a7203b82cc9401c558fe3ad410d7eb5a2f253ca0578db7e2c2f069715fad56c"
+      },
+      "pcl_python_adapter": {
+        "path": "src/zero_perturbation/pcl_backend.py",
+        "sha256": "25e45b31bc90c93bc578104c994992c3f913437b12bf46389a8380d1d06b9e31"
+      },
+      "protocol_lock_publisher": {
+        "path": "scripts/172_prepare_backend_phase_a_v1_2_lock.py",
+        "sha256": "a518545b3de0c8fec9784b91d98fbed5e00e7b9ee94b40a08cf1562c6636732b"
+      },
+      "protocol_markdown": {
+        "path": "docs/zero_perturbation_backend_phase_a_v1_2_protocol.md",
+        "sha256": "5a386b211b72f72e9e4e3fc1f5ee0b4c0f12e8c45d32dba3dab53fbae349d2b4"
+      },
+      "protocol_yaml": {
+        "path": "configs/zero_perturbation/backend_phase_a_v1_2.yaml",
+        "sha256": "d412c9bb74fd4e3828c830d17144e1fb4440a27936941ce000e9daa87afabf81"
+      },
+      "rotation_metric": {
+        "path": "src/zero_perturbation/rotation_metrics.py",
+        "sha256": "0ed2f040d275f013e26cfc3d9be0610511be436ba512333fed610daa663ffb8a"
+      },
+      "scene_generator": {
+        "path": "src/capture_range/day2_development_scene.py",
+        "sha256": "f1632095ab6c433e1e917cf0c9a49551683fce2f106761d41c3c3a5e6517b922"
+      },
+      "stage0_artifact_engine": {
+        "path": "src/zero_perturbation/backend_phase_a_stage0_artifact.py",
+        "sha256": "a71a0f8a4435f714bb85390f520d6589a7f31efccb11ae5b28a88dabdc6da43a"
+      },
+      "stage0_artifact_publisher": {
+        "path": "scripts/173_publish_backend_phase_a_v1_2_stage0.py",
+        "sha256": "8d5ff0350e1c7b7ed845a4d6930367dec581f54bd8e91d944a3e57b04c5ff24b"
+      },
+      "stage0_artifact_verifier": {
+        "path": "scripts/174_verify_backend_phase_a_v1_2_stage0.py",
+        "sha256": "fd7a3acb37bb4bf31589ee9bf11fc4511d7524f583243c7832ed58a4c856c241"
+      },
+      "stage0_builder_script": {
+        "path": "scripts/169_build_backend_phase_a_stage0.py",
+        "sha256": "a8d6a69745d5d2638a94c299af74b9f068e7f329505c81e4657af7de33517956"
+      },
+      "stage0_engine": {
+        "path": "src/zero_perturbation/backend_phase_a_v1_2.py",
+        "sha256": "6d65af2050472f9626f12254970204a164c808a27af84d3d6a4d46757583cfff"
+      },
+      "stage0_independent_verifier": {
+        "path": "src/zero_perturbation/backend_phase_a_stage0_verification.py",
+        "sha256": "91db963b9667e2da0c5c8dba09c91b744cd82d09dd6f60ece322229536566f1c"
+      },
+      "stage0_verifier_script": {
+        "path": "scripts/170_verify_backend_phase_a_stage0.py",
+        "sha256": "29b66eda6044e8f1c966f631f559fba7499576c03fbdd597ed7ba68c81e59267"
+      },
+      "stage1_engine": {
+        "path": "src/zero_perturbation/backend_phase_a_stage1.py",
+        "sha256": "5c037a8a05ddc84ed62c8cea5587ba5a74c690341cdb0ecbd966fad844d9b168"
+      },
+      "stage1_runner": {
+        "path": "scripts/168_run_backend_phase_a.py",
+        "sha256": "2cca101b5d1ba6fb582e54e9d4f651da501bad20ce29c5d98823db964b2d06ec"
+      },
+      "v1_plan_loader": {
+        "path": "src/zero_perturbation/backend_phase_a_protocol.py",
+        "sha256": "d9a875f39abbc4a07075c347fcca39df9af752a6e6aa57aa9a51330d7e92b833"
+      }
+    },
+    "implementation_sha256": "72f0f09938bd96a7fe6c9e2971c2bb176f09698a7d269a075d06f83761241fe3",
+    "schema_version": "backend_phase_a_v1_2_implementation_hashes_v1"
+  },
+  "implementation_sha256": "72f0f09938bd96a7fe6c9e2971c2bb176f09698a7d269a075d06f83761241fe3",
+  "lock_payload_sha256": "ccf4adee3a6e582561b16812768693dfb55809be5d6a521341b417ac0dad039d",
+  "pcl_cli_binary": {
+    "path": "build/pcl_point_to_plane_v3/pcl_point_to_plane_cli",
+    "sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff"
+  },
+  "planned_snapshot_count": 210,
+  "planned_snapshots_path": "artifacts/current/zero_perturbation_backend_phase_a_v1_2_lock/planned_snapshots.csv",
+  "planned_snapshots_sha256": "d6419f0269672e0d008a0affa23fc4b19dcf757f6464d1c4041e4a0002f6be1e",
+  "planned_trial_count": 420,
+  "planned_trials_path": "artifacts/current/zero_perturbation_backend_phase_a_v1_2_lock/planned_trials.csv",
+  "planned_trials_sha256": "ac848d5017a776d0002426e720c512b3ab2b4b253ab05a85245ff1c1d25692bd",
+  "protocol_document_path": "docs/zero_perturbation_backend_phase_a_v1_2_protocol.md",
+  "protocol_document_sha256": "5a386b211b72f72e9e4e3fc1f5ee0b4c0f12e8c45d32dba3dab53fbae349d2b4",
+  "protocol_lock_commit": "3bc2e7d572a5cf4028d26eb37ee7bbfc29809593",
+  "protocol_lock_tag": "archive/zero-perturbation-backend-phase-a-v1.2-protocol-lock",
+  "protocol_path": "configs/zero_perturbation/backend_phase_a_v1_2.yaml",
+  "protocol_sha256": "d412c9bb74fd4e3828c830d17144e1fb4440a27936941ce000e9daa87afabf81",
+  "schema_version": "backend_phase_a_v1_2_protocol_lock_v1",
+  "scientific_base_protocol_sha256": "d5e657862294a79c1d01fc349d6f668501d07d3ec965d2d8807171dc3b952b8c",
+  "stage0_snapshot_build_authorized": true,
+  "stage1_backend_run_authorized": false
+}

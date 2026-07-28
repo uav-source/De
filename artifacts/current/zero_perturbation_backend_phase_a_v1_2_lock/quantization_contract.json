@@ -1,0 +1,24 @@
+{
+  "actual_error_expression": "reconstructed_map_minus_parent_map",
+  "closure_residual_expression": "actual_error_minus_predicted_quantization",
+  "eps64": "numpy_finfo_float64_eps",
+  "float64_guard_coefficient": 256.0,
+  "max_normalized_closure_ratio_max": 1.0,
+  "per_point_actual_gate": "actual_error_norm_lte_predicted_quantization_norm_plus_float64_guard",
+  "per_point_residual_gate": "closure_residual_norm_lte_float64_guard",
+  "post_stage0_change_forbidden": true,
+  "predicted_quantization_expression": "R_times_source_quantization",
+  "quantiles": {
+    "median": "numpy.median",
+    "q95": {
+      "implementation": "numpy.quantile",
+      "method": "linear",
+      "q": 0.95
+    }
+  },
+  "reconstructed_map_expression": "R_times_source_quantized_float64_plus_translation",
+  "scale_expression": "max_1_parent_norm_source_float64_norm_translation_norm",
+  "schema_version": "backend_phase_a_v1_2_quantization_contract_v1",
+  "source_quantization_expression": "source_quantized_float64_minus_source_float64",
+  "vector_norm": "euclidean_L2"
+}

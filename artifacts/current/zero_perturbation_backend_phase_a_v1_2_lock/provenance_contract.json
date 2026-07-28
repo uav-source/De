@@ -1,0 +1,54 @@
+{
+  "V1_1_BYTEWISE_ROUNDTRIP_ASSERTION_INVALID": true,
+  "canonical_target_contract": {
+    "byte_order": "little_endian",
+    "dtype": "float32",
+    "independent_target_copy_for_source_selection_forbidden": true,
+    "lineage_float64_view": "canonical_target_points_f32.astype_float64",
+    "memory_order": "C_contiguous",
+    "original_float64_scene_as_lineage_parent_forbidden": true,
+    "quantization_count": 1,
+    "shape": "Nx3",
+    "source": "one_invocation_of_frozen_scene_generator_per_scene_and_geometry_seed"
+  },
+  "schema_version": "backend_phase_a_v1_2_provenance_contract_v1",
+  "source_generation_contract": {
+    "backend_specific_reconstruction_forbidden": true,
+    "canonical_source_byte_order": "little_endian",
+    "canonical_source_dtype": "float32",
+    "canonical_source_memory_order": "C_contiguous",
+    "canonical_source_shape": "Mx3",
+    "source_float64_expression": "R_transpose_times_parent_minus_translation",
+    "source_quantization_count": 1,
+    "transform_direction": "source_frame_to_target_map_frame"
+  },
+  "source_parent_index_contract": {
+    "byte_order": "little_endian",
+    "canonical_source_row_order_matches_index_order": true,
+    "deterministic_subset_rule": {
+      "digest": "SHA-256",
+      "expected_retention_fraction": 0.75,
+      "payload_format": "phase-a-v1.2-parent-selection|scene={scene}|geometry_seed={geometry_seed}|measurement_seed={measurement_seed}|repeat={repeat}|parent_index={parent_index}",
+      "per_parent_payload_encoding": "UTF-8",
+      "post_build_rule_change_forbidden": true,
+      "preserve_eligible_parent_order": true,
+      "purpose": "implement_frozen_measurement_seed_and_repeat_source_subset_control",
+      "random_generator_used": false,
+      "retained_when": "first_digest_byte_modulo_4_is_not_zero"
+    },
+    "dtype": "int64",
+    "eligible_parent_rule": {
+      "maximum_range_m_inclusive": 20.0,
+      "minimum_range_m_inclusive": 0.3,
+      "preserve_canonical_target_order": true,
+      "range_frame": "reference_translation_origin_in_map_frame",
+      "range_norm": "euclidean_L2"
+    },
+    "lower_bound_inclusive": 0,
+    "parent_point_equality": "exact_float64_values_from_index_read",
+    "parent_points_expression": "canonical_target_points_f32[source_parent_target_indices].astype_float64",
+    "shape": "M",
+    "unique_required": true,
+    "upper_bound_exclusive": "target_point_count"
+  }
+}
