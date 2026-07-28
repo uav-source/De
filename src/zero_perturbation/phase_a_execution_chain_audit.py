@@ -11,12 +11,12 @@ import numpy as np
 import yaml
 
 from .backend_phase_a_metrics import transform_update
-from .backend_phase_a_protocol import load_backend_phase_a_protocol
 from .open3d_backend import run_open3d_full
 from .pcl_backend import frozen_parameters, run_pcl_point_to_plane
 from .phase_a_attempt_events import append_attempt_event
 from .phase_a_execution_chain_fixture import (
     FIXTURE_LOCK_RELATIVE,
+    FIXTURE_PARAMETER_LOCK_RELATIVE,
     FORMAL_CACHE_RELATIVE,
     FixtureSnapshot,
     materialize_fixture_cache,
@@ -106,6 +106,7 @@ def implementation_manifest(root: str | Path) -> dict[str, Any]:
         "resume": "src/zero_perturbation/phase_a_trial_resume.py",
         "attempt_event_schema": "src/zero_perturbation/phase_a_attempt_events.py",
         "fixture_builder": "src/zero_perturbation/phase_a_execution_chain_fixture.py",
+        "fixture_parameter_lock": FIXTURE_PARAMETER_LOCK_RELATIVE.as_posix(),
         "execution_chain": "src/zero_perturbation/phase_a_execution_chain_audit.py",
         "analysis": "src/zero_perturbation/phase_a_stage1_analysis.py",
         "independent_verifier": "src/zero_perturbation/phase_a_stage1_independent_verifier.py",
@@ -363,7 +364,15 @@ def execute_fixture_audit_trials(
     fixture_lock_sha = file_sha256(fixture_lock)
     implementation = implementation_manifest(repository)
     protocol_sha = lock["audit_protocol_sha256"]
-    base = load_backend_phase_a_protocol(repository)
+    parameter_lock = json.loads(
+        (repository / FIXTURE_PARAMETER_LOCK_RELATIVE).read_text(encoding="utf-8")
+    )
+    if parameter_lock.get("formal_seed_values_included") is not False:
+        raise AuditContractError("fixture parameter lock contains formal seed values")
+    for name in ("open3d_parameter_contract", "pcl_parameter_contract"):
+        section = parameter_lock[name]
+        if canonical_json_sha256(section["parameters"]) != section["canonical_sha256"]:
+            raise AuditContractError(f"fixture parameter contract SHA mismatch: {name}")
     pcl_cli = repository / DEFAULT_PCL_CLI_RELATIVE
     if destination.exists() and any(destination.iterdir()) and not resume:
         raise FileExistsError("audit output directory must be empty")
@@ -440,13 +449,13 @@ def execute_fixture_audit_trials(
                 result = execute_open3d_fixture(
                     fixture=fixture,
                     common=common,
-                    parameters=base.data["open3d_parameter_contract"]["parameters"],
+                    parameters=parameter_lock["open3d_parameter_contract"]["parameters"],
                 )
             else:
                 result = execute_pcl_fixture(
                     fixture=fixture,
                     common=common,
-                    parameters=base.data["pcl_parameter_contract"]["parameters"],
+                    parameters=parameter_lock["pcl_parameter_contract"]["parameters"],
                     pcl_cli=pcl_cli,
                 )
             result = validate_phase_a_trial_result_strict(result)

@@ -1,7 +1,10 @@
 {
+  "backend_parameter_lock_path": "tests/data/phase_a_execution_chain_audit/fixture_backend_parameter_lock.json",
+  "backend_parameter_lock_sha256": "dfaf0e15f569a41acacfab1bc660c08e31007e70173f5bc02e60d3ec56b28d0c",
   "fixture_only": true,
   "fixture_plan_sha256": "b2476717464d6e1df46b8bc5f95782de740544bbdaa82d524b51d617bce9f005",
   "formal_phase_a": false,
+  "formal_seed_values_included": false,
   "random_seed_used": false,
   "schema_version": "phase_a_execution_chain_fixture_snapshot_lock_v1",
   "snapshots": [

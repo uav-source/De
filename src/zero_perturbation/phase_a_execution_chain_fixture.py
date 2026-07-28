@@ -17,6 +17,9 @@ FIXTURE_PLAN_RELATIVE = Path("tests/data/phase_a_execution_chain_audit/fixture_p
 FIXTURE_LOCK_RELATIVE = Path(
     "tests/data/phase_a_execution_chain_audit/fixture_snapshot_lock.json"
 )
+FIXTURE_PARAMETER_LOCK_RELATIVE = Path(
+    "tests/data/phase_a_execution_chain_audit/fixture_backend_parameter_lock.json"
+)
 FORMAL_CACHE_RELATIVE = Path("data/zero_perturbation/backend_phase_a_v1_2_stage0")
 
 
@@ -177,10 +180,16 @@ def fixture_plan_payload() -> dict[str, Any]:
 
 
 def fixture_lock_payload(plan_sha256: str) -> dict[str, Any]:
+    repository = Path(__file__).resolve().parents[2]
     return {
+        "backend_parameter_lock_path": FIXTURE_PARAMETER_LOCK_RELATIVE.as_posix(),
+        "backend_parameter_lock_sha256": file_sha256(
+            repository / FIXTURE_PARAMETER_LOCK_RELATIVE
+        ),
         "fixture_only": True,
         "fixture_plan_sha256": plan_sha256,
         "formal_phase_a": False,
+        "formal_seed_values_included": False,
         "random_seed_used": False,
         "schema_version": "phase_a_execution_chain_fixture_snapshot_lock_v1",
         "snapshots": [
@@ -214,6 +223,12 @@ def validate_fixture_lock(root: str | Path, lock_path: str | Path) -> tuple[dict
     plan_path = repository / FIXTURE_PLAN_RELATIVE
     if value != fixture_lock_payload(file_sha256(plan_path)):
         raise ValueError("fixture snapshot lock does not match deterministic fixtures")
+    parameter_path = repository / str(value["backend_parameter_lock_path"])
+    if file_sha256(parameter_path) != value["backend_parameter_lock_sha256"]:
+        raise ValueError("fixture backend parameter lock SHA mismatch")
+    parameters = json.loads(parameter_path.read_text(encoding="utf-8"))
+    if parameters.get("formal_seed_values_included") is not False:
+        raise ValueError("fixture backend parameter lock contains formal seed values")
     plan_value = json.loads(plan_path.read_text(encoding="utf-8"))
     if plan_value != fixture_plan_payload():
         raise ValueError("fixture plan does not match deterministic fixtures")
@@ -248,6 +263,7 @@ def materialize_fixture_cache(directory: str | Path, snapshots: tuple[FixtureSna
 
 __all__ = [
     "FIXTURE_LOCK_RELATIVE",
+    "FIXTURE_PARAMETER_LOCK_RELATIVE",
     "FIXTURE_PLAN_RELATIVE",
     "FORMAL_CACHE_RELATIVE",
     "FixtureSnapshot",
