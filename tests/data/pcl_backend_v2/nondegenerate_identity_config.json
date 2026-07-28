@@ -1,0 +1,42 @@
+{
+  "initial_transformation_4x4": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "parameters": {
+    "icp": {
+      "enforce_same_direction_normals": true,
+      "euclidean_fitness_epsilon": 1e-10,
+      "maximum_correspondence_distance_m": 0.5,
+      "maximum_iterations": 50,
+      "transformation_epsilon": 1e-10,
+      "use_reciprocal_correspondences": false,
+      "use_symmetric_objective": false
+    },
+    "normal_estimation": {
+      "k": 50,
+      "method": "KSearch"
+    }
+  },
+  "reference_pose_checksum": "identity-pose-v2",
+  "snapshot_checksum": "pcl-v2-nondegenerate-identity-snapshot",
+  "source_checksum": "7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c",
+  "source_path": "nondegenerate_source.pcd",
+  "target_checksum": "7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c",
+  "target_path": "nondegenerate_target.pcd",
+  "trial_id": "pcl-v2-nondegenerate-identity"
+}

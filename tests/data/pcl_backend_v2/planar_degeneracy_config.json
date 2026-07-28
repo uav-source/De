@@ -1,0 +1,42 @@
+{
+  "initial_transformation_4x4": [
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "parameters": {
+    "icp": {
+      "enforce_same_direction_normals": true,
+      "euclidean_fitness_epsilon": 1e-10,
+      "maximum_correspondence_distance_m": 0.5,
+      "maximum_iterations": 50,
+      "transformation_epsilon": 1e-10,
+      "use_reciprocal_correspondences": false,
+      "use_symmetric_objective": false
+    },
+    "normal_estimation": {
+      "k": 50,
+      "method": "KSearch"
+    }
+  },
+  "reference_pose_checksum": "identity-pose-v2",
+  "snapshot_checksum": "pcl-v2-planar-degeneracy-diagnostic-snapshot",
+  "source_checksum": "b34c107bbb291a99c139fdd7787bde5101911d7e0a506bb0bba2e1a0f4c40a10",
+  "source_path": "../pcl_backend/identity_source.pcd",
+  "target_checksum": "af6967943369548ef7f2d31b5e759e25dc277bb15e6471f086b4e450c86d6a92",
+  "target_path": "../pcl_backend/identity_target.pcd",
+  "trial_id": "pcl-v2-planar-degeneracy-diagnostic"
+}

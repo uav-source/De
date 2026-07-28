@@ -1,0 +1,198 @@
+schema_version: zero_perturbation_pcl_backend_qualification_v2
+
+protocol:
+  name: pcl_backend_implementation_qualification_v2
+  version: "2.0.0"
+  status: prospectively_frozen_before_v2_cli_diagnostic_implementation_or_microtest_execution
+  scope: pcl_backend_implementation_only
+  phase_a_execution_authorized_by_this_protocol: false
+  phase_b_execution_authorized_by_this_protocol: false
+  development_execution_authorized: false
+  confirmatory_execution_authorized: false
+  third_backend_substitution_forbidden: true
+
+v1_preserved_result:
+  branch: feature/zero-perturbation-backend-qualification
+  decision_commit: 04cb2e36c2af75500ae1b5c65bd7c2b037613bfe
+  protocol_path: configs/zero_perturbation/backend_qualification_v1.yaml
+  report_path: artifacts/current/zero_perturbation_backend_qualification/backend_qualification_report.md
+  PCL_DEPENDENCY_READY: true
+  PCL_CLI_COMPILED: true
+  PCL_V1_PLANAR_IDENTITY_SMOKE: FAIL
+  retrospective_pass_rewrite_forbidden: true
+  v1_fixture_modification_forbidden: true
+  reclassification:
+    PCL_V1_SMOKE_FIXTURE_DEGENERATE: true
+    PCL_BACKEND_QUALIFICATION: NOT_EVALUATED
+    point_cloud_rank: 2
+    point_to_plane_jacobian_rank: 3
+    point_to_plane_hessian_eigenvalues: [0.0, 0.0, 0.0, 3.36, 3.36, 64.0]
+    interpretation: fixture_is_not_a_valid_hard_gate_for_six_dof_backend_qualification
+
+immutable_backend_contract:
+  required_pcl_version: 1.15.1
+  point_type: pcl::PointNormal
+  registration_class: pcl::IterativeClosestPointWithNormals
+  transformation_estimation: pcl::registration::TransformationEstimationPointToPlaneLLS
+  normal_estimation:
+    implementation: pcl::NormalEstimationOMP
+    method: KSearch
+    k: 50
+    threads: 1
+  icp:
+    maximum_correspondence_distance_m: 0.50
+    maximum_iterations: 50
+    transformation_epsilon: 1.0e-10
+    euclidean_fitness_epsilon: 1.0e-10
+    use_reciprocal_correspondences: false
+    use_symmetric_objective: false
+    enforce_same_direction_normals: true
+  parameter_change_forbidden: true
+  open3d_modification_forbidden: true
+  native_modification_forbidden: true
+
+seed_firewall:
+  fixture_generator_random_seed_used: false
+  development_seed_access_forbidden: true
+  confirmatory_seed_access_forbidden: true
+  old_capture_range_test_seed_access_forbidden: true
+  target_access_count: 0
+
+fixture_lock:
+  generator:
+    path: tests/data/pcl_backend_v2/generate_fixtures.py
+    sha256: 40ff3b4045bad58b42ac3fdfa331d2a62aead2df502146d1211ca8215208e498
+    random_seed_used: false
+  nondegenerate_source:
+    path: tests/data/pcl_backend_v2/nondegenerate_source.pcd
+    sha256: 7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c
+  nondegenerate_target:
+    path: tests/data/pcl_backend_v2/nondegenerate_target.pcd
+    sha256: 7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c
+  known_small_transform_source:
+    path: tests/data/pcl_backend_v2/known_small_transform_source.pcd
+    sha256: d3b2bb34cecd6a33a277bee8057f97989a5b2ed50b9476cfe4c2133a21d6df6c
+  known_small_transform_truth:
+    path: tests/data/pcl_backend_v2/known_small_transform_truth.json
+    sha256: d23251eb12d17f49a9c79f5a5c15bb35ee34481885079c3d7ccee778da582e3c
+    passed_to_cli: false
+  fixture_manifest:
+    path: tests/data/pcl_backend_v2/fixture_manifest.json
+    sha256: 7125d188fed81e33092589f73ca001fb4d7c8dedb2c57924be3760abd0a210ec
+  identity_config:
+    path: tests/data/pcl_backend_v2/nondegenerate_identity_config.json
+    sha256: 9283453df34f7dd092dc29b8f98895f11b163105950e04a38aba7a8954f36bd5
+  known_transform_config:
+    path: tests/data/pcl_backend_v2/known_small_transform_config.json
+    sha256: c87f76c98190899b96456aec444d7296d9c5bf3e2b0865ea3ff109ab02e050af
+  planar_diagnostic_config:
+    path: tests/data/pcl_backend_v2/planar_degeneracy_config.json
+    sha256: ac4814b890daff2fe29efdf178239068cf08d9e44daa1b003ab8de5e57a028ac
+  v1_planar_source:
+    path: tests/data/pcl_backend/identity_source.pcd
+    sha256: b34c107bbb291a99c139fdd7787bde5101911d7e0a506bb0bba2e1a0f4c40a10
+  v1_planar_target:
+    path: tests/data/pcl_backend/identity_target.pcd
+    sha256: af6967943369548ef7f2d31b5e759e25dc277bb15e6471f086b4e450c86d6a92
+  construction:
+    finite_unique_point_minimum: 300
+    actual_point_count: 806
+    mutually_perpendicular_planes: 3
+    off_centre_cuboid_exposed_faces: 5
+    source_equals_target_coordinates: true
+    source_equals_target_bytewise: true
+    point_cloud_rank: 3
+    analytic_surface_normal_direction_rank: 3
+    analytic_point_to_plane_jacobian_rank: 6
+    analytic_point_to_plane_hessian_eigenvalues:
+      - 126.96221040873503
+      - 131.15107985614438
+      - 136.67100767861896
+      - 230.31747283225394
+      - 289.94028524243305
+      - 328.8629856151476
+
+microtests:
+  ordered_tests:
+    - NONDEGENERATE_IDENTITY
+    - KNOWN_SMALL_TRANSFORM
+    - PLANAR_DEGENERACY_DIAGNOSTIC
+  NONDEGENERATE_IDENTITY:
+    source: tests/data/pcl_backend_v2/nondegenerate_source.pcd
+    target: tests/data/pcl_backend_v2/nondegenerate_target.pcd
+    initial_transform: identity
+    gates:
+      has_converged_raw: true
+      final_transform_finite: true
+      fitness_finite: true
+      translation_update_norm_m_max: 1.0e-8
+      rotation_update_norm_rad_max: 1.0e-8
+      correspondence_count_min_exclusive: 0
+      source_normal_nan_count: 0
+      source_normal_zero_count: 0
+      target_normal_nan_count: 0
+      target_normal_zero_count: 0
+  KNOWN_SMALL_TRANSFORM:
+    target: tests/data/pcl_backend_v2/nondegenerate_target.pcd
+    source: tests/data/pcl_backend_v2/known_small_transform_source.pcd
+    applied_target_to_source_translation_m: [0.01, -0.02, 0.03]
+    applied_target_to_source_rotation_rpy_deg: [0.2, -0.3, 0.5]
+    rotation_convention: Rz_yaw_Ry_pitch_Rx_roll
+    expected_estimate: source_to_target_inverse_of_applied_transform
+    initial_transform: identity
+    truth_passed_to_registration_cli: false
+    gates:
+      translation_error_to_truth_m_max: 1.0e-4
+      rotation_error_to_truth_rad_max: 1.0e-4
+      has_converged_raw: true
+      final_transform_finite: true
+      fitness_finite: true
+  PLANAR_DEGENERACY_DIAGNOSTIC:
+    source: tests/data/pcl_backend/identity_source.pcd
+    target: tests/data/pcl_backend/identity_target.pcd
+    fixture_modification_forbidden: true
+    gates:
+      point_cloud_rank: 2
+      point_to_plane_jacobian_rank_max_exclusive: 6
+      rank_deficient: true
+    has_converged_raw_required: false
+
+cli_diagnostics:
+  required_scalar_fields:
+    - has_converged_raw
+    - final_transform_finite
+    - fitness_finite
+    - finite_output
+    - qualification_pass
+    - iteration_count
+    - correspondence_count
+  source_and_target_normal_fields:
+    - finite_count
+    - zero_count
+    - nan_count
+    - norm_min
+    - norm_median
+    - norm_max
+  failure_reason_vocabulary:
+    - NONFINITE_TRANSFORM
+    - NONFINITE_FITNESS
+    - PCL_NOT_CONVERGED
+    - NO_CORRESPONDENCES
+    - INVALID_NORMALS
+    - RANK_DEFICIENT_DIAGNOSTIC
+    - EXCEPTION
+  unified_v1_failure_reason_forbidden_in_v2_output: pcl_icp_did_not_converge_or_nonfinite
+
+authorization:
+  implementation_valid_expression: A_pass and B_pass and C_diagnostic_pass
+  phase_a_authorization_expression: PCL_BACKEND_IMPLEMENTATION_VALID
+  if_expression_true:
+    PCL_BACKEND_IMPLEMENTATION_VALID: true
+    PCL_BACKEND_PHASE_A_QUALIFICATION_AUTHORIZED: true
+  otherwise:
+    PCL_BACKEND_IMPLEMENTATION_VALID: false
+    PCL_BACKEND_PHASE_A_QUALIFICATION_AUTHORIZED: false
+  phase_a_execution_in_v2: false
+  phase_b_execution_in_v2: false
+  failed_test_parameter_rescue_forbidden: true
+  failed_test_third_backend_substitution_forbidden: true
