@@ -1,0 +1,23 @@
+{
+  "baseline_commit": "21d1ceb14907f78d9bb7e81ed2f70908c7ba3ebd",
+  "branch": "feature/zero-perturbation-backend-phase-a-runner-correction",
+  "formal_backend_execution_count": 0,
+  "formal_phase_a_executed": false,
+  "formal_rng_instantiation_count": 0,
+  "formal_snapshot_generation_count": 0,
+  "formal_trial_result_count": 0,
+  "git_push_performed": false,
+  "implementation_sha256": "7385b99006348c7c0e338b578ba16bd9d729ef7396be9b01fce015375dbf0694",
+  "phase_b_executed": false,
+  "protected_d50_restored": false,
+  "protected_fast_lio2_modified": false,
+  "protected_native_modified": false,
+  "protected_odi_modified": false,
+  "protected_open3d_modified": false,
+  "protected_pcl_parameters_or_cli_modified": false,
+  "protected_scene_generator_modified": false,
+  "protected_seed_schedule_modified": false,
+  "protected_snapshot_builder_modified": false,
+  "protocol_sha256": "11ad4ffa1e5303f005fa8dc600627b4a45ce31fc1bae9d8b6bb042f03a8ff27e",
+  "schema_version": "backend_phase_a_v1_1_lock_manifest_v1"
+}

@@ -1,0 +1,12 @@
+{
+  "CONFIRMATORY_SEED_ACCESS_COUNT": 0,
+  "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_RNG_INSTANTIATION_COUNT": 0,
+  "FORMAL_SNAPSHOT_GENERATION_COUNT": 0,
+  "FORMAL_TRIAL_RESULT_COUNT": 0,
+  "NATIVE_FORMAL_EXECUTION_COUNT": 0,
+  "OLD_CAPTURE_TEST_SEED_ACCESS_COUNT": 0,
+  "dry_run_rng_instantiation_count": 0,
+  "fixture_random_seed_used": false,
+  "schema_version": "backend_phase_a_v1_1_seed_usage_audit_v1"
+}

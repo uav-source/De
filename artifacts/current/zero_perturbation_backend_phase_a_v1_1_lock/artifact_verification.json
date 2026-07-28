@@ -1,0 +1,8 @@
+{
+  "artifact_sha_verification_pass": true,
+  "native_planned_trial_count": 0,
+  "planned_snapshot_count": 210,
+  "planned_trial_count": 420,
+  "precommit_structural_verification_pass": true,
+  "schema_version": "backend_phase_a_v1_1_artifact_verification_v1"
+}

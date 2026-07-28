@@ -1,0 +1,75 @@
+{
+  "BACKEND_PHASE_A_V1_1_PROTOCOL_LOCK_PASS": true,
+  "BACKEND_PHASE_A_V1_1_RUN_AUTHORIZED": true,
+  "base_protocol_sha256": "d5e657862294a79c1d01fc349d6f668501d07d3ec965d2d8807171dc3b952b8c",
+  "formal_execution_authorized": true,
+  "implementation": {
+    "files": {
+      "open3d_backend": {
+        "path": "src/zero_perturbation/open3d_backend.py",
+        "sha256": "eb327dd5d13f7cf099469e5e1a315e23c41d593cd7301d278135b4276b9f255f"
+      },
+      "pcl_cli_source": {
+        "path": "tools/pcl_point_to_plane/pcl_point_to_plane_cli.cpp",
+        "sha256": "2a7203b82cc9401c558fe3ad410d7eb5a2f253ca0578db7e2c2f069715fad56c"
+      },
+      "pcl_python_adapter": {
+        "path": "src/zero_perturbation/pcl_backend.py",
+        "sha256": "25e45b31bc90c93bc578104c994992c3f913437b12bf46389a8380d1d06b9e31"
+      },
+      "protocol_markdown": {
+        "path": "docs/zero_perturbation_backend_phase_a_v1_1_protocol.md",
+        "sha256": "012ddea5467d6e3176c652fa8339bca0ce1d4fe6f7605a52c58520efce324216"
+      },
+      "protocol_yaml": {
+        "path": "configs/zero_perturbation/backend_phase_a_v1_1.yaml",
+        "sha256": "11ad4ffa1e5303f005fa8dc600627b4a45ce31fc1bae9d8b6bb042f03a8ff27e"
+      },
+      "rotation_metric": {
+        "path": "src/zero_perturbation/rotation_metrics.py",
+        "sha256": "0ed2f040d275f013e26cfc3d9be0610511be436ba512333fed610daa663ffb8a"
+      },
+      "runner": {
+        "path": "scripts/168_run_backend_phase_a.py",
+        "sha256": "87fd8ebcdfa2c17cfe8359047cbb39e26c1dab7bbf03bc6b7e23d5394315ee6f"
+      },
+      "runner_engine": {
+        "path": "src/zero_perturbation/backend_phase_a_v1_1.py",
+        "sha256": "90e577cc31d9c5f311fe398e39897902b6bfb67f445089eed1232f0f0426922f"
+      },
+      "scene_generator": {
+        "path": "src/capture_range/day2_development_scene.py",
+        "sha256": "f1632095ab6c433e1e917cf0c9a49551683fce2f106761d41c3c3a5e6517b922"
+      },
+      "snapshot_builder": {
+        "path": "src/zero_perturbation/snapshot_builder.py",
+        "sha256": "6718fc442439e52327e01622df6356a0167456a6d7d8070f25d6e684ef69b72e"
+      },
+      "v1_1_verifier": {
+        "path": "src/zero_perturbation/backend_phase_a_v1_1_verification.py",
+        "sha256": "0f3165677de7cd2d1a5e944e0c9efd77258e22bb2e656cd791dd7ea5e42b4e1e"
+      }
+    },
+    "implementation_sha256": "728f7bb71083b6969c859d0ff3afe6631eff69b6d37098bb6ed92ad3faf1f7a9",
+    "pcl_cli_binary": {
+      "path": "build/pcl_point_to_plane_v3/pcl_point_to_plane_cli",
+      "sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff"
+    },
+    "schema_version": "backend_phase_a_v1_1_implementation_hashes_v1"
+  },
+  "implementation_sha256": "7385b99006348c7c0e338b578ba16bd9d729ef7396be9b01fce015375dbf0694",
+  "lock_payload_sha256": "89081de3e7795f4009ae00ae56d32480254f3cdc4b647820bce2e8d20ff659e3",
+  "open3d_parameter_sha256": "94a2d1e991658b7088be43ad1a82f9b1d783264736c3beb0217d6dd1c7a26413",
+  "pcl_parameter_sha256": "16b3d124f466f33c41a1ecfb27a103a570c3ad2055db9c87ae92c74dbba64abd",
+  "planned_snapshots_path": "artifacts/current/zero_perturbation_backend_phase_a_v1_1_lock/planned_snapshots.csv",
+  "planned_snapshots_sha256": "d6419f0269672e0d008a0affa23fc4b19dcf757f6464d1c4041e4a0002f6be1e",
+  "planned_trials_path": "artifacts/current/zero_perturbation_backend_phase_a_v1_1_lock/planned_trials.csv",
+  "planned_trials_sha256": "ac848d5017a776d0002426e720c512b3ab2b4b253ab05a85245ff1c1d25692bd",
+  "protocol_document_path": "docs/zero_perturbation_backend_phase_a_v1_1_protocol.md",
+  "protocol_document_sha256": "012ddea5467d6e3176c652fa8339bca0ce1d4fe6f7605a52c58520efce324216",
+  "protocol_lock_commit": "6ba769549f775ad7c9b09ca1645362d568c79e5a",
+  "protocol_lock_tag": "archive/zero-perturbation-backend-phase-a-v1.1-protocol-lock",
+  "protocol_path": "configs/zero_perturbation/backend_phase_a_v1_1.yaml",
+  "protocol_sha256": "11ad4ffa1e5303f005fa8dc600627b4a45ce31fc1bae9d8b6bb042f03a8ff27e",
+  "schema_version": "backend_phase_a_v1_1_protocol_lock_v1"
+}

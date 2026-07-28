@@ -1,0 +1,30 @@
+{
+  "atomic_write": "temporary sibling, flush, fsync, os.replace, directory fsync",
+  "duplicate_trial_overwrite_forbidden": true,
+  "forbidden_cli_arguments": [
+    "--backend-subset",
+    "--change-thresholds",
+    "--exclude-scene",
+    "--ignore-lock",
+    "--native",
+    "--override-parameters",
+    "--replace-seed",
+    "--skip-failure"
+  ],
+  "formal_execution_called": false,
+  "ignore_or_override_entry_present": false,
+  "new_runner_sha256": "87fd8ebcdfa2c17cfe8359047cbb39e26c1dab7bbf03bc6b7e23d5394315ee6f",
+  "old_runner_sha256": "9b53842e090e69e5d8a2ff5aa5de534c53394401571cbe0b0e20d8c3565fce84",
+  "placeholder_present": false,
+  "resume_requires_identity_protocol_implementation_and_checksum_match": true,
+  "schema_version": "backend_phase_a_v1_1_runner_contract_v1",
+  "supported_cli_arguments": [
+    "--dry-run",
+    "--help",
+    "--output-dir",
+    "--protocol-lock",
+    "--resume",
+    "--run-id",
+    "--workers"
+  ]
+}

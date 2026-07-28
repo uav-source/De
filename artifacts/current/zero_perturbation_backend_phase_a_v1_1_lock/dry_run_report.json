@@ -1,0 +1,16 @@
+{
+  "DRY_RUN_BACKEND_EXECUTION_COUNT": 0,
+  "DRY_RUN_PLANNED_SNAPSHOT_COUNT": 210,
+  "DRY_RUN_PLANNED_TRIAL_COUNT": 420,
+  "DRY_RUN_RNG_INSTANTIATION_COUNT": 0,
+  "DRY_RUN_SNAPSHOT_GENERATION_COUNT": 0,
+  "DRY_RUN_TRIAL_RESULT_COUNT": 0,
+  "dry_run_pass": true,
+  "formal_execution_authorized_by_lock": true,
+  "path_writable": true,
+  "pcl_cli_discovered": true,
+  "protocol_sha256": "11ad4ffa1e5303f005fa8dc600627b4a45ce31fc1bae9d8b6bb042f03a8ff27e",
+  "run_id": "backend-phase-a-v1-1-lock-dry-run",
+  "schema_version": "backend_phase_a_v1_1_dry_run_v1",
+  "summary": "210 snapshots / 420 trials; zero RNG, snapshot, backend, and trial-result activity"
+}
