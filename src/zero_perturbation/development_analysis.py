@@ -717,7 +717,9 @@ def _render_report(
         if not raw.get("smoke", False)
         else "one measurement seed × one repeat in this smoke; the frozen full design would use two × five"
     )
-    geometry_scope = 3 if not raw.get("smoke", False) else 1
+    geometry_scope = (
+        "three geometry seeds" if not raw.get("smoke", False) else "one geometry seed"
+    )
     stop_note = (
         "The smoke failed the first hard gate, so the complete 1260-snapshot / 3780-trial Development matrix was not run, exactly as required by the frozen stopping rule."
         if raw.get("smoke", False)
@@ -794,7 +796,7 @@ Traditional Hessian metrics use the native initial correspondence system, the na
 ## Limitations, uncertainty, and robustness checks
 
 - Synthetic Development evidence cannot establish real-data validity, causal mechanism, or Measurement-paper readiness.
-- Only {geometry_scope} geometry seed(s) underlie the saved exploratory block calculations; in the early-stop smoke the one-block interval collapses and is not an uncertainty estimate.
+- Only {geometry_scope} underlie the saved exploratory block calculations; in the early-stop smoke the one-block interval collapses and is not an uncertainty estimate.
 - Open3D exposes the final correspondence set, fitness, and RMSE but not a portable per-iteration convergence flag; the backend failure contract therefore requires a finite transform/metrics and a non-empty final correspondence set.
 - `multi_attractor_summary.csv` is an audit-only endpoint-bin proxy at 1e-4 m/rad and does not authorize a formal multi-attractor claim.
 - All nine figures were generated from the saved CSV evidence and are subordinate to exact tables.
