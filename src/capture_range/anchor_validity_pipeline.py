@@ -1466,6 +1466,7 @@ def run_anchor_validity_audit(
         "seed_access_audit": dict(seed_audit),
         "source_snapshot_checksum_mismatch_count": 0,
         "noise_ablation_summary": noise_summary,
+        "noise_free_success_to_failure_crossing_fraction": crossing,
         "fixed_point_summary": fixed_summary,
         "anchor_candidate_summary": anchor_summaries,
         "d50_zero_root_cause_counts": root_counts,
@@ -1523,6 +1524,13 @@ def run_anchor_validity_audit(
             "| {method} | {median_reference_gradient_norm:.9g} | {q95_reference_gradient_norm:.9g} | {median_one_step_translation_m:.9g} | {q95_one_step_translation_m:.9g} | {reference_not_fixed_point_fraction:.6f} |".format(**row)
             for row in fixed_summary
         ],
+        "",
+        "The noise-induced status is based on matched-snapshot threshold crossings: "
+        f"NOISE_FREE success to SCAN_NOISE_ONLY failure = {crossing['SCAN_NOISE_ONLY']:.6f}; "
+        f"NOISE_FREE success to MAP_NOISE_ONLY failure = {crossing['MAP_NOISE_ONLY']:.6f}. "
+        f"Aggregate full-reassociation success rates were NOISE_FREE = {nf_full:.6f}, "
+        f"SCAN_NOISE_ONLY = {scan_full:.6f}, and MAP_NOISE_ONLY = {map_full:.6f}; "
+        "therefore the confirmation does not assert an aggregate success-rate degradation or a dominant noise mechanism.",
         "",
         "Dropout causality is not identifiable from the frozen four contrasts because LOCKED_FULL_NOISE changes scan noise, map noise, and dropout together. The audit therefore does not claim a dropout-induced shift.",
         "",
