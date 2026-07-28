@@ -473,6 +473,21 @@ def verify_stage0_cache(
         + int(row["actual_error_bound_violation_count"])
         for row in snapshot_rows
     )
+    snapshot_gate_failure_count = sum(
+        int(
+            not (
+                row["source_inverse_transform_pass"]
+                and row["reference_rotation_quality_pass"]
+                and row["quantization_closure_pass"]
+                and row["raw_checksum_pass"]
+                and row["file_checksum_pass"]
+                and row["metadata_checksum_pass"]
+                and row["snapshot_checksum_pass"]
+                and row["metadata_statistics_match"]
+            )
+        )
+        for row in snapshot_rows
+    )
     all_complete = bool(
         len(snapshot_rows) == 210
         and not missing
@@ -485,7 +500,13 @@ def verify_stage0_cache(
     cache_pass = checksum_violations == 0 and len(snapshot_rows) == 210
     diversity_pass = all(row["scene_diversity_pass"] for row in diversity_rows)
     verification_pass = bool(
-        all_complete and lineage_pass and closure_pass and cache_pass and diversity_pass
+        all_complete
+        and lineage_pass
+        and closure_pass
+        and cache_pass
+        and diversity_pass
+        and snapshot_gate_failure_count == 0
+        and not failures
     )
     return {
         "schema_version": "backend_phase_a_v1_2_independent_verification_v1",
@@ -502,6 +523,7 @@ def verify_stage0_cache(
         "lineage_violation_count": lineage_violations,
         "cache_checksum_violation_count": checksum_violations,
         "closure_violation_count": closure_violations,
+        "snapshot_gate_failure_count": snapshot_gate_failure_count,
         "ALL_210_STAGE0_SNAPSHOTS_COMPLETE": all_complete,
         "SNAPSHOT_PROVENANCE_LINEAGE_PASS": lineage_pass,
         "FLOAT32_RECONSTRUCTION_CLOSURE_PASS": closure_pass,
