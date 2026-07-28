@@ -23,7 +23,10 @@ REQUIRED_RESULT_FIELDS = frozenset(
         "trial_id",
         "backend_name",
         "pcl_version",
+        "has_converged_raw",
         "has_converged",
+        "final_transform_finite",
+        "fitness_finite",
         "fitness_score",
         "final_transformation_4x4",
         "translation_update_norm_m",
@@ -31,6 +34,21 @@ REQUIRED_RESULT_FIELDS = frozenset(
         "source_point_count",
         "target_point_count",
         "finite_output",
+        "qualification_pass",
+        "iteration_count",
+        "correspondence_count",
+        "source_normal_finite_count",
+        "source_normal_zero_count",
+        "source_normal_nan_count",
+        "source_normal_norm_min",
+        "source_normal_norm_median",
+        "source_normal_norm_max",
+        "target_normal_finite_count",
+        "target_normal_zero_count",
+        "target_normal_nan_count",
+        "target_normal_norm_min",
+        "target_normal_norm_median",
+        "target_normal_norm_max",
         "runtime_ms",
         "failure_reason",
         "source_checksum",
@@ -46,12 +64,19 @@ class PclBackendResult:
     trial_id: str
     final_transformation: np.ndarray | None
     has_converged: bool
+    final_transform_finite: bool
+    fitness_finite: bool
     finite_output: bool
+    qualification_pass: bool
     fitness_score: float | None
     translation_update_norm_m: float | None
     rotation_update_norm_rad: float | None
     source_point_count: int
     target_point_count: int
+    iteration_count: int
+    correspondence_count: int
+    source_normal_statistics: Mapping[str, float | int | None]
+    target_normal_statistics: Mapping[str, float | int | None]
     runtime_ms: float
     failure_reason: str
     pcl_version: str
@@ -66,6 +91,16 @@ class PclBackendResult:
             matrix.setflags(write=False)
             object.__setattr__(self, "final_transformation", matrix)
         object.__setattr__(self, "checksums", MappingProxyType(dict(self.checksums)))
+        object.__setattr__(
+            self,
+            "source_normal_statistics",
+            MappingProxyType(dict(self.source_normal_statistics)),
+        )
+        object.__setattr__(
+            self,
+            "target_normal_statistics",
+            MappingProxyType(dict(self.target_normal_statistics)),
+        )
 
     @property
     def solver_failed(self) -> bool:
@@ -170,6 +205,12 @@ def validate_result_payload(
             raise ValueError(f"PCL checksum echo mismatch: {name}")
 
     finite_output = bool(payload["finite_output"])
+    if bool(payload["has_converged"]) != bool(payload["has_converged_raw"]):
+        raise ValueError("PCL raw and compatibility convergence fields disagree")
+    if bool(payload["final_transform_finite"]) != (
+        payload["final_transformation_4x4"] is not None
+    ):
+        raise ValueError("PCL transform finiteness field disagrees with payload")
     raw_matrix = payload["final_transformation_4x4"]
     matrix: np.ndarray | None
     if raw_matrix is None:
@@ -197,8 +238,11 @@ def validate_result_payload(
     return PclBackendResult(
         trial_id=trial_id,
         final_transformation=matrix,
-        has_converged=bool(payload["has_converged"]),
+        has_converged=bool(payload["has_converged_raw"]),
+        final_transform_finite=bool(payload["final_transform_finite"]),
+        fitness_finite=bool(payload["fitness_finite"]),
         finite_output=finite_output,
+        qualification_pass=bool(payload["qualification_pass"]),
         fitness_score=_finite_optional(payload["fitness_score"], "fitness"),
         translation_update_norm_m=_finite_optional(
             payload["translation_update_norm_m"], "translation"
@@ -208,6 +252,30 @@ def validate_result_payload(
         ),
         source_point_count=int(payload["source_point_count"]),
         target_point_count=int(payload["target_point_count"]),
+        iteration_count=int(payload["iteration_count"]),
+        correspondence_count=int(payload["correspondence_count"]),
+        source_normal_statistics={
+            name: payload[f"source_normal_{name}"]
+            for name in (
+                "finite_count",
+                "zero_count",
+                "nan_count",
+                "norm_min",
+                "norm_median",
+                "norm_max",
+            )
+        },
+        target_normal_statistics={
+            name: payload[f"target_normal_{name}"]
+            for name in (
+                "finite_count",
+                "zero_count",
+                "nan_count",
+                "norm_min",
+                "norm_median",
+                "norm_max",
+            )
+        },
         runtime_ms=float(payload["runtime_ms"]),
         failure_reason=str(payload["failure_reason"]),
         pcl_version=str(payload["pcl_version"]),

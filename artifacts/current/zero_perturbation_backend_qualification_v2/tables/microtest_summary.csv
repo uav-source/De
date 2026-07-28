@@ -1,0 +1,4 @@
+test_id,microtest,pass,has_converged_raw,final_transform_finite,fitness_finite,translation_update_norm_m,rotation_update_norm_rad,translation_error_to_truth_m,rotation_error_to_truth_rad,point_cloud_rank,point_to_plane_jacobian_rank,rank_deficient
+A,NONDEGENERATE_IDENTITY,True,True,True,True,1.4692796979076661e-09,0.0,,,3,6,False
+B,KNOWN_SMALL_TRANSFORM,False,True,True,True,0.037416569888591766,0.010764411191963025,5.251625720499032e-09,0.0001355172291302067,3,6,False
+C,PLANAR_DEGENERACY_DIAGNOSTIC,True,True,False,True,,,,,2,3,True

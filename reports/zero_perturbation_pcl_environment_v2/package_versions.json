@@ -1,0 +1,8 @@
+{
+  "boost": "1.90.0",
+  "eigen": "5.0.1",
+  "flann": "1.9.2",
+  "pcl": "1.15.1",
+  "pcl_environment": "degen-lio-pcl-backend",
+  "pcl_version_changed": false
+}

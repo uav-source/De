@@ -1,0 +1,13 @@
+{
+  "enforce_same_direction_normals": true,
+  "euclidean_fitness_epsilon": 1e-10,
+  "maximum_correspondence_distance_m": 0.5,
+  "maximum_iterations": 50,
+  "normal_k": 50,
+  "normal_threads": 1,
+  "parameter_lock_pass": true,
+  "pcl_version": "1.15.1",
+  "transformation_epsilon": 1e-10,
+  "use_reciprocal_correspondences": false,
+  "use_symmetric_objective": false
+}

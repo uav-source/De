@@ -1,0 +1,176 @@
+{
+  "cli_command": [
+    "/home/lj/Degen-LIO/build/pcl_point_to_plane/pcl_point_to_plane_cli",
+    "--config",
+    "/home/lj/Degen-LIO/tests/data/pcl_backend_v2/nondegenerate_identity_config.json"
+  ],
+  "cli_exit_code": 0,
+  "cli_result": {
+    "backend_name": "pcl_point_to_plane",
+    "condition_status": "FULL_RANK",
+    "correspondence_count": 806,
+    "diagnostic_correspondence_count": 806,
+    "exception_message": null,
+    "failure_flags": [],
+    "failure_reason": "",
+    "final_transform_finite": true,
+    "final_transformation_4x4": [
+      1.0,
+      1.7658956241728418e-10,
+      1.392847059911162e-09,
+      8.083248514978436e-10,
+      -1.7658956241728418e-10,
+      1.0,
+      -4.572499323618473e-10,
+      -7.495852272221271e-10,
+      -1.392847059911162e-09,
+      4.572499323618473e-10,
+      1.0,
+      -9.713473358985425e-10,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "finite_output": true,
+    "fitness_finite": true,
+    "fitness_score": 9.152691376713785e-19,
+    "has_converged": true,
+    "has_converged_raw": true,
+    "iteration_count": 1,
+    "pcl_version": "1.15.1",
+    "point_cloud_covariance_eigenvalues": [
+      0.16219735136717406,
+      0.16384882205206255,
+      0.23050542118858003
+    ],
+    "point_cloud_rank": 3,
+    "point_cloud_rank_tolerance": 1.7896795156957523e-13,
+    "point_to_plane_hessian_eigenvalues": [
+      118.01923246777201,
+      119.47448076977795,
+      124.16784961960747,
+      230.02167799584092,
+      294.94216489723243,
+      306.6338104993603
+    ],
+    "point_to_plane_jacobian_rank": 6,
+    "point_to_plane_rank_tolerance": 5.487762494704383e-11,
+    "qualification_pass": true,
+    "rank_deficient": false,
+    "reference_pose_checksum": "identity-pose-v2",
+    "rotation_update_norm_rad": 0.0,
+    "runtime_ms": 7.415137,
+    "snapshot_checksum": "pcl-v2-nondegenerate-identity-snapshot",
+    "source_checksum": "7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c",
+    "source_normal_direction_rank": 3,
+    "source_normal_finite_count": 806,
+    "source_normal_nan_count": 0,
+    "source_normal_norm_max": 1.0000000884329288,
+    "source_normal_norm_median": 1.0,
+    "source_normal_norm_min": 0.9999998987129718,
+    "source_normal_zero_count": 0,
+    "source_point_count": 806,
+    "target_checksum": "7e915549557e064854698741e65333a3b61928c7da9bc59162454a6f8017c00c",
+    "target_normal_direction_rank": 3,
+    "target_normal_finite_count": 806,
+    "target_normal_nan_count": 0,
+    "target_normal_norm_max": 1.0000000884329288,
+    "target_normal_norm_median": 1.0,
+    "target_normal_norm_min": 0.9999998987129718,
+    "target_normal_zero_count": 0,
+    "target_point_count": 806,
+    "translation_update_norm_m": 1.4692796979076661e-09,
+    "trial_id": "pcl-v2-nondegenerate-identity"
+  },
+  "cli_stderr": "",
+  "gate_checks": {
+    "cli_exit_code": {
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    "correspondence_count": {
+      "actual": 806,
+      "expected": "> 0",
+      "pass": true
+    },
+    "failure_reason_vocabulary": {
+      "actual": "",
+      "expected": [
+        "",
+        "EXCEPTION",
+        "INVALID_NORMALS",
+        "NONFINITE_FITNESS",
+        "NONFINITE_TRANSFORM",
+        "NO_CORRESPONDENCES",
+        "PCL_NOT_CONVERGED",
+        "RANK_DEFICIENT_DIAGNOSTIC"
+      ],
+      "pass": true
+    },
+    "final_transform_finite": {
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    "fitness_finite": {
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    "has_converged_raw": {
+      "actual": true,
+      "expected": true,
+      "pass": true
+    },
+    "required_fields_present": {
+      "actual": [],
+      "expected": [],
+      "pass": true
+    },
+    "rotation_update_norm_rad": {
+      "actual": 0.0,
+      "expected": "<= 1e-8",
+      "pass": true
+    },
+    "source_normal_nan_count": {
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    "source_normal_zero_count": {
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    "stdout_is_one_json_document": {
+      "actual": "",
+      "expected": "",
+      "pass": true
+    },
+    "target_normal_nan_count": {
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    "target_normal_zero_count": {
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    "translation_update_norm_m": {
+      "actual": 1.4692796979076661e-09,
+      "expected": "<= 1e-8",
+      "pass": true
+    },
+    "v1_unified_failure_reason_absent": {
+      "actual": "",
+      "expected": "not pcl_icp_did_not_converge_or_nonfinite",
+      "pass": true
+    }
+  },
+  "microtest": "NONDEGENERATE_IDENTITY",
+  "microtest_pass": true,
+  "schema_version": "pcl_backend_qualification_v2_microtest_result_v1"
+}

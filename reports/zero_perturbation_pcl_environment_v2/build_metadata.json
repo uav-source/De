@@ -1,0 +1,10 @@
+{
+  "cli_compiled": true,
+  "cli_sha256": "231cee001082ee7fcc3d700e1abaad15d244e02c0aa0df9c0884c51d9da48f40",
+  "cmake_build": "build/pcl_point_to_plane",
+  "cmake_source": "tools/pcl_point_to_plane",
+  "ctest_count": 3,
+  "ctest_fail_count": 1,
+  "ctest_pass_count": 2,
+  "failed_test": "pcl_v2_known_small_transform"
+}

@@ -1,0 +1,33 @@
+{
+  "baseline_commit": "04cb2e36c2af75500ae1b5c65bd7c2b037613bfe",
+  "branch": "feature/zero-perturbation-pcl-backend-qualification-v2",
+  "confirmatory_run_executed": false,
+  "ctest_command": "MAMBA_ROOT_PREFIX=/home/lj/.local/share/degen-lio-micromamba /home/lj/.local/bin/micromamba run -n degen-lio-pcl-backend ctest --test-dir build/pcl_point_to_plane -L pcl_backend_qualification_v2 -V --output-on-failure",
+  "ctest_execution_count": 1,
+  "development_run_executed": false,
+  "fixture_generator_sha256": "40ff3b4045bad58b42ac3fdfa331d2a62aead2df502146d1211ca8215208e498",
+  "formal_pcl_parameters_modified": false,
+  "git_push_performed": false,
+  "microtest_execution_count": {
+    "A": 1,
+    "B": 1,
+    "C": 1
+  },
+  "microtest_failure_count": 1,
+  "microtest_pass_count": 2,
+  "native_modified": false,
+  "open3d_modified": false,
+  "pcl_cli_sha256": "231cee001082ee7fcc3d700e1abaad15d244e02c0aa0df9c0884c51d9da48f40",
+  "pcl_version": "1.15.1",
+  "phase_a_executed": false,
+  "phase_b_executed": false,
+  "protocol_lock_commit": "cc059956e5218e219bb3ec6ad027437fa37d3e13",
+  "protocol_path": "configs/zero_perturbation/backend_qualification_v2.yaml",
+  "protocol_sha256": "e70595eecc0ac41cf2e04e843ce1d3e2ca31c1caf05757be1fc28fd4647e3709",
+  "schema_version": "pcl_backend_qualification_v2_run_manifest_v1",
+  "seed_access_count": 0,
+  "stop_reason": "KNOWN_SMALL_TRANSFORM_ROTATION_ERROR_GATE_FAILED",
+  "truth_passed_to_cli": false,
+  "v1_fixture_modified": false,
+  "v1_reports_modified": false
+}
