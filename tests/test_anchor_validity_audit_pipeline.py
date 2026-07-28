@@ -7,6 +7,7 @@ from capture_range.anchor_validity_pipeline import (
     FIGURE_FILES,
     TABLE_FILES,
     TOP_LEVEL_FILES,
+    _figures,
     verify_anchor_validity_audit_output,
 )
 
@@ -53,3 +54,50 @@ def test_pipeline_output_contract_requires_exact_files_checksums_and_fixed_test_
     (artifact / "tables" / TABLE_FILES[0]).write_text("changed\n", encoding="utf-8")
     with pytest.raises(ValueError, match="checksum mismatch"):
         verify_anchor_validity_audit_output(artifact)
+
+
+def test_all_six_figures_render_with_locked_matplotlib_api(tmp_path):
+    figures = tmp_path / "figures"
+    figures.mkdir()
+    formal = [
+        {
+            "scene_variant": "SENTINEL",
+            "method": method,
+            "zero_translation_shift_from_reference_m": 0.0,
+            "zero_gradient_norm_at_reference": 0.0,
+        }
+        for method in ("full_reassociation", "frozen_jacobian")
+    ]
+    noise = [
+        {"condition_id": condition, "method": method, "success_rate": 1.0}
+        for condition in (
+            "NOISE_FREE",
+            "SCAN_NOISE_ONLY",
+            "MAP_NOISE_ONLY",
+            "LOCKED_FULL_NOISE",
+        )
+        for method in ("full_reassociation", "frozen_jacobian")
+    ]
+    anchors = [
+        {"candidate_anchor": candidate, "anchor_translation_error_to_gt_m": 0.0}
+        for candidate in (
+            "GT_REFERENCE_ANCHOR",
+            "FULL_ZERO_SOLUTION_ANCHOR",
+            "NOISE_FREE_FULL_SOLUTION_ANCHOR",
+        )
+    ]
+    dispersion = [
+        {"candidate_anchor": row["candidate_anchor"], "maximum_pairwise_translation_m": 0.0}
+        for row in anchors
+    ]
+    mechanisms = [
+        {
+            "difference_explained_by_correspondence_switch": True,
+            "difference_explained_by_anchor_mismatch": False,
+            "difference_explained_by_solver_failure": False,
+            "difference_unexplained": False,
+        }
+    ]
+    _figures(figures, formal, noise, anchors, dispersion, mechanisms)
+    assert {path.name for path in figures.iterdir()} == set(FIGURE_FILES)
+    assert all((figures / name).read_bytes().startswith(b"\x89PNG") for name in FIGURE_FILES)

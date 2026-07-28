@@ -1048,7 +1048,7 @@ def _figures(
         ]
         for scene in scenes
     ]
-    ax.boxplot(values, tick_labels=scenes, showfliers=False)
+    ax.boxplot(values, labels=scenes, showfliers=False)
     ax.set_yscale("symlog", linthresh=1.0e-10)
     ax.tick_params(axis="x", rotation=25)
     ax.set_ylabel("robust gradient norm")
@@ -1083,7 +1083,7 @@ def _figures(
         ]
         for candidate in candidates
     ]
-    ax.boxplot(data, tick_labels=candidates, showfliers=False)
+    ax.boxplot(data, labels=candidates, showfliers=False)
     ax.tick_params(axis="x", rotation=20)
     ax.set_ylabel("anchor translation error to GT (m)")
     fig.tight_layout()
