@@ -1,0 +1,22 @@
+{
+  "LEGACY_LOCK_FIELD_CLASSIFICATION_PASS": true,
+  "LOCK_GRAPH_ACYCLIC": true,
+  "LOCK_GRAPH_DUPLICATE_BINDING_COUNT": 0,
+  "SCIENTIFIC_LOCK_IMPLEMENTATION_FIELD_COUNT": 0,
+  "SCIENTIFIC_PROTOCOL_PROJECTION_PASS": true,
+  "SNAPSHOT_LOCK_V2_BINDING_PASS": true,
+  "classification_counts": {
+    "DOCUMENT_METADATA": 6,
+    "EXECUTION_IMPLEMENTATION": 64,
+    "FORMAL_RUN_AUTHORIZATION": 3,
+    "LEGACY_DUPLICATE": 1,
+    "SCIENTIFIC_PROTOCOL": 9,
+    "SNAPSHOT_PROVENANCE": 1
+  },
+  "legacy_field_total_count": 84,
+  "machine_audit_field_count": 84,
+  "manual_audit_field_count": 84,
+  "multiply_classified_field_count": 0,
+  "schema_version": "phase_a_lock_architecture_v2_preparation_v1",
+  "unclassified_field_count": 0
+}

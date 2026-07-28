@@ -1,0 +1,21 @@
+{
+  "SNAPSHOT_LOCK_V2_BINDING_PASS": true,
+  "binding_payload_sha256": "bfcd24cbc04457e9a0df657959672be992e9810b2404647df98fb1beef1b4627",
+  "canonical_cache_pass": true,
+  "closure_pass": true,
+  "complete_snapshot_count": 210,
+  "corrupt_snapshot_count": 0,
+  "diversity_pass": true,
+  "duplicate_snapshot_count": 0,
+  "extra_snapshot_count": 0,
+  "lineage_pass": true,
+  "missing_snapshot_count": 0,
+  "planned_snapshot_count": 210,
+  "schema_version": "phase_a_snapshot_lock_binding_v2",
+  "snapshot_lock_file_sha256": "a63f8ea07e9420f72c08cf1c16812ee058f5e2bfa0575a5e3d39f6bda2f21f8a",
+  "snapshot_lock_path": "artifacts/current/zero_perturbation_backend_phase_a_v1_2_stage0/backend_phase_a_v1_2_snapshot_lock.json",
+  "snapshot_lock_payload_sha256": "bc589f5b8aae4c18a66c28b2d40fb4ff2cf1914142b916500db945286e50a44d",
+  "stage0_cache_root": "data/zero_perturbation/backend_phase_a_v1_2_stage0",
+  "stage0_manifest_path": "artifacts/current/zero_perturbation_backend_phase_a_v1_2_stage0/run_manifest.json",
+  "stage0_manifest_sha256": "549b7deac3791a98dcf674acaba9adbd7497e73df62705eb37cc66c4823f9e76"
+}

@@ -1,0 +1,23 @@
+{
+  "SCIENTIFIC_PROTOCOL_PROJECTION_PASS": true,
+  "allowed_backend_difference_count": 0,
+  "backend_algorithm_difference_count": 0,
+  "backend_parameter_difference_count": 0,
+  "backend_version_difference_count": 0,
+  "condition_difference_count": 0,
+  "failure_definition_difference_count": 0,
+  "forbidden_backend_difference_count": 0,
+  "geometry_seed_difference_count": 0,
+  "measurement_seed_difference_count": 0,
+  "planned_snapshot_count_difference": 0,
+  "planned_trial_count_difference": 0,
+  "qualification_gate_difference_count": 0,
+  "quantile_method_difference_count": 0,
+  "repeat_difference_count": 0,
+  "rotation_metric_difference_count": 0,
+  "scene_difference_count": 0,
+  "schema_version": "phase_a_scientific_protocol_projection_diff_v2",
+  "threshold_difference_count": 0,
+  "transform_semantics_difference_count": 0,
+  "translation_metric_difference_count": 0
+}

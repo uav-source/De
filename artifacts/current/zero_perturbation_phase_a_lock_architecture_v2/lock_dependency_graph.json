@@ -1,0 +1,25 @@
+{
+  "LOCK_GRAPH_ACYCLIC": true,
+  "LOCK_GRAPH_DUPLICATE_BINDING_COUNT": 0,
+  "edges": [
+    {
+      "from": "Scientific Protocol Lock v2",
+      "to": "Formal Run Lock v2"
+    },
+    {
+      "from": "Snapshot Lock",
+      "to": "Formal Run Lock v2"
+    },
+    {
+      "from": "Execution Implementation Lock v2",
+      "to": "Formal Run Lock v2"
+    }
+  ],
+  "nodes": [
+    "Scientific Protocol Lock v2",
+    "Snapshot Lock",
+    "Execution Implementation Lock v2",
+    "Formal Run Lock v2"
+  ],
+  "schema_version": "phase_a_lock_dependency_graph_v2"
+}

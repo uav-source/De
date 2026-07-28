@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase_a_execution_implementation_lock_v2.schema.json",
+  "title": "Phase A Execution Implementation Lock v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "lock_type", "lock_version",
+    "execution_chain_audit_path", "execution_chain_audit_sha256",
+    "execution_chain_audit_pass", "implementation_bindings",
+    "fixture_contract_binding", "implementation_payload_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase_a_execution_implementation_lock_v2"},
+    "lock_type": {"const": "phase_a_execution_implementation_lock"},
+    "lock_version": {"const": "2"},
+    "execution_chain_audit_path": {"type": "string", "minLength": 1},
+    "execution_chain_audit_sha256": {"$ref": "#/$defs/sha256"},
+    "execution_chain_audit_pass": {"const": true},
+    "implementation_bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formal_runner_sha256", "execution_engine_sha256",
+        "trial_result_schema_sha256", "trial_result_validator_sha256",
+        "trial_result_writer_sha256", "trial_resume_validator_sha256",
+        "attempt_event_writer_sha256", "resume_scientific_equivalence_sha256",
+        "stage1_analysis_sha256", "independent_verifier_sha256",
+        "publisher_sha256", "artifact_verifier_sha256",
+        "open3d_adapter_sha256", "pcl_adapter_sha256", "pcl_cli_sha256",
+        "rotation_metric_sha256"
+      ],
+      "properties": {
+        "formal_runner_sha256": {"$ref": "#/$defs/sha256"},
+        "execution_engine_sha256": {"$ref": "#/$defs/sha256"},
+        "trial_result_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "trial_result_validator_sha256": {"$ref": "#/$defs/sha256"},
+        "trial_result_writer_sha256": {"$ref": "#/$defs/sha256"},
+        "trial_resume_validator_sha256": {"$ref": "#/$defs/sha256"},
+        "attempt_event_writer_sha256": {"$ref": "#/$defs/sha256"},
+        "resume_scientific_equivalence_sha256": {"$ref": "#/$defs/sha256"},
+        "stage1_analysis_sha256": {"$ref": "#/$defs/sha256"},
+        "independent_verifier_sha256": {"$ref": "#/$defs/sha256"},
+        "publisher_sha256": {"$ref": "#/$defs/sha256"},
+        "artifact_verifier_sha256": {"$ref": "#/$defs/sha256"},
+        "open3d_adapter_sha256": {"$ref": "#/$defs/sha256"},
+        "pcl_adapter_sha256": {"$ref": "#/$defs/sha256"},
+        "pcl_cli_sha256": {"$ref": "#/$defs/sha256"},
+        "rotation_metric_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "fixture_contract_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixture_protocol_lock_path", "fixture_protocol_lock_sha256",
+        "fixture_lock_path", "fixture_lock_sha256",
+        "fixture_plan_path", "fixture_plan_sha256",
+        "fixture_parameter_lock_path", "fixture_parameter_lock_sha256",
+        "fixture_builder_path", "fixture_builder_sha256",
+        "fixture_snapshot_count", "fixture_trial_count"
+      ],
+      "properties": {
+        "fixture_protocol_lock_path": {"type": "string"},
+        "fixture_protocol_lock_sha256": {"$ref": "#/$defs/sha256"},
+        "fixture_lock_path": {"type": "string"},
+        "fixture_lock_sha256": {"$ref": "#/$defs/sha256"},
+        "fixture_plan_path": {"type": "string"},
+        "fixture_plan_sha256": {"$ref": "#/$defs/sha256"},
+        "fixture_parameter_lock_path": {"type": "string"},
+        "fixture_parameter_lock_sha256": {"$ref": "#/$defs/sha256"},
+        "fixture_builder_path": {"type": "string"},
+        "fixture_builder_sha256": {"$ref": "#/$defs/sha256"},
+        "fixture_snapshot_count": {"const": 3},
+        "fixture_trial_count": {"const": 6}
+      }
+    },
+    "implementation_payload_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

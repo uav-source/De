@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase_a_formal_run_lock_v2.schema.json",
+  "title": "Phase A Formal Run Lock v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "lock_type", "lock_version",
+    "scientific_protocol_lock_path", "scientific_protocol_lock_sha256",
+    "snapshot_lock_path", "snapshot_lock_sha256",
+    "execution_implementation_lock_path", "execution_implementation_lock_sha256",
+    "planned_snapshots_path", "planned_snapshots_sha256",
+    "planned_trials_path", "planned_trials_sha256",
+    "planned_snapshot_count", "planned_trial_count", "allowed_backends",
+    "forbidden_backends", "condition", "formal_execution_authorized",
+    "required_trial_schema_version", "formal_payload_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase_a_formal_run_lock_v2"},
+    "lock_type": {"const": "phase_a_formal_run_lock"},
+    "lock_version": {"const": "2"},
+    "scientific_protocol_lock_path": {"type": "string", "minLength": 1},
+    "scientific_protocol_lock_sha256": {"$ref": "#/$defs/sha256"},
+    "snapshot_lock_path": {"type": "string", "minLength": 1},
+    "snapshot_lock_sha256": {"$ref": "#/$defs/sha256"},
+    "execution_implementation_lock_path": {"type": "string", "minLength": 1},
+    "execution_implementation_lock_sha256": {"$ref": "#/$defs/sha256"},
+    "planned_snapshots_path": {"type": "string", "minLength": 1},
+    "planned_snapshots_sha256": {"$ref": "#/$defs/sha256"},
+    "planned_trials_path": {"type": "string", "minLength": 1},
+    "planned_trials_sha256": {"$ref": "#/$defs/sha256"},
+    "planned_snapshot_count": {"const": 210},
+    "planned_trial_count": {"const": 420},
+    "allowed_backends": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string"}},
+    "forbidden_backends": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "condition": {"const": "IDEAL_MATCHED"},
+    "formal_execution_authorized": {"const": true},
+    "required_trial_schema_version": {"const": "phase_a_trial_result_v1"},
+    "formal_payload_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

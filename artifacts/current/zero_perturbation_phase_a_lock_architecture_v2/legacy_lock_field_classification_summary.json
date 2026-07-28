@@ -1,0 +1,17 @@
+{
+  "LEGACY_LOCK_FIELD_CLASSIFICATION_PASS": true,
+  "classification_counts": {
+    "DOCUMENT_METADATA": 6,
+    "EXECUTION_IMPLEMENTATION": 64,
+    "FORMAL_RUN_AUTHORIZATION": 3,
+    "LEGACY_DUPLICATE": 1,
+    "SCIENTIFIC_PROTOCOL": 9,
+    "SNAPSHOT_PROVENANCE": 1
+  },
+  "legacy_field_total_count": 84,
+  "machine_audit_field_count": 84,
+  "manual_audit_field_count": 84,
+  "multiply_classified_field_count": 0,
+  "schema_version": "phase_a_legacy_lock_field_classification_v2",
+  "unclassified_field_count": 0
+}
