@@ -1,0 +1,61 @@
+{
+  "derived_seed_provenance": {
+    "audit_version": "seed_provenance_context_v1",
+    "candidate_seeds": [
+      198112089,
+      217775206,
+      226655024,
+      229684695,
+      248284635,
+      326720362,
+      376488233,
+      469989467,
+      738007943,
+      910140651,
+      916609326,
+      1004155548,
+      1083684578,
+      1088311622,
+      1191248828,
+      1334931069,
+      1664898153,
+      1850310744,
+      1957656152
+    ],
+    "collision_count": 0,
+    "collisions": [],
+    "definition": {
+      "bare_numeric_matches_are_collisions": false,
+      "code_contexts": [
+        "np.random/numpy.random/random.seed/default_rng/mt19937",
+        "seeded RNG calls",
+        "bootstrap initialization",
+        "scene-generator RNG initialization"
+      ],
+      "csv_columns": [
+        "seed",
+        "random_state",
+        "rng"
+      ],
+      "structured_fields": [
+        "seed",
+        "random_state",
+        "rng"
+      ]
+    },
+    "derived_seed_provenance_collision": false,
+    "parse_errors": [],
+    "scanned_candidate_files": {
+      "cpp": 0,
+      "csv": 0,
+      "json_yaml": 0,
+      "python": 0
+    }
+  },
+  "matches": [],
+  "namespace": "zero_perturbation_registration_measurement_v1_20260728",
+  "schema_version": "zero_perturbation_seed_namespace_audit_v1",
+  "search_command": "grep -RIn 'zero_perturbation_registration_measurement_v1_20260728' . --exclude-dir=.git",
+  "search_performed_before_any_file_modification": true,
+  "seed_namespace_collision": false
+}

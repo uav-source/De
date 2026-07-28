@@ -1,0 +1,58 @@
+{
+  "creation_command": "micromamba create -y -n degen-lio-zprm-py311 -c conda-forge python=3.11 numpy=1.26.4 scipy=1.11.4 pandas=2.1.4 matplotlib=3.8.2 pyyaml=6.0.1 pytest=8.3.5 tqdm=4.66.5 jsonschema=4.23.0 scikit-learn open3d",
+  "environment_directory_committed": false,
+  "environment_name": "degen-lio-zprm-py311",
+  "full_pytest": {
+    "duration_seconds": 64.51,
+    "log": "reports/zero_perturbation_environment/full_pytest.txt",
+    "log_sha256": "6f1a1586682768dd94407642a47bae6489f55cab95675ac8371903a5d7102b4a",
+    "passed": 1493,
+    "skipped": 1,
+    "warnings": 262
+  },
+  "full_pytest_pass": true,
+  "initial_full_pytest": {
+    "classification": "A_ENVIRONMENT_BUILD_COMPATIBILITY",
+    "failed": 2,
+    "passed": 1491,
+    "preserved_log": "reports/zero_perturbation_environment/full_pytest_initial.txt",
+    "preserved_log_sha256": "d3e9346a7b2297bcdd7a6e0f8d4d9bd4e194eec016f796e8f0229401886ded05",
+    "skipped": 1
+  },
+  "mamba_root_prefix": "/home/lj/.local/share/degen-lio-micromamba",
+  "manager": "micromamba",
+  "manager_bootstrapped_without_sudo": true,
+  "manager_initially_available": false,
+  "manager_path": "/home/lj/.local/bin/micromamba",
+  "manager_version": "2.8.1",
+  "open3d_available_py311": true,
+  "py311_environment_ready": true,
+  "report_files": {
+    "reports/zero_perturbation_environment/conda_explicit.txt": "ff25787206af0af5f8e70fae160031854d25f849e33ba9a0db981193e9ec3c8b",
+    "reports/zero_perturbation_environment/conda_history.yaml": "5828b34f31ae72e7e193252ad9d2c9968cf99e72ba33bbd572c1aff14bc97b16",
+    "reports/zero_perturbation_environment/environment_compatibility_pytest.txt": "3aefbbe88f7b9136641ebb21724ba39997e6c13493c0793817428f78def6fd45",
+    "reports/zero_perturbation_environment/environment_creation.log": "8eb1ba0e6e08728927449ca298402d1b9919f5b1b59efe10189fffcb83355e70",
+    "reports/zero_perturbation_environment/full_pytest.txt": "6f1a1586682768dd94407642a47bae6489f55cab95675ac8371903a5d7102b4a",
+    "reports/zero_perturbation_environment/full_pytest_initial.txt": "d3e9346a7b2297bcdd7a6e0f8d4d9bd4e194eec016f796e8f0229401886ded05",
+    "reports/zero_perturbation_environment/import_smoke_test.txt": "d8e8e63ed7d30f41d7e2cf951d049c48928ace712371d92b8aab2b44c331e57f",
+    "reports/zero_perturbation_environment/package_versions.json": "42d16f54edbf1c121b8c611e71d31fe649d80a9ebcda6ff8e0a315efa624a53a",
+    "reports/zero_perturbation_environment/pip_freeze.txt": "88a0171ea91cf4ede4b0b79db754cf8f9e37d31192df863e273747cc70557ca3",
+    "reports/zero_perturbation_environment/preflight_pytest.txt": "3f2ea59ea3ff3b1f8ed8689f38597c7b6868acf5bbab9f1e2bf4e322510ff5ce",
+    "reports/zero_perturbation_environment/python_version.txt": "b1d173e941dbfa8bbabe0c832c75d9449f31942f882d76510e027fa02de2cae0"
+  },
+  "repository_wheel_overlay_command": "python -m pip install --force-reinstall --no-deps -r requirements-lock-py311.txt",
+  "repository_wheel_overlay_reason": "Match the repository-supported PyPI wheel builds; the initial conda builds produced two historical environment-compatibility test failures.",
+  "schema_version": "zero_perturbation_environment_manifest_v1",
+  "versions": {
+    "matplotlib": "3.8.2",
+    "numpy": "1.26.4",
+    "open3d": "0.19.0+b012259",
+    "pandas": "2.1.4",
+    "pytest": "8.3.5",
+    "python": "3.11.15",
+    "pyyaml": "6.0.1",
+    "scikit_learn": "1.9.0",
+    "scipy": "1.11.4",
+    "tqdm": "4.66.5"
+  }
+}
