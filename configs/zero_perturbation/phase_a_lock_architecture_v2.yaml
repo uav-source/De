@@ -1,0 +1,117 @@
+schema_version: phase_a_lock_architecture_protocol_v2
+
+protocol:
+  name: zero_perturbation_phase_a_layered_lock_architecture
+  version: 2
+  purpose: execution_lock_architecture_requalification_only
+  scientific_experiment: false
+  formal_backend_execution_this_round: false
+
+authoritative_sources:
+  legacy_protocol_lock: artifacts/current/zero_perturbation_backend_phase_a_v1_2_lock/backend_phase_a_v1_2_protocol_lock.json
+  scientific_base_protocol: configs/zero_perturbation/backend_phase_a_v1.yaml
+  snapshot_lock: artifacts/current/zero_perturbation_backend_phase_a_v1_2_stage0/backend_phase_a_v1_2_snapshot_lock.json
+  execution_chain_audit: artifacts/current/zero_perturbation_phase_a_execution_chain_audit_v1_2/final_decision.json
+
+layers:
+  scientific_protocol_lock_v2:
+    owns:
+      - scenes
+      - geometry_seeds
+      - measurement_seeds
+      - repeat_indices
+      - condition
+      - backend_algorithms
+      - backend_versions
+      - backend_parameters
+      - transform_and_metric_semantics
+      - quantile_method
+      - qualification_gates
+      - failure_definitions
+      - planned_counts
+      - allowed_and_forbidden_backends
+    forbids:
+      - implementation_sha
+      - runtime_path
+      - run_id
+      - output_directory
+      - formal_execution_authorization
+  snapshot_lock:
+    reuse_existing_file_byte_exact: true
+    rewrite_forbidden: true
+  execution_implementation_lock_v2:
+    owns:
+      - execution_chain_audit_binding
+      - implementation_component_sha256
+      - fixture_contract_binding
+    forbids:
+      - scene
+      - seed
+      - repeat
+      - condition
+      - scientific_threshold
+      - qualification_gate_value
+      - formal_execution_authorization
+  formal_run_lock_v2:
+    owns:
+      - three_upstream_lock_bindings
+      - planned_snapshot_and_trial_bindings
+      - allowed_and_forbidden_backends
+      - condition
+      - formal_execution_authorization
+      - required_trial_schema_version
+    duplicate_scientific_or_implementation_payload_forbidden: true
+
+dependency_graph:
+  edges:
+    - [scientific_protocol_lock_v2, formal_run_lock_v2]
+    - [snapshot_lock, formal_run_lock_v2]
+    - [execution_implementation_lock_v2, formal_run_lock_v2]
+  cycles_allowed: false
+  duplicate_bindings_allowed: false
+
+legacy_field_classification:
+  source: authoritative_sources.legacy_protocol_lock
+  include_nested_containers: true
+  include_root: false
+  classifications:
+    - SCIENTIFIC_PROTOCOL
+    - SNAPSHOT_PROVENANCE
+    - EXECUTION_IMPLEMENTATION
+    - FORMAL_RUN_AUTHORIZATION
+    - LEGACY_DUPLICATE
+    - DOCUMENT_METADATA
+  unclassified_allowed: false
+  multiply_classified_allowed: false
+
+scientific_projection:
+  manual_value_entry_forbidden: true
+  source_protocol_sections_must_be_loaded: true
+  source_contract_artifacts_must_be_checked: true
+  all_scientific_difference_counts_required: 0
+
+execution_fixture_audit:
+  scientific_data: false
+  frozen_fixture_count: 3
+  frozen_trial_count: 6
+  fixture_names: [IDENTITY, NONIDENTITY_REFERENCE, NO_CORRESPONDENCE]
+  fresh_resume_equivalence_contract: configs/zero_perturbation/resume_scientific_equivalence_v1.yaml
+
+formal_dry_run:
+  planned_snapshot_count: 210
+  planned_trial_count: 420
+  open3d_trial_count: 210
+  pcl_trial_count: 210
+  native_trial_count: 0
+  seed_access_count: 0
+  backend_execution_count: 0
+  trial_result_count: 0
+  attempt_started_count: 0
+
+authorization_boundary:
+  phase_a_stage1_backend_executed: false
+  phase_b_run_authorized: false
+  full_development_authorized: false
+  confirmatory_authorized: false
+  real_data_authorized: false
+
