@@ -1,0 +1,49 @@
+schema_version: zero_perturbation_backend_phase_a_stage1_formal_lock_protocol_v1_1
+
+identity:
+  lock_schema_version: phase_a_formal_execution_lock_v1
+  lock_type: phase_a_stage1_formal_execution_lock
+  lock_version: "1.1"
+  condition: IDEAL_MATCHED
+
+upstream_bindings:
+  protocol_path: configs/zero_perturbation/backend_phase_a_v1_2.yaml
+  protocol_lock_path: artifacts/current/zero_perturbation_backend_phase_a_v1_2_lock/backend_phase_a_v1_2_protocol_lock.json
+  snapshot_lock_path: artifacts/current/zero_perturbation_backend_phase_a_v1_2_stage0/backend_phase_a_v1_2_snapshot_lock.json
+  stage0_manifest_path: artifacts/current/zero_perturbation_backend_phase_a_v1_2_stage0/run_manifest.json
+  snapshot_cache_root: data/zero_perturbation/backend_phase_a_v1_2_stage0
+  planned_snapshots_path: artifacts/current/zero_perturbation_backend_phase_a_v1_2_lock/planned_snapshots.csv
+  planned_trials_path: artifacts/current/zero_perturbation_backend_phase_a_v1_2_lock/planned_trials.csv
+  metric_contract_path: artifacts/current/zero_perturbation_backend_phase_a_v1_2_lock/metric_contract.json
+  backend_parameter_contract_path: artifacts/current/zero_perturbation_backend_phase_a_v1_2_lock/backend_parameter_contract.json
+  gate_contract_path: artifacts/current/zero_perturbation_backend_phase_a_lock/gate_contract.json
+  implementation_manifest_path: artifacts/current/zero_perturbation_phase_a_execution_chain_audit_v1_1/implementation_manifest.json
+
+fixed_counts:
+  planned_snapshot_count: 210
+  planned_trial_count: 420
+  open3d_planned_trial_count: 210
+  pcl_planned_trial_count: 210
+  native_planned_trial_count: 0
+
+scientific_contract:
+  required_trial_schema_version: phase_a_trial_result_v1
+  translation_threshold_m: 0.001
+  rotation_threshold_rad: 0.00017453292519943296
+  quantile_method: linear
+  scientific_execution_difference_count: 0
+
+implementation_binding_contract:
+  exact_field_count: 14
+  missing_field_action: FORMAL_LOCK_MISSING_REQUIRED_BINDING
+  sha_mismatch_action: FORMAL_LOCK_IMPLEMENTATION_BINDING_MISMATCH
+  unknown_fields_forbidden: true
+  aliases_forbidden: true
+
+execution_boundary:
+  strict_lock_validation_before_stage0_cache_access: true
+  formal_seed_access_count: 0
+  formal_backend_execution_count_this_round: 0
+  formal_trial_result_count_this_round: 0
+  native_execution_count: 0
+  dry_run_only_this_round: true

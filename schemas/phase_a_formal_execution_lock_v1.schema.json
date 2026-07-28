@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://degen-lio.local/schemas/phase_a_formal_execution_lock_v1.schema.json",
+  "title": "Phase A Stage-1 Formal Execution Lock v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "lock_type",
+    "lock_version",
+    "formal_execution_authorized",
+    "formal_phase_a",
+    "fixture_only",
+    "created_from_commit",
+    "created_at_utc",
+    "protocol_binding",
+    "snapshot_binding",
+    "trial_plan_binding",
+    "scientific_contract_binding",
+    "implementation_bindings",
+    "required_trial_schema_version",
+    "allowed_backends",
+    "forbidden_backends",
+    "planned_snapshot_count",
+    "planned_trial_count",
+    "condition",
+    "lock_payload_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "phase_a_formal_execution_lock_v1"},
+    "lock_type": {"const": "phase_a_stage1_formal_execution_lock"},
+    "lock_version": {"const": "1.1"},
+    "formal_execution_authorized": {"const": true},
+    "formal_phase_a": {"const": true},
+    "fixture_only": {"const": false},
+    "created_from_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "created_at_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "protocol_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol_path", "protocol_sha256", "protocol_lock_path", "protocol_lock_sha256"],
+      "properties": {
+        "protocol_path": {"type": "string", "minLength": 1},
+        "protocol_sha256": {"$ref": "#/$defs/sha256"},
+        "protocol_lock_path": {"type": "string", "minLength": 1},
+        "protocol_lock_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "snapshot_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["snapshot_lock_path", "snapshot_lock_sha256", "stage0_manifest_path", "stage0_manifest_sha256", "snapshot_cache_root", "snapshot_count"],
+      "properties": {
+        "snapshot_lock_path": {"type": "string", "minLength": 1},
+        "snapshot_lock_sha256": {"$ref": "#/$defs/sha256"},
+        "stage0_manifest_path": {"type": "string", "minLength": 1},
+        "stage0_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "snapshot_cache_root": {"type": "string", "minLength": 1},
+        "snapshot_count": {"const": 210}
+      }
+    },
+    "trial_plan_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["planned_snapshots_path", "planned_snapshots_sha256", "planned_trials_path", "planned_trials_sha256", "planned_snapshot_count", "planned_trial_count"],
+      "properties": {
+        "planned_snapshots_path": {"type": "string", "minLength": 1},
+        "planned_snapshots_sha256": {"$ref": "#/$defs/sha256"},
+        "planned_trials_path": {"type": "string", "minLength": 1},
+        "planned_trials_sha256": {"$ref": "#/$defs/sha256"},
+        "planned_snapshot_count": {"const": 210},
+        "planned_trial_count": {"const": 420}
+      }
+    },
+    "scientific_contract_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metric_contract_sha256", "backend_parameter_contract_sha256", "gate_contract_sha256", "translation_threshold_m", "rotation_threshold_rad", "quantile_method"],
+      "properties": {
+        "metric_contract_sha256": {"$ref": "#/$defs/sha256"},
+        "backend_parameter_contract_sha256": {"$ref": "#/$defs/sha256"},
+        "gate_contract_sha256": {"$ref": "#/$defs/sha256"},
+        "translation_threshold_m": {"const": 0.001},
+        "rotation_threshold_rad": {"const": 0.00017453292519943296},
+        "quantile_method": {"const": "linear"}
+      }
+    },
+    "implementation_bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formal_runner_sha256",
+        "trial_result_schema_sha256",
+        "trial_result_validator_sha256",
+        "trial_result_writer_sha256",
+        "trial_resume_validator_sha256",
+        "attempt_event_writer_sha256",
+        "stage1_analysis_sha256",
+        "independent_verifier_sha256",
+        "publisher_sha256",
+        "artifact_verifier_sha256",
+        "open3d_adapter_sha256",
+        "pcl_adapter_sha256",
+        "pcl_cli_sha256",
+        "rotation_metric_sha256"
+      ],
+      "properties": {
+        "formal_runner_sha256": {"$ref": "#/$defs/sha256"},
+        "trial_result_schema_sha256": {"$ref": "#/$defs/sha256"},
+        "trial_result_validator_sha256": {"$ref": "#/$defs/sha256"},
+        "trial_result_writer_sha256": {"$ref": "#/$defs/sha256"},
+        "trial_resume_validator_sha256": {"$ref": "#/$defs/sha256"},
+        "attempt_event_writer_sha256": {"$ref": "#/$defs/sha256"},
+        "stage1_analysis_sha256": {"$ref": "#/$defs/sha256"},
+        "independent_verifier_sha256": {"$ref": "#/$defs/sha256"},
+        "publisher_sha256": {"$ref": "#/$defs/sha256"},
+        "artifact_verifier_sha256": {"$ref": "#/$defs/sha256"},
+        "open3d_adapter_sha256": {"$ref": "#/$defs/sha256"},
+        "pcl_adapter_sha256": {"$ref": "#/$defs/sha256"},
+        "pcl_cli_sha256": {"$ref": "#/$defs/sha256"},
+        "rotation_metric_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "required_trial_schema_version": {"const": "phase_a_trial_result_v1"},
+    "allowed_backends": {
+      "type": "array",
+      "prefixItems": [
+        {"const": "open3d_point_to_plane"},
+        {"const": "pcl_point_to_plane"}
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "forbidden_backends": {
+      "type": "array",
+      "prefixItems": [{"const": "native_full"}, {"const": "native_frozen"}],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "planned_snapshot_count": {"const": 210},
+    "planned_trial_count": {"const": 420},
+    "condition": {"const": "IDEAL_MATCHED"},
+    "lock_payload_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
