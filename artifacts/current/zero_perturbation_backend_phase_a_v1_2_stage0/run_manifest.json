@@ -1,0 +1,21 @@
+{
+  "complete_snapshot_count": 210,
+  "confirmatory_seed_access_count": 0,
+  "formal_trial_result_count": 0,
+  "full_pytest_summary": "1625 passed, 1 skipped, 262 warnings in 72.80s",
+  "git_push_performed": false,
+  "implementation_sha256": "72f0f09938bd96a7fe6c9e2971c2bb176f09698a7d269a075d06f83761241fe3",
+  "native_execution_count": 0,
+  "old_capture_test_seed_access_count": 0,
+  "pcl_v3_ctest_summary": "100% tests passed, 0 failed, 3/3",
+  "phase_a_stage1_executed": false,
+  "phase_b_executed": false,
+  "planned_snapshot_count": 210,
+  "protocol_sha256": "d412c9bb74fd4e3828c830d17144e1fb4440a27936941ce000e9daa87afabf81",
+  "run_id": "backend-phase-a-v1-2-stage0-20260728",
+  "schema_version": "backend_phase_a_v1_2_stage0_run_manifest_v1",
+  "snapshot_cache_root": "data/zero_perturbation/backend_phase_a_v1_2_stage0",
+  "stage0_backend_execution_count": 0,
+  "stage0_backend_import_count": 0,
+  "targeted_pytest_summary": "24 passed, 13 warnings in 1.52s"
+}

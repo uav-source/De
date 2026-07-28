@@ -1,0 +1,8 @@
+scene_variant,snapshot_count,unique_source_checksum_count,unique_target_checksum_count,duplicate_source_checksum_count,duplicate_target_checksum_count,scene_diversity_pass
+GEOMETRY_RICH_ROOM,30,30,3,0,27,True
+LONG_CORRIDOR,30,30,3,0,27,True
+PARALLEL_WALLS,30,30,3,0,27,True
+END_FACE_TRANSITION_PRESENT,30,30,3,0,27,True
+END_FACE_TRANSITION_WEAK,30,30,3,0,27,True
+END_FACE_TRANSITION_ABSENT,30,30,3,0,27,True
+REPEATED_STRUCTURE,30,30,3,0,27,True

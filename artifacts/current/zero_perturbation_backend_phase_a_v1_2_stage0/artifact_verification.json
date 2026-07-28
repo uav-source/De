@@ -1,0 +1,8 @@
+{
+  "missing_files": [],
+  "required_file_count": 19,
+  "schema_version": "backend_phase_a_v1_2_stage0_artifact_verification_v1",
+  "semantic_failures": [],
+  "sha256_failure_paths": [],
+  "verification_pass": true
+}
