@@ -9,6 +9,7 @@ def test_open3d_exact_matched_plane_preserves_reference_initialization():
     xy = np.linspace(-1.0, 1.0, 8)
     x, y = np.meshgrid(xy, xy)
     points = np.column_stack([x.ravel(), y.ravel(), np.zeros(x.size)])
+    points.setflags(write=False)
     initial = np.eye(4)
     result = run_open3d_full(
         points,

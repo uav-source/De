@@ -35,8 +35,10 @@ def run_open3d_full(
     """Run Open3D without accepting native correspondences or scene labels."""
 
     validate_open3d_version()
-    source_array = np.asarray(scan_points, dtype=np.float64)
-    target_array = np.asarray(map_points, dtype=np.float64)
+    # Open3D's pybind conversion requires a writeable owner even though ICP
+    # does not mutate the logical snapshot.  Copy only at this backend edge.
+    source_array = np.array(scan_points, dtype=np.float64, order="C", copy=True)
+    target_array = np.array(map_points, dtype=np.float64, order="C", copy=True)
     if source_array.ndim != 2 or source_array.shape[1] != 3:
         raise ValueError("scan_points must be Nx3")
     if target_array.ndim != 2 or target_array.shape[1] != 3:
