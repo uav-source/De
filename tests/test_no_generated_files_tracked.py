@@ -3,6 +3,9 @@ import subprocess
 
 
 ROOT = Path(__file__).resolve().parents[1]
+FROZEN_EVIDENCE_LOGS = {
+    "reports/zero_perturbation_environment/environment_creation.log",
+}
 
 
 def test_no_generated_data_results_or_cache_is_tracked():
@@ -15,6 +18,6 @@ def test_no_generated_data_results_or_cache_is_tracked():
             forbidden.append(path)
         elif any(token in path for token in ("__pycache__", ".pytest_cache", "mplconfig")):
             forbidden.append(path)
-        elif path.endswith((".pyc", ".pyo", ".log")):
+        elif path.endswith((".pyc", ".pyo", ".log")) and path not in FROZEN_EVIDENCE_LOGS:
             forbidden.append(path)
     assert forbidden == []
