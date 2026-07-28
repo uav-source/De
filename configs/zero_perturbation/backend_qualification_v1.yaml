@@ -1,0 +1,208 @@
+schema_version: zero_perturbation_backend_qualification_v1
+
+protocol:
+  name: open3d_pcl_independent_backend_qualification
+  version: "1.0.0"
+  protocol_type: independent_backend_qualification
+  status: prospectively_frozen_before_pcl_implementation_or_qualification_trials
+  formal_scientific_claim_authorized: false
+  full_development_authorized: false
+  confirmatory_authorized: false
+  real_data_authorized: false
+  measurement_paper_authorized: false
+
+frozen_prior_result:
+  commit: ccbea9d91de287f0638cb5792f6a2405f312ff06
+  decision_path: artifacts/current/zero_perturbation_development/final_decision.json
+  decision_sha256: 18dc545ae07c9cb87e10ffbd3c3efa561124f15292414e0ba8b02a68c07c1eae
+  native_backend_qualification_pass: false
+  native_backend_formal_measurement_use_authorized: false
+  native_full_ideal_q95_translation_error_m: 0.20539310615193157
+  native_full_smoke_solver_failure_count: 22
+  native_full_smoke_trial_count: 42
+  retrospective_change_forbidden: true
+
+immutable_inputs:
+  seed_schedule:
+    path: configs/zero_perturbation/seed_schedule_v1.json
+    sha256: 1006b76427b19151389f35a82b04e2b93abca339310bf8d56a5b92a27131f050
+    split: development
+    geometry_labels: [geometry_0, geometry_1, geometry_2]
+    measurement_labels: [measurement_0, measurement_1]
+    derive_again: false
+    hand_enter_integer_seeds: false
+  development_protocol:
+    path: configs/zero_perturbation/development_v1.yaml
+    sha256: 8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e
+  scene_generator:
+    path: src/capture_range/day2_development_scene.py
+    sha256: f1632095ab6c433e1e917cf0c9a49551683fce2f106761d41c3c3a5e6517b922
+  development_snapshot_builder:
+    path: src/zero_perturbation/snapshot_builder.py
+    sha256: 6718fc442439e52327e01622df6356a0167456a6d7d8070f25d6e684ef69b72e
+  open3d_backend:
+    path: src/zero_perturbation/open3d_backend.py
+    sha256: eb327dd5d13f7cf099469e5e1a315e23c41d593cd7301d278135b4276b9f255f
+
+backend_contract:
+  backend_a: open3d_point_to_plane
+  backend_b: pcl_iterative_closest_point_with_normals
+  excluded_backend: native_full
+  excluded_reason: failed_ideal_matched_control
+  native_code_changes_forbidden: true
+  native_qualification_trial_invocation_forbidden: true
+  identical_backend_inputs_required: true
+  scene_specific_parameters_forbidden: true
+  theoretical_weak_direction_input_forbidden: true
+  offline_error_input_forbidden: true
+  gt_optimization_input_forbidden: true
+
+open3d_point_to_plane:
+  required_version: 0.19.0+b012259
+  registration_method: point_to_plane
+  maximum_correspondence_distance_m: 0.50
+  target_normal_estimation:
+    method: hybrid_radius
+    radius_m: 0.40
+    max_nn: 50
+  icp_convergence:
+    relative_fitness: 1.0e-8
+    relative_rmse: 1.0e-8
+    max_iteration: 50
+  source_normals_estimated: false
+  target_normals_estimated_by_open3d: true
+  parameters_changed_from_development: false
+
+pcl_iterative_closest_point_with_normals:
+  environment_name: degen-lio-pcl-backend
+  cli_backend_name: pcl_point_to_plane
+  point_type: pcl::PointNormal
+  class: pcl::IterativeClosestPointWithNormals
+  transformation_estimation: pcl::registration::TransformationEstimationPointToPlaneLLS
+  normal_estimation:
+    implementation: pcl::NormalEstimationOMP
+    method: KSearch
+    k: 50
+    source_normals_estimated_by_pcl: true
+    target_normals_estimated_by_pcl: true
+  icp:
+    maximum_correspondence_distance_m: 0.50
+    maximum_iterations: 50
+    transformation_epsilon: 1.0e-10
+    euclidean_fitness_epsilon: 1.0e-10
+    use_reciprocal_correspondences: false
+    use_symmetric_objective: false
+    enforce_same_direction_normals: true
+  input_format:
+    point_cloud: binary_pcd_xyz_float64_source_serialization
+    config: json
+  output_format: json
+  parameter_change_after_results_forbidden: true
+
+seed_firewall:
+  schedule_split: development
+  phase_a_geometry_labels: [geometry_0, geometry_1, geometry_2]
+  phase_a_measurement_labels: [measurement_0, measurement_1]
+  phase_b_geometry_labels: [geometry_0, geometry_1, geometry_2]
+  phase_b_measurement_labels: [measurement_0]
+  confirmatory_seed_instantiation_forbidden: true
+  old_capture_range_test_seed_access_forbidden: true
+  assert_before_rng_construction: true
+
+scenes_in_order:
+  - GEOMETRY_RICH_ROOM
+  - LONG_CORRIDOR
+  - PARALLEL_WALLS
+  - END_FACE_TRANSITION_PRESENT
+  - END_FACE_TRANSITION_WEAK
+  - END_FACE_TRANSITION_ABSENT
+  - REPEATED_STRUCTURE
+
+ideal_matched_snapshot:
+  condition: IDEAL_MATCHED
+  map_geometry: frozen_development_map_geometry
+  source_geometry: exact_target_map_subset
+  eligible_range_from_reference_m: [0.30, 20.0]
+  subset_selection:
+    algorithm: pcg64_permutation_prefix_without_replacement
+    fraction_of_eligible_rows: 0.25
+    minimum_rows: 1024
+    maximum_rows: null
+    seed_payload_fields:
+      - zero_perturbation_backend_qualification_v1
+      - scene_variant
+      - geometry_seed
+      - development_measurement_seed
+      - repeat_index
+      - ideal_matched_exact_source_subset
+    seed_digest: SHA-256
+    digest_to_seed: first_16_digest_bytes_unsigned_big_endian
+    selected_rows_sorted_in_target_canonical_order: true
+  scan_noise_sigma_m: 0.0
+  map_noise_sigma_m: 0.0
+  dropout_fraction: 0.0
+  initial_transform: reference_pose_exact
+  measurement_seed_and_repeat_effects_only: exact_source_subset_selection
+
+phase_a:
+  condition: IDEAL_MATCHED
+  geometry_seed_count: 3
+  measurement_seed_count: 2
+  repeat_indices: [0, 1, 2, 3, 4]
+  scene_count: 7
+  snapshot_count: 210
+  backends: [open3d_point_to_plane, pcl_point_to_plane]
+  trial_count: 420
+  native_trials: 0
+  minimum_unique_source_checksums_per_scene: 10
+  gates_per_backend:
+    solver_failure_count: 0
+    nonfinite_output_count: 0
+    q95_translation_update_m_max: 0.001
+    q95_rotation_update_deg_max: 0.01
+    per_scene_median_translation_update_m_max: 0.001
+    fraction_translation_update_at_most_0_001_min: 0.95
+  stop_if_open3d_fails: true
+  stop_if_pcl_fails: true
+  parameter_rescue_forbidden: true
+
+phase_b:
+  authorized_only_if_both_phase_a_backends_pass: true
+  conditions: [INDEPENDENT_NOISE_FREE, FULL_NOISE]
+  geometry_seed_count: 3
+  measurement_labels: [measurement_0]
+  repeat_indices: [0]
+  scene_count: 7
+  snapshot_count: 42
+  backends: [open3d_point_to_plane, pcl_point_to_plane]
+  trial_count: 84
+  native_trials: 0
+  signals:
+    scene_ranking:
+      statistic: spearman
+      one_condition_rho_min: 0.50
+    rich_room_control:
+      top_error_rank_max: 2
+      required_for_both_backends_in_at_least_one_condition: true
+    weak_geometry:
+      weak_scenes: [LONG_CORRIDOR, PARALLEL_WALLS]
+      maximum_error_rank_max: 3
+      required_for_both_backends_in_at_least_one_condition: true
+      one_backend_one_condition_weak_over_rich_ratio_min: 2.0
+  formal_scientific_claim: false
+
+audit_counters:
+  backend_input_checksum_mismatch_target: 0
+  gt_optimization_leakage_target: 0
+  confirmatory_seed_instantiation_target: 0
+  old_capture_range_test_seed_access_target: 0
+  native_qualification_trial_invocation_target: 0
+
+authorization:
+  zero_perturbation_full_development_run_authorized: false
+  zero_perturbation_confirmatory_lock_authorized: false
+  zero_perturbation_confirmatory_run_authorized: false
+  real_data_validation_authorized: false
+  measurement_paper_mainline_authorized: false
+  redesign_requires_all_dependency_build_phase_a_pairing_diversity_and_phase_b_signal_gates: true
+
