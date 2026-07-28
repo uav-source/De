@@ -1,0 +1,25 @@
+{
+  "RUNNER_SCIENTIFIC_EXECUTION_DIFFERENCE_COUNT": 0,
+  "allowed_architecture_differences": {
+    "formal_binding_graph_difference": 1,
+    "implementation_binding_location_difference": 1,
+    "lock_layer_count_difference": 3,
+    "lock_schema_difference": 3,
+    "runner_lock_loading_difference": 1
+  },
+  "backend_algorithm_difference_count": 0,
+  "backend_parameter_difference_count": 0,
+  "condition_difference_count": 0,
+  "failure_definition_difference_count": 0,
+  "metric_difference_count": 0,
+  "planned_snapshot_difference_count": 0,
+  "planned_trial_difference_count": 0,
+  "qualification_gate_difference_count": 0,
+  "quantile_method_difference_count": 0,
+  "repeat_difference_count": 0,
+  "scene_difference_count": 0,
+  "schema_version": "phase_a_lock_architecture_v2_scientific_diff_v1",
+  "seed_difference_count": 0,
+  "threshold_difference_count": 0,
+  "trial_result_schema_difference_count": 0
+}

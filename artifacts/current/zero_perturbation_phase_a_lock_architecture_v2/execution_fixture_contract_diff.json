@@ -1,0 +1,9 @@
+{
+  "fixture_checksum_difference_count": 0,
+  "fixture_expected_outcome_difference_count": 0,
+  "fixture_lock_sha256": "8c3e4ff9fcd8ec18903e468cd126ecf9edf0f5e6a5dc0e6c8087b1a208967949",
+  "fixture_plan_sha256": "b2476717464d6e1df46b8bc5f95782de740544bbdaa82d524b51d617bce9f005",
+  "fixture_reference_pose_difference_count": 0,
+  "fixture_source_files_sha_match": true,
+  "schema_version": "phase_a_execution_chain_v1_1_to_v1_2_fixture_diff_v1"
+}

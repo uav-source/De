@@ -1,0 +1,29 @@
+{
+  "allowed_backends": [
+    "open3d_point_to_plane",
+    "pcl_iterative_closest_point_with_normals"
+  ],
+  "condition": "IDEAL_MATCHED",
+  "execution_implementation_lock_path": "artifacts/current/zero_perturbation_phase_a_lock_architecture_v2/phase_a_execution_implementation_lock_v2.json",
+  "execution_implementation_lock_sha256": "346efe034be66aea79a7cd1af6602e0275c3baae1f79b8d8727890ec0ff217ec",
+  "forbidden_backends": [
+    "native_full",
+    "native_frozen"
+  ],
+  "formal_execution_authorized": true,
+  "formal_payload_sha256": "d746c89cd4e44d2e57646b34ea4add7b334f465cb6eb1bb3b11f7d2e3f8b4ca4",
+  "lock_type": "phase_a_formal_run_lock",
+  "lock_version": "2",
+  "planned_snapshot_count": 210,
+  "planned_snapshots_path": "artifacts/current/zero_perturbation_backend_phase_a_v1_2_lock/planned_snapshots.csv",
+  "planned_snapshots_sha256": "d6419f0269672e0d008a0affa23fc4b19dcf757f6464d1c4041e4a0002f6be1e",
+  "planned_trial_count": 420,
+  "planned_trials_path": "artifacts/current/zero_perturbation_backend_phase_a_v1_2_lock/planned_trials.csv",
+  "planned_trials_sha256": "ac848d5017a776d0002426e720c512b3ab2b4b253ab05a85245ff1c1d25692bd",
+  "required_trial_schema_version": "phase_a_trial_result_v1",
+  "schema_version": "phase_a_formal_run_lock_v2",
+  "scientific_protocol_lock_path": "artifacts/current/zero_perturbation_phase_a_lock_architecture_v2/phase_a_scientific_protocol_lock_v2.json",
+  "scientific_protocol_lock_sha256": "d43e49a2b67cf9a42e1ba0037600eca0987b916ff7c1b370d4c5439c83328f2b",
+  "snapshot_lock_path": "artifacts/current/zero_perturbation_backend_phase_a_v1_2_stage0/backend_phase_a_v1_2_snapshot_lock.json",
+  "snapshot_lock_sha256": "a63f8ea07e9420f72c08cf1c16812ee058f5e2bfa0575a5e3d39f6bda2f21f8a"
+}

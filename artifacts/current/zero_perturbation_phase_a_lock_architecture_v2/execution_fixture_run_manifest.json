@@ -1,0 +1,12 @@
+{
+  "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_SEED_ACCESS_COUNT": 0,
+  "FORMAL_STAGE0_CACHE_READ_COUNT": 0,
+  "FORMAL_TRIAL_RESULT_COUNT": 0,
+  "NATIVE_EXECUTION_COUNT": 0,
+  "fixture_backend_execution_count": 13,
+  "fresh_fixture_trial_count": 6,
+  "resumed_fixture_trial_count": 6,
+  "run_id": "phase-a-lock-architecture-v2-fixture-audit",
+  "schema_version": "phase_a_lock_architecture_v2_execution_fixture_run_manifest_v1"
+}

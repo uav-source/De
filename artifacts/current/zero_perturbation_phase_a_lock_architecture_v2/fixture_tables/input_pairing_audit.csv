@@ -1,0 +1,7 @@
+planned_trial_id,snapshot_id,backend,checksum_match
+fixture-audit-v1/identity/open3d_point_to_plane,fixture-audit-v1/identity,open3d_point_to_plane,True
+fixture-audit-v1/identity/pcl_point_to_plane,fixture-audit-v1/identity,pcl_point_to_plane,True
+fixture-audit-v1/no-correspondence/open3d_point_to_plane,fixture-audit-v1/no-correspondence,open3d_point_to_plane,True
+fixture-audit-v1/no-correspondence/pcl_point_to_plane,fixture-audit-v1/no-correspondence,pcl_point_to_plane,True
+fixture-audit-v1/nonidentity-reference/open3d_point_to_plane,fixture-audit-v1/nonidentity-reference,open3d_point_to_plane,True
+fixture-audit-v1/nonidentity-reference/pcl_point_to_plane,fixture-audit-v1/nonidentity-reference,pcl_point_to_plane,True
