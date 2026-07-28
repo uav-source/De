@@ -1,0 +1,19 @@
+{
+  "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_LOCK_FILE_CREATED": false,
+  "FORMAL_SEED_ACCESS_COUNT": 0,
+  "FORMAL_STAGE0_CACHE_READ_COUNT": 0,
+  "FORMAL_TRIAL_RESULT_COUNT": 0,
+  "NATIVE_EXECUTION_COUNT": 0,
+  "SCIENTIFIC_RESULT_EXPOSURE_COUNT": 0,
+  "artifact_sha256sums_sha256": "9ca9dfc1c6378d86d9cdd62f727299909487931381ad28dd9727b2f13e9abed7",
+  "fixture_main_trial_count": 6,
+  "frozen_open3d_version": "0.19.0+b012259",
+  "frozen_python_executable_sha256": "cd4c6744aefd242d63c67057bb92c6e484adc598c4b455f32e7761e584da04ea",
+  "frozen_python_version": "3.11.15",
+  "implementation_manifest_sha256": "bb4665e4c08b58353b2f3536ffcb9f8f93aaedd3ee7e8b4849f61f9d84c15a0e",
+  "main_v1_1_report_sha256": "80f72aa8d812160f16445cd91b203370a18d075fcece9dba5ba514f85e1c47ea",
+  "run_id": "phase-a-execution-chain-audit-v1-1",
+  "schema_version": "phase_a_execution_chain_audit_v1_1_failure_run_manifest_v1",
+  "wrong_environment_attempt_archived_outside_repository": true
+}

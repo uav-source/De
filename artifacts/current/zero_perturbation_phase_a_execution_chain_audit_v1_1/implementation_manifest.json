@@ -1,0 +1,78 @@
+{
+  "files": {
+    "analysis": {
+      "path": "src/zero_perturbation/phase_a_stage1_analysis.py",
+      "sha256": "313c9ea20ac14e9fd69404d6efb1ae43513027445998bb24b4964d23bf1c3452"
+    },
+    "artifact_verifier": {
+      "path": "src/zero_perturbation/phase_a_execution_chain_artifact_verifier.py",
+      "sha256": "1a03a3eb3c92a496ff2a12d7e9f6b7dc35896952c962d90d15484c96388e3e6e"
+    },
+    "attempt_event_schema": {
+      "path": "src/zero_perturbation/phase_a_attempt_events.py",
+      "sha256": "2b1ec95dc1c300fdcc7285a5cc26da1508c2766bd8cd2360db7a16a25c8f8d0d"
+    },
+    "execution_chain": {
+      "path": "src/zero_perturbation/phase_a_execution_chain_audit.py",
+      "sha256": "a0ffa3a6ef1d4afb98e124981f5712d23cf27b632efc362ba84447459e23105c"
+    },
+    "fixture_builder": {
+      "path": "src/zero_perturbation/phase_a_execution_chain_fixture.py",
+      "sha256": "b69968756afa3d69b76ed58f2f4136d4fbda708d0ca1da860a60166e787b5a28"
+    },
+    "fixture_parameter_lock": {
+      "path": "tests/data/phase_a_execution_chain_audit/fixture_backend_parameter_lock.json",
+      "sha256": "dfaf0e15f569a41acacfab1bc660c08e31007e70173f5bc02e60d3ec56b28d0c"
+    },
+    "formal_runner": {
+      "path": "scripts/168_run_backend_phase_a.py",
+      "sha256": "b0ef3155a2f46f0edfe20244a57ac21662f3ab14210916560707492caa000901"
+    },
+    "independent_verifier": {
+      "path": "src/zero_perturbation/phase_a_stage1_independent_verifier.py",
+      "sha256": "605588ae361846eaca007ad441468d294a15426f0058fa51312517b6495a5445"
+    },
+    "open3d_adapter": {
+      "path": "src/zero_perturbation/open3d_backend.py",
+      "sha256": "eb327dd5d13f7cf099469e5e1a315e23c41d593cd7301d278135b4276b9f255f"
+    },
+    "pcl_adapter": {
+      "path": "src/zero_perturbation/pcl_backend.py",
+      "sha256": "25e45b31bc90c93bc578104c994992c3f913437b12bf46389a8380d1d06b9e31"
+    },
+    "pcl_cli_source": {
+      "path": "tools/pcl_point_to_plane/pcl_point_to_plane_cli.cpp",
+      "sha256": "2a7203b82cc9401c558fe3ad410d7eb5a2f253ca0578db7e2c2f069715fad56c"
+    },
+    "publisher": {
+      "path": "src/zero_perturbation/phase_a_stage1_publisher.py",
+      "sha256": "bf3c6e2791d011fefdcd47be6c6f36a675c2f4e6dae3bcb9e099572c11b8ad1d"
+    },
+    "resume": {
+      "path": "src/zero_perturbation/phase_a_trial_resume.py",
+      "sha256": "1be089aec982a3b7fd0c3302153c9e42c08e312c5916dc111f60d39aa4abac95"
+    },
+    "rotation_metric": {
+      "path": "src/zero_perturbation/rotation_metrics.py",
+      "sha256": "0ed2f040d275f013e26cfc3d9be0610511be436ba512333fed610daa663ffb8a"
+    },
+    "schema_validator": {
+      "path": "src/zero_perturbation/phase_a_trial_result_schema.py",
+      "sha256": "6b252e07b41e9b2eb8cc1cf0bef735c6411d98587015928e0f544477e54a2c70"
+    },
+    "trial_schema": {
+      "path": "schemas/phase_a_trial_result_v1.schema.json",
+      "sha256": "4d1b9da79d11b36b19350bec1c0b9eb84fc64a3699be682a4eecca684b451773"
+    },
+    "writer": {
+      "path": "src/zero_perturbation/phase_a_trial_result_writer.py",
+      "sha256": "219fd433828439348d75dc392f2c0d3a31134632d3dcfddf6b0c378c8dc89e19"
+    }
+  },
+  "implementation_sha256": "890bde31722f250f7fcbf6825c5a6301eaf222b83cf42c8da8ac3bb4aee9ac6a",
+  "pcl_cli_binary": {
+    "path": "build/pcl_point_to_plane_v3/pcl_point_to_plane_cli",
+    "sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff"
+  },
+  "schema_version": "phase_a_execution_chain_implementation_manifest_v1"
+}

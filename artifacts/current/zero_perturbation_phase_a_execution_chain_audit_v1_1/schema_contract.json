@@ -1,0 +1,49 @@
+{
+  "open3d_diagnostic_fields": [
+    "correspondence_set_size",
+    "fitness",
+    "inlier_rmse"
+  ],
+  "pcl_diagnostic_fields": [
+    "correspondence_count",
+    "exit_code",
+    "fitness_score",
+    "has_converged_raw",
+    "iteration_count",
+    "pcl_cli_sha256",
+    "pcl_version",
+    "source_normal_statistics",
+    "target_normal_statistics"
+  ],
+  "required_common_field_count": 26,
+  "required_common_fields": [
+    "schema_version",
+    "planned_trial_id",
+    "snapshot_id",
+    "scene_variant",
+    "condition",
+    "backend",
+    "protocol_sha256",
+    "snapshot_lock_sha256",
+    "snapshot_checksum",
+    "source_checksum",
+    "target_checksum",
+    "reference_pose_checksum",
+    "implementation_sha256",
+    "solver_failure",
+    "failure_classification",
+    "failure_detail",
+    "final_transform_4x4",
+    "translation_update_m",
+    "rotation_update_rad",
+    "raw_rotation_finite",
+    "raw_rotation_determinant",
+    "orthogonality_defect_fro",
+    "projection_correction_fro",
+    "finite_output",
+    "runtime_ms",
+    "backend_diagnostics"
+  ],
+  "schema_path": "schemas/phase_a_trial_result_v1.schema.json",
+  "schema_version": "phase_a_trial_result_v1"
+}

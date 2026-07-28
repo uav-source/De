@@ -1,0 +1,14 @@
+{
+  "FORMAL_PHASE_A_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_PHASE_A_SEED_ACCESS_COUNT": 0,
+  "FORMAL_PHASE_A_TRIAL_RESULT_COUNT": 0,
+  "FORMAL_STAGE0_CACHE_READ_COUNT": 0,
+  "NATIVE_EXECUTION_COUNT": 0,
+  "audit_protocol_lock_sha256": "0abe1989205220912c38556331a8c07df3d2025a10433050cd485490b9123152",
+  "fixture_open3d_trial_count": 3,
+  "fixture_pcl_trial_count": 3,
+  "fixture_snapshot_count": 3,
+  "fixture_trial_count": 6,
+  "run_id": "phase-a-execution-chain-audit-v1-1",
+  "schema_version": "phase_a_execution_chain_audit_run_manifest_v1"
+}

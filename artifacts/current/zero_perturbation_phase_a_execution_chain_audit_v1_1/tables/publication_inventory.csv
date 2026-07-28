@@ -1,0 +1,16 @@
+artifact_type,path,fixture_only
+table,tables/raw_trial_inventory.csv,True
+table,tables/backend_trial_inventory.csv,True
+table,tables/failure_inventory.csv,True
+table,tables/input_pairing_audit.csv,True
+table,tables/translation_summary.csv,True
+table,tables/rotation_summary.csv,True
+table,tables/runtime_summary.csv,True
+table,tables/analysis_verifier_comparison.csv,True
+table,tables/publication_inventory.csv,True
+table,tables/gate_summary.csv,True
+figure,figures/fixture_translation_updates.png,True
+figure,figures/fixture_rotation_updates.png,True
+figure,figures/fixture_backend_runtime.png,True
+figure,figures/fixture_result_status.png,True
+figure,figures/fixture_input_pairing.png,True

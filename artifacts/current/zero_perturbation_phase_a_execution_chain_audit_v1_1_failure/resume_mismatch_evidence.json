@@ -1,0 +1,15 @@
+{
+  "EXECUTION_CHAIN_AUDIT_V1_1_PASS": false,
+  "PHASE_A_EXECUTION_CHAIN_INTERRUPTION_RESUME_PASS": false,
+  "RESUMED_AND_FRESH_RESULT_EQUIVALENT": false,
+  "absolute_difference": 3.308722450212111e-24,
+  "backend": "open3d_point_to_plane",
+  "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+  "differing_field": "backend_diagnostics.inlier_rmse",
+  "fresh_value": 2.0296317638433184e-08,
+  "mismatch_field_count": 1,
+  "planned_trial_id": "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane",
+  "resume_audit_sha256": "3e2841b0e2b172c3539eeebae5624abbf586c0bf3aa75cf172e061b755ec64e5",
+  "resumed_value": 2.029631763843318e-08,
+  "schema_version": "phase_a_execution_chain_audit_v1_1_resume_mismatch_evidence_v1"
+}
