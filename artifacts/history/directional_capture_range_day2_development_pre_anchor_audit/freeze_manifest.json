@@ -1,0 +1,33 @@
+{
+  "archive_purpose": "compact_read_only_input_for_directional_capture_range_anchor_validity_audit",
+  "bundle": {
+    "path": "/tmp/Degen-LIO-directional-capture-range-day2-development-pre-anchor-audit.bundle",
+    "sha256": "983d24b037fdf026083e366b19dd7216e4016f11ecedba94c5305b1da71ce25c",
+    "verified_complete_history": true
+  },
+  "created_at_utc": "2026-07-28T04:58:55Z",
+  "immutable_source": {
+    "artifact_root": "artifacts/current/directional_capture_range_day2_development",
+    "branch": "feature/directional-capture-range-day2-development",
+    "commit": "2fa148870cae0ede632de3e1b5c192bb7e37b65d",
+    "result_root": "results/capture_range/day2_development",
+    "tag": "archive/directional-capture-range-day2-development-result"
+  },
+  "large_source_files_referenced_by_hash_only": [
+    {
+      "path": "trial_results.csv",
+      "sha256": "7b250ebb4ced982a5de4c11b5e99056170e19daf863cbc13de4090ce03ca3c10"
+    },
+    {
+      "path": "raw_recovery_curves.csv",
+      "sha256": "edf23c89b2a9ec3caaa8814196045df9b1a3174210d5ee9165ba8128916e3457"
+    },
+    {
+      "path": "isotonic_recovery_curves.csv",
+      "sha256": "2bb8849ac050a159bb08f0aef4451c0f17ae4513384affd4139bfa1384329d7a"
+    }
+  ],
+  "read_only_input": true,
+  "schema_version": "directional_capture_range_day2_development_pre_anchor_audit_freeze_v1",
+  "selected_files_are_byte_copies": true
+}

@@ -1,0 +1,8 @@
+scene_variant,generated,base_snapshot_count,direction_count,scan_point_count_min,scan_point_count_max,map_point_count_min,map_point_count_max,separation_total_blocks,separation_evaluable_blocks,median_evaluable_separation
+GEOMETRY_RICH_ROOM,true,30,18,43737,43805,44214,44214,6,0,
+LONG_CORRIDOR,true,30,18,47292,47389,47814,47827,6,0,
+PARALLEL_WALLS,true,30,18,39362,39442,39775,39790,6,0,
+END_FACE_TRANSITION_PRESENT,true,30,18,48194,48282,48716,48732,6,0,
+END_FACE_TRANSITION_WEAK,true,30,18,47407,47500,47874,47932,6,0,
+END_FACE_TRANSITION_ABSENT,true,30,18,47258,47412,47811,47833,6,0,
+REPEATED_STRUCTURE,true,30,18,60063,61138,61053,61509,6,6,0.75
