@@ -1,0 +1,15 @@
+PHASE A V1 PLACEHOLDER RUNNER EVIDENCE
+baseline_commit=21d1ceb14907f78d9bb7e81ed2f70908c7ba3ebd
+runner_path=scripts/168_run_backend_phase_a.py
+runner_sha256=9b53842e090e69e5d8a2ff5aa5de534c53394401571cbe0b0e20d8c3565fce84
+archive_tag=archive/zero-perturbation-backend-phase-a-v1-runner-placeholder
+
+Locked execution_entry behavior after successful input validation:
+
+    raise RuntimeError(
+        "Phase A execution body is intentionally deferred to the authorized run round"
+    )
+
+The raise is unconditional.  Therefore the locked v1 runner cannot generate
+formal snapshots or execute formal backend trials.  Formal trial count is zero.
+
