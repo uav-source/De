@@ -567,6 +567,14 @@ def _gate_decision(
     reassociation = bool(
         ratio_pass and turnover_rho is not None and abs(turnover_rho) >= 0.30
     )
+    # The locked protocol makes IDEAL_MATCHED the first hard gate.  Later
+    # scientific signals are not evaluated when it fails, even if smoke rows
+    # happen to contain descriptive ratios that cross their thresholds.
+    preliminary_signals_evaluated = bool(ideal_pass and not raw.get("smoke", False))
+    if not preliminary_signals_evaluated:
+        scene_effect = False
+        cross_backend = False
+        reassociation = False
 
     decisions: dict[str, Any] = {
         "DEVELOPMENT_PIPELINE_EXECUTABLE": bool(raw["development_pipeline_executable"]),
@@ -574,7 +582,8 @@ def _gate_decision(
         "ALL_3780_TRIALS_COMPLETE": int(raw["trial_count"]) == 3780,
         "SNAPSHOT_PAIRING_PASS": int(raw["snapshot_pairing_violation_count"]) == 0,
         "OPEN3D_BACKEND_PASS": bool(
-            len(trials[trials["registration_backend"] == "open3d_full"]) == 1260
+            len(trials[trials["registration_backend"] == "open3d_full"])
+            == int(raw["snapshot_count"])
             and trials[trials["registration_backend"] == "open3d_full"]["finite_result"].astype(bool).all()
         ),
         "NO_CONFIRMATORY_SEED_ACCESS": int(raw["confirmatory_seed_instantiation_count"]) == 0,
@@ -590,6 +599,8 @@ def _gate_decision(
     decisions["ZERO_PERTURBATION_CONFIRMATORY_RUN_AUTHORIZED"] = False
     decisions["REAL_DATA_VALIDATION_AUTHORIZED"] = False
     decisions["MEASUREMENT_PAPER_MAINLINE_AUTHORIZED"] = False
+    decisions["PRELIMINARY_SCIENTIFIC_SIGNALS_EVALUATED"] = preliminary_signals_evaluated
+    decisions["FULL_DEVELOPMENT_RUN_EXECUTED"] = not bool(raw.get("smoke", False))
     decisions["ideal_matched_backend_details"] = ideal_rows
     decisions["turnover_full_frozen_spearman_rho"] = turnover_rho
     decisions["reassociation_scene_ratios"] = reassociation_rows
@@ -650,13 +661,19 @@ def _render_report(
         for row in contrast.itertuples()
     ]
     turnover_rho = decisions["turnover_full_frozen_spearman_rho"]
+    run_scope = "the complete Development matrix" if not raw.get("smoke", False) else "the frozen 42-snapshot smoke matrix"
+    stop_note = (
+        "The smoke failed the first hard gate, so the complete 1260-snapshot / 3780-trial Development matrix was not run, exactly as required by the frozen stopping rule."
+        if raw.get("smoke", False)
+        else "The complete Development matrix was executed after smoke passed."
+    )
     text = f"""# Zero-Perturbation Registration Measurement — Development
 
 ## Technical summary
 
-Development executed {raw['snapshot_count']} independently keyed snapshots and {raw['trial_count']} paired backend trials. Snapshot pairing violations, Confirmatory seed instantiations, old capture-range Test-seed accesses, and GT optimization leakage were all zero. The IDEAL_MATCHED hard control is `{str(decisions['IDEAL_MATCHED_CONTROL_PASS']).lower()}`.
+Development executed {run_scope}: {raw['snapshot_count']} independently keyed snapshots and {raw['trial_count']} paired backend trials. Snapshot pairing violations, Confirmatory seed instantiations, old capture-range Test-seed accesses, and GT optimization leakage were all zero. The IDEAL_MATCHED hard control is `{str(decisions['IDEAL_MATCHED_CONTROL_PASS']).lower()}`. {stop_note}
 
-The three preliminary engineering signals are: scene effect `{str(decisions['PRELIMINARY_SCENE_EFFECT_OBSERVED']).lower()}`, cross-backend scene ranking `{str(decisions['PRELIMINARY_CROSS_BACKEND_SIGNAL_OBSERVED']).lower()}`, and reassociation effect `{str(decisions['PRELIMINARY_REASSOCIATION_EFFECT_OBSERVED']).lower()}`. Consequently, future Confirmatory-lock generation authorization is `{str(decisions['ZERO_PERTURBATION_CONFIRMATORY_LOCK_AUTHORIZED']).lower()}`. Confirmatory execution remains false.
+The three preliminary engineering signals are: scene effect `{str(decisions['PRELIMINARY_SCENE_EFFECT_OBSERVED']).lower()}`, cross-backend scene ranking `{str(decisions['PRELIMINARY_CROSS_BACKEND_SIGNAL_OBSERVED']).lower()}`, and reassociation effect `{str(decisions['PRELIMINARY_REASSOCIATION_EFFECT_OBSERVED']).lower()}`. Their evaluation flag is `{str(decisions['PRELIMINARY_SCIENTIFIC_SIGNALS_EVALUATED']).lower()}` because the hard control must pass first. Consequently, future Confirmatory-lock generation authorization is `{str(decisions['ZERO_PERTURBATION_CONFIRMATORY_LOCK_AUTHORIZED']).lower()}`. Confirmatory execution remains false.
 
 ## IDEAL_MATCHED establishes the zero-error control
 
@@ -700,7 +717,7 @@ Traditional Hessian metrics use the native initial correspondence system, the na
 
 ## Recommended next step
 
-If and only if `ZERO_PERTURBATION_CONFIRMATORY_LOCK_AUTHORIZED` is true, a separate future task may generate—but not execute—a Confirmatory lock. This Development task generated no Confirmatory lock and did not access Confirmatory seeds.
+No Confirmatory lock may be generated from this run. Any future investigation of the native exact-match fixed-point failure must be a separately frozen research route; the locked thresholds, Open3D parameters, and observed Development protocol cannot be changed after this result. This task generated no Confirmatory lock and did not access Confirmatory seeds.
 
 ## Further questions
 
@@ -724,8 +741,6 @@ def analyze_development(root: str | Path, *, run_id: str) -> Path:
     protocol = load_protocol(repository)
     result_root = repository / protocol.section("outputs")["result_root"] / run_id
     raw = json.loads((result_root / "raw_run_manifest.json").read_text(encoding="utf-8"))
-    if raw.get("smoke"):
-        raise ValueError("compact Development artifacts require the complete non-smoke run")
     inventory = pd.read_csv(result_root / "snapshot_inventory.csv")
     trials = pd.read_csv(result_root / "trial_results.csv")
     diagnostics = pd.read_csv(result_root / "native_diagnostics.csv")

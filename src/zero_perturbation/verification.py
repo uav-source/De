@@ -82,10 +82,17 @@ def verify_development(root: str | Path) -> dict[str, Any]:
     inventory = pd.read_csv(tables / "snapshot_inventory.csv")
     trials = pd.read_csv(tables / "trial_results.csv")
     diagnostics = pd.read_csv(tables / "full_frozen_comparison.csv")
-    if len(inventory) != 1260 or inventory["snapshot_id"].nunique() != 1260:
-        errors.append("snapshot inventory is not exactly 1260 unique snapshots")
-    if len(trials) != 3780:
-        errors.append("trial inventory is not exactly 3780 rows")
+    manifest = json.loads((artifact / "run_manifest.json").read_text(encoding="utf-8"))
+    expected_snapshots = int(manifest["snapshot_count"])
+    expected_trials = int(manifest["trial_count"])
+    if expected_snapshots not in {42, 1260}:
+        errors.append("artifact snapshot count is neither frozen smoke nor complete Development")
+    if expected_trials != expected_snapshots * 3:
+        errors.append("artifact trial count is not three times the snapshot count")
+    if len(inventory) != expected_snapshots or inventory["snapshot_id"].nunique() != expected_snapshots:
+        errors.append("snapshot inventory does not match manifest")
+    if len(trials) != expected_trials:
+        errors.append("trial inventory does not match manifest")
     counts = trials.groupby("snapshot_id")["registration_backend"].agg(["count", "nunique"])
     if not ((counts["count"] == 3) & (counts["nunique"] == 3)).all():
         errors.append("each snapshot must contain exactly three distinct backend trials")
@@ -93,10 +100,9 @@ def verify_development(root: str | Path) -> dict[str, Any]:
         trials.groupby("snapshot_id")["backend_input_checksum"].nunique() == 1
     ).all():
         errors.append("backend input checksum pairing violation")
-    if len(diagnostics) != 1260:
-        errors.append("full/frozen comparison must contain 1260 rows")
+    if len(diagnostics) != expected_snapshots:
+        errors.append("full/frozen comparison does not match snapshot count")
 
-    manifest = json.loads((artifact / "run_manifest.json").read_text(encoding="utf-8"))
     decision = json.loads((artifact / "final_decision.json").read_text(encoding="utf-8"))
     lock = json.loads((artifact / "development_protocol_lock.json").read_text(encoding="utf-8"))
     if manifest["protocol_sha256"] != PROTOCOL_SHA256 or lock["protocol_sha256"] != PROTOCOL_SHA256:
@@ -136,6 +142,13 @@ def verify_development(root: str | Path) -> dict[str, Any]:
     )
     if decision["ZERO_PERTURBATION_CONFIRMATORY_LOCK_AUTHORIZED"] is not expected_authorization:
         errors.append("Confirmatory-lock authorization does not match frozen conjunction")
+    if expected_snapshots == 42:
+        if decision["IDEAL_MATCHED_CONTROL_PASS"] is not False:
+            errors.append("early-stop smoke artifact must record failed IDEAL_MATCHED control")
+        if decision["FULL_DEVELOPMENT_RUN_EXECUTED"] is not False:
+            errors.append("early-stop artifact incorrectly claims full Development execution")
+        if decision["PRELIMINARY_SCIENTIFIC_SIGNALS_EVALUATED"] is not False:
+            errors.append("preliminary signals must remain unevaluated after hard-gate failure")
 
     for path in sorted(figures.glob("*.png")):
         image = mpimg.imread(path)
