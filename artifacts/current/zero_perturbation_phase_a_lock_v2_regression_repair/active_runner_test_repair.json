@@ -1,0 +1,26 @@
+{
+  "active_runner_path": "scripts/179_run_backend_phase_a_v2.py",
+  "active_runner_placeholder_pass": true,
+  "active_runner_sha256": "9d3e72bdc4e5b04d27f671db6f7ebf50b73dee26c1efb598f61601ccf8b9b96e",
+  "active_runner_sha_matches_lock": true,
+  "active_runner_unconditional_placeholder_findings": [],
+  "active_runner_unique_formal_lock_interface_pass": true,
+  "formal_lock_bound_implementation_sha256": "346efe034be66aea79a7cd1af6602e0275c3baae1f79b8d8727890ec0ff217ec",
+  "full_suite_embedded_dry_run_pass": false,
+  "full_suite_failure_reason": "The active runner observed a transient dirty worktree during the full pytest session.",
+  "implementation_lock_formal_runner_sha256": "9d3e72bdc4e5b04d27f671db6f7ebf50b73dee26c1efb598f61601ccf8b9b96e",
+  "legacy_runner_formally_bound": false,
+  "legacy_runner_isolation_pass": true,
+  "legacy_runner_path": "scripts/168_run_backend_phase_a.py",
+  "legacy_runner_sha256": "b0ef3155a2f46f0edfe20244a57ac21662f3ab14210916560707492caa000901",
+  "resolution_chain": [
+    "artifacts/current/zero_perturbation_phase_a_lock_architecture_v2/phase_a_formal_run_lock_v2.json",
+    "artifacts/current/zero_perturbation_phase_a_lock_architecture_v2/phase_a_execution_implementation_lock_v2.json",
+    "artifacts/current/zero_perturbation_phase_a_lock_architecture_v2/implementation_manifest.json",
+    "files.formal_runner_sha256.path"
+  ],
+  "schema_version": "phase_a_lock_v2_active_runner_test_repair_v1",
+  "standalone_dry_run_pass": true,
+  "standalone_dry_run_snapshot_count": 210,
+  "standalone_dry_run_trial_count": 420
+}

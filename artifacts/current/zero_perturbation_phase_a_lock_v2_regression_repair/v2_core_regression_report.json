@@ -1,0 +1,38 @@
+{
+  "core_regression_pass": true,
+  "existing_v2_artifact_sha_check_pass": true,
+  "formal_dry_run": {
+    "attempt_started_count": 0,
+    "backend_execution_count": 0,
+    "native_trials": 0,
+    "open3d_trials": 210,
+    "pass": true,
+    "pcl_trials": 210,
+    "seed_access_count": 0,
+    "snapshot_cache_sha_verification_count": 210,
+    "snapshots": 210,
+    "trial_result_count": 0,
+    "trials": 420
+  },
+  "original_v2_fail_artifact_modified": false,
+  "pcl_v3_ctest": {
+    "failed": 0,
+    "pass": true,
+    "passed": 3
+  },
+  "schema_version": "phase_a_lock_v2_regression_repair_core_regression_report_v1",
+  "tamper_rejection": {
+    "backend_execution_count": 0,
+    "cache_read_count": 0,
+    "case_count": 23,
+    "pass": true,
+    "rejected_case_count": 23,
+    "seed_access_count": 0,
+    "trial_result_count": 0
+  },
+  "v2_targeted_pytest": {
+    "failed": 0,
+    "pass": true,
+    "passed": 27
+  }
+}

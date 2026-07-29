@@ -1,0 +1,19 @@
+{
+  "command": "/home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-zprm-py311/bin/python -m pytest -vv",
+  "duration_seconds": 89.78,
+  "exit_code": 1,
+  "failed": 1,
+  "failure_nodeids": [
+    "tests/test_phase_a_v2_active_runner_no_placeholder.py::test_active_runner_dry_run_reaches_complete_nonexecuting_plan"
+  ],
+  "failure_reason": "Active runner subprocess rejected a transient dirty worktree during the full pytest session.",
+  "full_pytest_pass": false,
+  "passed": 1775,
+  "schema_version": "phase_a_lock_v2_regression_repair_full_pytest_report_v1",
+  "skipped": 1,
+  "stderr_evidence": "/tmp/phase_a_lock_v2_regression_repair_validation/10_full_pytest.stderr.txt",
+  "stdout_evidence": "/tmp/phase_a_lock_v2_regression_repair_validation/10_full_pytest.stdout.txt",
+  "stop_rule_invoked": true,
+  "third_compatibility_patch_attempted": false,
+  "warnings": 262
+}

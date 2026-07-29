@@ -1,0 +1,15 @@
+{
+  "PHASE_A_LOCK_V2_REGRESSION_REPAIR_ARTIFACT_VERIFICATION_PASS": false,
+  "artifact_file_completeness_pass": true,
+  "artifact_semantic_failures": [
+    "FULL_PYTEST_PASS",
+    "HISTORICAL_SEED_RESULT_NON_REDUCTION_PASS"
+  ],
+  "artifact_sha_verification_pass": true,
+  "existing_v2_artifact_sha_verification_pass": true,
+  "frozen_lock_sha_verification_pass": true,
+  "missing_files": [],
+  "required_file_count": 13,
+  "schema_version": "phase_a_lock_v2_regression_repair_artifact_verification_v1",
+  "sha256_mismatches": []
+}

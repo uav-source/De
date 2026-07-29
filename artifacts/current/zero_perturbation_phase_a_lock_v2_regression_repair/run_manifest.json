@@ -1,0 +1,23 @@
+{
+  "failure_archive_tag": "archive/zero-perturbation-phase-a-lock-architecture-v2-full-pytest-fail",
+  "failure_bundle_path": "/tmp/zero-perturbation-phase-a-lock-architecture-v2-full-pytest-fail_692b6aa.bundle",
+  "failure_bundle_sha256": "b8a89dabdcaf9353ab56f851d21283d21c09907771434957c48ddd8856bf8a94",
+  "formal_backend_execution_count": 0,
+  "formal_phase_a_executed": false,
+  "formal_trial_result_count": 0,
+  "git_push_performed": false,
+  "initial_branch": "feature/zero-perturbation-phase-a-lock-architecture-v2",
+  "initial_commit": "692b6aacf0e846241ca28e8cd388cd1614e7a827",
+  "pass_tag_created": false,
+  "phase_b_executed": false,
+  "repair_branch": "feature/zero-perturbation-phase-a-lock-v2-regression-repair",
+  "repair_commits_before_artifact": [
+    "5d93991 test: retarget placeholder audit to active phase-a v2 runner",
+    "a7db857 fix: support structured seed provenance in historical scanner",
+    "b23b0b4 test: validate legacy and v2 seed formats",
+    "2f979dc test: preserve archived v2 failure artifact integrity"
+  ],
+  "schema_version": "phase_a_lock_v2_regression_repair_run_manifest_v1",
+  "stop_reason": "Full pytest retained one failure; no third compatibility patch is authorized.",
+  "stop_rule_invoked": true
+}

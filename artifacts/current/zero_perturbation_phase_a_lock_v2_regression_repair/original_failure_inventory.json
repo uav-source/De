@@ -1,0 +1,22 @@
+{
+  "failures": [
+    {
+      "baseline_classification": "OUT_OF_SCOPE_LEGACY_RUNNER_TEST_CONFLICT",
+      "nodeid": "tests/test_backend_phase_a_runner_no_placeholder.py::test_runner_has_no_unconditional_runtime_error_placeholder",
+      "repair_result": "PASS",
+      "repair_semantics": "Resolve the active runner through frozen locks and reject only unconditional fixed placeholders."
+    },
+    {
+      "baseline_classification": "FROZEN_SCIENTIFIC_LOCK_HISTORICAL_SCANNER_CONFLICT",
+      "nodeid": "tests/test_stage2_failure_day13_seed_exclusion.py::test_real_historical_seed_scan_is_parseable_and_disjoint",
+      "repair_result": "PASS",
+      "repair_semantics": "Parse scalar, list, and explicit structured seed values with provenance."
+    }
+  ],
+  "original_failure_tests_failed": 0,
+  "original_failure_tests_passed": 2,
+  "schema_version": "phase_a_lock_v2_regression_repair_original_failure_inventory_v1",
+  "source_artifact_modified": false,
+  "source_inventory_path": "artifacts/current/zero_perturbation_phase_a_lock_architecture_v2/full_pytest_failure_inventory.json",
+  "source_inventory_sha256": "bf7ac83de1f39f257ef22f76ab4ed22667e0a1481a39b6a0a55b8bdda0aad915"
+}

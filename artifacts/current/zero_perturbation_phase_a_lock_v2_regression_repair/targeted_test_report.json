@@ -1,0 +1,35 @@
+{
+  "new_compatibility_clean_worktree_attempt": {
+    "failed": 0,
+    "passed": 15
+  },
+  "new_compatibility_initial_attempt": {
+    "failed": 1,
+    "passed": 14,
+    "reason": "Frozen engine correctly rejected the pre-commit dirty worktree."
+  },
+  "new_compatibility_test_count": 15,
+  "new_compatibility_tests": {
+    "failed": 0,
+    "passed": 15
+  },
+  "new_compatibility_tests_pass": true,
+  "original_failure_1": {
+    "failed": 0,
+    "passed": 1
+  },
+  "original_failure_2": {
+    "failed": 0,
+    "passed": 1
+  },
+  "original_failure_repair_pass": true,
+  "original_failures_combined": {
+    "failed": 0,
+    "passed": 2
+  },
+  "original_test_files": {
+    "failed": 0,
+    "passed": 4
+  },
+  "schema_version": "phase_a_lock_v2_regression_repair_targeted_test_report_v1"
+}
