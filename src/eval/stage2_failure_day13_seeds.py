@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, Mapping, MutableSet, Optional, Sequence, Tuple
 
@@ -28,6 +29,16 @@ HISTORICAL_SCAN_ROOTS = (
     "results/stage2_failure_analysis",
 )
 STRUCTURED_SUFFIXES = {".json", ".yaml", ".yml", ".csv"}
+SEED_TYPE_ALIASES = {
+    "geometry": "geometry",
+    "measurement": "sensor",
+    "sensor": "sensor",
+    "process": "process",
+}
+SEED_KEY_PATTERN = re.compile(
+    r"(?:^|_)(geometry|measurement|sensor|process)_seeds?(?:_value)?$"
+)
+STRUCTURED_SEED_KEYS = frozenset({"index", "label", "value", "values"})
 
 
 def seed_label(role: str, seed_type: str, index: int, nonce: int) -> str:
@@ -141,6 +152,7 @@ def scan_historical_seed_sources(root: Path) -> Mapping[str, Any]:
     sources = []
     hashes: Dict[str, str] = {}
     found = {seed_type: set() for seed_type in SEED_TYPES}
+    provenance = []
     parse_errors = []
     for path in sorted(set(candidates), key=lambda value: str(value.relative_to(root))):
         raw = path.read_text(encoding="utf-8", errors="strict")
@@ -151,9 +163,10 @@ def scan_historical_seed_sources(root: Path) -> Mapping[str, Any]:
         sources.append(relative)
         hashes[relative] = sha256_file(path)
         try:
-            extracted = _extract_path_seeds(path)
-            for seed_type in SEED_TYPES:
-                found[seed_type].update(extracted[seed_type])
+            records = _extract_path_seed_records(path, relative)
+            for record in records:
+                found[record["seed_type"]].add(record["seed_value"])
+            provenance.extend(records)
         except (ValueError, TypeError, json.JSONDecodeError, UnicodeError) as error:
             parse_errors.append({"path": relative, "error": str(error)})
     if not sources:
@@ -166,6 +179,7 @@ def scan_historical_seed_sources(root: Path) -> Mapping[str, Any]:
         "historical_geometry_seeds": sorted(found["geometry"]),
         "historical_sensor_seeds": sorted(found["sensor"]),
         "historical_process_seeds": sorted(found["process"]),
+        "historical_seed_provenance": _deduplicate_provenance(provenance),
         "parse_errors": parse_errors,
         "historical_source_parse_pass": not parse_errors,
     }
@@ -247,70 +261,187 @@ def write_seed_exclusion_manifest(root: Path, path: Path) -> Mapping[str, Any]:
     return manifest
 
 
-def _extract_path_seeds(path: Path) -> Mapping[str, set]:
-    output = {seed_type: set() for seed_type in SEED_TYPES}
+def extract_seed_values_with_provenance(
+    value: Any,
+    json_path: str,
+    *,
+    source_file: str = "<memory>",
+    seed_type: Optional[str] = None,
+    declared_seed_type: Optional[str] = None,
+    container_type: Optional[str] = None,
+) -> list[dict[str, Any]]:
+    """Strictly extract integers from one explicit seed-bearing context."""
+
+    inferred = _seed_key_types(json_path.rsplit(".", 1)[-1])
+    canonical_type = seed_type or (inferred[0] if inferred else None)
+    declared_type = declared_seed_type or (inferred[1] if inferred else None)
+    if canonical_type not in SEED_TYPES or declared_type not in SEED_TYPE_ALIASES:
+        raise ValueError(f"unsupported seed-bearing JSON path: {json_path}")
+
+    def extract(item: Any, path: str, context: str) -> list[dict[str, Any]]:
+        if type(item) is int:
+            return [{
+                "seed_value": item,
+                "source_file": source_file,
+                "json_path": path,
+                "container_type": context,
+                "seed_type": canonical_type,
+                "declared_seed_type": declared_type,
+            }]
+        if isinstance(item, bool):
+            raise ValueError(f"boolean is not a seed at {path}")
+        if isinstance(item, float):
+            raise ValueError(f"float is not a seed at {path}: {item!r}")
+        if isinstance(item, str):
+            raise ValueError(f"string is not a seed at {path}: {item!r}")
+        if isinstance(item, (list, tuple)):
+            if not item:
+                raise ValueError(f"empty seed list at {path}")
+            records = []
+            for index, child in enumerate(item):
+                records.extend(extract(child, f"{path}[{index}]", "list"))
+            return records
+        if isinstance(item, Mapping):
+            keys = {str(key) for key in item}
+            unknown = sorted(keys - STRUCTURED_SEED_KEYS)
+            if unknown:
+                child = _json_child_path(path, unknown[0])
+                raise ValueError(f"unrecognized seed container leaf at {child}")
+            if "value" in item and "values" in item:
+                raise ValueError(f"ambiguous structured seed container at {path}")
+            if "value" not in item and "values" not in item:
+                raise ValueError(f"structured seed container has no value at {path}")
+            if "index" in item and type(item["index"]) is not int:
+                raise ValueError(f"invalid seed metadata at {_json_child_path(path, 'index')}")
+            if "label" in item and not isinstance(item["label"], str):
+                raise ValueError(f"invalid seed metadata at {_json_child_path(path, 'label')}")
+            key = "value" if "value" in item else "values"
+            child = item[key]
+            if key == "values" and not isinstance(child, (list, tuple)):
+                raise ValueError(
+                    f"structured seed values must be a list at "
+                    f"{_json_child_path(path, key)}"
+                )
+            return extract(
+                child,
+                _json_child_path(path, key),
+                f"structured_{key}",
+            )
+        raise ValueError(f"unsupported seed value at {path}: {type(item).__name__}")
+
+    return extract(value, json_path, container_type or "scalar")
+
+
+def extract_typed_seed_provenance(
+    value: Any, *, source_file: str = "<memory>"
+) -> list[dict[str, Any]]:
+    """Walk a document, entering strict parsing only at typed seed keys."""
+
+    records: list[dict[str, Any]] = []
+
+    def walk(item: Any, json_path: str) -> None:
+        if isinstance(item, Mapping):
+            for key, child in item.items():
+                key_text = str(key)
+                child_path = _json_child_path(json_path, key_text)
+                types = _seed_key_types(key_text)
+                if types is None:
+                    walk(child, child_path)
+                    continue
+                canonical_type, declared_type = types
+                records.extend(extract_seed_values_with_provenance(
+                    child,
+                    child_path,
+                    source_file=source_file,
+                    seed_type=canonical_type,
+                    declared_seed_type=declared_type,
+                ))
+        elif isinstance(item, (list, tuple)):
+            for index, child in enumerate(item):
+                walk(child, f"{json_path}[{index}]")
+
+    walk(value, "$")
+    return _deduplicate_provenance(records)
+
+
+def _extract_path_seed_records(path: Path, source_file: Optional[str] = None) -> list[dict[str, Any]]:
+    source = source_file or str(path)
     suffix = path.suffix.lower()
     if suffix == ".csv":
+        records = []
         with path.open("r", encoding="utf-8", newline="") as handle:
             reader = csv.DictReader(handle)
             if reader.fieldnames is None:
                 raise ValueError("CSV has no header")
-            for row in reader:
+            for row_index, row in enumerate(reader):
                 for key, value in row.items():
-                    seed_type = _typed_seed_key(key)
-                    if seed_type is not None and str(value).strip():
-                        output[seed_type].add(_seed_integer(value, key))
-        return output
+                    types = _seed_key_types(key)
+                    if types is None or not str(value).strip():
+                        continue
+                    text = str(value).strip()
+                    json_path = _json_child_path(f"$[{row_index}]", str(key))
+                    if re.fullmatch(r"-?(?:0|[1-9][0-9]*)", text) is None:
+                        raise ValueError(f"CSV seed cell is not a canonical integer at {json_path}")
+                    canonical_type, declared_type = types
+                    records.extend(extract_seed_values_with_provenance(
+                        int(text),
+                        json_path,
+                        source_file=source,
+                        seed_type=canonical_type,
+                        declared_seed_type=declared_type,
+                        container_type="csv_integer_cell",
+                    ))
+        return _deduplicate_provenance(records)
     value = json.loads(path.read_text(encoding="utf-8")) if suffix == ".json" else load_yaml(path)
-    _walk_seed_values(value, output)
+    return extract_typed_seed_provenance(value, source_file=source)
+
+
+def _extract_path_seeds(path: Path) -> Mapping[str, set]:
+    output = {seed_type: set() for seed_type in SEED_TYPES}
+    for record in _extract_path_seed_records(path):
+        output[record["seed_type"]].add(record["seed_value"])
     return output
 
 
-def _walk_seed_values(value: Any, output: Dict[str, set], key: str = "") -> None:
-    seed_type = _typed_seed_key(key)
-    if isinstance(value, Mapping):
-        for child_key, child in value.items():
-            _walk_seed_values(child, output, str(child_key))
-        return
-    if isinstance(value, (list, tuple)):
-        if seed_type is not None:
-            for item in value:
-                output[seed_type].add(_seed_integer(item, key))
-        else:
-            for item in value:
-                _walk_seed_values(item, output, key)
-        return
-    if seed_type is not None and value not in (None, ""):
-        output[seed_type].add(_seed_integer(value, key))
+def _deduplicate_provenance(records: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    unique = {}
+    for record in records:
+        row = dict(record)
+        key = (
+            str(row["source_file"]),
+            str(row["json_path"]),
+            str(row["seed_type"]),
+            int(row["seed_value"]),
+        )
+        unique[key] = row
+    return [unique[key] for key in sorted(unique)]
+
+
+def _json_child_path(parent: str, key: str) -> str:
+    if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", key):
+        return f"{parent}.{key}"
+    return f"{parent}[{json.dumps(key, ensure_ascii=False)}]"
+
+
+def _seed_key_types(key: Any) -> Optional[tuple[str, str]]:
+    match = SEED_KEY_PATTERN.search(str(key).lower())
+    if match is None:
+        return None
+    declared = match.group(1)
+    return SEED_TYPE_ALIASES[declared], declared
 
 
 def _typed_seed_key(key: Any) -> Optional[str]:
-    lowered = str(key).lower()
-    if (
-        "seed" not in lowered
-        or "sha" in lowered
-        or "hash" in lowered
-        or "/" in lowered
-        or "\\" in lowered
-        or lowered.endswith(".py")
-    ):
-        return None
-    for seed_type in SEED_TYPES:
-        if seed_type in lowered:
-            return seed_type
-    return None
+    types = _seed_key_types(key)
+    return types[0] if types else None
 
 
 def _seed_integer(value: Any, key: str) -> int:
+    if type(value) is int:
+        return value
     if isinstance(value, bool):
         raise ValueError(f"boolean is not a seed: {key}")
-    try:
-        integer = int(value)
-    except (TypeError, ValueError) as error:
-        raise ValueError(f"non-integer seed in {key}: {value}") from error
-    if str(value).strip() not in {str(integer), f"{integer}.0"}:
-        raise ValueError(f"non-integral seed in {key}: {value}")
-    return integer
+    raise ValueError(f"non-integer seed in {key}: {value!r}")
 
 
 def _validate_role_type(role: str, seed_type: str) -> None:
