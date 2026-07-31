@@ -1,0 +1,11 @@
+{
+  "V3_BACKEND_EXECUTION_COUNT": 0,
+  "V3_RNG_INSTANTIATION_COUNT": 0,
+  "V3_SEED_ACCESS_COUNT": 0,
+  "V3_SEED_VALUE_CHANGE_COUNT": 0,
+  "V3_SNAPSHOT_CONSTRUCTION_COUNT": 0,
+  "V3_TRIAL_RESULT_COUNT": 0,
+  "schema_version": "synthetic_confirmatory_v3_r3_seed_binding_v1",
+  "seed_schedule_sha256": "a0e7921b9c1282d4b12e3e0cccccd3d66ee3cbc10ff5b4666a6c0cb01f521fbc",
+  "seed_values_materialized_by_publication": false
+}

@@ -1,0 +1,69 @@
+{
+  "GENERATOR_EXPORT_EQUIVALENCE_PASS": true,
+  "PHASE_A_GENERATOR_REPRODUCTION_PASS": true,
+  "PHASE_B_SNAPSHOT_ASSET_PASS": true,
+  "actual_snapshot_count": 42,
+  "backend_counts": {
+    "open3d_point_to_plane": 42,
+    "pcl_iterative_closest_point_with_normals": 42
+  },
+  "cache_was_generated": true,
+  "condition_snapshot_counts": {
+    "FULL_NOISE": 21,
+    "INDEPENDENT_NOISE_FREE": 21
+  },
+  "condition_trial_counts": {
+    "FULL_NOISE": 42,
+    "INDEPENDENT_NOISE_FREE": 42
+  },
+  "confirmatory_seed_instantiation_count": 0,
+  "generator_export_destination_file_sha_mismatch_count": 0,
+  "generator_export_source_destination_sha_mismatch_count": 0,
+  "generator_exported_file_count": 18,
+  "generator_reproduction_checksum_mismatch_count": 0,
+  "metadata_checksum_mismatch_count": 0,
+  "native_trial_count": 0,
+  "phase_a_reproduction_firewall_totals": {
+    "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+    "GT_OPTIMIZATION_LEAKAGE_COUNT": 0,
+    "OLD_CAPTURE_RANGE_TEST_SEED_ACCESS_COUNT": 0,
+    "RNG_CONSTRUCTION_COUNT": 0,
+    "SNAPSHOT_ACCESS_COUNT": 7
+  },
+  "phase_b_generation_firewall_totals": {
+    "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+    "GT_OPTIMIZATION_LEAKAGE_COUNT": 0,
+    "OLD_CAPTURE_RANGE_TEST_SEED_ACCESS_COUNT": 0,
+    "RNG_CONSTRUCTION_COUNT": 63,
+    "SNAPSHOT_ACCESS_COUNT": 189
+  },
+  "planned_snapshot_count": 42,
+  "planned_snapshots_path": "frozen_assets/phase_b_planned_snapshots.csv",
+  "planned_snapshots_sha256": "14c0e135f07f80e87f79dedfe21cc57cb2410cc07d727703387f86ec40a28fb7",
+  "planned_trial_count": 84,
+  "planned_trials_path": "frozen_assets/phase_b_planned_trials.csv",
+  "planned_trials_sha256": "dea6106bf4c181a3a15f5c762beae7c5d6a4703036cfae815fc84da552c6832a",
+  "scene_snapshot_counts": {
+    "END_FACE_TRANSITION_ABSENT": 6,
+    "END_FACE_TRANSITION_PRESENT": 6,
+    "END_FACE_TRANSITION_WEAK": 6,
+    "GEOMETRY_RICH_ROOM": 6,
+    "LONG_CORRIDOR": 6,
+    "PARALLEL_WALLS": 6,
+    "REPEATED_STRUCTURE": 6
+  },
+  "schema_version": "phase_b_signal_snapshot_preparation_v1",
+  "snapshot_backend_pairing_mismatch_count": 0,
+  "snapshot_checksum_mismatch_count": 0,
+  "snapshot_corrupt_count": 0,
+  "snapshot_duplicate_count": 0,
+  "snapshot_extra_count": 0,
+  "snapshot_file_sha_mismatch_count": 0,
+  "snapshot_lock_path": "frozen_assets/phase_b_snapshot_lock.json",
+  "snapshot_lock_sha256": "95285c9a6d6969a58a4756bbaa67cc9c171725efcc2721b595729de8a17c7baf",
+  "snapshot_missing_count": 0,
+  "source_repository_runtime_file_read_count": 0,
+  "source_repository_runtime_import_count": 0,
+  "source_repository_runtime_import_paths": [],
+  "verified_snapshot_count": 42
+}

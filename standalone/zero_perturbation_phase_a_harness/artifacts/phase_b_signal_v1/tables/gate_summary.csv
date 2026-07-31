@@ -1,0 +1,11 @@
+backend,gate,pass,threshold_or_contract,value
+,PHASE_B_CROSS_BACKEND_RANKING_PASS,True,frozen protocol v1,
+,PHASE_B_ENGINEERING_PASS,True,frozen protocol v1,
+,PHASE_B_GEOMETRY_SEED_CONSISTENCY_PASS,True,frozen protocol v1,
+,PHASE_B_SCENE_RANKING_PASS,True,frozen protocol v1,
+,PHASE_B_WEAK_RICH_EFFECT_PASS,True,frozen protocol v1,
+,ANALYSIS_VERIFIER_DIFFERENCE_COUNT_EQ_0,True,0,0
+Open3D,solver_failure_count_by_backend_eq_0,True,0,0
+PCL,solver_failure_count_by_backend_eq_0,True,0,0
+Open3D,nonfinite_output_count_by_backend_eq_0,True,0,0
+PCL,nonfinite_output_count_by_backend_eq_0,True,0,0

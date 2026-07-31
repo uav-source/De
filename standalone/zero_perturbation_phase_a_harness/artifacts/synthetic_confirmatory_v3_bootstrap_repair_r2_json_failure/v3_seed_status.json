@@ -1,0 +1,15 @@
+{
+  "V3_BACKEND_EXECUTION_COUNT": 0,
+  "V3_RNG_INSTANTIATED": false,
+  "V3_RNG_INSTANTIATION_COUNT": 0,
+  "V3_SEEDS_ACCESSED": false,
+  "V3_SEEDS_DECLARED": true,
+  "V3_SEED_ACCESS_COUNT": 0,
+  "V3_SEED_SET_CURRENTLY_RUN_AUTHORIZED": false,
+  "V3_SEED_SET_PERMANENTLY_RETIRED": false,
+  "V3_SEED_SET_REQUALIFICATION_ELIGIBLE": true,
+  "V3_SNAPSHOT_CONSTRUCTION_COUNT": 0,
+  "V3_TRIAL_RESULT_COUNT": 0,
+  "formal_runtime_root_created": false,
+  "schema_version": "synthetic_confirmatory_v3_r2_seed_status_v1"
+}

@@ -1,0 +1,16 @@
+{
+  "backend_execution_count_this_invocation": 420,
+  "completed_snapshot_count": 210,
+  "completed_trial_count": 420,
+  "failed_trial_ids_this_invocation": [],
+  "formal_rng_access_count": 0,
+  "native_execution_count": 0,
+  "open3d_trial_count": 210,
+  "pcl_trial_count": 210,
+  "resume_skipped_valid_result_count": 0,
+  "run_id": "phase-a-minimal-harness-formal-v1",
+  "schema_version": "phase_a_minimal_harness_formal_run_v1",
+  "source_repository_runtime_file_read_count": 0,
+  "source_repository_runtime_import_count": 0,
+  "workers": 2
+}

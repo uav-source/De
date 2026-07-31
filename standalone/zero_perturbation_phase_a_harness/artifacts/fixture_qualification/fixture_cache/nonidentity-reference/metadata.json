@@ -1,0 +1,13 @@
+{
+  "checksums": {
+    "reference_pose_checksum": "6400fe576c3be1d3b71391c90de73920ceffb637fd06729ff1884f0626594e80",
+    "snapshot_checksum": "505bf6349d31489a2bbb76c0313ec327302f8dce1ad6d12d3e459eb41f915036",
+    "source_checksum": "35e8ac9f85882addce9d0a5b423f88361e49fbce626e8e8a35b1688e17365f62",
+    "target_checksum": "568b61568055228113601a67c2dfa99bd9ca22ed115f39afa565b4c34621c3e8"
+  },
+  "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+  "fixture_only": true,
+  "formal_phase_a": false,
+  "scene_variant": "AUDIT_ASYMMETRIC_3D",
+  "snapshot_id": "fixture-audit-v1/nonidentity-reference"
+}

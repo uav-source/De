@@ -1,0 +1,15 @@
+{
+  "RESUME_VALIDATOR_SCIENTIFIC_EQUIVALENCE_PASS": true,
+  "backend_execution_count": 0,
+  "resume_validated_trial_count": 6,
+  "schema_version": "phase_a_fixture_resume_validation_v1",
+  "scientific_difference_count": 0,
+  "trial_ids": [
+    "fixture-audit-v1/identity/open3d_point_to_plane",
+    "fixture-audit-v1/identity/pcl_point_to_plane",
+    "fixture-audit-v1/no-correspondence/open3d_point_to_plane",
+    "fixture-audit-v1/no-correspondence/pcl_point_to_plane",
+    "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane",
+    "fixture-audit-v1/nonidentity-reference/pcl_point_to_plane"
+  ]
+}

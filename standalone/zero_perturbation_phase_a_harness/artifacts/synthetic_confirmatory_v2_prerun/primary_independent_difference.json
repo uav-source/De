@@ -1,0 +1,10 @@
+{
+  "absolute_tolerance": 0.0,
+  "differing_sections": [],
+  "exact_match_pass": true,
+  "leaf_difference_count": 0,
+  "maximum_absolute_numeric_difference": 0.0,
+  "relative_tolerance": 0.0,
+  "schema_version": "synthetic_confirmatory_v2_fixture_difference_v1",
+  "section_difference_count": 0
+}

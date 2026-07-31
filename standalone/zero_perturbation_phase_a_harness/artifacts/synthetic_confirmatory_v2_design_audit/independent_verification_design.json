@@ -1,0 +1,40 @@
+{
+  "builder_claims_not_trusted": [
+    "source_is_target_subset",
+    "source_has_target_parent_lineage",
+    "parent_index_count",
+    "parent_index_unique_count",
+    "lineage_closure_violation_count",
+    "quantization_closure_pass"
+  ],
+  "independent_inputs": [
+    "source_points.npy",
+    "target_points.npy",
+    "reference_pose.npy",
+    "source_parent_target_indices.npy for IDEAL",
+    "metadata.json condition and schema identity"
+  ],
+  "independent_recomputations": [
+    "parent index count, dtype, dimensionality, range, and uniqueness",
+    "source row to target parent row correspondence",
+    "Phase A predicted quantization error",
+    "closure residual and float64 guard",
+    "normalized closure ratio and violation counts",
+    "expected lineage booleans",
+    "H1-H6",
+    "frozen Model A/B predictions",
+    "final gate"
+  ],
+  "permitted_shared_primitives": [
+    "strict file parsing",
+    "read-only schema constants",
+    "SHA-256"
+  ],
+  "prohibited_shared_decisions": [
+    "builder lineage validator",
+    "primary H1-H6 decision function",
+    "primary aggregate output",
+    "publisher tables"
+  ],
+  "schema_version": "synthetic_confirmatory_v2_independent_verification_design_v1"
+}

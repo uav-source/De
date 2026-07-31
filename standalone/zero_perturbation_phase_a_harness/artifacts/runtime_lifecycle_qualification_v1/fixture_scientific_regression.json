@@ -1,0 +1,1 @@
+{"FIXTURE_SCIENTIFIC_PAYLOAD_CHANGE_COUNT":0,"FIXTURE_TRIAL_SCIENTIFIC_FIELD_CHANGE_COUNT":0,"baseline_trial_count":6,"current_trial_count":6,"excluded_fields":["runtime_ms"],"field_differences":[],"fresh_snapshot_resume_scientific_equivalence":true,"fresh_trial_resume_scientific_equivalence":true,"schema_version":"runtime_lifecycle_fixture_scientific_regression_v1"}

@@ -1,0 +1,70 @@
+{
+  "backend_code_change_count": 0,
+  "compact_artifact_file_count": 38,
+  "compact_artifact_sha256_mismatch_count": 0,
+  "compact_artifact_sha256_missing_count": 0,
+  "compact_artifact_sha256_unlisted_count": 0,
+  "formal_public_entry_post_freeze_status": "EXPECTED_STRICT_REJECTION",
+  "frozen_scientific_field_difference_count": 0,
+  "frozen_scientific_fields": {
+    "COMMON_ASSOCIATION_ANALYSIS_PASS": {
+      "after": true,
+      "before": true,
+      "identical": true
+    },
+    "FULL_SYNTHETIC_CROSS_BACKEND_PASS": {
+      "after": true,
+      "before": true,
+      "identical": true
+    },
+    "FULL_SYNTHETIC_DEVELOPMENT_PASS": {
+      "after": true,
+      "before": true,
+      "identical": true
+    },
+    "FULL_SYNTHETIC_PRIMARY_SCENE_EFFECT_PASS": {
+      "after": true,
+      "before": true,
+      "identical": true
+    },
+    "FULL_SYNTHETIC_SCENE_RANK_STABILITY_PASS": {
+      "after": true,
+      "before": true,
+      "identical": true
+    },
+    "LOCAL_METRIC_INCREMENTAL_VALUE_PASS": {
+      "after": true,
+      "before": true,
+      "identical": true
+    },
+    "REASSOCIATION_MECHANISM_SUPPORTED": {
+      "after": true,
+      "before": true,
+      "identical": true
+    },
+    "SYSTEMATIC_OFFSET_CLAIM_AUTHORIZED": {
+      "after": true,
+      "before": true,
+      "identical": true
+    }
+  },
+  "gate_change_count": 0,
+  "independent_verification_change_count": 0,
+  "matplotlib_version": "3.8.2",
+  "metric_code_change_count": 0,
+  "model_change_count": 0,
+  "primary_analysis_change_count": 0,
+  "publication_execution_path": "SAME_PUBLISHER_INTERNAL_ATOMIC_STAGING_AND_DOUBLE_VERIFICATION",
+  "publisher_changed_paths": [
+    "src/phase_a_harness/full_synthetic_publisher.py"
+  ],
+  "publisher_code_change_count": 1,
+  "publisher_repair_scope_pass": true,
+  "raw_result_change_count": 0,
+  "run_manifest_scientific_change_count": 0,
+  "schema_version": "publisher_only_change_scope_v1",
+  "snapshot_code_change_count": 0,
+  "snapshot_regeneration_count": 0,
+  "threshold_change_count": 0,
+  "trial_rerun_count": 0
+}

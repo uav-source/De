@@ -1,0 +1,13 @@
+backend,gate,pass,value
+Open3D,trial_count_210,True,210
+Open3D,solver_failure_count_0,True,0
+Open3D,nonfinite_output_count_0,True,0
+Open3D,translation_q95_le_0.001,True,5.583671270500705e-08
+Open3D,rotation_q95_le_threshold,True,4.3720857861883907e-10
+Open3D,fraction_translation_le_1mm_ge_0.95,True,1.0
+PCL,trial_count_210,True,210
+PCL,solver_failure_count_0,True,0
+PCL,nonfinite_output_count_0,True,0
+PCL,translation_q95_le_0.001,True,1.2291248917183737e-07
+PCL,rotation_q95_le_threshold,True,2.8620920306994413e-09
+PCL,fraction_translation_le_1mm_ge_0.95,True,1.0

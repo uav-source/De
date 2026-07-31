@@ -1,0 +1,90 @@
+{
+  "FIXTURE_EXECUTION_CHAIN_PASS": true,
+  "FORMAL_CONFIRMATORY_SCIENCE_EVALUATED": false,
+  "artifact_file_count": 17,
+  "artifact_path": "/tmp/synthetic_confirmatory_v2_fixture_publication",
+  "artifact_verification": {
+    "FIXTURE_ARTIFACT_VERIFICATION_PASS": true,
+    "actual_file_count": 17,
+    "directory_inventory_errors": [],
+    "duplicate_sha256_path_count": 0,
+    "extra_files": [],
+    "fixture_cardinality_and_pairing_pass": true,
+    "fixture_primary_independent_match_pass": true,
+    "fixture_row_audit": {
+      "fixture_row_contract_pass": true,
+      "input_checksum_violation_count": 0,
+      "outcome_semantics_violation_count": 0,
+      "pairing_violation_count": 0,
+      "snapshot_count": 3,
+      "trial_count": 6
+    },
+    "formal_science_absence_pass": true,
+    "invalid_json_files": [],
+    "invalid_or_mismatched_csv_files": [],
+    "invalid_png_files": [],
+    "malformed_or_unsafe_sha256_count": 0,
+    "missing_required_files": [],
+    "report_semantics_pass": true,
+    "required_file_count": 17,
+    "schema_identity_pass": true,
+    "schema_version": "synthetic_confirmatory_v2_fixture_artifact_verification_v1",
+    "sha256_entry_count": 15,
+    "sha256_mismatch_files": [],
+    "sha256_missing_files": [],
+    "sha256_unexpected_files": [],
+    "sha256_verification_pass": true,
+    "symlink_paths": []
+  },
+  "artifact_verification_pass": true,
+  "backend_execution_count": 6,
+  "checksum_mismatch_count": 0,
+  "failure_inventory": [
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_IDENTITY",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_NO_CORRESPONDENCE",
+      "count": 1,
+      "failure_classification": "NO_CORRESPONDENCES"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_IDENTITY",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_NO_CORRESPONDENCE",
+      "count": 1,
+      "failure_classification": "NO_CORRESPONDENCES"
+    }
+  ],
+  "fixture_snapshot_count": 3,
+  "fixture_trial_count": 6,
+  "fresh_resume_scientific_equivalence": true,
+  "pairing_mismatch_count": 0,
+  "primary_verifier_difference_count": 0,
+  "publisher_figure_count": 3,
+  "publisher_root_file_count": 7,
+  "publisher_table_count": 7,
+  "resume_backend_execution_count": 0,
+  "schema_version": "synthetic_confirmatory_v2_fixture_regression_v1"
+}

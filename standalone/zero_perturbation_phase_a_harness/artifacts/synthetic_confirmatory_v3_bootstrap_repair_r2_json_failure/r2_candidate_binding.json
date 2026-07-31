@@ -1,0 +1,15 @@
+{
+  "R2_CANDIDATE_COMMIT_MODIFIED": false,
+  "R2_CANDIDATE_TAG_MOVED": false,
+  "bundle_path": "/tmp/zero-perturbation-synthetic-confirmatory-v3-bootstrap-repair-r2-json-native-fail.bundle",
+  "bundle_sha256": "dac9210de93c182ab57c3a322ea89fd7f878fe2f90625395ae0150ceb8c3490c",
+  "bundle_size_bytes": 56701546,
+  "candidate_branch": "fix/zero-perturbation-v3-formal-bootstrap-state-machine",
+  "candidate_commit": "767e79fe4e518fbef290a43018c29581f028d6cd",
+  "candidate_tree": "b329d81949a62e8487886aac457041b544a913e8",
+  "failure_archive_tag": "archive/zero-perturbation-synthetic-confirmatory-v3-bootstrap-repair-r2-json-native-fail",
+  "failure_archive_tag_commit": "767e79fe4e518fbef290a43018c29581f028d6cd",
+  "publisher_envelope_candidate_tag": "archive/zero-perturbation-synthetic-confirmatory-v3-publisher-envelope-repair-candidate",
+  "publisher_envelope_candidate_tag_commit": "767e79fe4e518fbef290a43018c29581f028d6cd",
+  "schema_version": "synthetic_confirmatory_v3_r2_candidate_binding_v1"
+}

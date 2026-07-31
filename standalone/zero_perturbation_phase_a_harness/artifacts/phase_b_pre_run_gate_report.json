@@ -1,0 +1,45 @@
+{
+  "DRY_RUN_ZERO_EXECUTION_PASS": true,
+  "GENERATOR_EXPORT_EQUIVALENCE_PASS": true,
+  "GENERATOR_REPRODUCTION_PASS": true,
+  "PHASE_A_MINIMAL_TEST_PASS": true,
+  "PHASE_B_BACKEND_PAIRING_PASS": true,
+  "PHASE_B_DRY_RUN_PASS": true,
+  "PHASE_B_MINIMAL_TEST_PASS": true,
+  "PHASE_B_SNAPSHOT_VERIFICATION_PASS": true,
+  "PHASE_B_TRIAL_PLAN_PASS": true,
+  "SOURCE_RUNTIME_ISOLATION_PASS": true,
+  "evidence_paths": {
+    "dry_run": "artifacts/phase_b_dry_run_report.json",
+    "generator_export": "artifacts/phase_b_generator_export_verification.json",
+    "generator_reproduction": "artifacts/phase_b_generator_reproduction.json",
+    "phase_a_pytest": "artifacts/phase_a_regression_test_results.xml",
+    "phase_b_pytest": "artifacts/phase_b_test_results.xml",
+    "snapshot_preparation": "artifacts/phase_b_snapshot_preparation_report.json",
+    "unauthorized_manifest": "frozen_assets/phase_b_signal_manifest.json"
+  },
+  "evidence_sha256": {
+    "dry_run": "28ce5b1c6ed78b4bb94d627e53868984f72803bf53d54255d94a3e306a491412",
+    "generator_export": "c45d0d25b4859c7896226c681857dd17c876cebc56100b82dcdc2b061a8dccf8",
+    "generator_reproduction": "9ded5eb8f9a68d27d3252c73f92ae1b863093c2cd84f91c7225645e43051a33f",
+    "phase_a_pytest": "611ac17921d71e4db24335d2c89ced7968ba044dff3350afc852562db8b347a0",
+    "phase_b_pytest": "970885e7c7b5e8fbb698d3bc5e14ddc71a71d09e020f490f9c27ca1ade11143c",
+    "snapshot_preparation": "cb4e2d9716d21218fbed6dacd42815df111bb79020532c969407026fff45351a",
+    "unauthorized_manifest": "c99f74b622c0e107bdf06988b7b4aaf48de1d247677c4cfccc0a14e6632fafad"
+  },
+  "formal_execution_authorized_before_transition": false,
+  "phase_a_pytest_counts": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 40
+  },
+  "phase_b_pytest_counts": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 25
+  },
+  "report_payload_sha256": "71ccbf56b9cc2010bd9aaef5b976a22ae7ae319cc5e4549aa5eae1f6b6df573e",
+  "schema_version": "phase_b_scene_signal_pre_run_gate_v1"
+}

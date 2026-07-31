@@ -1,0 +1,13 @@
+{
+  "checksums": {
+    "reference_pose_checksum": "ccc7977ae7987f37c2235e57c320a5142d6b58413825b6457a4a1c9fe469ac1c",
+    "snapshot_checksum": "f3f25e39772aa5a5bab0280bf6e6261faf46c084b40eba9dcb1cc11ae6495b53",
+    "source_checksum": "35e8ac9f85882addce9d0a5b423f88361e49fbce626e8e8a35b1688e17365f62",
+    "target_checksum": "9ab4e39212200518bcbed60a0ade3c8bbede436237ddbfe24952376db41e776f"
+  },
+  "condition": "FIXTURE_NO_CORRESPONDENCE",
+  "fixture_only": true,
+  "formal_phase_a": false,
+  "scene_variant": "AUDIT_SEPARATED_ASYMMETRIC_3D",
+  "snapshot_id": "fixture-audit-v1/no-correspondence"
+}

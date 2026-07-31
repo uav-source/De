@@ -1,0 +1,57 @@
+{
+  "backend": "open3d_point_to_plane",
+  "backend_diagnostics": {
+    "correspondence_set_size": 806,
+    "fitness": 1.0,
+    "inlier_rmse": 2.0296317638433184e-08
+  },
+  "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+  "failure_classification": "NONE",
+  "failure_detail": null,
+  "final_transform_4x4": [
+    [
+      0.9990483607378262,
+      -0.035350753848689534,
+      -0.02554793747823174,
+      0.07999999974884003
+    ],
+    [
+      0.034887537586295175,
+      0.9992226710942267,
+      -0.01835519796907804,
+      -0.03999999981756033
+    ],
+    [
+      0.026176948413195858,
+      0.017446425813001563,
+      0.9995050723223592,
+      0.06000000042665497
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "finite_output": true,
+  "implementation_sha256": "fa7c3f54b69a8e879ccfa910951fef40d6879a1cb81cecc60935bfa1487a7140",
+  "orthogonality_defect_fro": 4.965328575194794e-16,
+  "planned_trial_id": "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane",
+  "projection_correction_fro": 3.414026340867282e-16,
+  "protocol_sha256": "b2476717464d6e1df46b8bc5f95782de740544bbdaa82d524b51d617bce9f005",
+  "raw_rotation_determinant": 1.0,
+  "raw_rotation_finite": true,
+  "reference_pose_checksum": "6400fe576c3be1d3b71391c90de73920ceffb637fd06729ff1884f0626594e80",
+  "rotation_update_rad": 1.7336640716374422e-10,
+  "runtime_ms": 2.976205010781996,
+  "scene_variant": "AUDIT_ASYMMETRIC_3D",
+  "schema_version": "phase_a_trial_result_v1",
+  "snapshot_checksum": "505bf6349d31489a2bbb76c0313ec327302f8dce1ad6d12d3e459eb41f915036",
+  "snapshot_id": "fixture-audit-v1/nonidentity-reference",
+  "snapshot_lock_sha256": "8c3e4ff9fcd8ec18903e468cd126ecf9edf0f5e6a5dc0e6c8087b1a208967949",
+  "solver_failure": false,
+  "source_checksum": "35e8ac9f85882addce9d0a5b423f88361e49fbce626e8e8a35b1688e17365f62",
+  "target_checksum": "568b61568055228113601a67c2dfa99bd9ca22ed115f39afa565b4c34621c3e8",
+  "translation_update_m": 5.276362628526608e-10
+}

@@ -1,0 +1,12 @@
+{
+  "FINAL_GIT_BINDING_PASS": true,
+  "candidate_commit": "48c46c28c0ad140212e4d2d44507e31f652bd1f1",
+  "candidate_tag": "archive/zero-perturbation-synthetic-confirmatory-v3-qualification-json-native-r3-candidate",
+  "candidate_worktree_clean_before_publication": true,
+  "final_commit_and_tag_require_post_import_read_only_confirmation": true,
+  "final_transition_scope": [
+    "artifacts/synthetic_confirmatory_v3_bootstrap_repair_r3_prerun"
+  ],
+  "required_final_tag": "archive/zero-perturbation-synthetic-confirmatory-v3-bootstrap-repair-r3-pre-run-pass",
+  "schema_version": "synthetic_confirmatory_v3_r3_final_git_binding_v1"
+}

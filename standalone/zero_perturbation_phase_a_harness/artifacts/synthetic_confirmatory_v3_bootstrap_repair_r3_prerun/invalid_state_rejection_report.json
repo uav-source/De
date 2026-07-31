@@ -1,0 +1,43 @@
+{
+  "INVALID_RUNTIME_STATE_FALSE_ACCEPT_COUNT": 0,
+  "INVALID_RUNTIME_STATE_REJECTION_COUNT": 20,
+  "INVALID_STATE_PASS": true,
+  "case_count": 20,
+  "case_names": [
+    "test_exact_twenty_invalid_runtime_states_fail_closed[unknown_file_without_lock]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[empty_snapshot_cache_without_lock]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[command_log_missing]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[command_sha_missing]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[command_log_tampered]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[command_sha_tampered]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[command_profile_mismatch]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[lock_json_corrupt]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[lock_manifest_sha_mismatch]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[lock_commit_mismatch]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[lock_run_id_mismatch]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[lock_workers_mismatch]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[lock_runtime_root_mismatch]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[lock_command_sha_mismatch]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[lock_symlink]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[root_symlink_component]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[unknown_temporary_file]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[multiple_lock_files]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[snapshot_payload_without_lock]",
+    "test_exact_twenty_invalid_runtime_states_fail_closed[trial_payload_without_lock]"
+  ],
+  "command": [
+    "/home/lj/.local/share/degen-lio-micromamba/envs/degen-lio-zprm-py311/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "tests/test_synthetic_confirmatory_v3_bootstrap_state_machine.py::test_exact_twenty_invalid_runtime_states_fail_closed",
+    "--junitxml=/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/working_inventory/invalid_state_rejection.junit.xml"
+  ],
+  "junit_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/working_inventory/invalid_state_rejection.junit.xml",
+  "junit_sha256": "73a7356446d3c40b72dc9f3f6dd6e96bbcc0a4a292cf8c0f109aa896b570c457",
+  "pytest_exit_code": 0,
+  "pytest_output": "....................                                                     [100%]\n- generated xml file: /home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/working_inventory/invalid_state_rejection.junit.xml -\n",
+  "schema_version": "synthetic_confirmatory_v3_invalid_state_rejection_qualification_v3"
+}

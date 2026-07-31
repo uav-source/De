@@ -1,0 +1,77 @@
+{
+  "backend": "pcl_point_to_plane",
+  "backend_diagnostics": {
+    "correspondence_count": 806,
+    "exit_code": 0,
+    "fitness_score": 1.664264021808804e-15,
+    "has_converged_raw": true,
+    "iteration_count": 1,
+    "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+    "pcl_version": "1.15.1",
+    "source_normal_statistics": {
+      "finite_count": 806,
+      "nan_count": 0,
+      "norm_max": 1.0000000884329288,
+      "norm_median": 1.0,
+      "norm_min": 0.9999998987129718,
+      "zero_count": 0
+    },
+    "target_normal_statistics": {
+      "finite_count": 806,
+      "nan_count": 0,
+      "norm_max": 1.0000001109325147,
+      "norm_median": 1.0000000013326962,
+      "norm_min": 0.9999999042223091,
+      "zero_count": 0
+    }
+  },
+  "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+  "failure_classification": "NONE",
+  "failure_detail": null,
+  "final_transform_4x4": [
+    [
+      0.9990483522415161,
+      -0.035350751131772995,
+      -0.02554793655872345,
+      0.07999999821186066
+    ],
+    [
+      0.03488753363490105,
+      0.9992226958274841,
+      -0.018355201929807663,
+      -0.03999999538064003
+    ],
+    [
+      0.026176948100328445,
+      0.017446430400013924,
+      0.9995050430297852,
+      0.06000000238418579
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "finite_output": true,
+  "implementation_sha256": "fa7c3f54b69a8e879ccfa910951fef40d6879a1cb81cecc60935bfa1487a7140",
+  "orthogonality_defect_fro": 7.8459337894557e-08,
+  "planned_trial_id": "fixture-audit-v1/nonidentity-reference/pcl_point_to_plane",
+  "projection_correction_fro": 3.922966884865745e-08,
+  "protocol_sha256": "b2476717464d6e1df46b8bc5f95782de740544bbdaa82d524b51d617bce9f005",
+  "raw_rotation_determinant": 0.9999999868348761,
+  "raw_rotation_finite": true,
+  "reference_pose_checksum": "6400fe576c3be1d3b71391c90de73920ceffb637fd06729ff1884f0626594e80",
+  "rotation_update_rad": 5.506491058604584e-09,
+  "runtime_ms": 61.07359300949611,
+  "scene_variant": "AUDIT_ASYMMETRIC_3D",
+  "schema_version": "phase_a_trial_result_v1",
+  "snapshot_checksum": "505bf6349d31489a2bbb76c0313ec327302f8dce1ad6d12d3e459eb41f915036",
+  "snapshot_id": "fixture-audit-v1/nonidentity-reference",
+  "snapshot_lock_sha256": "8c3e4ff9fcd8ec18903e468cd126ecf9edf0f5e6a5dc0e6c8087b1a208967949",
+  "solver_failure": false,
+  "source_checksum": "35e8ac9f85882addce9d0a5b423f88361e49fbce626e8e8a35b1688e17365f62",
+  "target_checksum": "568b61568055228113601a67c2dfa99bd9ca22ed115f39afa565b4c34621c3e8",
+  "translation_update_m": 5.497296680144685e-09
+}

@@ -1,0 +1,19 @@
+{
+  "allowed_metadata_schema_version_change": true,
+  "allowed_parent_index_persistence_change": true,
+  "closure_formula_difference_count": 0,
+  "closure_threshold_difference_count": 0,
+  "normalized_closure_definition_difference_count": 0,
+  "protected_phase_a_function_ast_hashes": {
+    "phase_a_canonical_target": "5684f5bbcbd9001be0b29fcdd670470d0e19d7758d698fc39aaba4b73be3a5c8",
+    "phase_a_eligible_parent_indices": "f8fd5aed7876e30cacfac41c1b699518d04e7c134f23d189c8f217f9af5e275a",
+    "phase_a_quantization_closure": "2ec95cab5329881772ccd56518b73705efded616254710d013db95324594ebac",
+    "phase_a_reference_pose": "c9f8faa358bc09ee6e226547ec936f9bb2e95e7f98cac662b3a10da8b608caa1",
+    "phase_a_source_from_parent_indices": "787fc81f8a0a00dab2e0fa9fe761e7a7b61d65f7b14305cc32627bb84265fa94"
+  },
+  "reference_transform_direction_difference_count": 0,
+  "schema_version": "synthetic_confirmatory_v2_phase_a_semantics_diff_v1",
+  "source_transform_difference_count": 0,
+  "target_quantization_difference_count": 0,
+  "total_difference_count": 0
+}

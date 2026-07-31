@@ -1,0 +1,27 @@
+{
+  "candidate_commit": "48c46c28c0ad140212e4d2d44507e31f652bd1f1",
+  "candidate_tag": "archive/zero-perturbation-synthetic-confirmatory-v3-qualification-json-native-r3-candidate",
+  "formal_backend_execution_count": 0,
+  "formal_manifest_path": "frozen_assets/synthetic_confirmatory_formal_manifest_v3_bootstrap_repair_r3.json",
+  "formal_manifest_payload_sha256": "792cf7009c12fbc9e1152c79400475542a4dcbcfd0ba9ae10c59b4be788b7e68",
+  "formal_manifest_sha256": "7c9a813e6cb8dcc39b91311bf6d3d397c6e160853f959eb634d83ce78ff90e7a",
+  "formal_rng_instantiation_count": 0,
+  "formal_runtime_root_created": false,
+  "formal_seed_access_count": 0,
+  "formal_snapshot_construction_count": 0,
+  "formal_trial_result_count": 0,
+  "planned_snapshot_count": 595,
+  "planned_trial_count": 1190,
+  "qualification_report_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/working_inventory/bootstrap_repair_requalification_v3.json",
+  "qualification_report_sha256": "e80aaaebab8ac67502197fd98f2c4fa160103ea5bacd6a1fd38c01018b6d29de",
+  "qualification_root": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3",
+  "schema_version": "synthetic_confirmatory_v3_r3_prerun_manifest_v1",
+  "source_repository": {
+    "SOURCE_REPOSITORY_UNMODIFIED": true,
+    "branch": "feature/zero-perturbation-phase-a-lock-v2-regression-repair",
+    "commit": "89f46dda68e9ff5c71f078f6d13fc9050d58f0f5",
+    "status_porcelain": ""
+  },
+  "test_report_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/combined_test_report.json",
+  "test_report_sha256": "4159bd3c428f0dd2a2007ae988a00a2601a85598cea7b48906b05e8cbab9dfa4"
+}

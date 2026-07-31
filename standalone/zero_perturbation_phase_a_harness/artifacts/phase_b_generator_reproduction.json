@@ -1,0 +1,148 @@
+{
+  "GENERATOR_REPRODUCTION_CHECKSUM_MISMATCH_COUNT": 0,
+  "GENERATOR_REPRODUCTION_PASS": true,
+  "firewall_totals": {
+    "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+    "GT_OPTIMIZATION_LEAKAGE_COUNT": 0,
+    "OLD_CAPTURE_RANGE_TEST_SEED_ACCESS_COUNT": 0,
+    "RNG_CONSTRUCTION_COUNT": 0,
+    "SNAPSHOT_ACCESS_COUNT": 7
+  },
+  "reproduction_snapshot_count": 7,
+  "rows": [
+    {
+      "firewall_audit": {
+        "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+        "GT_OPTIMIZATION_LEAKAGE_COUNT": 0,
+        "OLD_CAPTURE_RANGE_TEST_SEED_ACCESS_COUNT": 0,
+        "RNG_CONSTRUCTION_COUNT": 0,
+        "SNAPSHOT_ACCESS_COUNT": 1
+      },
+      "mismatch_count": 0,
+      "parent_index_checksum_match": true,
+      "parent_indices_exact_match": true,
+      "parent_point_checksum_match": true,
+      "reference_pose_checksum_match": true,
+      "scene_variant": "GEOMETRY_RICH_ROOM",
+      "snapshot_checksum_match": true,
+      "snapshot_id": "phase-a-v1/GEOMETRY_RICH_ROOM/0/0/0",
+      "source_checksum_match": true,
+      "target_checksum_match": true
+    },
+    {
+      "firewall_audit": {
+        "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+        "GT_OPTIMIZATION_LEAKAGE_COUNT": 0,
+        "OLD_CAPTURE_RANGE_TEST_SEED_ACCESS_COUNT": 0,
+        "RNG_CONSTRUCTION_COUNT": 0,
+        "SNAPSHOT_ACCESS_COUNT": 1
+      },
+      "mismatch_count": 0,
+      "parent_index_checksum_match": true,
+      "parent_indices_exact_match": true,
+      "parent_point_checksum_match": true,
+      "reference_pose_checksum_match": true,
+      "scene_variant": "LONG_CORRIDOR",
+      "snapshot_checksum_match": true,
+      "snapshot_id": "phase-a-v1/LONG_CORRIDOR/0/0/0",
+      "source_checksum_match": true,
+      "target_checksum_match": true
+    },
+    {
+      "firewall_audit": {
+        "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+        "GT_OPTIMIZATION_LEAKAGE_COUNT": 0,
+        "OLD_CAPTURE_RANGE_TEST_SEED_ACCESS_COUNT": 0,
+        "RNG_CONSTRUCTION_COUNT": 0,
+        "SNAPSHOT_ACCESS_COUNT": 1
+      },
+      "mismatch_count": 0,
+      "parent_index_checksum_match": true,
+      "parent_indices_exact_match": true,
+      "parent_point_checksum_match": true,
+      "reference_pose_checksum_match": true,
+      "scene_variant": "PARALLEL_WALLS",
+      "snapshot_checksum_match": true,
+      "snapshot_id": "phase-a-v1/PARALLEL_WALLS/0/0/0",
+      "source_checksum_match": true,
+      "target_checksum_match": true
+    },
+    {
+      "firewall_audit": {
+        "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+        "GT_OPTIMIZATION_LEAKAGE_COUNT": 0,
+        "OLD_CAPTURE_RANGE_TEST_SEED_ACCESS_COUNT": 0,
+        "RNG_CONSTRUCTION_COUNT": 0,
+        "SNAPSHOT_ACCESS_COUNT": 1
+      },
+      "mismatch_count": 0,
+      "parent_index_checksum_match": true,
+      "parent_indices_exact_match": true,
+      "parent_point_checksum_match": true,
+      "reference_pose_checksum_match": true,
+      "scene_variant": "END_FACE_TRANSITION_PRESENT",
+      "snapshot_checksum_match": true,
+      "snapshot_id": "phase-a-v1/END_FACE_TRANSITION_PRESENT/0/0/0",
+      "source_checksum_match": true,
+      "target_checksum_match": true
+    },
+    {
+      "firewall_audit": {
+        "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+        "GT_OPTIMIZATION_LEAKAGE_COUNT": 0,
+        "OLD_CAPTURE_RANGE_TEST_SEED_ACCESS_COUNT": 0,
+        "RNG_CONSTRUCTION_COUNT": 0,
+        "SNAPSHOT_ACCESS_COUNT": 1
+      },
+      "mismatch_count": 0,
+      "parent_index_checksum_match": true,
+      "parent_indices_exact_match": true,
+      "parent_point_checksum_match": true,
+      "reference_pose_checksum_match": true,
+      "scene_variant": "END_FACE_TRANSITION_WEAK",
+      "snapshot_checksum_match": true,
+      "snapshot_id": "phase-a-v1/END_FACE_TRANSITION_WEAK/0/0/0",
+      "source_checksum_match": true,
+      "target_checksum_match": true
+    },
+    {
+      "firewall_audit": {
+        "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+        "GT_OPTIMIZATION_LEAKAGE_COUNT": 0,
+        "OLD_CAPTURE_RANGE_TEST_SEED_ACCESS_COUNT": 0,
+        "RNG_CONSTRUCTION_COUNT": 0,
+        "SNAPSHOT_ACCESS_COUNT": 1
+      },
+      "mismatch_count": 0,
+      "parent_index_checksum_match": true,
+      "parent_indices_exact_match": true,
+      "parent_point_checksum_match": true,
+      "reference_pose_checksum_match": true,
+      "scene_variant": "END_FACE_TRANSITION_ABSENT",
+      "snapshot_checksum_match": true,
+      "snapshot_id": "phase-a-v1/END_FACE_TRANSITION_ABSENT/0/0/0",
+      "source_checksum_match": true,
+      "target_checksum_match": true
+    },
+    {
+      "firewall_audit": {
+        "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+        "GT_OPTIMIZATION_LEAKAGE_COUNT": 0,
+        "OLD_CAPTURE_RANGE_TEST_SEED_ACCESS_COUNT": 0,
+        "RNG_CONSTRUCTION_COUNT": 0,
+        "SNAPSHOT_ACCESS_COUNT": 1
+      },
+      "mismatch_count": 0,
+      "parent_index_checksum_match": true,
+      "parent_indices_exact_match": true,
+      "parent_point_checksum_match": true,
+      "reference_pose_checksum_match": true,
+      "scene_variant": "REPEATED_STRUCTURE",
+      "snapshot_checksum_match": true,
+      "snapshot_id": "phase-a-v1/REPEATED_STRUCTURE/0/0/0",
+      "source_checksum_match": true,
+      "target_checksum_match": true
+    }
+  ],
+  "schema_version": "phase_b_generator_reproduction_v1"
+}

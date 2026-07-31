@@ -1,0 +1,93 @@
+{
+  "full_harness": {
+    "error_count": 0,
+    "failure_count": 0,
+    "junit_path": "/tmp/synthetic_confirmatory_v2_full_harness_tests.xml",
+    "junit_sha256": "13801086119448ccdf07510e355b3d84af6c8a628ad4f45438738bf8dc79f2a8",
+    "pass": true,
+    "passed_count": 300,
+    "skipped_count": 0,
+    "status": "PASS",
+    "test_count": 300,
+    "unexpected_skip_count": 0
+  },
+  "pcl_backend_v3": {
+    "error_count": 0,
+    "failure_count": 0,
+    "pass": true,
+    "passed_count": 3,
+    "results": [
+      {
+        "condition_status": "FULL_RANK",
+        "failure_reason": "",
+        "file": "nondegenerate_identity.json",
+        "point_cloud_rank": 3,
+        "point_to_plane_hessian_eigenvalues": [
+          118.01923246777201,
+          119.47448076977795,
+          124.16784961960747,
+          230.02167799584092,
+          294.94216489723243,
+          306.6338104993603
+        ],
+        "point_to_plane_jacobian_rank": 6,
+        "sha256": "10cd3bc9368404f3a6ed11eb3b29a4aa9be38d51a866ff10f5eef805a7749098"
+      },
+      {
+        "condition_status": "FULL_RANK",
+        "failure_reason": "",
+        "file": "known_small_transform.json",
+        "point_cloud_rank": 3,
+        "point_to_plane_hessian_eigenvalues": [
+          115.85113122084158,
+          117.75905396215076,
+          122.29245306394479,
+          241.7930878053705,
+          290.84483118581545,
+          305.9428763541642
+        ],
+        "point_to_plane_jacobian_rank": 6,
+        "sha256": "c2d981228599495870f53c689bc30a21fb0714f5901c1ff9e450594ae759e9a8"
+      },
+      {
+        "condition_status": "RANK_DEFICIENT",
+        "failure_reason": "RANK_DEFICIENT_DIAGNOSTIC",
+        "file": "planar_degeneracy_diagnostic.json",
+        "point_cloud_rank": 2,
+        "point_to_plane_hessian_eigenvalues": [
+          0.0,
+          0.0,
+          0.0,
+          3.359999963045121,
+          3.359999963045123,
+          64.0
+        ],
+        "point_to_plane_jacobian_rank": 3,
+        "sha256": "22c166752c3060661c14c1ddb3b0aef6f8aa81824d01419eaf42fcc17c531af2"
+      }
+    ],
+    "skipped_count": 0,
+    "status": "PASS",
+    "test_count": 3,
+    "unexpected_skip_count": 0
+  },
+  "schema_version": "synthetic_confirmatory_v2_test_report_v1",
+  "source_degen_lio_pytest_executed": false,
+  "specialized_confirmatory": {
+    "error_count": 0,
+    "failure_count": 0,
+    "junit_path": "/tmp/synthetic_confirmatory_v2_specialized_tests.xml",
+    "junit_sha256": "058b785b38b3a5013155b03510673aea6bc001ee9e926b1946606d9b97b355ee",
+    "pass": true,
+    "passed_count": 66,
+    "skipped_count": 0,
+    "status": "PASS",
+    "test_count": 66,
+    "unexpected_skip_count": 0
+  },
+  "test_report_pass": true,
+  "total_error_count": 0,
+  "total_failure_count": 0,
+  "total_passed_count": 303,
+  "total_unexpected_skip_count": 0
+}

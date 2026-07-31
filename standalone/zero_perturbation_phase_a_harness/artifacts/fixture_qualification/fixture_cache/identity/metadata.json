@@ -1,0 +1,13 @@
+{
+  "checksums": {
+    "reference_pose_checksum": "ccc7977ae7987f37c2235e57c320a5142d6b58413825b6457a4a1c9fe469ac1c",
+    "snapshot_checksum": "05af66af78a1163a23f96fb8be0599427242b7a97e6eecdf849e377a8af75697",
+    "source_checksum": "35e8ac9f85882addce9d0a5b423f88361e49fbce626e8e8a35b1688e17365f62",
+    "target_checksum": "35e8ac9f85882addce9d0a5b423f88361e49fbce626e8e8a35b1688e17365f62"
+  },
+  "condition": "FIXTURE_IDENTITY",
+  "fixture_only": true,
+  "formal_phase_a": false,
+  "scene_variant": "AUDIT_ASYMMETRIC_3D",
+  "snapshot_id": "fixture-audit-v1/identity"
+}

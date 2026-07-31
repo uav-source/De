@@ -1,0 +1,70 @@
+{
+  "FIXTURE_EXECUTION_CHAIN_PASS": true,
+  "FRESH_FIXTURE_EXECUTION_PASS": true,
+  "backend_determinism_seed_call_count_this_invocation": 3,
+  "backend_execution_count_this_invocation": 6,
+  "backend_trial_counts": {
+    "open3d_point_to_plane": 3,
+    "pcl_point_to_plane": 3
+  },
+  "completed_trial_ids": [
+    "fixture-audit-v1/identity/open3d_point_to_plane",
+    "fixture-audit-v1/identity/pcl_point_to_plane",
+    "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane",
+    "fixture-audit-v1/nonidentity-reference/pcl_point_to_plane",
+    "fixture-audit-v1/no-correspondence/open3d_point_to_plane",
+    "fixture-audit-v1/no-correspondence/pcl_point_to_plane"
+  ],
+  "event_count": 12,
+  "executed_trial_ids": [
+    "fixture-audit-v1/identity/open3d_point_to_plane",
+    "fixture-audit-v1/identity/pcl_point_to_plane",
+    "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane",
+    "fixture-audit-v1/nonidentity-reference/pcl_point_to_plane",
+    "fixture-audit-v1/no-correspondence/open3d_point_to_plane",
+    "fixture-audit-v1/no-correspondence/pcl_point_to_plane"
+  ],
+  "fixture_generation_rng_count": 0,
+  "fixture_snapshot_count": 3,
+  "fixture_trial_count": 6,
+  "formal_confirmatory_seed_access_count": 0,
+  "generated_snapshot_count": 3,
+  "generated_snapshot_ids": [
+    "fixture-audit-v1/identity",
+    "fixture-audit-v1/nonidentity-reference",
+    "fixture-audit-v1/no-correspondence"
+  ],
+  "immutable_run_lock_sha256": "18434a6d83f606de9328e38b04804d191d23c1b92ed5c90e634e2e7a4592d890",
+  "invocation_id": "fresh",
+  "native_execution_count": 0,
+  "new_confirmatory_namespace_generation_count": 0,
+  "outcome_mismatch_count": 0,
+  "pairing_mismatch_count": 0,
+  "raw_result_manifest_sha256": "2070815d5e2a64ac280ad5fe2311cb3ff3684db31b054779d17ecfd30b84b513",
+  "recovered_orphan_result_count": 0,
+  "resume": false,
+  "resume_skipped_valid_result_count": 0,
+  "resume_skipped_valid_snapshot_count": 0,
+  "resume_skipped_valid_snapshot_ids": [],
+  "resumed_trial_ids": [],
+  "run_contract_sha256": "5a5fb4546244657735c043fc705cecfa29e28daf4a51707044986a5f406ed53e",
+  "run_id": "v3_bootstrap_state_machine_requalification_v3",
+  "runtime_paths": {
+    "artifact_staging": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/artifact_staging",
+    "attempt_events": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/event_logs",
+    "backend_temporary": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/backend_tmp",
+    "independent_verification": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/analysis/independent",
+    "primary_analysis": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/analysis/primary",
+    "publisher_staging": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/publisher_staging",
+    "raw_results": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/raw_results",
+    "run_id": "v3_bootstrap_state_machine_requalification_v3",
+    "run_kind": "qualification",
+    "run_root": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3",
+    "runtime_root": "/home/lj/zero_perturbation_runtime",
+    "snapshot_cache": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/snapshot_cache",
+    "snapshot_lock": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/snapshot_lock.json",
+    "temporary_inventory": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/working_inventory"
+  },
+  "schema_version": "runtime_lifecycle_fixture_execution_report_v1",
+  "workers": 2
+}

@@ -1,0 +1,10 @@
+{
+  "ARTIFACT_VERIFICATION_PASS": true,
+  "missing_required_file_count": 0,
+  "missing_required_files": [],
+  "required_file_count": 22,
+  "schema_version": "phase_a_minimal_harness_artifact_verification_v1",
+  "sha256_entry_count": 22,
+  "sha256_mismatch_count": 0,
+  "sha256_missing_count": 0
+}

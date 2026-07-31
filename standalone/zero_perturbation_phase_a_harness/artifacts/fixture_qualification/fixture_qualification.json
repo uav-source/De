@@ -1,0 +1,53 @@
+{
+  "FIXTURE_QUALIFICATION_PASS": true,
+  "analysis_verifier_difference_count": 0,
+  "artifact_verifier_pass": true,
+  "backend_execution_count": 6,
+  "failure_inventory": [
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_IDENTITY",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_NO_CORRESPONDENCE",
+      "count": 1,
+      "failure_classification": "NO_CORRESPONDENCES"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_IDENTITY",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_NO_CORRESPONDENCE",
+      "count": 1,
+      "failure_classification": "NO_CORRESPONDENCES"
+    }
+  ],
+  "fixture_label": "FIXTURE AUDIT — NOT SCIENTIFIC DATA",
+  "fixture_snapshot_count": 3,
+  "fixture_trial_count": 6,
+  "fresh_resume_scientific_equivalence": true,
+  "input_pairing_violation_count": 0,
+  "publisher_pass": true,
+  "resume_backend_execution_count": 0,
+  "schema_version": "phase_a_minimal_harness_fixture_qualification_v1",
+  "source_repository_runtime_file_read_count": 0
+}

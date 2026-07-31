@@ -1,0 +1,17 @@
+{
+  "OLD_V1_SEED_SET_REUSE_AUTHORIZED": false,
+  "old_bootstrap_seed": 1083684578,
+  "old_geometry_seeds": [
+    248284635,
+    376488233,
+    198112089,
+    229684695,
+    226655024
+  ],
+  "old_measurement_seeds": [
+    469989467,
+    1088311622,
+    916609326
+  ],
+  "schema_version": "synthetic_confirmatory_v1_seed_retirement_v2"
+}

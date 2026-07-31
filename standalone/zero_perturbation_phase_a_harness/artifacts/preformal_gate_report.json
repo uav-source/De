@@ -1,0 +1,12 @@
+{
+  "FIXTURE_QUALIFICATION_PASS": true,
+  "FORMAL_DRY_RUN_PASS": true,
+  "MINIMAL_HARNESS_TEST_PASS": true,
+  "SCIENTIFIC_ASSET_EXPORT_EQUIVALENCE_PASS": true,
+  "formal_backend_execution_count": 0,
+  "formal_rng_access_count": 0,
+  "formal_trial_result_count": 0,
+  "minimal_test_count": 40,
+  "source_repository_runtime_file_read_count": 0,
+  "source_repository_runtime_import_count": 0
+}

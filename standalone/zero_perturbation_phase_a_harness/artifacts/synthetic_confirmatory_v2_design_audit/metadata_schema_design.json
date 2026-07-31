@@ -1,0 +1,52 @@
+{
+  "array_contract": {
+    "IDEAL_MATCHED": [
+      "source_points.npy",
+      "target_points.npy",
+      "reference_pose.npy",
+      "source_parent_target_indices.npy"
+    ],
+    "NONIDEAL": [
+      "source_points.npy",
+      "target_points.npy",
+      "reference_pose.npy"
+    ],
+    "parent_indices_dtype": "<i8",
+    "parent_indices_shape": "one-dimensional",
+    "source_dtype": "<f4",
+    "target_dtype": "<f4",
+    "reference_dtype": "<f8"
+  },
+  "lineage_fields": [
+    "lineage_schema_version",
+    "source_has_target_parent_lineage",
+    "source_parent_target_indices_path",
+    "source_parent_target_indices_sha256",
+    "parent_index_count",
+    "parent_index_unique_count",
+    "parent_index_duplicate_count",
+    "parent_index_out_of_range_count",
+    "source_parent_row_count_match",
+    "parent_points_map_f64_sha256",
+    "lineage_validation_method",
+    "reconstruction_error_median_m",
+    "reconstruction_error_q95_m",
+    "reconstruction_error_max_m",
+    "predicted_quantization_median_m",
+    "predicted_quantization_q95_m",
+    "predicted_quantization_max_m",
+    "closure_residual_max_m",
+    "float64_guard_max_m",
+    "max_normalized_closure_ratio",
+    "closure_residual_violation_count",
+    "actual_error_bound_violation_count",
+    "lineage_closure_violation_count",
+    "quantization_closure_pass"
+  ],
+  "lineage_validation_method": "PARENT_INDEX_ROW_CORRESPONDENCE_PLUS_PHASE_A_QUANTIZATION_CLOSURE",
+  "lineage_closure_violation_count_definition": "closure_residual_violation_count + actual_error_bound_violation_count",
+  "metadata_schema_version": "synthetic_confirmatory_metadata_v2",
+  "nonideal_contract": "No parent sidecar; lineage SHA/path and closure values are null, counts are zero, and both lineage booleans are false.",
+  "schema_version": "synthetic_confirmatory_v2_metadata_schema_design_v1",
+  "snapshot_schema_version": "synthetic_confirmatory_snapshot_v2"
+}

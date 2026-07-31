@@ -1,0 +1,1 @@
+{"SNAPSHOT_LOCK_CREATE_PASS":true,"SNAPSHOT_LOCK_RESUME_PASS":true,"SNAPSHOT_LOCK_TAMPER_REJECTION_PASS":true,"completed_lock_policy":"PRESERVE_IMMUTABLE_WITH_RUNTIME_ARCHIVE","negative_cases":{"different_commit":true,"different_manifest":true,"different_run_id":true,"different_runtime_root":true,"symlink_lock":true,"tampered_lock":true}}

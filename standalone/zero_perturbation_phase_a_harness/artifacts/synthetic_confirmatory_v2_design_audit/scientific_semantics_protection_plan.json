@@ -1,0 +1,51 @@
+{
+  "byte_exact_protected_files": {
+    "backend_parameter_contract": {
+      "path": "frozen_assets/backend_parameter_contract.json",
+      "sha256": "6a1ebdee6b34390f1430eab371e1c4108db1f124b59b7239d74785efa6474af9"
+    },
+    "common_association": {
+      "path": "src/phase_a_harness/common_association_analysis.py",
+      "sha256": "458190c26d8640353004663474adb64305d1193d89ff0dc68f71f404de8f175d"
+    },
+    "frozen_models": {
+      "path": "frozen_assets/confirmatory_development_trained_models_v1.json",
+      "sha256": "99806f83d3a0d2393ee7e36e8c06f14a1a8a44fb8d02b074ebc2d9fe750d0872"
+    },
+    "pcl_cli": {
+      "path": "bin/pcl_point_to_plane_cli",
+      "sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff"
+    },
+    "rotation_metrics": {
+      "path": "src/phase_a_harness/rotation_metrics.py",
+      "sha256": "0ed2f040d275f013e26cfc3d9be0610511be436ba512333fed610daa663ffb8a"
+    }
+  },
+  "protected_scientific_functions": [
+    "synthetic_confirmatory_analysis.analyze_synthetic_confirmatory_records",
+    "synthetic_confirmatory_independent_verifier.independently_recompute_synthetic_confirmatory",
+    "synthetic_confirmatory_models frozen inference",
+    "common_association_analysis common-association and turnover calculations",
+    "rotation_metrics rotation error",
+    "phase_a backend executors and adapters"
+  ],
+  "protected_function_sha256": {
+    "phase_a_canonical_target": "5684f5bbcbd9001be0b29fcdd670470d0e19d7758d698fc39aaba4b73be3a5c8",
+    "phase_a_eligible_parent_indices": "f8fd5aed7876e30cacfac41c1b699518d04e7c134f23d189c8f217f9af5e275a",
+    "phase_a_quantization_closure": "2ec95cab5329881772ccd56518b73705efded616254710d013db95324594ebac",
+    "phase_a_reference_pose": "c9f8faa358bc09ee6e226547ec936f9bb2e95e7f98cac662b3a10da8b608caa1",
+    "phase_a_source_from_parent_indices": "787fc81f8a0a00dab2e0fa9fe761e7a7b61d65f7b14305cc32627bb84265fa94",
+    "primary_h1_h6_core": "cff961f392b35694cb7d29c7310960d89ed0fed8636d0cc52cea8ad753167485",
+    "independent_h1_h6_core": "2c91d28d22ea812e544bcf82cb9421a62e0b758a1d25ea8f0e805800ab657d54"
+  },
+  "required_zero_differences": [
+    "H1-H6 definitions and thresholds",
+    "translation and rotation metrics",
+    "numpy quantile method=linear",
+    "common-association and turnover definitions",
+    "frozen model features and parameters",
+    "Open3D/PCL algorithms and parameters",
+    "all non-IDEAL scientific payloads"
+  ],
+  "schema_version": "synthetic_confirmatory_v2_scientific_protection_plan_v1"
+}

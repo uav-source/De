@@ -1,0 +1,33 @@
+{
+  "conditions": [
+    "INDEPENDENT_NOISE_FREE",
+    "SCAN_NOISE_ONLY",
+    "MAP_NOISE_ONLY",
+    "DROPOUT_ONLY",
+    "FULL_NOISE"
+  ],
+  "envelope_policy": "Metadata/schema and aggregate envelope checksums may change; scientific payload values may not.",
+  "expected_snapshot_count": 1050,
+  "frozen_cache": "data/full_synthetic_development_v1_snapshots",
+  "frozen_lock": "frozen_assets/full_synthetic_development_snapshot_lock_v1.json",
+  "regenerate_with": "Development seeds and unchanged full_synthetic_snapshot_builder only",
+  "required_zero_change_counters": [
+    "NONIDEAL_SOURCE_CHECKSUM_CHANGE_COUNT",
+    "NONIDEAL_TARGET_CHECKSUM_CHANGE_COUNT",
+    "NONIDEAL_REFERENCE_CHECKSUM_CHANGE_COUNT",
+    "NONIDEAL_NOISE_RECORD_CHANGE_COUNT",
+    "NONIDEAL_DROPOUT_RECORD_CHANGE_COUNT",
+    "NONIDEAL_PLAN_IDENTITY_CHANGE_COUNT",
+    "SCIENTIFIC_PAYLOAD_CHANGE_COUNT"
+  ],
+  "scientific_payload_fields": [
+    "source array SHA",
+    "target array SHA",
+    "reference pose SHA",
+    "source and target point counts",
+    "noise parameters/realization encoded by the frozen arrays",
+    "dropout parameters/realization encoded by the frozen arrays",
+    "condition, scene, geometry seed, measurement seed, repeat"
+  ],
+  "schema_version": "synthetic_confirmatory_v2_nonideal_regression_plan_v1"
+}

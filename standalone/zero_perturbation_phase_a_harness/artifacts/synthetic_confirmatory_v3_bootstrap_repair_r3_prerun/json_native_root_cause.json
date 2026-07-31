@@ -1,0 +1,12 @@
+{
+  "NON_JSON_NATIVE_LEAF_COUNT_BEFORE": 11,
+  "failure_json_path": "$.states.absent.state",
+  "failure_python_type": "FormalRuntimeState",
+  "frozen_atomic_json_writer_modified": false,
+  "non_native_leaf_type_counts": {
+    "FormalRuntimeState": 11
+  },
+  "repair_scope": "qualification final aggregate only",
+  "root_cause": "QUALIFICATION_FINAL_AGGREGATE_NON_JSON_NATIVE_ENUM",
+  "schema_version": "synthetic_confirmatory_v3_r3_json_native_root_cause_v1"
+}

@@ -1,0 +1,29 @@
+{
+  "CONFIRMATORY_INDEPENDENT_NO_PSEUDOREPLICATION_PASS": true,
+  "CONFIRMATORY_PLAN_COUNT_PASS": true,
+  "CONFIRMATORY_PLAN_PAIRING_PASS": true,
+  "CONFIRMATORY_PLAN_UNIQUENESS_PASS": true,
+  "V2_PLAN_PASS": true,
+  "backend_trial_counts": {
+    "open3d_point_to_plane": 595,
+    "pcl_point_to_plane": 595
+  },
+  "condition_snapshot_counts": {
+    "FULL_NOISE": 525,
+    "IDEAL_MATCHED": 35,
+    "INDEPENDENT_NOISE_FREE": 35
+  },
+  "duplicate_snapshot_count": 0,
+  "duplicate_trial_count": 0,
+  "independent_pseudoreplication_plan_count": 0,
+  "native_trial_count": 0,
+  "pairing_violation_count": 0,
+  "planned_snapshot_count": 595,
+  "planned_snapshot_identity_sha256": "7550b1b6704b8a952196eabbb52ec550a07c1c7d6184591f2cf01490f1616b30",
+  "planned_snapshot_unique_count": 595,
+  "planned_trial_count": 1190,
+  "planned_trial_identity_sha256": "3d6787226c346a9c51416f20c370671d05521cc859f6af0f0746fbc8e39f0c6d",
+  "planned_trial_unique_count": 1190,
+  "schema_version": "synthetic_confirmatory_v2_plan_audit_v1",
+  "semantic_violation_count": 0
+}

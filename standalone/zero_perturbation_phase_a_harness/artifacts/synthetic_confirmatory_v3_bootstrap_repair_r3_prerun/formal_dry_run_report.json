@@ -1,0 +1,250 @@
+{
+  "CONFIRMATORY_BACKEND_EXECUTION_COUNT": 0,
+  "CONFIRMATORY_RNG_INSTANTIATION_COUNT": 0,
+  "CONFIRMATORY_SNAPSHOT_GENERATION_COUNT": 0,
+  "CONFIRMATORY_TRIAL_RESULT_COUNT": 0,
+  "FORMAL_ATTEMPT_EVENT_COUNT": 0,
+  "FORMAL_BACKEND_EXECUTION_COUNT": 0,
+  "FORMAL_RNG_INSTANTIATION_COUNT": 0,
+  "FORMAL_SNAPSHOT_CONSTRUCTION_COUNT": 0,
+  "FORMAL_TRIAL_RESULT_COUNT": 0,
+  "NATIVE_EXECUTION_COUNT": 0,
+  "SYNTHETIC_CONFIRMATORY_V3_DRY_RUN_PASS": true,
+  "SYNTHETIC_CONFIRMATORY_V3_EXECUTED": false,
+  "SYNTHETIC_CONFIRMATORY_V3_PASS": "NOT_EVALUATED",
+  "V3_BACKEND_EXECUTION_COUNT": 0,
+  "V3_DRY_RUN_PASS": true,
+  "V3_FORMAL_RUNTIME_ROOT_NOT_CREATED": true,
+  "V3_RNG_INSTANTIATION_COUNT": 0,
+  "V3_SEED_ACCESS_COUNT": 0,
+  "V3_SNAPSHOT_CONSTRUCTION_COUNT": 0,
+  "V3_STARTED_EVENT_COUNT": 0,
+  "V3_TRIAL_RESULT_COUNT": 0,
+  "attempt_started_event_count": 0,
+  "backend_trial_counts": {
+    "Native": 0,
+    "Open3D": 595,
+    "PCL": 595
+  },
+  "backend_trial_counts_canonical": {
+    "Native": 0,
+    "Open3D": 595,
+    "PCL": 595
+  },
+  "condition_counts": {
+    "FULL_NOISE": 525,
+    "IDEAL_MATCHED": 35,
+    "INDEPENDENT_NOISE_FREE": 35
+  },
+  "condition_snapshot_counts": {
+    "FULL_NOISE": 525,
+    "IDEAL_MATCHED": 35,
+    "INDEPENDENT_NOISE_FREE": 35
+  },
+  "contract_loader": "load_v3_contract",
+  "duplicate_snapshot_count": 0,
+  "duplicate_trial_count": 0,
+  "forbidden_execution_module_import_count": 0,
+  "forbidden_execution_module_imports": [],
+  "formal_manifest_sha256": "7c9a813e6cb8dcc39b91311bf6d3d397c6e160853f959eb634d83ce78ff90e7a",
+  "formal_root_created": false,
+  "formal_root_existed_after": false,
+  "formal_root_existed_before": false,
+  "formal_runtime_root": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3",
+  "git_gate": {
+    "RUNTIME_GIT_GATE_PASS": true,
+    "branch": "fix/zero-perturbation-v3-qualification-json-native-r3",
+    "branch_match": true,
+    "checkpoint": "V3_FORMAL_DRY_RUN_GIT_GATE",
+    "command_failure_count": 0,
+    "command_failures": {},
+    "expected_branch": "fix/zero-perturbation-v3-qualification-json-native-r3",
+    "expected_commit": "48c46c28c0ad140212e4d2d44507e31f652bd1f1",
+    "expected_tag": null,
+    "failure_classification_count": 0,
+    "failure_classifications": [],
+    "head_commit": "48c46c28c0ad140212e4d2d44507e31f652bd1f1",
+    "head_commit_match": true,
+    "index_diff_count": 0,
+    "index_diff_paths": [],
+    "porcelain_status_clean": true,
+    "repository_input": "/home/lj/zero_perturbation_phase_a_harness_20260729_1407",
+    "repository_path": "/home/lj/zero_perturbation_phase_a_harness_20260729_1407",
+    "repository_top_level": "/home/lj/zero_perturbation_phase_a_harness_20260729_1407",
+    "repository_top_level_match": true,
+    "tag_commit": null,
+    "tag_commit_match": true,
+    "tracked_diff_count": 0,
+    "tracked_diff_paths": [],
+    "untracked_file_count": 0,
+    "untracked_paths": []
+  },
+  "independent_pseudoreplication_count": 0,
+  "lifecycle_core_binding": {
+    "RUNTIME_LIFECYCLE_CORE_BINDING_PASS": true,
+    "aggregate_manifest_binding_pass": true,
+    "aggregate_manifest_binding_present": true,
+    "aggregate_sha256": "f64bdb133ec241bc33b54d7883d48547bbd0fcca814fa56f8555090b0ae84815",
+    "files": {
+      "src/phase_a_harness/runtime_git_gate.py": "acd6818ee229adff259e8b86d7ef2cd3a6febea9ce996aaa332d1680cbdd9dd3",
+      "src/phase_a_harness/runtime_lifecycle_io.py": "62c69842f67f9da9fd5a6af917a7951995c6dba3b2fd2ca6ab4f6143d56a9b76",
+      "src/phase_a_harness/runtime_path_policy.py": "043740a365195cff2d9ef21fd0bffdbd342ed9dd83d9fa76a89ab532503e56b5"
+    },
+    "individual_bound_file_pass": true,
+    "schema_version": "runtime_lifecycle_core_binding_v1"
+  },
+  "manifest_path": "/home/lj/zero_perturbation_phase_a_harness_20260729_1407/frozen_assets/synthetic_confirmatory_formal_manifest_v3_bootstrap_repair_r3.json",
+  "manifest_sha256": "7c9a813e6cb8dcc39b91311bf6d3d397c6e160853f959eb634d83ce78ff90e7a",
+  "native_trial_count": 0,
+  "open3d_trial_count": 595,
+  "pairing_violation_count": 0,
+  "pcl_trial_count": 595,
+  "plan_audit": {
+    "CONFIRMATORY_INDEPENDENT_NO_PSEUDOREPLICATION_PASS": true,
+    "CONFIRMATORY_PLAN_COUNT_PASS": true,
+    "CONFIRMATORY_PLAN_PAIRING_PASS": true,
+    "CONFIRMATORY_PLAN_UNIQUENESS_PASS": true,
+    "V3_PLAN_AUDIT_PASS": true,
+    "backend_trial_counts": {
+      "open3d_point_to_plane": 595,
+      "pcl_point_to_plane": 595
+    },
+    "condition_snapshot_counts": {
+      "FULL_NOISE": 525,
+      "IDEAL_MATCHED": 35,
+      "INDEPENDENT_NOISE_FREE": 35
+    },
+    "duplicate_snapshot_count": 0,
+    "duplicate_trial_count": 0,
+    "full_noise_block_pass": true,
+    "full_noise_replicates_per_scene_geometry": 15,
+    "ideal_block_pass": true,
+    "independent_block_pass": true,
+    "independent_pseudoreplication_plan_count": 0,
+    "native_trial_count": 0,
+    "orphan_trial_count": 0,
+    "pairing_violation_count": 0,
+    "planned_snapshot_count": 595,
+    "planned_snapshot_identity_sha256": "138df4d7530f51b1a289d9a370c383153733d8d03c00d2340046e86575038919",
+    "planned_snapshot_unique_count": 595,
+    "planned_trial_count": 1190,
+    "planned_trial_identity_sha256": "a4e110b2f7d2801643fa3b726ba6c708a8ef0d24e3d4bdf8577323c4f6c14dfa",
+    "planned_trial_unique_count": 1190,
+    "scene_count": 7,
+    "semantic_violation_count": 0,
+    "trial_identity_mismatch_count": 0,
+    "trial_metadata_mismatch_count": 0
+  },
+  "planned_snapshot_count": 595,
+  "planned_trial_count": 1190,
+  "run_id": "synthetic-confirmatory-v3",
+  "runtime_path_contract": {
+    "FORMAL_RUNTIME_PATH_CONTRACT_PASS": true,
+    "all_paths_absolute": true,
+    "all_paths_canonical": true,
+    "all_paths_inside_run_root": true,
+    "all_paths_without_symlink_components": true,
+    "forbidden_root_overlap_count": 0,
+    "layout": {
+      "analysis": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/analysis",
+      "artifact_staging": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/artifact_staging",
+      "backend_temporary": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/backend_tmp",
+      "event_log": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/event_logs",
+      "publisher_staging": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/publisher_staging",
+      "raw_results": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/raw_results",
+      "run_root": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3",
+      "snapshot_cache": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/snapshot_cache",
+      "snapshot_lock": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/snapshot_lock.json",
+      "temporary_inventory": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/working_inventory",
+      "verification": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/verification"
+    },
+    "mutable_leaf_overlap_count": 0,
+    "path_checks": {
+      "analysis": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/analysis",
+        "symlink_component_count": 0
+      },
+      "artifact_staging": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/artifact_staging",
+        "symlink_component_count": 0
+      },
+      "backend_temporary": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/backend_tmp",
+        "symlink_component_count": 0
+      },
+      "event_log": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/event_logs",
+        "symlink_component_count": 0
+      },
+      "publisher_staging": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/publisher_staging",
+        "symlink_component_count": 0
+      },
+      "raw_results": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/raw_results",
+        "symlink_component_count": 0
+      },
+      "run_root": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3",
+        "symlink_component_count": 0
+      },
+      "snapshot_cache": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/snapshot_cache",
+        "symlink_component_count": 0
+      },
+      "snapshot_lock": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/snapshot_lock.json",
+        "symlink_component_count": 0
+      },
+      "temporary_inventory": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/working_inventory",
+        "symlink_component_count": 0
+      },
+      "verification": {
+        "absolute": true,
+        "canonical": true,
+        "inside_run_root": true,
+        "path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/verification",
+        "symlink_component_count": 0
+      }
+    },
+    "require_absent": true,
+    "runtime_root": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3",
+    "schema_version": "synthetic_confirmatory_v3_external_path_contract_v1",
+    "symlink_component_count": 0
+  },
+  "schema_version": "synthetic_confirmatory_v3_zero_instantiation_dry_run_v1",
+  "unique_snapshot_count": 595,
+  "unique_trial_count": 1190,
+  "workers": 2
+}

@@ -1,0 +1,41 @@
+{
+  "fixture_plan_sha256": "b2476717464d6e1df46b8bc5f95782de740544bbdaa82d524b51d617bce9f005",
+  "fixture_snapshot_lock_sha256": "8c3e4ff9fcd8ec18903e468cd126ecf9edf0f5e6a5dc0e6c8087b1a208967949",
+  "frozen_experiment_manifest_file_sha256": "a98d1119f280f5d823413c6cf09ef51b27d294475f53d946f7eedd9d2fdc396d",
+  "frozen_experiment_manifest_payload_sha256": "fa7c3f54b69a8e879ccfa910951fef40d6879a1cb81cecc60935bfa1487a7140",
+  "raw_result_manifest_sha256": "38353bac4fd1b798d4abd2cce7bdcaf57ad150f6441420a67a729025d599416e",
+  "result_inventory": [
+    {
+      "path": "evidence/raw_results/6eb862d2dc4253e82abb7be44edb788d1893bdf37317d73ccea5fb7897cc12a5.json",
+      "planned_trial_id": "fixture-audit-v1/identity/open3d_point_to_plane",
+      "sha256": "c8513d33389d0a660419756b8813293c75dc0ae4265628109f20586964f5515a"
+    },
+    {
+      "path": "evidence/raw_results/1cd8274d364f7d1e86b695292cf65b607dfcbc333c397167d12aedc5c697fbe0.json",
+      "planned_trial_id": "fixture-audit-v1/identity/pcl_point_to_plane",
+      "sha256": "d024a0ff1831589501636d6ec9d35d851834533f4b111dcad4d67c7dbd2858d3"
+    },
+    {
+      "path": "evidence/raw_results/72dfbd85ebe9817849c211af9db6a11e9ee9ab12f9212d5f15fd433ca57c8722.json",
+      "planned_trial_id": "fixture-audit-v1/no-correspondence/open3d_point_to_plane",
+      "sha256": "7daf0ab7c4dd0bd0533c7c0d148d1c774314b46228ffaeaefc8c5b2ad09035da"
+    },
+    {
+      "path": "evidence/raw_results/d9f058779d456ce4bf2e30929e91be452ae0c269c6b09bc3d017cfbaafdf9757.json",
+      "planned_trial_id": "fixture-audit-v1/no-correspondence/pcl_point_to_plane",
+      "sha256": "c0b91e87cd8f00e761fd9d6d10add668e341c62e949e8c734785ef5e730d2352"
+    },
+    {
+      "path": "evidence/raw_results/47683411aaf0a74f0afae9a46ba1b3f93b9d132fd3356a78801dce9d4f7509ea.json",
+      "planned_trial_id": "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane",
+      "sha256": "c8c6285eb4463942bae9e24dd447fc3b386821daef8560f2f3e5eaf1e44ba8e0"
+    },
+    {
+      "path": "evidence/raw_results/c23e0d0edb1b97e7453099a20dfc227394f8523817df1f6df798e222b896d724.json",
+      "planned_trial_id": "fixture-audit-v1/nonidentity-reference/pcl_point_to_plane",
+      "sha256": "ffdb7d036241c14832fdbf177df431e2f411fab38f167e00a4c94f2b1bb02211"
+    }
+  ],
+  "run_id": "phase-a-minimal-harness-fixture-v1",
+  "schema_version": "phase_a_fixture_publication_source_binding_v1"
+}

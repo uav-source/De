@@ -1,0 +1,62 @@
+{
+  "CONFIRMATORY_V3_ROUTE_INVALIDATED_BY_TRUE_IMPLEMENTATION_DEFECT": true,
+  "FORMAL_BOOTSTRAP_CONTRACT_CONFLICT_CONFIRMED": true,
+  "conflict_steps": [
+    {
+      "effect": "formal runtime root exists before runner entry",
+      "step": 1,
+      "trigger": "persist required <formal_root>/formal_command.log"
+    },
+    {
+      "effect": "resume=true",
+      "step": 2,
+      "trigger": "old runner interprets formal root existence as resume"
+    },
+    {
+      "effect": "immutable_run_lock.json must already exist and match",
+      "step": 3,
+      "trigger": "write_once_immutable_run_lock receives resume=true"
+    },
+    {
+      "effect": "fresh formal startup is impossible",
+      "step": 4,
+      "trigger": "fresh runner has not yet had an opportunity to create the lock"
+    }
+  ],
+  "evidence": [
+    {
+      "commit": "38d3dcddd818eb9ae243f73837d863f52bd1e233",
+      "line": 645,
+      "path": "src/phase_a_harness/synthetic_confirmatory_v3_runner.py",
+      "statement": "initial_state_exists = FORMAL_RUNTIME_ROOT.exists()"
+    },
+    {
+      "commit": "38d3dcddd818eb9ae243f73837d863f52bd1e233",
+      "line_end": 652,
+      "line_start": 650,
+      "path": "src/phase_a_harness/synthetic_confirmatory_v3_runner.py",
+      "statement": "write_once_immutable_run_lock(..., resume=initial_state_exists)"
+    },
+    {
+      "commit": "38d3dcddd818eb9ae243f73837d863f52bd1e233",
+      "line_end": 586,
+      "line_start": 574,
+      "path": "src/phase_a_harness/runtime_lifecycle_io.py",
+      "statement": "resume=true selects resume_immutable_run_lock; fresh creation is selected only when resume=false"
+    }
+  ],
+  "failure_code": "FORMAL_ROOT_EXISTENCE_MISCLASSIFIED_AS_RESUME",
+  "formal_command_log_path": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3/formal_command.log",
+  "formal_command_log_required_before_runner_entry": true,
+  "formal_runtime_root": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3",
+  "formal_runtime_root_absent_at_invalidation": true,
+  "fresh_bootstrap_contract_satisfiable": false,
+  "old_resume_predicate": "FORMAL_RUNTIME_ROOT.exists()",
+  "required_repair_states": [
+    "FORMAL_RUNTIME_ABSENT",
+    "FORMAL_RUNTIME_BOOTSTRAP_ONLY",
+    "FORMAL_RUNTIME_RESUMABLE",
+    "FORMAL_RUNTIME_INVALID"
+  ],
+  "schema_version": "synthetic_confirmatory_v3_formal_contract_conflict_v1"
+}

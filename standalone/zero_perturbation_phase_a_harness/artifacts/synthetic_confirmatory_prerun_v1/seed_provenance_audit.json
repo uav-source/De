@@ -1,0 +1,11 @@
+{
+  "CONFIRMATORY_RNG_INSTANTIATION_COUNT": 0,
+  "CONFIRMATORY_SEED_INSTANTIATION_COUNT": 0,
+  "CONFIRMATORY_SEED_PARSE_ERROR_COUNT": 0,
+  "CONFIRMATORY_SEED_PROVENANCE_PASS": true,
+  "CONFIRMATORY_SEED_USAGE_HIT_COUNT": 0,
+  "stored_provenance_pass": true,
+  "structured_declaration_mention_count": 3370,
+  "structured_file_count": 4065,
+  "structured_usage_hits": []
+}

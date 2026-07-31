@@ -1,0 +1,6 @@
+AUTHORIZED_TERM,SYSTEMATIC_OFFSET_CLAIM_AUTHORIZED_BY_CONDITION,actual_observation_count,cell_count,condition,deterministic_single_input_cell_count,effective_replicate_count_max,effective_replicate_count_median,effective_replicate_count_min,effective_replicate_count_sum,full_replication_cell_count,partial_replication_cell_count,planned_observation_count
+DETERMINISTIC_ZERO_INITIALIZATION_DISPLACEMENT,False,210,21,INDEPENDENT_NOISE_FREE,21,1,1.0,1,21,0,0,210
+REPEATABLE_SYSTEMATIC_OFFSET,True,210,21,SCAN_NOISE_ONLY,0,10,10.0,10,210,21,0,210
+REPEATABLE_SYSTEMATIC_OFFSET,True,210,21,MAP_NOISE_ONLY,0,10,10.0,10,210,21,0,210
+REPEATABLE_SYSTEMATIC_OFFSET,True,210,21,DROPOUT_ONLY,0,10,10.0,10,210,21,0,210
+REPEATABLE_SYSTEMATIC_OFFSET,True,210,21,FULL_NOISE,0,10,10.0,10,210,21,0,210

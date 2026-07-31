@@ -1,0 +1,2944 @@
+{
+  "FORMAL_CONFIRMATORY_SCIENCE_EVALUATED": false,
+  "IDEAL_DUAL_BACKEND_CONTROL_PASS": true,
+  "backend_execution_count": 42,
+  "backend_gates": {
+    "open3d_point_to_plane": {
+      "QUALIFICATION_BACKEND_GATE_PASS": true,
+      "backend": "open3d_point_to_plane",
+      "finite_metric_count": 21,
+      "nonfinite_output_count": 0,
+      "quantile_method": "linear",
+      "rotation_q95_rad": 4.3888976032515347e-10,
+      "rotation_threshold_rad": 0.00017453292519943296,
+      "solver_failure_count": 0,
+      "translation_q95_m": 5.2089824399563535e-08,
+      "translation_threshold_m": 0.001,
+      "trial_count": 21
+    },
+    "pcl_point_to_plane": {
+      "QUALIFICATION_BACKEND_GATE_PASS": true,
+      "backend": "pcl_point_to_plane",
+      "finite_metric_count": 21,
+      "nonfinite_output_count": 0,
+      "quantile_method": "linear",
+      "rotation_q95_rad": 2.7141132600532075e-09,
+      "rotation_threshold_rad": 0.00017453292519943296,
+      "solver_failure_count": 0,
+      "translation_q95_m": 7.901634233010038e-08,
+      "translation_threshold_m": 0.001,
+      "trial_count": 21
+    }
+  },
+  "formal_v2_access_counters": {
+    "FORMAL_V2_BACKEND_EXECUTION_COUNT": 0,
+    "FORMAL_V2_SEED_RNG_ACCESS_COUNT": 0,
+    "FORMAL_V2_SNAPSHOT_ACCESS_COUNT": 0,
+    "FORMAL_V2_SNAPSHOT_GENERATION_COUNT": 0,
+    "FORMAL_V2_TRIAL_RESULT_COUNT": 0,
+    "NATIVE_EXECUTION_COUNT": 0
+  },
+  "formal_v2_backend_execution_count": 0,
+  "native_execution_count": 0,
+  "qualification_access_monitor": {
+    "formal_v2_result_file_read_count": 0,
+    "formal_v2_snapshot_file_read_count": 0,
+    "source_repository_runtime_file_read_count": 0
+  },
+  "qualification_execution_binding": {
+    "files": {
+      "backend_execution": {
+        "path": "src/phase_a_harness/phase_a_execution_chain_audit.py",
+        "sha256": "a0ffa3a6ef1d4afb98e124981f5712d23cf27b632efc362ba84447459e23105c"
+      },
+      "backend_parameter_contract": {
+        "path": "frozen_assets/backend_parameter_contract.json",
+        "sha256": "6a1ebdee6b34390f1430eab371e1c4108db1f124b59b7239d74785efa6474af9"
+      },
+      "development_protocol": {
+        "path": "configs/zero_perturbation/development_v1.yaml",
+        "sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e"
+      },
+      "fixture_parameter_lock": {
+        "path": "frozen_assets/fixtures/fixture_backend_parameter_lock.json",
+        "sha256": "dfaf0e15f569a41acacfab1bc660c08e31007e70173f5bc02e60d3ec56b28d0c"
+      },
+      "fixture_plan": {
+        "path": "frozen_assets/fixtures/fixture_plan.json",
+        "sha256": "b2476717464d6e1df46b8bc5f95782de740544bbdaa82d524b51d617bce9f005"
+      },
+      "fixture_qualification": {
+        "path": "src/phase_a_harness/fixture_qualification.py",
+        "sha256": "8ec4477d4e4818fcd7de324f0484b5cd26f71181970d30ba9da07cc555354157"
+      },
+      "fixture_snapshot_lock": {
+        "path": "frozen_assets/fixtures/fixture_snapshot_lock.json",
+        "sha256": "8c3e4ff9fcd8ec18903e468cd126ecf9edf0f5e6a5dc0e6c8087b1a208967949"
+      },
+      "frozen_scene_generator": {
+        "path": "src/phase_a_harness/phase_b_generator_frozen/capture_range/day2_development_scene.py",
+        "sha256": "f1632095ab6c433e1e917cf0c9a49551683fce2f106761d41c3c3a5e6517b922"
+      },
+      "frozen_snapshot_builder": {
+        "path": "src/phase_a_harness/phase_b_generator_frozen/zero_perturbation/snapshot_builder.py",
+        "sha256": "6718fc442439e52327e01622df6356a0167456a6d7d8070f25d6e684ef69b72e"
+      },
+      "open3d_adapter": {
+        "path": "src/phase_a_harness/open3d_backend.py",
+        "sha256": "eb327dd5d13f7cf099469e5e1a315e23c41d593cd7301d278135b4276b9f255f"
+      },
+      "pcl_adapter": {
+        "path": "src/phase_a_harness/pcl_backend.py",
+        "sha256": "25e45b31bc90c93bc578104c994992c3f913437b12bf46389a8380d1d06b9e31"
+      },
+      "pcl_cli": {
+        "path": "bin/pcl_point_to_plane_cli",
+        "sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff"
+      },
+      "qualification_orchestrator": {
+        "path": "src/phase_a_harness/synthetic_confirmatory_v2_qualification.py",
+        "sha256": "ce921c8f64ae9b399417c74785e1371f5ce450b8859944719b5e4d01d46e929d"
+      },
+      "qualification_script": {
+        "path": "scripts/qualify_synthetic_confirmatory_v2.py",
+        "sha256": "4eb4466f9810e72a7028d398ce1e969a4bbd19d69c2c39f34178a09f105726bd"
+      },
+      "trial_schema_validator": {
+        "path": "src/phase_a_harness/phase_a_trial_result_schema.py",
+        "sha256": "6b252e07b41e9b2eb8cc1cf0bef735c6411d98587015928e0f544477e54a2c70"
+      },
+      "v2_contract": {
+        "path": "src/phase_a_harness/synthetic_confirmatory_v2_contract.py",
+        "sha256": "e86c9adb48058e81b361aab0f16b3740fe029b53fde1fa87cf3cf9ea2a0adc19"
+      },
+      "v2_snapshot_builder": {
+        "path": "src/phase_a_harness/synthetic_confirmatory_v2_snapshot_builder.py",
+        "sha256": "4286a485055e5bb9578fe0698163fa63431a55d1e1666bced9c526118694f199"
+      }
+    },
+    "formal_v2_execution_authorized": false,
+    "qualification_binding_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+    "qualification_only": true,
+    "schema_version": "synthetic_confirmatory_v2_qualification_binding_v1"
+  },
+  "qualification_result_lock_sha256": "16c48973647b8a7c438433bebdc11fe949612957aded93fd3b8f00fb777a912a",
+  "results": [
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 47812,
+        "fitness": 1.0,
+        "inlier_rmse": 1.4036512351275775e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -1.5041535569302325e-15,
+          -1.7985397118531252e-13,
+          1.0074236635219267e-08
+        ],
+        [
+          1.5041535353911432e-15,
+          1.0,
+          -1.197587630668777e-10,
+          5.730646421887687e-10
+        ],
+        [
+          1.7985397118549266e-13,
+          1.197587630668777e-10,
+          1.0,
+          1.5000000006145844
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 2.748096904317715e-31,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1334931069/open3d_point_to_plane",
+      "projection_correction_fro": 1.9721522630525295e-31,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.1975889812879032e-10,
+      "runtime_ms": 68.6637780017918,
+      "scene_variant": "END_FACE_TRANSITION_ABSENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "8afaab7dbcf42cc7228d5794a4a7d94a39e679c928c50be978c5fd5b712a18aa",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "432d910ceb6483ad1c64e1f970c85973307f2ea8c66ee4e3c23db53352428001",
+      "target_checksum": "c66ba68298bfc25f98da043bd8d9dc7502dbd529569cb4fdb213760986b8429c",
+      "translation_update_m": 1.0109221573930486e-08
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 47812,
+        "exit_code": 0,
+        "fitness_score": 2.0390125801263898e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 47812,
+          "nan_count": 0,
+          "norm_max": 1.0000001195107369,
+          "norm_median": 1.0,
+          "norm_min": 0.999999887195213,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 47812,
+          "nan_count": 0,
+          "norm_max": 1.0000001195107369,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998758161024,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          2.4012809102247346e-11,
+          4.974963149773082e-11,
+          -3.113364499540694e-08
+        ],
+        [
+          -2.4012809102247346e-11,
+          1.0,
+          1.7988037726013317e-09,
+          -1.0466711941603535e-09
+        ],
+        [
+          -4.974963149773082e-11,
+          -1.7988037726013317e-09,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.405390066309907e-19,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1334931069/pcl_point_to_plane",
+      "projection_correction_fro": 5.551124016988259e-17,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.799651842166588e-09,
+      "runtime_ms": 925.079024003935,
+      "scene_variant": "END_FACE_TRANSITION_ABSENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "8afaab7dbcf42cc7228d5794a4a7d94a39e679c928c50be978c5fd5b712a18aa",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "432d910ceb6483ad1c64e1f970c85973307f2ea8c66ee4e3c23db53352428001",
+      "target_checksum": "c66ba68298bfc25f98da043bd8d9dc7502dbd529569cb4fdb213760986b8429c",
+      "translation_update_m": 3.115123386462746e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 47809,
+        "fitness": 1.0,
+        "inlier_rmse": 3.0293800966512036e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -1.6373868184141969e-13,
+          -8.442530443838304e-14,
+          -2.8440481081965896e-08
+        ],
+        [
+          1.6373868186403028e-13,
+          1.0,
+          2.678175788271942e-10,
+          -5.970442692829539e-10
+        ],
+        [
+          8.442530439453095e-14,
+          -2.678175788271942e-10,
+          1.0,
+          1.4999999997191604
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 2.2214490166560248e-29,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1850310744/open3d_point_to_plane",
+      "projection_correction_fro": 4.654049861299195e-17,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 2.6781760927836186e-10,
+      "runtime_ms": 66.30931800464168,
+      "scene_variant": "END_FACE_TRANSITION_ABSENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "856e92dc8d52ce2f76b62878af1706ca8fd19e2c70b3dc45d0f3d9003900608b",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "8fe2af9923ec8df215e2c286cc87eddca5576b77dc0a0259923c0bd86811f634",
+      "target_checksum": "6a2a19a45c2defb96b4f7170fdc7db959cac5be61d234fffac18f18520800e83",
+      "translation_update_m": 2.844813345193962e-08
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 47809,
+        "exit_code": 0,
+        "fitness_score": 1.228564000693946e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 47809,
+          "nan_count": 0,
+          "norm_max": 1.0000001074256657,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998804375029,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 47809,
+          "nan_count": 0,
+          "norm_max": 1.0000001074256657,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998804375029,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -2.4125187958468075e-11,
+          -5.1238780579554444e-11,
+          -1.960155060487523e-08
+        ],
+        [
+          2.4125187958468075e-11,
+          1.0,
+          9.098456432710122e-10,
+          -1.3275740506912825e-09
+        ],
+        [
+          5.1238780579554444e-11,
+          -9.098456432710122e-10,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 7.289315076529907e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1850310744/pcl_point_to_plane",
+      "projection_correction_fro": 2.719479959838798e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 9.116066218066403e-10,
+      "runtime_ms": 1277.3805430042557,
+      "scene_variant": "END_FACE_TRANSITION_ABSENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "856e92dc8d52ce2f76b62878af1706ca8fd19e2c70b3dc45d0f3d9003900608b",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "8fe2af9923ec8df215e2c286cc87eddca5576b77dc0a0259923c0bd86811f634",
+      "target_checksum": "6a2a19a45c2defb96b4f7170fdc7db959cac5be61d234fffac18f18520800e83",
+      "translation_update_m": 1.96464561429168e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 47838,
+        "fitness": 1.0,
+        "inlier_rmse": 1.2719906122796417e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -1.408340273407594e-14,
+          -3.7680363272902695e-14,
+          -7.528250769496367e-09
+        ],
+        [
+          1.4083402721795284e-14,
+          1.0,
+          -3.2591659436564737e-10,
+          -1.4719930249791826e-10
+        ],
+        [
+          3.7680363277492704e-14,
+          3.2591659436564737e-10,
+          1.0,
+          1.4999999999915998
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 8.944964303860051e-30,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1957656152/open3d_point_to_plane",
+      "projection_correction_fro": 6.310887241768095e-30,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 3.259165968481107e-10,
+      "runtime_ms": 56.963747992995195,
+      "scene_variant": "END_FACE_TRANSITION_ABSENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "d131b29977046dce622f3e034f7740a2af8294720a74afb9811f40d2a36d1f10",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "716ed84fd876b7426973e200d7f5102a0620beb2d2e0d29da1798daad32ae9ad",
+      "target_checksum": "7d80d183d53d45ac25984f64073aeda29eb9efa166d28e66c68dd31602d6b093",
+      "translation_update_m": 7.529694405878985e-09
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 47838,
+        "exit_code": 0,
+        "fitness_score": 1.0650280312491482e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 47838,
+          "nan_count": 0,
+          "norm_max": 1.0000001055144805,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998850316238,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 47838,
+          "nan_count": 0,
+          "norm_max": 1.0000001055144805,
+          "norm_median": 1.0,
+          "norm_min": 0.999999887202699,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -2.939270701829422e-11,
+          -4.1413066552420386e-12,
+          8.208560942080112e-09
+        ],
+        [
+          2.939270701829422e-11,
+          1.0,
+          -1.3917550445441407e-09,
+          -1.847514474739853e-09
+        ],
+        [
+          4.1413066552420386e-12,
+          1.3917550445441407e-09,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 5.842352625677005e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1957656152/pcl_point_to_plane",
+      "projection_correction_fro": 3.236828550932292e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.3920713782393552e-09,
+      "runtime_ms": 1246.638622993487,
+      "scene_variant": "END_FACE_TRANSITION_ABSENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "d131b29977046dce622f3e034f7740a2af8294720a74afb9811f40d2a36d1f10",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_ABSENT/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "716ed84fd876b7426973e200d7f5102a0620beb2d2e0d29da1798daad32ae9ad",
+      "target_checksum": "7d80d183d53d45ac25984f64073aeda29eb9efa166d28e66c68dd31602d6b093",
+      "translation_update_m": 8.413904116057921e-09
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 48714,
+        "fitness": 1.0,
+        "inlier_rmse": 9.167352052022684e-09
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -1.6996129827699037e-13,
+          3.3677036509589087e-12,
+          -1.3936363735852329e-10
+        ],
+        [
+          1.6996129800676686e-13,
+          1.0,
+          8.023968921134074e-11,
+          -8.467650536124673e-11
+        ],
+        [
+          -3.3677036509725467e-12,
+          -8.023968921134017e-11,
+          1.0,
+          1.4999999995085842
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 5.715201113247031e-28,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1334931069/open3d_point_to_plane",
+      "projection_correction_fro": 4.046848755073707e-28,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 8.03105101431693e-11,
+      "runtime_ms": 52.13381300563924,
+      "scene_variant": "END_FACE_TRANSITION_PRESENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "60cbdb47cab7910973d4204811692cf7d32c9ac99613ab17dc180f5084aad46e",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "b0d9967ee64d27d3f8b0c523676bc947d97b3a85a8a979cd7e0af8a38f0ea5e1",
+      "target_checksum": "0abec25d0f97ba9317442a6b32241e73c5eb2066b7d4803938ab71f2fb87e0c2",
+      "translation_update_m": 5.177661822327578e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 48714,
+        "exit_code": 0,
+        "fitness_score": 8.685606415735225e-17,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 48714,
+          "nan_count": 0,
+          "norm_max": 1.000000113892953,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998693465851,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 48714,
+          "nan_count": 0,
+          "norm_max": 1.0000001124378715,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998693465851,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -3.844968440858132e-11,
+          1.104428180853656e-12,
+          3.5330977726788504e-11
+        ],
+        [
+          3.844968440858132e-11,
+          1.0,
+          2.5847521900601578e-09,
+          8.701286358103744e-10
+        ],
+        [
+          -1.1044282892738733e-12,
+          -2.5847521900601578e-09,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.340328098923116e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1334931069/pcl_point_to_plane",
+      "projection_correction_fro": 1.1102230286703867e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 2.5850383353150898e-09,
+      "runtime_ms": 1043.94033299468,
+      "scene_variant": "END_FACE_TRANSITION_PRESENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "60cbdb47cab7910973d4204811692cf7d32c9ac99613ab17dc180f5084aad46e",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "b0d9967ee64d27d3f8b0c523676bc947d97b3a85a8a979cd7e0af8a38f0ea5e1",
+      "target_checksum": "0abec25d0f97ba9317442a6b32241e73c5eb2066b7d4803938ab71f2fb87e0c2",
+      "translation_update_m": 8.708456354856203e-10
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 48723,
+        "fitness": 1.0,
+        "inlier_rmse": 1.0068102443194016e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          1.596726542714783e-13,
+          1.6594961827197058e-12,
+          -4.425370922606655e-10
+        ],
+        [
+          -1.5967265408708623e-13,
+          1.0,
+          -1.1111328417614275e-10,
+          1.7630138198725323e-10
+        ],
+        [
+          -1.6594961827374474e-12,
+          1.1111328417614249e-10,
+          1.0,
+          1.500000000187878
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.828052106726916e-26,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1850310744/open3d_point_to_plane",
+      "projection_correction_fro": 2.0194839173657902e-28,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.1112579063091164e-10,
+      "runtime_ms": 45.743092996417545,
+      "scene_variant": "END_FACE_TRANSITION_PRESENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "fb266b971fa638e1d270e4777dc0cae9026a1971d7bd43b61785de32cc559098",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "d95b1592499cc645312868fbc19ccde65d8191b1919c7e9bc933594b9937d6a6",
+      "target_checksum": "b6d33cebbdbab232bd72dd63679a386d97f2550b978f141134816bd625c888f8",
+      "translation_update_m": 5.120736020721105e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 48723,
+        "exit_code": 0,
+        "fitness_score": 1.03657539752963e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 48723,
+          "nan_count": 0,
+          "norm_max": 1.0000001150584907,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998805339227,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 48723,
+          "nan_count": 0,
+          "norm_max": 1.0000001150718034,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998805339227,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -1.427445141255479e-11,
+          2.7040468822403518e-11,
+          -6.372959049372184e-09
+        ],
+        [
+          1.427445141255479e-11,
+          1.0,
+          1.944942429332741e-09,
+          8.617055957671482e-10
+        ],
+        [
+          -2.7040470557126994e-11,
+          -1.944942429332741e-09,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 2.4151522512354377e-18,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1850310744/pcl_point_to_plane",
+      "projection_correction_fro": 2.6372914438249305e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.945182667271408e-09,
+      "runtime_ms": 1082.8301400033524,
+      "scene_variant": "END_FACE_TRANSITION_PRESENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "fb266b971fa638e1d270e4777dc0cae9026a1971d7bd43b61785de32cc559098",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "d95b1592499cc645312868fbc19ccde65d8191b1919c7e9bc933594b9937d6a6",
+      "target_checksum": "b6d33cebbdbab232bd72dd63679a386d97f2550b978f141134816bd625c888f8",
+      "translation_update_m": 6.4309519963028205e-09
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 48718,
+        "fitness": 1.0,
+        "inlier_rmse": 9.398416138403391e-09
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -2.2048885345363016e-13,
+          -5.086061698339812e-13,
+          -2.618671269370965e-10
+        ],
+        [
+          2.204888535433735e-13,
+          1.0,
+          1.7644959611202822e-10,
+          -5.09491344922428e-10
+        ],
+        [
+          5.086061697950761e-13,
+          -1.7644959611202832e-10,
+          1.0,
+          1.5000000000837639
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.7405557671343866e-29,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1957656152/open3d_point_to_plane",
+      "projection_correction_fro": 0.0,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.76450466884246e-10,
+      "runtime_ms": 54.63617999339476,
+      "scene_variant": "END_FACE_TRANSITION_PRESENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "ae05b5024583da52f6d4c02206a94ea551462320f7be2e1abb3297170da12b3a",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "8e7e4a64156f161d04ffb45bdf695e4d1fa65a729ad0557c1e4f8ddba7038a65",
+      "target_checksum": "5e8db80e269cd9215d1d837842beee1865829bd1885785186ed96637c72f4a0f",
+      "translation_update_m": 5.789405937607842e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 48718,
+        "exit_code": 0,
+        "fitness_score": 9.086639661761056e-17,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 48718,
+          "nan_count": 0,
+          "norm_max": 1.0000001147277913,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998865368003,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 48718,
+          "nan_count": 0,
+          "norm_max": 1.0000001147277913,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998727886314,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          2.6261114810521846e-11,
+          8.934748774169776e-12,
+          2.268685461714881e-09
+        ],
+        [
+          -2.6261114810521846e-11,
+          1.0,
+          1.8786729949482606e-09,
+          1.804056903864648e-10
+        ],
+        [
+          -8.934748774169776e-12,
+          -1.8786729949482606e-09,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 7.370010277191265e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1957656152/pcl_point_to_plane",
+      "projection_correction_fro": 6.106226657676291e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.8788777484305134e-09,
+      "runtime_ms": 1320.6643360026646,
+      "scene_variant": "END_FACE_TRANSITION_PRESENT",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "ae05b5024583da52f6d4c02206a94ea551462320f7be2e1abb3297170da12b3a",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_PRESENT/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "8e7e4a64156f161d04ffb45bdf695e4d1fa65a729ad0557c1e4f8ddba7038a65",
+      "target_checksum": "5e8db80e269cd9215d1d837842beee1865829bd1885785186ed96637c72f4a0f",
+      "translation_update_m": 2.275847081268924e-09
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 47911,
+        "fitness": 1.0,
+        "inlier_rmse": 1.0234333308267193e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -6.541938739916297e-16,
+          -4.462255092383146e-13,
+          -7.723036444767139e-10
+        ],
+        [
+          6.541937426911436e-16,
+          1.0,
+          -2.9424692966900075e-10,
+          5.112083189809276e-10
+        ],
+        [
+          4.4622550923850706e-13,
+          2.9424692966900075e-10,
+          1.0,
+          1.500000000032188
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 7.13995806992029e-29,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1334931069/open3d_point_to_plane",
+      "projection_correction_fro": 5.048719423055014e-29,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 2.9424726802005643e-10,
+      "runtime_ms": 66.53394400200341,
+      "scene_variant": "END_FACE_TRANSITION_WEAK",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "188b03c1694b27ee098c21248cc833134b705e97523783c3f8734bbc36a7cd82",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "c381aec1c2fcb2fa87f3919f9c3eb46b56cea42db6eea69f223d5b0c72faea6a",
+      "target_checksum": "945369fda3bedcfe4949018361194ebb89e3287fd6f7fe8f147e08c4d0805fee",
+      "translation_update_m": 9.267270007633497e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 47911,
+        "exit_code": 0,
+        "fitness_score": 1.0654526291315465e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 47911,
+          "nan_count": 0,
+          "norm_max": 1.00000012680163,
+          "norm_median": 1.0,
+          "norm_min": 0.9999999017058951,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 47911,
+          "nan_count": 0,
+          "norm_max": 1.0000001274484709,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998914270004,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -1.350010641471e-11,
+          1.2070796619190194e-11,
+          -1.1367765395675633e-08
+        ],
+        [
+          1.350010641471e-11,
+          1.0,
+          4.2116493625954377e-10,
+          -6.154009524195203e-10
+        ],
+        [
+          -1.2070796619190194e-11,
+          -4.2116493625954377e-10,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.0788840036634104e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1334931069/pcl_point_to_plane",
+      "projection_correction_fro": 7.850462330469573e-17,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 4.215541570159639e-10,
+      "runtime_ms": 914.9382000032347,
+      "scene_variant": "END_FACE_TRANSITION_WEAK",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "188b03c1694b27ee098c21248cc833134b705e97523783c3f8734bbc36a7cd82",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "c381aec1c2fcb2fa87f3919f9c3eb46b56cea42db6eea69f223d5b0c72faea6a",
+      "target_checksum": "945369fda3bedcfe4949018361194ebb89e3287fd6f7fe8f147e08c4d0805fee",
+      "translation_update_m": 1.1384410763116342e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 47912,
+        "fitness": 1.0,
+        "inlier_rmse": 1.0241652989779924e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -1.2119055757916482e-13,
+          7.471531061009795e-13,
+          1.246445871989739e-09
+        ],
+        [
+          1.2119055790718157e-13,
+          1.0,
+          -4.390221461035548e-10,
+          3.8501831977705047e-10
+        ],
+        [
+          -7.471531060477742e-13,
+          4.390221461035549e-10,
+          1.0,
+          1.4999999996904771
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 2.0981098475949786e-29,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1850310744/open3d_point_to_plane",
+      "projection_correction_fro": 2.524354896707238e-29,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 4.3902279860422537e-10,
+      "runtime_ms": 50.840651005273685,
+      "scene_variant": "END_FACE_TRANSITION_WEAK",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "deb676884f6c62c0f7ccb774220b0e5fc97f73cd17abd1264b54544052145f7d",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "345a4fa988592ba96ec1b5dc70be62bd8ad901c9431c84b82bee8702de610045",
+      "target_checksum": "458ac14d8e29eb934f3cac565aeba26afa53259a6b25e0a2022076219d18dbfe",
+      "translation_update_m": 1.340772469193265e-09
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 47912,
+        "exit_code": 0,
+        "fitness_score": 1.0400251984544608e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 47912,
+          "nan_count": 0,
+          "norm_max": 1.0000001076018026,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998946758349,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 47912,
+          "nan_count": 0,
+          "norm_max": 1.0000001048530318,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998938865654,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -9.583032284377069e-12,
+          -1.7097143145683447e-11,
+          1.5307439760192665e-09
+        ],
+        [
+          9.583032284377069e-12,
+          1.0,
+          -2.7140425462590656e-09,
+          3.2732190291540064e-09
+        ],
+        [
+          1.7097143145683447e-11,
+          2.7140425462590656e-09,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 7.522848753627852e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1850310744/pcl_point_to_plane",
+      "projection_correction_fro": 7.850464095628223e-17,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 2.7141132600532075e-09,
+      "runtime_ms": 944.4504499988398,
+      "scene_variant": "END_FACE_TRANSITION_WEAK",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "deb676884f6c62c0f7ccb774220b0e5fc97f73cd17abd1264b54544052145f7d",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "345a4fa988592ba96ec1b5dc70be62bd8ad901c9431c84b82bee8702de610045",
+      "target_checksum": "458ac14d8e29eb934f3cac565aeba26afa53259a6b25e0a2022076219d18dbfe",
+      "translation_update_m": 3.6134664704318442e-09
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 47906,
+        "fitness": 1.0,
+        "inlier_rmse": 1.0843139706889127e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          3.444429296165073e-13,
+          1.7038535960156811e-13,
+          -1.1303756366928597e-09
+        ],
+        [
+          -3.4444292962975035e-13,
+          1.0,
+          7.772397395259196e-11,
+          3.021831777170597e-10
+        ],
+        [
+          -1.7038535957479662e-13,
+          -7.772397395259201e-11,
+          1.0,
+          1.500000000144663
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.8278410798000405e-26,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1957656152/open3d_point_to_plane",
+      "projection_correction_fro": 5.644629148371844e-29,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 7.772492392460559e-11,
+      "runtime_ms": 50.2084530016873,
+      "scene_variant": "END_FACE_TRANSITION_WEAK",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "0b2df7df6bc72565a23ee7c085be5a1ce1cd2c918a5b817dd601e4aa6f6ad03f",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "2dc116a2e1a38c780a7f6a853ada2b69d20537e3853700184064f7110dd7b2aa",
+      "target_checksum": "eec83d4dd4570273140f6015431cea0213324bf78467f99e7dae186e6e8eae16",
+      "translation_update_m": 1.1789788469396208e-09
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 47906,
+        "exit_code": 0,
+        "fitness_score": 2.752967053473002e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 47906,
+          "nan_count": 0,
+          "norm_max": 1.0000001100799794,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998873600568,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 47906,
+          "nan_count": 0,
+          "norm_max": 1.0000001100799794,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998782923045,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          1.015163821060927e-11,
+          4.0071404527886045e-11,
+          -4.5897024847363355e-08
+        ],
+        [
+          -1.015163821060927e-11,
+          1.0,
+          1.7175202926544841e-10,
+          3.192122122186447e-10
+        ],
+        [
+          -4.0071404527886045e-11,
+          -1.7175202926544841e-10,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.005705528753701e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1957656152/pcl_point_to_plane",
+      "projection_correction_fro": 2.38762489525195e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.766564850428463e-10,
+      "runtime_ms": 936.3027450017398,
+      "scene_variant": "END_FACE_TRANSITION_WEAK",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "0b2df7df6bc72565a23ee7c085be5a1ce1cd2c918a5b817dd601e4aa6f6ad03f",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/END_FACE_TRANSITION_WEAK/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "2dc116a2e1a38c780a7f6a853ada2b69d20537e3853700184064f7110dd7b2aa",
+      "target_checksum": "eec83d4dd4570273140f6015431cea0213324bf78467f99e7dae186e6e8eae16",
+      "translation_update_m": 4.589813488885925e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 44214,
+        "fitness": 1.0,
+        "inlier_rmse": 9.106432291895477e-09
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          3.2810412362085247e-13,
+          -2.8669992859067163e-11,
+          -4.1439445962563234e-10
+        ],
+        [
+          -3.2810412344289383e-13,
+          1.0,
+          6.2071410403219056e-12,
+          2.9837949392523315e-10
+        ],
+        [
+          2.86699928590692e-11,
+          -6.2071410403125e-12,
+          1.0,
+          1.500000000051742
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.144573797872938e-27,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1334931069/open3d_point_to_plane",
+      "projection_correction_fro": 5.048709793414476e-29,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 2.9336065563556564e-11,
+      "runtime_ms": 53.63137400127016,
+      "scene_variant": "GEOMETRY_RICH_ROOM",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "36da755d200bfd48fd47b0b102b397b88019f1b07fbcf6fa2e79df4e7e947550",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "2e3f27190169c328a97ccedbb84bddb2589f62eb6dacb453778db1b414aa4c2c",
+      "target_checksum": "394b9a5829d8e78542ba9876fa150321628ef5cf0888f3bab5ae4b8a9f8e7dfd",
+      "translation_update_m": 5.132546340159834e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 44214,
+        "exit_code": 0,
+        "fitness_score": 8.394520512610132e-17,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 44214,
+          "nan_count": 0,
+          "norm_max": 1.0000001199541342,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998778852263,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 44214,
+          "nan_count": 0,
+          "norm_max": 1.0000001199541342,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998778852263,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          3.146237437245958e-10,
+          1.107495969931982e-10,
+          4.33970503976866e-09
+        ],
+        [
+          -3.146237437245958e-10,
+          1.0,
+          2.1034743391545874e-10,
+          5.4310165253923515e-09
+        ],
+        [
+          -1.107495969931982e-10,
+          -2.1034743391545874e-10,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.1078505855505392e-19,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1334931069/pcl_point_to_plane",
+      "projection_correction_fro": 3.532708101709174e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 3.9433438174679467e-10,
+      "runtime_ms": 867.784517002292,
+      "scene_variant": "GEOMETRY_RICH_ROOM",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "36da755d200bfd48fd47b0b102b397b88019f1b07fbcf6fa2e79df4e7e947550",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "2e3f27190169c328a97ccedbb84bddb2589f62eb6dacb453778db1b414aa4c2c",
+      "target_checksum": "394b9a5829d8e78542ba9876fa150321628ef5cf0888f3bab5ae4b8a9f8e7dfd",
+      "translation_update_m": 6.9519047987784125e-09
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 44214,
+        "fitness": 1.0,
+        "inlier_rmse": 9.005688620533577e-09
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -6.922166248333389e-13,
+          -3.899454298682305e-12,
+          -2.0818553658138396e-10
+        ],
+        [
+          6.922166249460816e-13,
+          1.0,
+          2.8912438729294704e-11,
+          6.89680702355775e-11
+        ],
+        [
+          3.899454298662291e-12,
+          -2.8912438729297405e-11,
+          1.0,
+          1.4999999998141103
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 4.5695757454673935e-27,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1850310744/open3d_point_to_plane",
+      "projection_correction_fro": 0.0,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 2.918242657762555e-11,
+      "runtime_ms": 53.70404300629161,
+      "scene_variant": "GEOMETRY_RICH_ROOM",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "11a5c4a06f7b10b0de8c03748a97868e180151e97cf774a1b4e0a4151458d6de",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "0c0e0a3a15aa987bf836bb02c02e9b5db7e9da2576092c58a25075490201408e",
+      "target_checksum": "dd567e90b8bbee1fe577f745911bf07537a01f9745806a11fdabc62d5b9c9903",
+      "translation_update_m": 2.8749401868502454e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 44214,
+        "exit_code": 0,
+        "fitness_score": 8.134158653096862e-17,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 44214,
+          "nan_count": 0,
+          "norm_max": 1.000000116523474,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998841120002,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 44214,
+          "nan_count": 0,
+          "norm_max": 1.000000116523474,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998789034601,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          3.64646590700346e-10,
+          -9.579756432565034e-11,
+          -1.320714537733636e-09
+        ],
+        [
+          -3.64646590700346e-10,
+          1.0,
+          2.1130125427148982e-10,
+          2.707277069191605e-09
+        ],
+        [
+          9.579756432565034e-11,
+          -2.1130125427148982e-10,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.2301831504650004e-19,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1850310744/pcl_point_to_plane",
+      "projection_correction_fro": 7.457939221296273e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 4.32194755446146e-10,
+      "runtime_ms": 960.8271970064379,
+      "scene_variant": "GEOMETRY_RICH_ROOM",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "11a5c4a06f7b10b0de8c03748a97868e180151e97cf774a1b4e0a4151458d6de",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "0c0e0a3a15aa987bf836bb02c02e9b5db7e9da2576092c58a25075490201408e",
+      "target_checksum": "dd567e90b8bbee1fe577f745911bf07537a01f9745806a11fdabc62d5b9c9903",
+      "translation_update_m": 3.0122476690258484e-09
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 44214,
+        "fitness": 1.0,
+        "inlier_rmse": 9.430516108164175e-09
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          4.314009462177212e-12,
+          3.700465159214627e-12,
+          -4.707240545331456e-12
+        ],
+        [
+          -4.31400946218169e-12,
+          1.0,
+          1.2104130185792403e-12,
+          8.9597435283758e-11
+        ],
+        [
+          -3.700465159209405e-12,
+          -1.2104130185952044e-12,
+          1.0,
+          1.499999999921484
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.0081524231319072e-27,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1957656152/open3d_point_to_plane",
+      "projection_correction_fro": 8.077935669463161e-28,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 5.8111289531278925e-12,
+      "runtime_ms": 51.739786998950876,
+      "scene_variant": "GEOMETRY_RICH_ROOM",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "987fc27436f5a64753f493a06e68a9125da76f2f92197f979d65280f2bbf9914",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "9284570da4a782c1cb545f7bdc47e89a487f822930c8298f27b0802c572a414a",
+      "target_checksum": "6659eb404a2d58fac0557186e1a47ee9aae5741cafbc270d6a7b27c2378572b2",
+      "translation_update_m": 1.19225138867503e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 44214,
+        "exit_code": 0,
+        "fitness_score": 9.038382092540043e-17,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 44214,
+          "nan_count": 0,
+          "norm_max": 1.000000125169557,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998876166263,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 44214,
+          "nan_count": 0,
+          "norm_max": 1.0000001258015812,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998839804323,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -5.384865331414801e-10,
+          5.230744726247849e-10,
+          7.80983666626156e-10
+        ],
+        [
+          5.384865331414801e-10,
+          1.0,
+          1.5263229569129066e-10,
+          2.11987094544952e-09
+        ],
+        [
+          -5.230744726247849e-10,
+          -1.5263229569129066e-10,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 4.300385196403036e-19,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1957656152/pcl_point_to_plane",
+      "projection_correction_fro": 1.241267605492742e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 7.660752420273194e-10,
+      "runtime_ms": 903.8761910051107,
+      "scene_variant": "GEOMETRY_RICH_ROOM",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "987fc27436f5a64753f493a06e68a9125da76f2f92197f979d65280f2bbf9914",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/GEOMETRY_RICH_ROOM/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "9284570da4a782c1cb545f7bdc47e89a487f822930c8298f27b0802c572a414a",
+      "target_checksum": "6659eb404a2d58fac0557186e1a47ee9aae5741cafbc270d6a7b27c2378572b2",
+      "translation_update_m": 2.259156549001834e-09
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 47810,
+        "fitness": 1.0,
+        "inlier_rmse": 5.3021823026327183e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          7.140870689897545e-14,
+          -9.487991781603216e-15,
+          5.2085102062131275e-08
+        ],
+        [
+          -7.140870689927484e-14,
+          1.0,
+          -3.15532648254761e-11,
+          -5.881011321465814e-10
+        ],
+        [
+          9.487991779350036e-15,
+          3.15532648254761e-11,
+          1.0,
+          1.5000000003822123
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.6238541206901405e-29,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1334931069/open3d_point_to_plane",
+      "projection_correction_fro": 1.271999989089582e-29,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 3.1553347054980333e-11,
+      "runtime_ms": 50.490656998590566,
+      "scene_variant": "LONG_CORRIDOR",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "97e4593d8af22bfbe4423f253147090a8a9d710ddd231534cddcfee9ac4ec3d5",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "875c804f67d864df17b89f9ce5b6415f0cb5bf6196b73e5a3f122547c93cd46e",
+      "target_checksum": "6fa6e98ced218c8d5662fd4256a498b5f882f82e2b602a45aaabbd6f70698f9c",
+      "translation_update_m": 5.2089824399563535e-08
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 47810,
+        "exit_code": 0,
+        "fitness_score": 1.3938144781185972e-15,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 47810,
+          "nan_count": 0,
+          "norm_max": 1.000000111532621,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998979030758,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 47810,
+          "nan_count": 0,
+          "norm_max": 1.0000001071303308,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998979030758,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          1.6576195277506756e-11,
+          1.6325512122716823e-11,
+          9.812759316218944e-08
+        ],
+        [
+          -1.6576195277506756e-11,
+          1.0,
+          -1.6879216913068262e-09,
+          6.731097901280236e-10
+        ],
+        [
+          -1.6325512122716823e-11,
+          1.6879216913068262e-09,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 5.55384369511145e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1334931069/pcl_point_to_plane",
+      "projection_correction_fro": 5.551116512202929e-17,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.6880819988618942e-09,
+      "runtime_ms": 895.8222340006614,
+      "scene_variant": "LONG_CORRIDOR",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "97e4593d8af22bfbe4423f253147090a8a9d710ddd231534cddcfee9ac4ec3d5",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "875c804f67d864df17b89f9ce5b6415f0cb5bf6196b73e5a3f122547c93cd46e",
+      "target_checksum": "6fa6e98ced218c8d5662fd4256a498b5f882f82e2b602a45aaabbd6f70698f9c",
+      "translation_update_m": 9.812990174556243e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 47818,
+        "fitness": 1.0,
+        "inlier_rmse": 1.5351296384630966e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -2.0605521672279418e-13,
+          -5.38850204777467e-14,
+          1.1194435809503299e-08
+        ],
+        [
+          2.0605521670560913e-13,
+          1.0,
+          -3.1892050034613525e-10,
+          6.34205748383677e-10
+        ],
+        [
+          5.3885020543461933e-14,
+          3.1892050034613525e-10,
+          1.0,
+          1.499999999997284
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.855084911626698e-29,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1850310744/open3d_point_to_plane",
+      "projection_correction_fro": 2.524354896707238e-29,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 3.1892057146470973e-10,
+      "runtime_ms": 51.345959000173025,
+      "scene_variant": "LONG_CORRIDOR",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "641200f1c950b7cfa6ddab48278b65c4b3b1b8c4f7b78066da8053ae821b9e34",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "81adf29229769541d5811c423cc204347ba7d550933bbc63f498717e5e62843f",
+      "target_checksum": "36d1d7f8a62ac7c24d685971c333bcabcf517c23ea69a9d405c0ebcae7e3d6a9",
+      "translation_update_m": 1.1212386784324653e-08
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 47818,
+        "exit_code": 0,
+        "fitness_score": 1.0016719579573309e-15,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 47818,
+          "nan_count": 0,
+          "norm_max": 1.0000001086784391,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998833369791,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 47818,
+          "nan_count": 0,
+          "norm_max": 1.0000001036727872,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998941960966,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -1.6434510002882874e-11,
+          -3.790225772126732e-11,
+          6.137619124046978e-08
+        ],
+        [
+          1.6434510002882874e-11,
+          1.0,
+          3.1729552318893184e-10,
+          -9.356831975892987e-10
+        ],
+        [
+          3.790225772126732e-11,
+          -3.1729552318893184e-10,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.855855333241805e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1850310744/pcl_point_to_plane",
+      "projection_correction_fro": 7.85046240285307e-17,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 3.1997357401552043e-10,
+      "runtime_ms": 927.6323769881856,
+      "scene_variant": "LONG_CORRIDOR",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "641200f1c950b7cfa6ddab48278b65c4b3b1b8c4f7b78066da8053ae821b9e34",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "81adf29229769541d5811c423cc204347ba7d550933bbc63f498717e5e62843f",
+      "target_checksum": "36d1d7f8a62ac7c24d685971c333bcabcf517c23ea69a9d405c0ebcae7e3d6a9",
+      "translation_update_m": 6.138332309538944e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 47800,
+        "fitness": 1.0,
+        "inlier_rmse": 4.2404567835704046e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          2.2937926326847483e-13,
+          1.9399557271688584e-13,
+          -4.1082687437899134e-08
+        ],
+        [
+          -2.2937926329128803e-13,
+          1.0,
+          1.1759666825190483e-10,
+          -8.51721273805601e-10
+        ],
+        [
+          -1.939955726899116e-13,
+          -1.1759666825190488e-10,
+          1.0,
+          1.500000000290084
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 4.5194355597433955e-29,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1957656152/open3d_point_to_plane",
+      "projection_correction_fro": 5.048709793414476e-29,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.1759705197443184e-10,
+      "runtime_ms": 48.52411299361847,
+      "scene_variant": "LONG_CORRIDOR",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "69822b569d14b8fc52ab8b5c4d4244c8a996e392dbfe33aba0dc305127bb6e59",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "2eb23c9ee9d17224544d41a45e1f808273fd9e1c472f2d516885caaee35846f5",
+      "target_checksum": "2c8d9294ae79739b20fbaf2a45b51b1033ec7230d425878b11e7a531c36ac918",
+      "translation_update_m": 4.1092539285743744e-08
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 47800,
+        "exit_code": 0,
+        "fitness_score": 1.4380886449517635e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 47800,
+          "nan_count": 0,
+          "norm_max": 1.0000001262310012,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998648866113,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 47800,
+          "nan_count": 0,
+          "norm_max": 1.000000112254725,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998648866113,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          3.111763971497261e-11,
+          3.6698696165293754e-11,
+          -2.9655698341457537e-08
+        ],
+        [
+          -3.111763971497261e-11,
+          1.0,
+          3.052214037069234e-09,
+          -3.0708457998684935e-10
+        ],
+        [
+          -3.6698696165293754e-11,
+          -3.052214037069234e-09,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 2.0769601396774588e-19,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1957656152/pcl_point_to_plane",
+      "projection_correction_fro": 7.85047602986561e-17,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 3.0525932075892964e-09,
+      "runtime_ms": 1311.1099989910144,
+      "scene_variant": "LONG_CORRIDOR",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "69822b569d14b8fc52ab8b5c4d4244c8a996e392dbfe33aba0dc305127bb6e59",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/LONG_CORRIDOR/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "2eb23c9ee9d17224544d41a45e1f808273fd9e1c472f2d516885caaee35846f5",
+      "target_checksum": "2c8d9294ae79739b20fbaf2a45b51b1033ec7230d425878b11e7a531c36ac918",
+      "translation_update_m": 2.9657288228339302e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 39801,
+        "fitness": 1.0,
+        "inlier_rmse": 1.826614679786842e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          4.317347647852205e-14,
+          1.0749987800107335e-12,
+          -1.4023946407124364e-08
+        ],
+        [
+          -4.3173476950326596e-14,
+          1.0,
+          4.3888844167048256e-10,
+          -3.605304215562361e-10
+        ],
+        [
+          -1.074998779991785e-12,
+          -4.3888844167048256e-10,
+          1.0,
+          1.499999999843579
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 7.311312772300918e-26,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1334931069/open3d_point_to_plane",
+      "projection_correction_fro": 6.310887241768095e-30,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 4.3888976032515347e-10,
+      "runtime_ms": 38.11049499199726,
+      "scene_variant": "PARALLEL_WALLS",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "19ac7cf75919cceff0b25b89201f85bba2651031eaef3da40607055dde7766e7",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "61d7783aa52204731c80a794bbbeb4d5b10ea3a9966ec686f00ffd3368c88b88",
+      "target_checksum": "5ae695fe5845e336eef69e75dd1b840787ec0a4e42e657d1a3c462fa7ef512c8",
+      "translation_update_m": 1.4029451969865256e-08
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 39801,
+        "exit_code": 0,
+        "fitness_score": 1.110397630012817e-15,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 39801,
+          "nan_count": 0,
+          "norm_max": 1.000000117977488,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998829220001,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 39801,
+          "nan_count": 0,
+          "norm_max": 1.0000001112447374,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998829268956,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -5.1123917599316115e-11,
+          2.7282388154192816e-11,
+          -7.895789622125449e-08
+        ],
+        [
+          5.1123917599316115e-11,
+          1.0,
+          1.888188272403113e-09,
+          -3.0385818305944667e-09
+        ],
+        [
+          -2.7282388154192816e-11,
+          -1.888188272403113e-09,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.547514945057758e-19,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1334931069/pcl_point_to_plane",
+      "projection_correction_fro": 2.5438407596286416e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.8890772432272976e-09,
+      "runtime_ms": 998.9656889956677,
+      "scene_variant": "PARALLEL_WALLS",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "19ac7cf75919cceff0b25b89201f85bba2651031eaef3da40607055dde7766e7",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "61d7783aa52204731c80a794bbbeb4d5b10ea3a9966ec686f00ffd3368c88b88",
+      "target_checksum": "5ae695fe5845e336eef69e75dd1b840787ec0a4e42e657d1a3c462fa7ef512c8",
+      "translation_update_m": 7.901634233010038e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 39767,
+        "fitness": 1.0,
+        "inlier_rmse": 9.963568781230038e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          5.846431602630583e-13,
+          -6.1781418489456234e-12,
+          9.89748989663245e-08
+        ],
+        [
+          -5.846431586680251e-13,
+          1.0,
+          2.581736218357863e-10,
+          -5.380281680899101e-10
+        ],
+        [
+          6.178141849096563e-12,
+          -2.5817362183578266e-10,
+          1.0,
+          1.5000000005399312
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 3.806781829016691e-29,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1850310744/open3d_point_to_plane",
+      "projection_correction_fro": 0.0,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 2.582481950684984e-10,
+      "runtime_ms": 46.991149996756576,
+      "scene_variant": "PARALLEL_WALLS",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "117cdc38eddb492287284a04368e49f27d1da4b7a9dda90132c0013cec322202",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "767a1ae3dfa8d31c4882c3af222576856812909ec1cbd6cd6f3916fa4f3421dc",
+      "target_checksum": "36752fba8d45616419ab39c15fdedae442e016d91acb32f9e5c9f36dc570e6fc",
+      "translation_update_m": 9.897783401053113e-08
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 39767,
+        "exit_code": 0,
+        "fitness_score": 2.478785006111397e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 39767,
+          "nan_count": 0,
+          "norm_max": 1.000000108296446,
+          "norm_median": 1.0,
+          "norm_min": 0.999999888754876,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 39767,
+          "nan_count": 0,
+          "norm_max": 1.0000001066446433,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998833126221,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          5.8185616047534694e-11,
+          -3.451623362127343e-11,
+          3.020674199660789e-08
+        ],
+        [
+          -5.8185616047534694e-11,
+          1.0,
+          1.0712752906982814e-09,
+          -2.5903248435099613e-09
+        ],
+        [
+          3.451623362127343e-11,
+          -1.0712752906982814e-09,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.0253454846631213e-19,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1850310744/pcl_point_to_plane",
+      "projection_correction_fro": 5.71522286372728e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.0734097066692306e-09,
+      "runtime_ms": 785.3792800015071,
+      "scene_variant": "PARALLEL_WALLS",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "117cdc38eddb492287284a04368e49f27d1da4b7a9dda90132c0013cec322202",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "767a1ae3dfa8d31c4882c3af222576856812909ec1cbd6cd6f3916fa4f3421dc",
+      "target_checksum": "36752fba8d45616419ab39c15fdedae442e016d91acb32f9e5c9f36dc570e6fc",
+      "translation_update_m": 3.031760288750645e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 39801,
+        "fitness": 1.0,
+        "inlier_rmse": 3.5808513031045816e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -2.785206078145589e-13,
+          2.2612238253788218e-12,
+          -3.420851066653677e-08
+        ],
+        [
+          2.785206078415353e-13,
+          1.0,
+          -1.1930007641930493e-11,
+          -1.8121825835734408e-10
+        ],
+        [
+          -2.2612238253754993e-12,
+          1.1930007641931124e-11,
+          1.0,
+          1.499999999482094
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 5.75621750402132e-28,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1957656152/open3d_point_to_plane",
+      "projection_correction_fro": 4.070399965086662e-28,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.2145607817394966e-11,
+      "runtime_ms": 52.52197399386205,
+      "scene_variant": "PARALLEL_WALLS",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "8b1b31e630c638661bcd78bdde52af295756b4bbe4a7eda87e08ac9238b2a194",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "95194e11852d4b1c0e75b43e943ff54467d6248455fe50a07c7cf2002d384055",
+      "target_checksum": "f7e9a1dea0ba5db1da202978c1980afdccf397cf445825e64a57f6858e7568cb",
+      "translation_update_m": 3.4212910847263176e-08
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 39801,
+        "exit_code": 0,
+        "fitness_score": 1.2852240791535617e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 39801,
+          "nan_count": 0,
+          "norm_max": 1.0000001207726543,
+          "norm_median": 1.0,
+          "norm_min": 0.999999884177786,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 39801,
+          "nan_count": 0,
+          "norm_max": 1.0000000978588852,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998838986665,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -6.234366495272425e-11,
+          -1.8408864710384165e-11,
+          -2.0289290247887948e-08
+        ],
+        [
+          6.234366495272425e-11,
+          1.0,
+          2.8863869627748784e-10,
+          -1.1645013842098706e-09
+        ],
+        [
+          1.8408864710384165e-11,
+          -2.8863869627748784e-10,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 2.6584323730801338e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1957656152/pcl_point_to_plane",
+      "projection_correction_fro": 2.1138016714401176e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 2.958682070817706e-10,
+      "runtime_ms": 780.8555299998261,
+      "scene_variant": "PARALLEL_WALLS",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "8b1b31e630c638661bcd78bdde52af295756b4bbe4a7eda87e08ac9238b2a194",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/PARALLEL_WALLS/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "95194e11852d4b1c0e75b43e943ff54467d6248455fe50a07c7cf2002d384055",
+      "target_checksum": "f7e9a1dea0ba5db1da202978c1980afdccf397cf445825e64a57f6858e7568cb",
+      "translation_update_m": 2.032268098054161e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 61624,
+        "fitness": 1.0,
+        "inlier_rmse": 1.1850572981854653e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -1.735412804255721e-12,
+          2.1526346319392312e-12,
+          1.9755079178838964e-09
+        ],
+        [
+          1.73541280481992e-12,
+          1.0,
+          -2.6209698661777085e-10,
+          2.872057510210367e-10
+        ],
+        [
+          -2.1526346314843845e-12,
+          2.620969866177746e-10,
+          1.0,
+          1.5000000002086582
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 5.812812441826865e-28,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1334931069/open3d_point_to_plane",
+      "projection_correction_fro": 4.0389678347315804e-28,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 2.621115714492146e-10,
+      "runtime_ms": 65.62842600396834,
+      "scene_variant": "REPEATED_STRUCTURE",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "f864994d11460bc41903dda5371a27aa951854d23d6535cb1a2d212d449c0774",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "1a26885ee3a3a08617089c49d3cadb5074edfbae9a6f951ea944a2b75d140463",
+      "target_checksum": "a8be6568a9ee25027a269970fe27047b3a5d4b0d1085d74fcdb184a07da88b37",
+      "translation_update_m": 2.0071514447673312e-09
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 61624,
+        "exit_code": 0,
+        "fitness_score": 1.5154231032522016e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 61624,
+          "nan_count": 0,
+          "norm_max": 1.0000001236398464,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998658191279,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 61624,
+          "nan_count": 0,
+          "norm_max": 1.0000001236398464,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998658191279,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -7.533635174028497e-13,
+          -4.8714656440684845e-12,
+          -2.153947242788945e-08
+        ],
+        [
+          7.533635174028497e-13,
+          1.0,
+          -8.890375102765802e-10,
+          -7.643585764327554e-11
+        ],
+        [
+          4.8714656440684845e-12,
+          8.890375102765802e-10,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 6.197650098235991e-21,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1334931069/pcl_point_to_plane",
+      "projection_correction_fro": 2.7755575961603e-17,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 8.890511620470126e-10,
+      "runtime_ms": 1159.4710360077443,
+      "scene_variant": "REPEATED_STRUCTURE",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "f864994d11460bc41903dda5371a27aa951854d23d6535cb1a2d212d449c0774",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1334931069",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "1a26885ee3a3a08617089c49d3cadb5074edfbae9a6f951ea944a2b75d140463",
+      "target_checksum": "a8be6568a9ee25027a269970fe27047b3a5d4b0d1085d74fcdb184a07da88b37",
+      "translation_update_m": 2.153960804917637e-08
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 61518,
+        "fitness": 1.0,
+        "inlier_rmse": 1.2179569160224026e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          2.1191818883869738e-14,
+          9.485124607121909e-14,
+          -8.97933287551148e-10
+        ],
+        [
+          -2.1191818900957128e-14,
+          1.0,
+          1.8014932312640508e-10,
+          -2.0610049124594344e-10
+        ],
+        [
+          -9.485124606740141e-14,
+          -1.8014932312640508e-10,
+          1.0,
+          1.5000000000288787
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 1.808914762375662e-29,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1850310744/open3d_point_to_plane",
+      "projection_correction_fro": 1.3010227344586376e-29,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 1.8014934934313246e-10,
+      "runtime_ms": 83.99384599761106,
+      "scene_variant": "REPEATED_STRUCTURE",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "0d3541927c477fe946556f971c3cd850e0a27fc078fc74a44720fe3ab3191b71",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "b51f726172602529688af9da79c1ba49f9a88d69b99b00c0550e26574c14aa88",
+      "target_checksum": "c34f78ded1dde8fb0197763d9c802e01e4f25a6e061f92cdc98fd4b26df0f69d",
+      "translation_update_m": 9.217350917604433e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 61518,
+        "exit_code": 0,
+        "fitness_score": 1.4763832577606238e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 61518,
+          "nan_count": 0,
+          "norm_max": 1.0000001326383765,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998640969695,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 61518,
+          "nan_count": 0,
+          "norm_max": 1.0000001326383765,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998640969695,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          8.292787984087724e-11,
+          3.1688124346729296e-11,
+          4.751811721881438e-10
+        ],
+        [
+          -8.292787984087724e-11,
+          1.0,
+          5.788946544349471e-10,
+          -7.272622504217452e-10
+        ],
+        [
+          -3.1688124346729296e-11,
+          -5.788946544349471e-10,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 7.277411216034287e-20,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1850310744/pcl_point_to_plane",
+      "projection_correction_fro": 6.080941966204535e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 5.856618527714436e-10,
+      "runtime_ms": 1276.6039490088588,
+      "scene_variant": "REPEATED_STRUCTURE",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "0d3541927c477fe946556f971c3cd850e0a27fc078fc74a44720fe3ab3191b71",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1850310744",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "b51f726172602529688af9da79c1ba49f9a88d69b99b00c0550e26574c14aa88",
+      "target_checksum": "c34f78ded1dde8fb0197763d9c802e01e4f25a6e061f92cdc98fd4b26df0f69d",
+      "translation_update_m": 8.687390444147193e-10
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_set_size": 60921,
+        "fitness": 1.0,
+        "inlier_rmse": 1.1760599131569857e-08
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          1.314328921798756e-12,
+          2.6308881622028657e-12,
+          -6.279833940274779e-10
+        ],
+        [
+          -1.3143289227826154e-12,
+          1.0,
+          3.7396480606989704e-10,
+          -2.7899569782696204e-10
+        ],
+        [
+          -2.6308881617113532e-12,
+          -3.7396480606990045e-10,
+          1.0,
+          1.4999999998176363
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 7.311561239757382e-26,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1957656152/open3d_point_to_plane",
+      "projection_correction_fro": 4.515703318697475e-28,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 3.7397636985768724e-10,
+      "runtime_ms": 75.63217199640349,
+      "scene_variant": "REPEATED_STRUCTURE",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "89560e9bf280942957c89cc9c6022790f489ac35e07f4a0152d698e252f897cb",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "6783ba92c620538154545b00bb75e505001de1b8ea6472c7f3fdf33469566b05",
+      "target_checksum": "308000c35cc196277c35807d63f992c1a24cc5a0accb500578ab1f29f59c34a2",
+      "translation_update_m": 7.109558736367384e-10
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "backend_diagnostics": {
+        "correspondence_count": 60921,
+        "exit_code": 0,
+        "fitness_score": 1.5114080447292604e-16,
+        "has_converged_raw": true,
+        "iteration_count": 1,
+        "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+        "pcl_version": "1.15.1",
+        "source_normal_statistics": {
+          "finite_count": 60921,
+          "nan_count": 0,
+          "norm_max": 1.0000001494715633,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998682884645,
+          "zero_count": 0
+        },
+        "target_normal_statistics": {
+          "finite_count": 60921,
+          "nan_count": 0,
+          "norm_max": 1.000000146498119,
+          "norm_median": 1.0,
+          "norm_min": 0.9999998681862067,
+          "zero_count": 0
+        }
+      },
+      "condition": "IDEAL_MATCHED",
+      "failure_classification": "NONE",
+      "failure_detail": null,
+      "final_transform_4x4": [
+        [
+          1.0,
+          -4.795573660398844e-11,
+          -5.762793714447767e-11,
+          -1.6749977405083882e-08
+        ],
+        [
+          4.795573660398844e-11,
+          1.0,
+          6.587180020195538e-12,
+          -1.7115200923178975e-10
+        ],
+        [
+          5.762793714447767e-11,
+          -6.587180020195538e-12,
+          1.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "finite_output": true,
+      "implementation_sha256": "7d7c0f42c71d912d1c1a423d29a91f8e3ca2b59d1fa561ff9db989b302dd458e",
+      "orthogonality_defect_fro": 3.970219002091864e-21,
+      "planned_trial_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1957656152/pcl_point_to_plane",
+      "projection_correction_fro": 2.7476138868639764e-16,
+      "protocol_sha256": "8fe4bcfabfb8492d003b9f690162e106e9fa5745b962ed2c4edfe8666acb291e",
+      "raw_rotation_determinant": 1.0,
+      "raw_rotation_finite": true,
+      "reference_pose_checksum": "9447b2a95fd5049eed816b2eef98114c80e211b3e46e4378e87faf97bbf936fb",
+      "rotation_update_rad": 7.526037328847967e-11,
+      "runtime_ms": 1188.8740220019827,
+      "scene_variant": "REPEATED_STRUCTURE",
+      "schema_version": "phase_a_trial_result_v1",
+      "snapshot_checksum": "89560e9bf280942957c89cc9c6022790f489ac35e07f4a0152d698e252f897cb",
+      "snapshot_id": "synthetic-confirmatory-v2-qualification/ideal/REPEATED_STRUCTURE/1957656152",
+      "snapshot_lock_sha256": "7bd3e4cf8ac9e60970a7bbac2394ebed5618112dc82a4dfa1dd87f819ac0f99a",
+      "solver_failure": false,
+      "source_checksum": "6783ba92c620538154545b00bb75e505001de1b8ea6472c7f3fdf33469566b05",
+      "target_checksum": "308000c35cc196277c35807d63f992c1a24cc5a0accb500578ab1f29f59c34a2",
+      "translation_update_m": 1.675085180165727e-08
+    }
+  ],
+  "schema_version": "synthetic_confirmatory_v2_ideal_backend_control_v1",
+  "source_repository_runtime_import_count": 0,
+  "trial_count": 42
+}

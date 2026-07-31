@@ -1,0 +1,23 @@
+{
+  "artifact_kind": "READ_ONLY_FAILURE_BINDING",
+  "bundle_sha256": "dac9210de93c182ab57c3a322ea89fd7f878fe2f90625395ae0150ceb8c3490c",
+  "candidate_commit": "767e79fe4e518fbef290a43018c29581f028d6cd",
+  "expected_file_count": 10,
+  "failure_classification": "QUALIFICATION_FINAL_AGGREGATE_NON_JSON_NATIVE_ENUM",
+  "formal_confirmatory_science_evaluated": false,
+  "formal_runtime_root": "/home/lj/zero_perturbation_runtime/confirmatory/synthetic_confirmatory_v3",
+  "formal_runtime_root_created": false,
+  "payload_files": [
+    "final_decision.json",
+    "json_serialization_failure.json",
+    "non_native_leaf_evidence.json",
+    "publisher_subchain_status.json",
+    "r2_candidate_binding.json",
+    "r2_qualification_root_binding.json",
+    "run_manifest.json",
+    "v3_seed_status.json"
+  ],
+  "qualification_root": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v2",
+  "qualification_root_access_mode": "READ_ONLY",
+  "schema_version": "synthetic_confirmatory_v3_r2_json_failure_run_manifest_v1"
+}

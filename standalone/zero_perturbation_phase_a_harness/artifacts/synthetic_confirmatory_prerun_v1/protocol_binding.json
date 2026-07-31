@@ -1,0 +1,50 @@
+{
+  "CONFIRMATORY_PROTOCOL_BINDING_PASS": true,
+  "SCIENTIFIC_SURVIVAL_BINDING_PASS": true,
+  "SYNTHETIC_CONFIRMATORY_PROTOCOL_CONTRACT_AUDIT_PASS": true,
+  "expected_file_sha256": {
+    "frozen_assets/confirmatory_development_trained_models_v1.json": "99806f83d3a0d2393ee7e36e8c06f14a1a8a44fb8d02b074ebc2d9fe750d0872",
+    "protocols/confirmatory_seed_provenance_audit.json": "252ceb5aba7a25390b4ffdac43e8a887ce2ae1fb73bb89f13af91aa4689ca7e2",
+    "protocols/synthetic_confirmatory_gate_contract.json": "e1cf01e7850222ff239354d6ae887fa783bb153b025ac484bcd5534f923d134f",
+    "protocols/synthetic_confirmatory_planned_snapshots.csv": "768cd7a5a5a27104eaeb44ef8d724df92c6846d7e3819abd3403d1e0c57e6435",
+    "protocols/synthetic_confirmatory_planned_trials.csv": "0b6daaf37b25ad28892a789b9fb30ef5ab0fa4bbf97bde7cef84a61d431a2587",
+    "protocols/synthetic_confirmatory_protocol_v1.json": "d9af2b3a38d01e47e9c6c5afff849a77abe55f3e685c2ce04cc51c19b582de11",
+    "protocols/synthetic_confirmatory_protocol_v1.md": "24ab8acc3545c1e386ee1d048c29f3f5672b498aa9a7a9e15dd7473bed324839"
+  },
+  "file_sha256": {
+    "frozen_assets/confirmatory_development_trained_models_v1.json": "99806f83d3a0d2393ee7e36e8c06f14a1a8a44fb8d02b074ebc2d9fe750d0872",
+    "protocols/confirmatory_seed_provenance_audit.json": "252ceb5aba7a25390b4ffdac43e8a887ce2ae1fb73bb89f13af91aa4689ca7e2",
+    "protocols/synthetic_confirmatory_gate_contract.json": "e1cf01e7850222ff239354d6ae887fa783bb153b025ac484bcd5534f923d134f",
+    "protocols/synthetic_confirmatory_planned_snapshots.csv": "768cd7a5a5a27104eaeb44ef8d724df92c6846d7e3819abd3403d1e0c57e6435",
+    "protocols/synthetic_confirmatory_planned_trials.csv": "0b6daaf37b25ad28892a789b9fb30ef5ab0fa4bbf97bde7cef84a61d431a2587",
+    "protocols/synthetic_confirmatory_protocol_v1.json": "d9af2b3a38d01e47e9c6c5afff849a77abe55f3e685c2ce04cc51c19b582de11",
+    "protocols/synthetic_confirmatory_protocol_v1.md": "24ab8acc3545c1e386ee1d048c29f3f5672b498aa9a7a9e15dd7473bed324839"
+  },
+  "file_sha256_pass": true,
+  "protocol_binding_checks": {
+    "backend_set": true,
+    "bootstrap_seed": true,
+    "condition_set": true,
+    "development_model_file": true,
+    "gate_payload": true,
+    "geometry_seed_set": true,
+    "measurement_seed_set": true,
+    "native_forbidden": true,
+    "plan_snapshot_count": true,
+    "plan_snapshot_identity": true,
+    "plan_trial_count": true,
+    "plan_trial_identity": true,
+    "protocol_payload": true,
+    "protocol_ready": true,
+    "run_not_preauthorized": true,
+    "scene_set": true,
+    "scientific_survival": true,
+    "seed_provenance": true,
+    "zero_prior_execution": true
+  },
+  "protocol_payload_sha256_computed": "1bc3b7e4da8f913ba1495f5b47aea4b94b08a3a1c25bda8e88610d74508c22f6",
+  "protocol_payload_sha256_recorded": "1bc3b7e4da8f913ba1495f5b47aea4b94b08a3a1c25bda8e88610d74508c22f6",
+  "scientific_survival_commit": "ffc15334f4ded25fdba5e709b45657dbad481dfc",
+  "scientific_survival_file_binding_pass": true,
+  "scientific_survival_tag": "archive/zero-perturbation-scientific-survival-audit-v1"
+}

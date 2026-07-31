@@ -1,0 +1,36 @@
+{
+  "results": {
+    "fixture-audit-v1/identity/open3d_point_to_plane": {
+      "path": "6eb862d2dc4253e82abb7be44edb788d1893bdf37317d73ccea5fb7897cc12a5.json",
+      "planned_trial_id": "fixture-audit-v1/identity/open3d_point_to_plane",
+      "sha256": "5d0e1e3a0b1a36711d9dcccdcf2955f35dc36377b1953ab1a520c35ef26f7f15"
+    },
+    "fixture-audit-v1/identity/pcl_point_to_plane": {
+      "path": "1cd8274d364f7d1e86b695292cf65b607dfcbc333c397167d12aedc5c697fbe0.json",
+      "planned_trial_id": "fixture-audit-v1/identity/pcl_point_to_plane",
+      "sha256": "0633857baf9e1b09d0606848d9ecad728fd0930d18b48aab374cc1c62d2d5c98"
+    },
+    "fixture-audit-v1/no-correspondence/open3d_point_to_plane": {
+      "path": "72dfbd85ebe9817849c211af9db6a11e9ee9ab12f9212d5f15fd433ca57c8722.json",
+      "planned_trial_id": "fixture-audit-v1/no-correspondence/open3d_point_to_plane",
+      "sha256": "a1905256c6fd0b9e9ea7107f5808a747814dbc6f779a6a4ca45bf418742236cb"
+    },
+    "fixture-audit-v1/no-correspondence/pcl_point_to_plane": {
+      "path": "d9f058779d456ce4bf2e30929e91be452ae0c269c6b09bc3d017cfbaafdf9757.json",
+      "planned_trial_id": "fixture-audit-v1/no-correspondence/pcl_point_to_plane",
+      "sha256": "99f8358579deb340fc48d5b09e60d520fd4c0de4b772fad2816f2687a3435f79"
+    },
+    "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane": {
+      "path": "47683411aaf0a74f0afae9a46ba1b3f93b9d132fd3356a78801dce9d4f7509ea.json",
+      "planned_trial_id": "fixture-audit-v1/nonidentity-reference/open3d_point_to_plane",
+      "sha256": "9e259551664ca5629842c590bc261df8c49b1471b194b4361487dac91eda079a"
+    },
+    "fixture-audit-v1/nonidentity-reference/pcl_point_to_plane": {
+      "path": "c23e0d0edb1b97e7453099a20dfc227394f8523817df1f6df798e222b896d724.json",
+      "planned_trial_id": "fixture-audit-v1/nonidentity-reference/pcl_point_to_plane",
+      "sha256": "5e0384b5904a8f98fb0378ce93b2d19dafac2305e88fb89e22b04e07edda54fa"
+    }
+  },
+  "run_id": "phase-a-minimal-harness-fixture-v1",
+  "schema_version": "phase_a_raw_result_manifest_v1"
+}

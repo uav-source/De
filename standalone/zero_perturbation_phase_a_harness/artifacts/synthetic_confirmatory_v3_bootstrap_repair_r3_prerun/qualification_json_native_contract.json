@@ -1,0 +1,35 @@
+{
+  "QUALIFICATION_JSON_NATIVE_CONTRACT_PASS": true,
+  "allowed_formal_runtime_state_values": [
+    "FORMAL_RUNTIME_ABSENT",
+    "FORMAL_RUNTIME_BOOTSTRAP_ONLY",
+    "FORMAL_RUNTIME_RESUMABLE",
+    "FORMAL_RUNTIME_INVALID"
+  ],
+  "formal_runtime_state_conversion_rule": "EXACT_FORMAL_RUNTIME_STATE_TO_FROZEN_VALUE_V1",
+  "formal_runtime_state_source_type": "phase_a_harness.formal_runtime_state_machine.FormalRuntimeState",
+  "inventory_counts": {
+    "FormalRuntimeState": 11,
+    "NumPy_scalar": 0,
+    "Path": 0,
+    "non_finite_float": 0,
+    "non_string_dict_key": 0,
+    "other": 0,
+    "tuple": 0
+  },
+  "json_default_conversion_enabled": false,
+  "numpy_scalar_conversion_enabled": false,
+  "path_conversion_enabled": false,
+  "schema_version": "qualification_json_native_contract_v1",
+  "strict_json_native_python_types": [
+    "NoneType",
+    "str",
+    "bool",
+    "int",
+    "finite_float",
+    "list",
+    "dict[str,...]"
+  ],
+  "tuple_conversion_enabled": false,
+  "unknown_type_coercion_enabled": false
+}

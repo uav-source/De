@@ -1,0 +1,168 @@
+{
+  "CONFIRMATORY_EXECUTION_CHAIN_FIXTURE_PASS": true,
+  "FIXTURE_QUALIFICATION_PASS": true,
+  "analysis_verifier_difference_count": 0,
+  "artifact_verifier_pass": true,
+  "backend_execution_count": 6,
+  "confirmatory_seed_or_rng_use_count": 0,
+  "failure_inventory": [
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_IDENTITY",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "open3d_point_to_plane",
+      "condition": "FIXTURE_NO_CORRESPONDENCE",
+      "count": 1,
+      "failure_classification": "NO_CORRESPONDENCES"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_IDENTITY",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_NONIDENTITY_REFERENCE",
+      "count": 1,
+      "failure_classification": "NONE"
+    },
+    {
+      "backend": "pcl_point_to_plane",
+      "condition": "FIXTURE_NO_CORRESPONDENCE",
+      "count": 1,
+      "failure_classification": "NO_CORRESPONDENCES"
+    }
+  ],
+  "fixture_backend_execution_is_confirmatory_count": 0,
+  "fixture_label": "FIXTURE AUDIT — NOT SCIENTIFIC DATA",
+  "fixture_publication_binding": {
+    "artifact_relative_path": "fixture_publication",
+    "artifact_verification_file_sha256": "b203a11cdbe91885e46c98b7a8e12c86cb2735678a1592909df1d81780dd2bec",
+    "file_count": 18,
+    "file_inventory": [
+      {
+        "path": "SHA256SUMS",
+        "sha256": "72c4e0b293fbcd22f4f5cf820657c0376fb0bdd53a5267af19ce394d02389680"
+      },
+      {
+        "path": "artifact_verification.json",
+        "sha256": "b203a11cdbe91885e46c98b7a8e12c86cb2735678a1592909df1d81780dd2bec"
+      },
+      {
+        "path": "evidence/fixture_plan.json",
+        "sha256": "b2476717464d6e1df46b8bc5f95782de740544bbdaa82d524b51d617bce9f005"
+      },
+      {
+        "path": "evidence/fixture_snapshot_lock.json",
+        "sha256": "8c3e4ff9fcd8ec18903e468cd126ecf9edf0f5e6a5dc0e6c8087b1a208967949"
+      },
+      {
+        "path": "evidence/frozen_experiment_manifest.json",
+        "sha256": "a98d1119f280f5d823413c6cf09ef51b27d294475f53d946f7eedd9d2fdc396d"
+      },
+      {
+        "path": "evidence/raw_result_manifest.json",
+        "sha256": "38353bac4fd1b798d4abd2cce7bdcaf57ad150f6441420a67a729025d599416e"
+      },
+      {
+        "path": "evidence/raw_results/1cd8274d364f7d1e86b695292cf65b607dfcbc333c397167d12aedc5c697fbe0.json",
+        "sha256": "d024a0ff1831589501636d6ec9d35d851834533f4b111dcad4d67c7dbd2858d3"
+      },
+      {
+        "path": "evidence/raw_results/47683411aaf0a74f0afae9a46ba1b3f93b9d132fd3356a78801dce9d4f7509ea.json",
+        "sha256": "c8c6285eb4463942bae9e24dd447fc3b386821daef8560f2f3e5eaf1e44ba8e0"
+      },
+      {
+        "path": "evidence/raw_results/6eb862d2dc4253e82abb7be44edb788d1893bdf37317d73ccea5fb7897cc12a5.json",
+        "sha256": "c8513d33389d0a660419756b8813293c75dc0ae4265628109f20586964f5515a"
+      },
+      {
+        "path": "evidence/raw_results/72dfbd85ebe9817849c211af9db6a11e9ee9ab12f9212d5f15fd433ca57c8722.json",
+        "sha256": "7daf0ab7c4dd0bd0533c7c0d148d1c774314b46228ffaeaefc8c5b2ad09035da"
+      },
+      {
+        "path": "evidence/raw_results/c23e0d0edb1b97e7453099a20dfc227394f8523817df1f6df798e222b896d724.json",
+        "sha256": "ffdb7d036241c14832fdbf177df431e2f411fab38f167e00a4c94f2b1bb02211"
+      },
+      {
+        "path": "evidence/raw_results/d9f058779d456ce4bf2e30929e91be452ae0c269c6b09bc3d017cfbaafdf9757.json",
+        "sha256": "c0b91e87cd8f00e761fd9d6d10add668e341c62e949e8c734785ef5e730d2352"
+      },
+      {
+        "path": "final_decision.json",
+        "sha256": "e6ee8264124cede0458431c78e3980efbdf3b36c0b72330d1bdacf09955cfffa"
+      },
+      {
+        "path": "fixture_publication_report.md",
+        "sha256": "863355640ec8eb862902e311146f86119736f6af0a5cc0c7e010b566f2963b95"
+      },
+      {
+        "path": "independent_verification.json",
+        "sha256": "311376fd996d822e3f39044d0b177848536d35401c343af4cf32b236a047b707"
+      },
+      {
+        "path": "primary_analysis.json",
+        "sha256": "9044e224f73cd48a28ffa60c1da7f84f2b548f91c9efbed192d5d650ac8b4491"
+      },
+      {
+        "path": "resume_validation.json",
+        "sha256": "31ea20f95cbc228cc50e6f3c011ce545e23c69472517090f0f3791df7c1272e6"
+      },
+      {
+        "path": "source_binding.json",
+        "sha256": "a49002e87e9ad645e68540248a613fa1332a9e7cd1f91bfd8216ad5be745c193"
+      }
+    ],
+    "file_inventory_sha256": "3391b89e8fc37c5cbfc39411801df1f30ce32ac6e39e2f1e296e4268e3e9d327",
+    "live_verification": {
+      "FIXTURE_ARTIFACT_VERIFICATION_PASS": true,
+      "analysis_verifier_difference_count": 0,
+      "artifact_inventory_pass": true,
+      "backend_outcome_pass": true,
+      "decision_semantics_pass": true,
+      "dual_backend_cardinality_pass": true,
+      "empty_file_count": 0,
+      "empty_files": [],
+      "extra_file_count": 0,
+      "extra_files": [],
+      "fixture_label_pass": true,
+      "input_pairing_pass": true,
+      "missing_file_count": 0,
+      "missing_files": [],
+      "primary_independent_exact_match_pass": true,
+      "recorded_verification_match_pass": true,
+      "resume_scientific_equivalence_pass": true,
+      "schema_version": "phase_a_fixture_publication_artifact_verification_v1",
+      "semantic_error_count": 0,
+      "semantic_errors": [],
+      "sha256_entry_count": 16,
+      "sha256_inventory_pass": true,
+      "sha256_malformed_count": 0,
+      "sha256_mismatch_count": 0,
+      "sha256_missing_count": 0,
+      "sha256_validation_pass": true,
+      "source_binding_pass": true,
+      "unsafe_sha256_path_count": 0
+    },
+    "schema_version": "synthetic_confirmatory_fixture_publication_binding_v1",
+    "sha256sums_file_sha256": "72c4e0b293fbcd22f4f5cf820657c0376fb0bdd53a5267af19ce394d02389680"
+  },
+  "fixture_snapshot_count": 3,
+  "fixture_trial_count": 6,
+  "fresh_resume_scientific_equivalence": true,
+  "input_pairing_violation_count": 0,
+  "publisher_pass": true,
+  "resume_backend_execution_count": 0,
+  "schema_version": "phase_a_minimal_harness_fixture_qualification_v1",
+  "source_repository_runtime_file_read_count": 0
+}

@@ -1,0 +1,10 @@
+{
+  "FORMAL_MANIFEST_BINDING_PASS": true,
+  "path": "frozen_assets/synthetic_confirmatory_formal_manifest_v3_bootstrap_repair_r3.json",
+  "payload_sha256": "792cf7009c12fbc9e1152c79400475542a4dcbcfd0ba9ae10c59b4be788b7e68",
+  "profile_path": "frozen_assets/synthetic_confirmatory_v3_execution_profile_bootstrap_repair_r3.json",
+  "profile_payload_sha256": "a1b9735577d63566cef934ced8b99a57acd51c34d9c8c0929186dde8c5b4fa33",
+  "profile_sha256": "5d69a66c674d95200c8972f91fa04eaf9d9a1623f76103fc9a074dfec02d10e7",
+  "schema_version": "synthetic_confirmatory_v3_r3_manifest_binding_v1",
+  "sha256": "7c9a813e6cb8dcc39b91311bf6d3d397c6e160853f959eb634d83ce78ff90e7a"
+}

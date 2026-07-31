@@ -1,0 +1,76 @@
+{
+  "SCIENTIFIC_CORE_FILE_CHANGE_COUNT": 0,
+  "protected_files": {
+    "bin/pcl_point_to_plane_cli": {
+      "actual_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+      "expected_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff"
+    },
+    "frozen_assets/confirmatory_development_trained_models_v1.json": {
+      "actual_sha256": "99806f83d3a0d2393ee7e36e8c06f14a1a8a44fb8d02b074ebc2d9fe750d0872",
+      "expected_sha256": "99806f83d3a0d2393ee7e36e8c06f14a1a8a44fb8d02b074ebc2d9fe750d0872"
+    },
+    "frozen_assets/synthetic_confirmatory_v3_seed_schedule.json": {
+      "actual_sha256": "a0e7921b9c1282d4b12e3e0cccccd3d66ee3cbc10ff5b4666a6c0cb01f521fbc",
+      "expected_sha256": "a0e7921b9c1282d4b12e3e0cccccd3d66ee3cbc10ff5b4666a6c0cb01f521fbc"
+    },
+    "protocols/synthetic_confirmatory_gate_contract_v3.json": {
+      "actual_sha256": "3f66adb54705d2a08803f6916291bc543f14401f22556468576c2f09b66f30e1",
+      "expected_sha256": "3f66adb54705d2a08803f6916291bc543f14401f22556468576c2f09b66f30e1"
+    },
+    "protocols/synthetic_confirmatory_planned_snapshots_v3.csv": {
+      "actual_sha256": "dbe75e9df8545b1c61c61bac2baa3ee2c525aeda65b9db10215c61863b3b29ef",
+      "expected_sha256": "dbe75e9df8545b1c61c61bac2baa3ee2c525aeda65b9db10215c61863b3b29ef"
+    },
+    "protocols/synthetic_confirmatory_planned_trials_v3.csv": {
+      "actual_sha256": "f5b2f6fb84e3a64e686eacfc22c8ec90d6bc9c14860116e8b51f4d628a77b8d4",
+      "expected_sha256": "f5b2f6fb84e3a64e686eacfc22c8ec90d6bc9c14860116e8b51f4d628a77b8d4"
+    },
+    "protocols/synthetic_confirmatory_protocol_v3.json": {
+      "actual_sha256": "216bfe1b0f9d5fef0f9c11235099979b56394d99ea82452d0f476ddc2d777831",
+      "expected_sha256": "216bfe1b0f9d5fef0f9c11235099979b56394d99ea82452d0f476ddc2d777831"
+    },
+    "src/phase_a_harness/formal_runtime_state_machine.py": {
+      "actual_sha256": "3f4c9a84865c3085e7c31928a73fd76ce31e139035dd56b608cf299b9d425310",
+      "expected_sha256": "3f4c9a84865c3085e7c31928a73fd76ce31e139035dd56b608cf299b9d425310"
+    },
+    "src/phase_a_harness/runtime_git_gate.py": {
+      "actual_sha256": "acd6818ee229adff259e8b86d7ef2cd3a6febea9ce996aaa332d1680cbdd9dd3",
+      "expected_sha256": "acd6818ee229adff259e8b86d7ef2cd3a6febea9ce996aaa332d1680cbdd9dd3"
+    },
+    "src/phase_a_harness/runtime_lifecycle_fixture.py": {
+      "actual_sha256": "14bc9be9d3c6c6ace54d06140b0179e250ffaf32b0c7bf466c8210bbce47d394",
+      "expected_sha256": "14bc9be9d3c6c6ace54d06140b0179e250ffaf32b0c7bf466c8210bbce47d394"
+    },
+    "src/phase_a_harness/runtime_lifecycle_io.py": {
+      "actual_sha256": "62c69842f67f9da9fd5a6af917a7951995c6dba3b2fd2ca6ab4f6143d56a9b76",
+      "expected_sha256": "62c69842f67f9da9fd5a6af917a7951995c6dba3b2fd2ca6ab4f6143d56a9b76"
+    },
+    "src/phase_a_harness/synthetic_confirmatory_v2_analysis.py": {
+      "actual_sha256": "183ed8b8c352214345cf4add7c856982955bfbd8070a59bd5036b17e4c461f8c",
+      "expected_sha256": "183ed8b8c352214345cf4add7c856982955bfbd8070a59bd5036b17e4c461f8c"
+    },
+    "src/phase_a_harness/synthetic_confirmatory_v2_artifact_verifier.py": {
+      "actual_sha256": "7f7f38fdbb5e16cc6ac7cf6b3b4e46f5c0880351f586dd89242a9bc4c4038a52",
+      "expected_sha256": "7f7f38fdbb5e16cc6ac7cf6b3b4e46f5c0880351f586dd89242a9bc4c4038a52"
+    },
+    "src/phase_a_harness/synthetic_confirmatory_v2_independent_verifier.py": {
+      "actual_sha256": "4f136a7e1fd025c6a848bfeafa6b96a9c5b643525fa86fa24360e71a6c2ff2d2",
+      "expected_sha256": "4f136a7e1fd025c6a848bfeafa6b96a9c5b643525fa86fa24360e71a6c2ff2d2"
+    },
+    "src/phase_a_harness/synthetic_confirmatory_v2_publisher.py": {
+      "actual_sha256": "5e6bfebbcc23545609b9ea8528d08a5d8443cff748b8ba6d0cf719b417ffc217",
+      "expected_sha256": "5e6bfebbcc23545609b9ea8528d08a5d8443cff748b8ba6d0cf719b417ffc217"
+    },
+    "src/phase_a_harness/synthetic_confirmatory_v3_fixture_publisher_envelope_adapter.py": {
+      "actual_sha256": "e753a0162219dd215131e5811eca182e5440f02d8131fe32715715433d9d2ae9",
+      "expected_sha256": "e753a0162219dd215131e5811eca182e5440f02d8131fe32715715433d9d2ae9"
+    }
+  },
+  "schema_version": "synthetic_confirmatory_v3_r3_scientific_core_binding_v1",
+  "source_repository": {
+    "SOURCE_REPOSITORY_UNMODIFIED": true,
+    "branch": "feature/zero-perturbation-phase-a-lock-v2-regression-repair",
+    "commit": "89f46dda68e9ff5c71f078f6d13fc9050d58f0f5",
+    "status_porcelain": ""
+  }
+}

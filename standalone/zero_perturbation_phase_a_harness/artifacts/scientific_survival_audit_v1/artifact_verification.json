@@ -1,0 +1,68 @@
+{
+  "ARTIFACT_VERIFICATION_PASS": true,
+  "actual_file_count": 28,
+  "csv_row_counts": {
+    "tables/counterexample_review_shortlist.csv": 12,
+    "tables/cross_backend_unique_unit.csv": 6,
+    "tables/gate_summary.csv": 12,
+    "tables/measurement_seed_effectiveness.csv": 210,
+    "tables/model_fold_results.csv": 18,
+    "tables/model_leakage_audit.csv": 11,
+    "tables/model_weighting_sensitivity.csv": 6,
+    "tables/repeat_index_effectiveness.csv": 525,
+    "tables/replicate_uniqueness_by_cell.csv": 105,
+    "tables/replicate_uniqueness_by_condition.csv": 5,
+    "tables/scientific_claim_authorization.csv": 8,
+    "tables/turnover_robustness.csv": 26,
+    "tables/unique_unit_scene_effect.csv": 4
+  },
+  "duplicate_sha256_path_count": 0,
+  "extra_file_count": 0,
+  "extra_files": [],
+  "fixed_authorization_boundary_pass": true,
+  "headerless_table_count": 0,
+  "headerless_tables": [],
+  "invalid_json_count": 0,
+  "invalid_json_files": [],
+  "invalid_png_count": 0,
+  "invalid_png_files": [],
+  "missing_required_file_count": 0,
+  "missing_required_files": [],
+  "png_dimensions": {
+    "figures/claim_authorization_matrix.png": [
+      1600,
+      880
+    ],
+    "figures/effective_replicates_by_condition.png": [
+      1440,
+      800
+    ],
+    "figures/model_weighting_sensitivity.png": [
+      1360,
+      800
+    ],
+    "figures/original_vs_unique_weighted_effect.png": [
+      1440,
+      800
+    ],
+    "figures/turnover_leave_one_scene_out.png": [
+      1600,
+      800
+    ]
+  },
+  "report_missing_figure_reference_count": 0,
+  "report_missing_figure_references": [],
+  "report_missing_table_reference_count": 0,
+  "report_missing_table_references": [],
+  "required_file_count": 28,
+  "schema_version": "scientific_survival_artifact_verification_v1",
+  "sha256_entry_count": 26,
+  "sha256_mismatch_count": 0,
+  "sha256_mismatch_files": [],
+  "sha256_missing_count": 0,
+  "sha256_missing_files": [],
+  "sha256_unexpected_listed_count": 0,
+  "sha256_unexpected_listed_files": [],
+  "survival_gate_conjunction_pass": true,
+  "unsafe_sha256_path_count": 0
+}

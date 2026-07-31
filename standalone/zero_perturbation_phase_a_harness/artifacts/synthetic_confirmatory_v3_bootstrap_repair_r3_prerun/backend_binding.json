@@ -1,0 +1,30 @@
+{
+  "BACKEND_BINDING_CHANGE_COUNT": 0,
+  "bindings": {
+    "native": {
+      "authorized": false,
+      "planned_trial_count": 0
+    },
+    "open3d": {
+      "adapter_path": "src/phase_a_harness/open3d_backend.py",
+      "adapter_sha256": "eb327dd5d13f7cf099469e5e1a315e23c41d593cd7301d278135b4276b9f255f",
+      "algorithm": "TransformationEstimationPointToPlane",
+      "parameter_sha256": "94a2d1e991658b7088be43ad1a82f9b1d783264736c3beb0217d6dd1c7a26413",
+      "planned_trial_count": 595,
+      "version": "0.19.0+b012259"
+    },
+    "pcl": {
+      "adapter_path": "src/phase_a_harness/pcl_backend.py",
+      "adapter_sha256": "25e45b31bc90c93bc578104c994992c3f913437b12bf46389a8380d1d06b9e31",
+      "algorithm": "pcl::IterativeClosestPointWithNormals",
+      "cli_path": "bin/pcl_point_to_plane_cli",
+      "cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+      "parameter_sha256": "16b3d124f466f33c41a1ecfb27a103a570c3ad2055db9c87ae92c74dbba64abd",
+      "planned_trial_count": 595,
+      "version": "1.15.1"
+    }
+  },
+  "native_trial_count": 0,
+  "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+  "schema_version": "synthetic_confirmatory_v3_r3_backend_binding_v1"
+}

@@ -1,0 +1,7 @@
+backend,condition,count,failure_classification
+open3d_point_to_plane,FIXTURE_IDENTITY,1,NONE
+open3d_point_to_plane,FIXTURE_NONIDENTITY_REFERENCE,1,NONE
+open3d_point_to_plane,FIXTURE_NO_CORRESPONDENCE,1,NO_CORRESPONDENCES
+pcl_point_to_plane,FIXTURE_IDENTITY,1,NONE
+pcl_point_to_plane,FIXTURE_NONIDENTITY_REFERENCE,1,NONE
+pcl_point_to_plane,FIXTURE_NO_CORRESPONDENCE,1,NO_CORRESPONDENCES

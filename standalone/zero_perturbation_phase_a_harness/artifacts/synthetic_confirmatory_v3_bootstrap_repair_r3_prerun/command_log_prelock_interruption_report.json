@@ -1,0 +1,6 @@
+{
+  "BOOTSTRAP_ONLY_RECOVERY_PASS": true,
+  "COMMAND_LOG_PRELOCK_INTERRUPTION_PASS": true,
+  "command_log_change_after_resume": 0,
+  "schema_version": "synthetic_confirmatory_v3_r3_command_log_interruption_v1"
+}

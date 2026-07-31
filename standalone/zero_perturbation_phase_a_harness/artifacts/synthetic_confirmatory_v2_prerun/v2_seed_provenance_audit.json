@@ -1,0 +1,199 @@
+{
+  "NEW_V2_BACKEND_EXECUTION_COUNT": 0,
+  "NEW_V2_NAMESPACE_COLLISION": false,
+  "NEW_V2_RNG_INSTANTIATION_COUNT": 0,
+  "NEW_V2_SEED_PROVENANCE_COLLISION_COUNT": 0,
+  "NEW_V2_SNAPSHOT_CONSTRUCTION_COUNT": 0,
+  "NEW_V2_STARTED_EVENT_COUNT": 0,
+  "NEW_V2_TRIAL_RESULT_COUNT": 0,
+  "STATIC_V2_SEED_PROVENANCE_AUDIT_PASS": true,
+  "base_commit": "1c78372ef6f2c62e441f69c028b58f7bc48f6c35",
+  "base_commit_seed_literal_hits": [],
+  "bootstrap_seed": 146517424,
+  "current_seed_literal_hits": [
+    {
+      "paths": [
+        "frozen_assets/synthetic_confirmatory_formal_manifest_v2.json",
+        "frozen_assets/synthetic_confirmatory_v2_seed_schedule.json",
+        "protocols/synthetic_confirmatory_planned_snapshots_v2.csv",
+        "protocols/synthetic_confirmatory_planned_trials_v2.csv",
+        "protocols/synthetic_confirmatory_protocol_v2.json",
+        "src/phase_a_harness/synthetic_confirmatory_v2_contract.py"
+      ],
+      "seed": 23963997
+    },
+    {
+      "paths": [
+        "frozen_assets/synthetic_confirmatory_formal_manifest_v2.json",
+        "frozen_assets/synthetic_confirmatory_v2_seed_schedule.json",
+        "protocols/synthetic_confirmatory_planned_snapshots_v2.csv",
+        "protocols/synthetic_confirmatory_planned_trials_v2.csv",
+        "protocols/synthetic_confirmatory_protocol_v2.json",
+        "src/phase_a_harness/synthetic_confirmatory_v2_contract.py"
+      ],
+      "seed": 143826534
+    },
+    {
+      "paths": [
+        "frozen_assets/synthetic_confirmatory_formal_manifest_v2.json",
+        "frozen_assets/synthetic_confirmatory_v2_seed_schedule.json",
+        "protocols/synthetic_confirmatory_protocol_v2.json",
+        "src/phase_a_harness/synthetic_confirmatory_v2_contract.py"
+      ],
+      "seed": 146517424
+    },
+    {
+      "paths": [
+        "frozen_assets/synthetic_confirmatory_formal_manifest_v2.json",
+        "frozen_assets/synthetic_confirmatory_v2_seed_schedule.json",
+        "protocols/synthetic_confirmatory_planned_snapshots_v2.csv",
+        "protocols/synthetic_confirmatory_planned_trials_v2.csv",
+        "protocols/synthetic_confirmatory_protocol_v2.json",
+        "src/phase_a_harness/synthetic_confirmatory_v2_contract.py"
+      ],
+      "seed": 740417430
+    },
+    {
+      "paths": [
+        "frozen_assets/synthetic_confirmatory_formal_manifest_v2.json",
+        "frozen_assets/synthetic_confirmatory_v2_seed_schedule.json",
+        "protocols/synthetic_confirmatory_planned_snapshots_v2.csv",
+        "protocols/synthetic_confirmatory_planned_trials_v2.csv",
+        "protocols/synthetic_confirmatory_protocol_v2.json",
+        "src/phase_a_harness/synthetic_confirmatory_v2_contract.py"
+      ],
+      "seed": 925756274
+    },
+    {
+      "paths": [
+        "frozen_assets/synthetic_confirmatory_formal_manifest_v2.json",
+        "frozen_assets/synthetic_confirmatory_v2_seed_schedule.json",
+        "protocols/synthetic_confirmatory_planned_snapshots_v2.csv",
+        "protocols/synthetic_confirmatory_planned_trials_v2.csv",
+        "protocols/synthetic_confirmatory_protocol_v2.json",
+        "src/phase_a_harness/synthetic_confirmatory_v2_contract.py"
+      ],
+      "seed": 1099133161
+    },
+    {
+      "paths": [
+        "frozen_assets/synthetic_confirmatory_formal_manifest_v2.json",
+        "frozen_assets/synthetic_confirmatory_v2_seed_schedule.json",
+        "protocols/synthetic_confirmatory_planned_snapshots_v2.csv",
+        "protocols/synthetic_confirmatory_planned_trials_v2.csv",
+        "protocols/synthetic_confirmatory_protocol_v2.json",
+        "src/phase_a_harness/synthetic_confirmatory_v2_contract.py"
+      ],
+      "seed": 1632408808
+    },
+    {
+      "paths": [
+        "frozen_assets/synthetic_confirmatory_formal_manifest_v2.json",
+        "frozen_assets/synthetic_confirmatory_v2_seed_schedule.json",
+        "protocols/synthetic_confirmatory_planned_snapshots_v2.csv",
+        "protocols/synthetic_confirmatory_planned_trials_v2.csv",
+        "protocols/synthetic_confirmatory_protocol_v2.json",
+        "src/phase_a_harness/synthetic_confirmatory_v2_contract.py"
+      ],
+      "seed": 2098780325
+    },
+    {
+      "paths": [
+        "frozen_assets/synthetic_confirmatory_formal_manifest_v2.json",
+        "frozen_assets/synthetic_confirmatory_v2_seed_schedule.json",
+        "protocols/synthetic_confirmatory_planned_snapshots_v2.csv",
+        "protocols/synthetic_confirmatory_planned_trials_v2.csv",
+        "protocols/synthetic_confirmatory_protocol_v2.json",
+        "src/phase_a_harness/synthetic_confirmatory_v2_contract.py"
+      ],
+      "seed": 2113923543
+    }
+  ],
+  "current_seed_literal_unexpected_path_count": 0,
+  "current_seed_literal_unexpected_paths": [],
+  "declaration_count": 9,
+  "declaration_records": [
+    {
+      "domain": "bootstrap",
+      "index": 0,
+      "seed": 146517424
+    },
+    {
+      "domain": "geometry",
+      "index": 0,
+      "seed": 1632408808
+    },
+    {
+      "domain": "geometry",
+      "index": 1,
+      "seed": 2098780325
+    },
+    {
+      "domain": "geometry",
+      "index": 2,
+      "seed": 2113923543
+    },
+    {
+      "domain": "geometry",
+      "index": 3,
+      "seed": 143826534
+    },
+    {
+      "domain": "geometry",
+      "index": 4,
+      "seed": 1099133161
+    },
+    {
+      "domain": "measurement",
+      "index": 0,
+      "seed": 740417430
+    },
+    {
+      "domain": "measurement",
+      "index": 1,
+      "seed": 23963997
+    },
+    {
+      "domain": "measurement",
+      "index": 2,
+      "seed": 925756274
+    }
+  ],
+  "derivation_mismatch_count": 0,
+  "development_seed_collision_count": 0,
+  "geometry_seeds": [
+    1632408808,
+    2098780325,
+    2113923543,
+    143826534,
+    1099133161
+  ],
+  "measurement_seeds": [
+    740417430,
+    23963997,
+    925756274
+  ],
+  "namespace": "zero_perturbation_synthetic_confirmatory_v2_20260729_ideal_lineage_fix",
+  "namespace_base_commit_hits": [],
+  "namespace_current_paths": [
+    "frozen_assets/synthetic_confirmatory_formal_manifest_v2.json",
+    "frozen_assets/synthetic_confirmatory_v2_seed_schedule.json",
+    "protocols/synthetic_confirmatory_protocol_v2.json",
+    "protocols/synthetic_confirmatory_protocol_v2.md",
+    "src/phase_a_harness/synthetic_confirmatory_v2_contract.py",
+    "tests/test_synthetic_confirmatory_v2.py"
+  ],
+  "namespace_unexpected_path_count": 0,
+  "namespace_unexpected_paths": [],
+  "reference_count": 3360,
+  "reference_counts_by_domain": {
+    "geometry": 1785,
+    "measurement": 1575,
+    "total": 3360
+  },
+  "retired_v1_seed_collision_count": 0,
+  "schedule_mismatch_count": 0,
+  "schema_version": "synthetic_confirmatory_v2_static_seed_provenance_audit_v1",
+  "test_formal_seed_constructor_hit_count": 0,
+  "test_formal_seed_constructor_hits": []
+}

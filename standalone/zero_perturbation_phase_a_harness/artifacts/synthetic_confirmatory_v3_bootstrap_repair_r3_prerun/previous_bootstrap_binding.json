@@ -1,0 +1,9 @@
+{
+  "BOOTSTRAP_STATE_MACHINE_CORE_CHANGE_COUNT": 0,
+  "FROZEN_ATOMIC_JSON_WRITER_CHANGE_COUNT": 0,
+  "RUNTIME_LIFECYCLE_CORE_CHANGE_COUNT": 0,
+  "runtime_lifecycle_fixture_sha256": "14bc9be9d3c6c6ace54d06140b0179e250ffaf32b0c7bf466c8210bbce47d394",
+  "runtime_lifecycle_io_sha256": "62c69842f67f9da9fd5a6af917a7951995c6dba3b2fd2ca6ab4f6143d56a9b76",
+  "schema_version": "synthetic_confirmatory_v3_r3_previous_bootstrap_binding_v1",
+  "state_machine_sha256": "3f4c9a84865c3085e7c31928a73fd76ce31e139035dd56b608cf299b9d425310"
+}

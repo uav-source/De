@@ -1,0 +1,68 @@
+{
+  "PCL_V3_FIXTURE_QUALIFICATION_PASS": true,
+  "SOURCE_DEGEN_LIO_PYTEST_EXECUTED": false,
+  "full_harness": {
+    "errors": 0,
+    "expected_tests": 234,
+    "failures": 0,
+    "label": "standalone harness full suite",
+    "passed": 234,
+    "sha256": "ba9d09d7fe66e5d12e149ffefdc8904f95dc61aec50f406fa292b68a3ca4df34",
+    "skipped": 0,
+    "test_classnames": [
+      "tests.test_full_synthetic_analysis_publication",
+      "tests.test_full_synthetic_diagnostics_models",
+      "tests.test_full_synthetic_protocol_assets_runner",
+      "tests.test_minimal_harness",
+      "tests.test_phase_b_analysis",
+      "tests.test_phase_b_assets_runner",
+      "tests.test_phase_b_frozen_integration",
+      "tests.test_phase_b_trial_bridge",
+      "tests.test_scientific_survival_artifact_verifier",
+      "tests.test_scientific_survival_integrity",
+      "tests.test_scientific_survival_models_protocols",
+      "tests.test_scientific_survival_publisher",
+      "tests.test_scientific_survival_replicates",
+      "tests.test_scientific_survival_reporting",
+      "tests.test_synthetic_confirmatory_analysis_publication",
+      "tests.test_synthetic_confirmatory_contracts",
+      "tests.test_synthetic_confirmatory_runner"
+    ],
+    "test_pass": true,
+    "tests": 234
+  },
+  "pcl_backend_v3": {
+    "errors": 0,
+    "expected_tests": 3,
+    "failed": 0,
+    "label": "PCL backend qualification v3 fixture",
+    "passed": 3,
+    "sha256": "1f012964af7e23f050a428f8e02fc8b6fc8ed81f30e154df6ae36b5a1344ae05",
+    "skipped": 0,
+    "test_names": [
+      "pcl_v3_nondegenerate_identity",
+      "pcl_v3_known_small_transform",
+      "pcl_v3_planar_degeneracy_diagnostic"
+    ],
+    "test_pass": true,
+    "tests": 3
+  },
+  "schema_version": "synthetic_confirmatory_prerun_test_report_v1",
+  "specialized_confirmatory": {
+    "errors": 0,
+    "expected_tests": 104,
+    "failures": 0,
+    "label": "Confirmatory specialized",
+    "passed": 104,
+    "sha256": "7e1bf3b43c42bc26329f38c63ea2de7452a41ea153a0a5cc88d43b1e02899893",
+    "skipped": 0,
+    "test_classnames": [
+      "tests.test_synthetic_confirmatory_analysis_publication",
+      "tests.test_synthetic_confirmatory_contracts",
+      "tests.test_synthetic_confirmatory_runner"
+    ],
+    "test_pass": true,
+    "tests": 104
+  },
+  "test_report_pass": true
+}

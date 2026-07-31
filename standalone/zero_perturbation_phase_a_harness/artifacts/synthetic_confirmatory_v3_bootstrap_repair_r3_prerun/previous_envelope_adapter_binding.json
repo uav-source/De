@@ -1,0 +1,13 @@
+{
+  "ARTIFACT_VERIFIER_CORE_CHANGE_COUNT": 0,
+  "FIXTURE_ENVELOPE_ADAPTER_SCIENTIFIC_CHANGE_COUNT": 0,
+  "FROZEN_PUBLISHER_CHANGE_COUNT": 0,
+  "INDEPENDENT_VERIFIER_CORE_CHANGE_COUNT": 0,
+  "PRIMARY_ANALYSIS_CORE_CHANGE_COUNT": 0,
+  "adapter_sha256": "e753a0162219dd215131e5811eca182e5440f02d8131fe32715715433d9d2ae9",
+  "artifact_verifier_sha256": "7f7f38fdbb5e16cc6ac7cf6b3b4e46f5c0880351f586dd89242a9bc4c4038a52",
+  "independent_sha256": "4f136a7e1fd025c6a848bfeafa6b96a9c5b643525fa86fa24360e71a6c2ff2d2",
+  "primary_sha256": "183ed8b8c352214345cf4add7c856982955bfbd8070a59bd5036b17e4c461f8c",
+  "publisher_sha256": "5e6bfebbcc23545609b9ea8528d08a5d8443cff748b8ba6d0cf719b417ffc217",
+  "schema_version": "synthetic_confirmatory_v3_r3_previous_envelope_binding_v1"
+}

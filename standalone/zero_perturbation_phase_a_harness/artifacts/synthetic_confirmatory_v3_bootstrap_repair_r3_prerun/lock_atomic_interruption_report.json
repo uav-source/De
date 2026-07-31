@@ -1,0 +1,10 @@
+{
+  "LOCK_ATOMIC_INTERRUPTION_PASS": true,
+  "PARTIAL_LOCK_ACCEPTED_COUNT": 0,
+  "observation": {
+    "destination": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/working_inventory/lock_atomic_interruption_case/immutable_run_lock.json",
+    "temporary_name": ".immutable_run_lock.json.tmp-x2dp1u9y",
+    "temporary_payload_sha256": "264fdd57335897de9611ea895f0a6daa9a111af843e30c4d07df8744b0444e50"
+  },
+  "schema_version": "synthetic_confirmatory_v3_r3_lock_atomic_interruption_v1"
+}

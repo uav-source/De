@@ -1,0 +1,36 @@
+{
+  "FIXTURE_ENVELOPE_COMPATIBILITY_PASS": true,
+  "PUBLISHER_INPUT_SCHEMA_PASS": true,
+  "adapter_input_field_count": 8,
+  "adapter_input_schema": "synthetic_confirmatory_v3_bootstrap_fixture_run_v1",
+  "adapter_output_field_count": 8,
+  "adapter_output_fields": [
+    "backend_execution_count",
+    "fixture_snapshot_count",
+    "fixture_trial_count",
+    "formal_confirmatory_science_evaluated",
+    "formal_v2_seed_reference_count",
+    "fresh_resume_scientific_equivalence",
+    "resume_backend_execution_count",
+    "schema_version"
+  ],
+  "adapter_output_schema": "synthetic_confirmatory_v2_fixture_run_v1",
+  "adapter_provenance": {
+    "path": "src/phase_a_harness/synthetic_confirmatory_v3_fixture_publisher_envelope_adapter.py",
+    "sha256": "e753a0162219dd215131e5811eca182e5440f02d8131fe32715715433d9d2ae9"
+  },
+  "added_output_fields": [
+    "formal_v2_seed_reference_count"
+  ],
+  "extra_output_field_count": 0,
+  "formal_v2_seed_reference_count": 0,
+  "original_input_modified": false,
+  "qualification_version": "bootstrap-repair-r3",
+  "removed_input_fields": [
+    "formal_v3_seed_reference_count"
+  ],
+  "renamed_fields": {
+    "formal_v3_seed_reference_count": "formal_v2_seed_reference_count"
+  },
+  "schema_version": "synthetic_confirmatory_v3_fixture_publisher_input_validation_v3"
+}

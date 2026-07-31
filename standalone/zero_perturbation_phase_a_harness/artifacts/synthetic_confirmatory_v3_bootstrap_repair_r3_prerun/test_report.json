@@ -1,0 +1,200 @@
+{
+  "TEST_SUITE_PASS": true,
+  "candidate_commit": "48c46c28c0ad140212e4d2d44507e31f652bd1f1",
+  "formal_runtime_root_created": false,
+  "groups": {
+    "bootstrap_state_machine": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_synthetic_confirmatory_v3_bootstrap_state_machine.py"
+      ],
+      "errors": 0,
+      "failures": 0,
+      "junit_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/bootstrap_state_machine.xml",
+      "junit_sha256": "9997a5f32642c151c508919056d12442d1a0b206dc89018021087a18d0c31143",
+      "output_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/bootstrap_state_machine.txt",
+      "output_sha256": "14e7d92bfb54a3d43ea09193f0c9d079efe337c3bb20ff444fa4696324a079cc",
+      "pass": true,
+      "passed": 35,
+      "tests": 35,
+      "unexpected_skips": 0
+    },
+    "envelope_compatibility": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_synthetic_confirmatory_v3_fixture_publisher_envelope_adapter.py"
+      ],
+      "errors": 0,
+      "failures": 0,
+      "junit_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/envelope_compatibility.xml",
+      "junit_sha256": "ebca5902b9f82af5635a128b260e2138e9705537801d5dad836131398aaac72f",
+      "output_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/envelope_compatibility.txt",
+      "output_sha256": "65f53e5bdf5e5c30b90fb55a448e694cd99f0fd0910d1a5c2bd12531a4f8dc3a",
+      "pass": true,
+      "passed": 23,
+      "tests": 23,
+      "unexpected_skips": 0
+    },
+    "final_aggregate_roundtrip": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_qualification_final_aggregate.py"
+      ],
+      "errors": 0,
+      "failures": 0,
+      "junit_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/final_aggregate_roundtrip.xml",
+      "junit_sha256": "0af11d2bd17a6122d11dbe479d850405a86d349fc32a2e5c3d58729b454ccb0b",
+      "output_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/final_aggregate_roundtrip.txt",
+      "output_sha256": "548a274acb7ab341e640d0372cb998b0f47509ac2af0c29a50a515d8bfe184d7",
+      "pass": true,
+      "passed": 6,
+      "tests": 6,
+      "unexpected_skips": 0
+    },
+    "full_harness": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "errors": 0,
+      "failures": 0,
+      "junit_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/full_harness.xml",
+      "junit_sha256": "1c71637ff95152c162c88a4386347ce3e561bbcd820701c5a5a1672bcba8ccf6",
+      "output_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/full_harness.txt",
+      "output_sha256": "6e6f558589e02601724750e4d2339ae00b680df9d48fd3af646cd9667cf176bc",
+      "pass": true,
+      "passed": 556,
+      "tests": 556,
+      "unexpected_skips": 0
+    },
+    "json_native_specialized": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_qualification_json_native.py"
+      ],
+      "errors": 0,
+      "failures": 0,
+      "junit_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/json_native_specialized.xml",
+      "junit_sha256": "2a94df100546703b29b7debb5766c079d1e7847fa14a47c84445aa25579ae088",
+      "output_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/json_native_specialized.txt",
+      "output_sha256": "c402358a705cde9bf2fa23093a6068dfec46db0f6f3d20951411a0ea0562d86c",
+      "pass": true,
+      "passed": 49,
+      "tests": 49,
+      "unexpected_skips": 0
+    },
+    "pcl_fixture": {
+      "command": [
+        "frozen PCL backend v3 microtest verifier",
+        "NONDEGENERATE_IDENTITY",
+        "KNOWN_SMALL_TRANSFORM",
+        "PLANAR_DEGENERACY_DIAGNOSTIC"
+      ],
+      "errors": 0,
+      "failures": 0,
+      "junit_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/pcl_fixture.xml",
+      "junit_sha256": "322c1b7792aa02af2d88bcfe646575b007317aff1ffa04f6400fcb6f0bbb20ba",
+      "output_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/pcl_fixture.txt",
+      "output_sha256": "495f83f9ccdbac15a7290ce7a981712a77d1e5114da2c2014e73eff40af3b144",
+      "pass": true,
+      "passed": 3,
+      "tests": 3,
+      "unexpected_skips": 0
+    },
+    "runtime_lifecycle_specialized": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_runtime_path_policy.py",
+        "tests/test_runtime_lifecycle_io.py",
+        "tests/test_runtime_git_gate.py",
+        "tests/test_runtime_lifecycle_fixture.py",
+        "tests/test_runtime_lifecycle_qualification.py"
+      ],
+      "errors": 0,
+      "failures": 0,
+      "junit_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/runtime_lifecycle_specialized.xml",
+      "junit_sha256": "b7280346a8c9286fc99b29bddcdd9a22c2cefdc2e6f93f774e39daf7389f0f40",
+      "output_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/runtime_lifecycle_specialized.txt",
+      "output_sha256": "5d6f135676ff20dca39fe6eaa0ac631b1d1c3aa7069bcddd8b69c3cf8d660df8",
+      "pass": true,
+      "passed": 117,
+      "tests": 117,
+      "unexpected_skips": 0
+    },
+    "v2_scientific_chain_regression": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_synthetic_confirmatory_v2.py"
+      ],
+      "errors": 0,
+      "failures": 0,
+      "junit_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/v2_scientific_chain_regression.xml",
+      "junit_sha256": "04310053909f5732c1a4e7fca835b686969c8672f1f2eae3393cc0a48d3a029a",
+      "output_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/v2_scientific_chain_regression.txt",
+      "output_sha256": "cf889c26c8dcf4f14e3f574929d3628110d3b1633c11166ae36b92bda4f8b4c2",
+      "pass": true,
+      "passed": 66,
+      "tests": 66,
+      "unexpected_skips": 0
+    },
+    "v3_specialized": {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_synthetic_confirmatory_v3_adapter.py",
+        "tests/test_synthetic_confirmatory_v3_prerun.py",
+        "tests/test_synthetic_confirmatory_v3_execution.py"
+      ],
+      "errors": 0,
+      "failures": 0,
+      "junit_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/v3_specialized.xml",
+      "junit_sha256": "343a2e3a0e50f09c627c7c30eb1cad8bd67c17375c4a52879b4b6a411a5d6aff",
+      "output_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v3/test_logs/v3_specialized.txt",
+      "output_sha256": "0d9c71c0b8308a8e355f2f12ddde370a4f558836c6bf65e7831026bc57d85370",
+      "pass": true,
+      "passed": 26,
+      "tests": 26,
+      "unexpected_skips": 0
+    }
+  },
+  "schema_version": "synthetic_confirmatory_v3_bootstrap_repair_r3_combined_test_report_v1",
+  "source_degen_lio_pytest_executed": false
+}

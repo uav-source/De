@@ -1,0 +1,57 @@
+{
+  "backend": "open3d_point_to_plane",
+  "backend_diagnostics": {
+    "correspondence_set_size": 0,
+    "fitness": 0.0,
+    "inlier_rmse": 0.0
+  },
+  "condition": "FIXTURE_NO_CORRESPONDENCE",
+  "failure_classification": "NO_CORRESPONDENCES",
+  "failure_detail": "Open3D returned zero correspondences",
+  "final_transform_4x4": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "finite_output": true,
+  "implementation_sha256": "fa7c3f54b69a8e879ccfa910951fef40d6879a1cb81cecc60935bfa1487a7140",
+  "orthogonality_defect_fro": 0.0,
+  "planned_trial_id": "fixture-audit-v1/no-correspondence/open3d_point_to_plane",
+  "projection_correction_fro": 0.0,
+  "protocol_sha256": "b2476717464d6e1df46b8bc5f95782de740544bbdaa82d524b51d617bce9f005",
+  "raw_rotation_determinant": 1.0,
+  "raw_rotation_finite": true,
+  "reference_pose_checksum": "ccc7977ae7987f37c2235e57c320a5142d6b58413825b6457a4a1c9fe469ac1c",
+  "rotation_update_rad": 0.0,
+  "runtime_ms": 2.9178429977037013,
+  "scene_variant": "AUDIT_SEPARATED_ASYMMETRIC_3D",
+  "schema_version": "phase_a_trial_result_v1",
+  "snapshot_checksum": "f3f25e39772aa5a5bab0280bf6e6261faf46c084b40eba9dcb1cc11ae6495b53",
+  "snapshot_id": "fixture-audit-v1/no-correspondence",
+  "snapshot_lock_sha256": "8c3e4ff9fcd8ec18903e468cd126ecf9edf0f5e6a5dc0e6c8087b1a208967949",
+  "solver_failure": true,
+  "source_checksum": "35e8ac9f85882addce9d0a5b423f88361e49fbce626e8e8a35b1688e17365f62",
+  "target_checksum": "9ab4e39212200518bcbed60a0ade3c8bbede436237ddbfe24952376db41e776f",
+  "translation_update_m": 0.0
+}

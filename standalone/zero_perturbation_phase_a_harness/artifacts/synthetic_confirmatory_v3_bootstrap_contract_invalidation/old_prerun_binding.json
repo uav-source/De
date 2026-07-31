@@ -1,0 +1,35 @@
+{
+  "OLD_V3_PRERUN_FREEZE_VALID": false,
+  "OLD_V3_PRERUN_TAG_MOVED": false,
+  "OLD_V3_PRERUN_TAG_PRESERVED": true,
+  "OLD_V3_SCIENTIFIC_PROTOCOL_INVALIDATED": false,
+  "failure_archive_identity": {
+    "bundle_path": "/tmp/zero-perturbation-synthetic-confirmatory-v3-bootstrap-contract-fail.bundle",
+    "bundle_sha256": "754c0492ea3feceeb8547470b78cd3162ad957fa88552c27434950686782f363",
+    "bundle_size_bytes": 56327965,
+    "bundle_verification_pass": true,
+    "tag": "archive/zero-perturbation-synthetic-confirmatory-v3-bootstrap-contract-fail",
+    "tag_object": "91d32974b20d96363b80ed8a3b74640c6fb35a28",
+    "tag_peeled_commit": "38d3dcddd818eb9ae243f73837d863f52bd1e233"
+  },
+  "old_prerun_artifact_binding": {
+    "artifact_manifest_sha256": "00c1f9635cff466d360b1829815bdadf70e79e04e5ba018c001b069c9ac9cad7",
+    "artifact_root": "artifacts/synthetic_confirmatory_v3_prerun",
+    "artifact_sha256sums_sha256": "0a3198eb4489c5e50bef74ab686033c78fb831f9ea645cb62dede37ed57a2247",
+    "final_decision_sha256": "5c554255e06d44748ed4cdb0dc46b9ffe44c10c89ac303a682fd1f72875e00e6",
+    "formal_manifest_payload_sha256": "fbc981af81280245b19a6c35f79276e50d14d4a3c86cda2be0ebc6e80521ca7e",
+    "formal_manifest_sha256": "7181553609718127e14349cea4c63c74ea549ad0f1ec658719e9b25b8bb2f340"
+  },
+  "old_prerun_identity": {
+    "branch": "feature/zero-perturbation-synthetic-confirmatory-v3-prerun",
+    "bundle_path": "/tmp/zero-perturbation-synthetic-confirmatory-v3-pre-run.bundle",
+    "bundle_sha256": "c78dcc8b9177256b1ed11dfe4e9dcfd24a1f586035e211e3514ba63d7ba246f7",
+    "bundle_size_bytes": 56328793,
+    "bundle_verification_pass": true,
+    "commit": "38d3dcddd818eb9ae243f73837d863f52bd1e233",
+    "tag": "archive/zero-perturbation-synthetic-confirmatory-v3-pre-run-pass",
+    "tag_object": "3f7543dbb6499ea8d75132509c1559ddc64990e5",
+    "tag_peeled_commit": "38d3dcddd818eb9ae243f73837d863f52bd1e233"
+  },
+  "schema_version": "synthetic_confirmatory_v3_old_prerun_invalidation_binding_v1"
+}

@@ -1,0 +1,16 @@
+{
+  "SYNTHETIC_CONFIRMATORY_COMPLETE": false,
+  "SYNTHETIC_CONFIRMATORY_EXECUTED": false,
+  "SYNTHETIC_CONFIRMATORY_PASS": "NOT_EVALUATED",
+  "V1_FAILURE_RECORD_PRESERVED": true,
+  "confirmatory_formal_backend_execution_count": 0,
+  "confirmatory_formal_trial_result_count": 0,
+  "historical_v1_artifact_readable": true,
+  "historical_v1_artifact_semantic_failure_count": 0,
+  "historical_v1_artifact_sha256_mismatch_count": 0,
+  "schema_version": "synthetic_confirmatory_v1_failure_binding_v2",
+  "v1_bundle_path": "/tmp/zero-perturbation-synthetic-confirmatory-v1-ideal-lineage-fail.bundle",
+  "v1_bundle_sha256": "21e803756da78c3bf06a93d957c0395850a36d6cf119b23cd00c88ab927dcb72",
+  "v1_failure_commit": "1c78372ef6f2c62e441f69c028b58f7bc48f6c35",
+  "v1_failure_tag": "archive/zero-perturbation-synthetic-confirmatory-v1-ideal-lineage-fail"
+}

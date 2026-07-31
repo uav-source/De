@@ -1,0 +1,82 @@
+{
+  "FROZEN_MODEL_PREDICTION_CROSSCHECK_PASS": true,
+  "MODEL_FIT_CALL_COUNT": 0,
+  "SCALER_FIT_CALL_COUNT": 0,
+  "absolute_tolerance": 1e-12,
+  "fixture_rng_or_seed_use_count": 0,
+  "maximum_absolute_prediction_difference": 2.6645352591003757e-15,
+  "models": [
+    {
+      "absolute_difference": 2.220446049250313e-15,
+      "feature_fixture": {
+        "initial_translation_gradient_norm": 0.0004,
+        "log10_condition_number_trans_plus_1": 2.5,
+        "log10_initial_correspondence_count_plus_1": 4.7,
+        "log10_initial_residual_rmse_plus_1e-9": -2.1,
+        "log10_inverse_lambda_min_trans": 3.0,
+        "spectral_entropy_trans": 0.68
+      },
+      "model_id": "open3d_point_to_plane::MODEL_A",
+      "prediction_independent": -1.595380860929318,
+      "prediction_main": -1.5953808609293159,
+      "prediction_pass": true
+    },
+    {
+      "absolute_difference": 8.881784197001252e-16,
+      "feature_fixture": {
+        "accepted_source_turnover": 0.0,
+        "correspondence_count_change_ratio": 0.0,
+        "correspondence_turnover": 0.31,
+        "initial_translation_gradient_norm": 0.0004,
+        "log10_condition_number_trans_plus_1": 2.5,
+        "log10_initial_correspondence_count_plus_1": 4.7,
+        "log10_initial_residual_rmse_plus_1e-9": -2.1,
+        "log10_inverse_lambda_min_trans": 3.0,
+        "median_normal_angle_change_deg": 0.006,
+        "q95_normal_angle_change_deg": 0.42,
+        "residual_rmse_change": -5e-05,
+        "spectral_entropy_trans": 0.68
+      },
+      "model_id": "open3d_point_to_plane::MODEL_B",
+      "prediction_independent": -1.9738089802056142,
+      "prediction_main": -1.9738089802056151,
+      "prediction_pass": true
+    },
+    {
+      "absolute_difference": 2.6645352591003757e-15,
+      "feature_fixture": {
+        "initial_translation_gradient_norm": 0.0004,
+        "log10_condition_number_trans_plus_1": 2.5,
+        "log10_initial_correspondence_count_plus_1": 4.7,
+        "log10_initial_residual_rmse_plus_1e-9": -2.1,
+        "log10_inverse_lambda_min_trans": 3.0,
+        "spectral_entropy_trans": 0.68
+      },
+      "model_id": "pcl_point_to_plane::MODEL_A",
+      "prediction_independent": -1.8405170212938544,
+      "prediction_main": -1.8405170212938518,
+      "prediction_pass": true
+    },
+    {
+      "absolute_difference": 8.881784197001252e-16,
+      "feature_fixture": {
+        "accepted_source_turnover": 0.0,
+        "correspondence_count_change_ratio": 0.0,
+        "correspondence_turnover": 0.31,
+        "initial_translation_gradient_norm": 0.0004,
+        "log10_condition_number_trans_plus_1": 2.5,
+        "log10_initial_correspondence_count_plus_1": 4.7,
+        "log10_initial_residual_rmse_plus_1e-9": -2.1,
+        "log10_inverse_lambda_min_trans": 3.0,
+        "median_normal_angle_change_deg": 0.006,
+        "q95_normal_angle_change_deg": 0.42,
+        "residual_rmse_change": -5e-05,
+        "spectral_entropy_trans": 0.68
+      },
+      "model_id": "pcl_point_to_plane::MODEL_B",
+      "prediction_independent": -2.0656626203305564,
+      "prediction_main": -2.0656626203305573,
+      "prediction_pass": true
+    }
+  ]
+}

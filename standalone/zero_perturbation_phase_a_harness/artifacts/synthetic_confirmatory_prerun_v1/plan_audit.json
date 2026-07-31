@@ -1,0 +1,31 @@
+{
+  "CONFIRMATORY_INDEPENDENT_NO_PSEUDOREPLICATION_PASS": true,
+  "CONFIRMATORY_PLAN_COUNT_PASS": true,
+  "CONFIRMATORY_PLAN_PAIRING_PASS": true,
+  "CONFIRMATORY_PLAN_UNIQUENESS_PASS": true,
+  "backend_trial_counts": {
+    "open3d_point_to_plane": 595,
+    "pcl_point_to_plane": 595
+  },
+  "condition_snapshot_counts": {
+    "FULL_NOISE": 525,
+    "IDEAL_MATCHED": 35,
+    "INDEPENDENT_NOISE_FREE": 35
+  },
+  "duplicate_snapshot_count": 0,
+  "duplicate_trial_count": 0,
+  "full_noise_replicates_per_scene_geometry": 15,
+  "independent_pseudoreplication_plan_count": 0,
+  "native_trial_count": 0,
+  "pairing_violation_count": 0,
+  "planned_snapshot_count": 595,
+  "planned_snapshot_identity_sha256": "41977561dfa644a28ffea22a1f42d0dc2f9714d6c4ce9679e6af95726a04920e",
+  "planned_snapshot_unique_count": 595,
+  "planned_trial_count": 1190,
+  "planned_trial_identity_sha256": "4d462cd424c674d8b2af51bbdf8fedd2a5d219aaf517cadb3f82a8e49bca7161",
+  "planned_trial_unique_count": 1190,
+  "semantic_violation_count": 0,
+  "snapshot_id_formula_mismatch_count": 0,
+  "trial_id_formula_mismatch_count": 0,
+  "trial_metadata_mismatch_count": 0
+}

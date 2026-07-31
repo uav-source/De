@@ -1,0 +1,4 @@
+backend_count,condition,input_checksum_match,snapshot_id,trial_count
+2,FIXTURE_IDENTITY,True,fixture-audit-v1/identity,2
+2,FIXTURE_NO_CORRESPONDENCE,True,fixture-audit-v1/no-correspondence,2
+2,FIXTURE_NONIDENTITY_REFERENCE,True,fixture-audit-v1/nonidentity-reference,2

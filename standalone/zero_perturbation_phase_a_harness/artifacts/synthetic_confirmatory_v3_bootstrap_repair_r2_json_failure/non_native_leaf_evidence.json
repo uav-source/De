@@ -1,0 +1,110 @@
+{
+  "complete_static_inventory": [
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.states.absent.state",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.ABSENT",
+      "state_value": "FORMAL_RUNTIME_ABSENT"
+    },
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.states.bootstrap_only.state",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.BOOTSTRAP_ONLY",
+      "state_value": "FORMAL_RUNTIME_BOOTSTRAP_ONLY"
+    },
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.states.resumable.state",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.RESUMABLE",
+      "state_value": "FORMAL_RUNTIME_RESUMABLE"
+    },
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.bootstrap.state_before",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.ABSENT",
+      "state_value": "FORMAL_RUNTIME_ABSENT"
+    },
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.bootstrap.state_after",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.BOOTSTRAP_ONLY",
+      "state_value": "FORMAL_RUNTIME_BOOTSTRAP_ONLY"
+    },
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.bootstrap_resume.state_before",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.RESUMABLE",
+      "state_value": "FORMAL_RUNTIME_RESUMABLE"
+    },
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.bootstrap_resume.state_after",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.RESUMABLE",
+      "state_value": "FORMAL_RUNTIME_RESUMABLE"
+    },
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.lock_transition.state_before",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.BOOTSTRAP_ONLY",
+      "state_value": "FORMAL_RUNTIME_BOOTSTRAP_ONLY"
+    },
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.lock_transition.state_after",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.RESUMABLE",
+      "state_value": "FORMAL_RUNTIME_RESUMABLE"
+    },
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.lock_resume.state_before",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.RESUMABLE",
+      "state_value": "FORMAL_RUNTIME_RESUMABLE"
+    },
+    {
+      "class_name": "FormalRuntimeState",
+      "json_path": "$.lock_resume.state_after",
+      "module": "phase_a_harness.formal_runtime_state_machine",
+      "python_type": "FormalRuntimeState",
+      "representative_value": "FormalRuntimeState.RESUMABLE",
+      "state_value": "FORMAL_RUNTIME_RESUMABLE"
+    }
+  ],
+  "first_rejected_leaf": {
+    "json_path": "$.states.absent.state",
+    "python_type": "FormalRuntimeState",
+    "state_value": "FORMAL_RUNTIME_ABSENT"
+  },
+  "inventory_basis": "Static reconstruction of the completed seed-free r2 aggregate from the frozen qualifier and retained r2 evidence root; no final aggregate was written.",
+  "inventory_complete": true,
+  "non_native_type_counts": {
+    "FormalRuntimeState": 11,
+    "NumPy_scalar": 0,
+    "Path": 0,
+    "non_finite_float": 0,
+    "non_string_dict_key": 0,
+    "other": 0,
+    "tuple": 0
+  },
+  "schema_version": "synthetic_confirmatory_v3_r2_non_native_leaf_evidence_v1",
+  "total_non_native_leaf_count": 11
+}

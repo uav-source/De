@@ -1,0 +1,13 @@
+{
+  "R2_QUALIFICATION_ROOT_MODIFIED": false,
+  "continued_from_failed_aggregate": false,
+  "file_content_inventory_sha256": "dd9ba5ea28b3538584425f7246be23707ed5ec540f97d30c1049d7b227b900eb",
+  "file_count": 76,
+  "final_aggregate_path": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v2/working_inventory/bootstrap_repair_requalification_v2.json",
+  "final_aggregate_present": false,
+  "preservation_mode": "READ_ONLY_FAILURE_EVIDENCE",
+  "qualification_root": "/home/lj/zero_perturbation_runtime/qualification/v3_bootstrap_state_machine_requalification_v2",
+  "qualification_root_reused": false,
+  "schema_version": "synthetic_confirmatory_v3_r2_qualification_root_binding_v1",
+  "total_size_bytes": 705331
+}

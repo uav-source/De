@@ -1,0 +1,16 @@
+{
+  "CONFIRMATORY_V3_ROUTE_INVALIDATED_BY_TRUE_IMPLEMENTATION_DEFECT": true,
+  "deterministic_contract_conflict": true,
+  "excluded_failure_classifications": [
+    "BACKEND_FAILURE",
+    "GIT_GATE_FAILURE",
+    "INFRASTRUCTURE_INTERRUPTION",
+    "SCIENTIFIC_FAILURE",
+    "SEED_FAILURE",
+    "SNAPSHOT_BUILDER_FAILURE"
+  ],
+  "failure_classification": "FORMAL_BOOTSTRAP_IMPLEMENTATION_CONTRACT_DEFECT",
+  "failure_code": "FORMAL_ROOT_EXISTENCE_MISCLASSIFIED_AS_RESUME",
+  "root_cause_confirmed": true,
+  "schema_version": "synthetic_confirmatory_v3_bootstrap_failure_code_binding_v1"
+}

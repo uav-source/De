@@ -1,0 +1,33 @@
+{
+  "FULL_SYNTHETIC_DRY_RUN_PASS": true,
+  "PHASE_B_SUBSET_REPRODUCTION_DESIGN_PASS": true,
+  "attempt_started_count": 0,
+  "backend_execution_count": 0,
+  "combined_snapshot_count": 1260,
+  "combined_trial_count": 2520,
+  "condition_trial_counts": {
+    "DROPOUT_ONLY": 420,
+    "FULL_NOISE": 420,
+    "INDEPENDENT_NOISE_FREE": 420,
+    "MAP_NOISE_ONLY": 420,
+    "SCAN_NOISE_ONLY": 420
+  },
+  "formal_rng_access_count": 0,
+  "native_trial_count": 0,
+  "new_snapshot_count": 1050,
+  "new_trial_count": 2100,
+  "open3d_trial_count": 1050,
+  "output_dir": "/home/lj/zero_perturbation_phase_a_harness_20260729_1407/results/full_synthetic_development_v1",
+  "pcl_trial_count": 1050,
+  "phase_b_subset_snapshot_count": 42,
+  "phase_b_subset_trial_count": 84,
+  "run_id": "full-synthetic-development-v1",
+  "schema_version": "full_synthetic_development_dry_run_v1",
+  "snapshot_backend_pairing_mismatch_count": 0,
+  "source_repository_runtime_file_read_count": 0,
+  "source_repository_runtime_import_count": 0,
+  "source_repository_runtime_import_paths": [],
+  "started_event_count": 0,
+  "trial_result_count": 0,
+  "workers": 2
+}

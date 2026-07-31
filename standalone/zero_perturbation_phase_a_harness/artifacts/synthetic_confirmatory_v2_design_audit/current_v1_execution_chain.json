@@ -1,0 +1,44 @@
+{
+  "artifact_as_of_commit": "1c78372ef6f2c62e441f69c028b58f7bc48f6c35",
+  "builder_failure": {
+    "bytewise_match_count": 40775,
+    "bytewise_mismatch_count": 3439,
+    "classification": "FLOAT_QUANTIZATION_BYTEWISE_COMPARISON",
+    "first_difference_m": 2.9802322387695312e-08,
+    "legal_parent_row_count": 44214,
+    "location": "src/phase_a_harness/synthetic_confirmatory_snapshot_builder.py:299",
+    "phase_a_closure_residual_max_m": 0.0,
+    "phase_a_closure_violation_count": 0,
+    "source_branch": "IDEAL_MATCHED_MAP_SUBSET",
+    "source_is_target_subset_expression": "all(point.tobytes() in {target_point.tobytes()} for point in float32(SE3(float32(source))))"
+  },
+  "chain": [
+    "synthetic_confirmatory_snapshot_builder.py",
+    "synthetic_confirmatory_runner.py",
+    "synthetic_confirmatory_analysis.py",
+    "synthetic_confirmatory_independent_verifier.py",
+    "synthetic_confirmatory_publisher.py",
+    "synthetic_confirmatory_artifact_verifier.py"
+  ],
+  "schema_version": "synthetic_confirmatory_v2_design_audit_v1",
+  "v1_only_constraints": {
+    "artifact_verifier": [
+      "exact v1 pre-run inventory",
+      "exact v1 formal inventory",
+      "v1 decision and schema names"
+    ],
+    "independent_verifier": [
+      "four-file snapshot inventory",
+      "exact v1 metadata fields",
+      "v1 snapshot-lock schema",
+      "bytewise transformed-source membership"
+    ],
+    "runner": [
+      "v1 manifest path",
+      "v1 cache and result paths",
+      "v1 pre-run artifact path",
+      "v1 branch and tag",
+      "v1 raw-result and run schemas"
+    ]
+  }
+}

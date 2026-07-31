@@ -1,0 +1,3 @@
+backend,nonfinite_output_count,solver_failure_count,trial_count
+open3d_point_to_plane,0,1,3
+pcl_point_to_plane,0,1,3

@@ -1,0 +1,13 @@
+contract,gate,pass
+frozen survival audit v1,RAW_EVIDENCE_INTEGRITY_PASS,True
+frozen survival audit v1,ARTIFACT_PUBLICATION_PASS,True
+frozen survival audit v1,REPLICATE_UNIQUENESS_AUDIT_PASS,True
+frozen survival audit v1,PRIMARY_SCENE_EFFECT_UNIQUE_UNIT_PASS,True
+frozen survival audit v1,CROSS_BACKEND_UNIQUE_UNIT_PASS,True
+frozen survival audit v1,REASSOCIATION_ROBUSTNESS_PASS,True
+frozen survival audit v1,MODEL_DATA_LEAKAGE_AUDIT_PASS,True
+frozen survival audit v1,MODEL_INCREMENTAL_VALUE_ROBUST_PASS,True
+frozen survival audit v1,CLAIM_WORDING_BOUNDARY_PASS,True
+conjunction of nine survival gates,SCIENTIFIC_SURVIVAL_AUDIT_PASS,True
+2/3 groups per backend plus median fraction >= 0.70,SYSTEMATIC_OFFSET_FULL_NOISE_PASS,True
+zero structured experimental use,CONFIRMATORY_SEED_PROVENANCE_PASS,True

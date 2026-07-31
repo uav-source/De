@@ -1,0 +1,170 @@
+{
+  "backend_input_checksum_mismatch_count": 0,
+  "backend_summary": [
+    {
+      "backend": "Open3D",
+      "backend_schema_name": "open3d_point_to_plane",
+      "finite_translation_count": 210,
+      "fraction_translation_le_1mm": 1.0,
+      "nonfinite_output_count": 0,
+      "qualified": true,
+      "rotation_max_rad": 4.464570456957736e-10,
+      "rotation_median_rad": 1.7496960860045413e-10,
+      "rotation_q95_rad": 4.3720857861883907e-10,
+      "solver_failure_count": 0,
+      "translation_max_m": 1.1344734654838317e-07,
+      "translation_median_m": 1.4011962146168403e-09,
+      "translation_q95_m": 5.583671270500705e-08,
+      "trial_count": 210
+    },
+    {
+      "backend": "PCL",
+      "backend_schema_name": "pcl_point_to_plane",
+      "finite_translation_count": 210,
+      "fraction_translation_le_1mm": 1.0,
+      "nonfinite_output_count": 0,
+      "qualified": true,
+      "rotation_max_rad": 3.159937850949728e-09,
+      "rotation_median_rad": 1.010705375977384e-09,
+      "rotation_q95_rad": 2.8620920306994413e-09,
+      "solver_failure_count": 0,
+      "translation_max_m": 2.1924632363666777e-07,
+      "translation_median_m": 1.2676845352414192e-08,
+      "translation_q95_m": 1.2291248917183737e-07,
+      "trial_count": 210
+    }
+  ],
+  "completeness": {
+    "completed_snapshot_count": 210,
+    "completed_trial_count": 420,
+    "corrupt_trial_count": 0,
+    "duplicate_trial_count": 0,
+    "extra_snapshot_count": 0,
+    "extra_trial_count": 0,
+    "missing_snapshot_count": 0,
+    "missing_trial_count": 0,
+    "native_trial_count": 0,
+    "open3d_trial_count": 210,
+    "pcl_trial_count": 210
+  },
+  "failure_inventory": [
+    {
+      "count": 420,
+      "failure_classification": "NONE"
+    }
+  ],
+  "final_decision": {
+    "BACKEND_PHASE_A_COMPLETE": true,
+    "CONFIRMATORY_AUTHORIZED": false,
+    "DAY1_SCIENTIFIC_VALIDATION_PASS": true,
+    "FULL_DEVELOPMENT_AUTHORIZED": false,
+    "MEASUREMENT_PAPER_MAINLINE_AUTHORIZED": false,
+    "PHASE_B_PROTOCOL_DESIGN_AUTHORIZED": true,
+    "PHASE_B_RUN_AUTHORIZED": false,
+    "REAL_DATA_AUTHORIZED": false,
+    "TWO_INDEPENDENT_BACKENDS_QUALIFIED": true
+  },
+  "quantile_method": "linear",
+  "run_id": "phase-a-minimal-harness-formal-v1",
+  "scene_backend_summary": [
+    {
+      "backend": "Open3D",
+      "median_translation_update_m": 1.0850400503708894e-08,
+      "scene_gate_pass": true,
+      "scene_variant": "END_FACE_TRANSITION_ABSENT",
+      "trial_count": 30
+    },
+    {
+      "backend": "Open3D",
+      "median_translation_update_m": 5.255004826198459e-10,
+      "scene_gate_pass": true,
+      "scene_variant": "END_FACE_TRANSITION_PRESENT",
+      "trial_count": 30
+    },
+    {
+      "backend": "Open3D",
+      "median_translation_update_m": 1.1559154371229333e-09,
+      "scene_gate_pass": true,
+      "scene_variant": "END_FACE_TRANSITION_WEAK",
+      "trial_count": 30
+    },
+    {
+      "backend": "Open3D",
+      "median_translation_update_m": 2.828105517656277e-10,
+      "scene_gate_pass": true,
+      "scene_variant": "GEOMETRY_RICH_ROOM",
+      "trial_count": 30
+    },
+    {
+      "backend": "Open3D",
+      "median_translation_update_m": 4.069632648894821e-08,
+      "scene_gate_pass": true,
+      "scene_variant": "LONG_CORRIDOR",
+      "trial_count": 30
+    },
+    {
+      "backend": "Open3D",
+      "median_translation_update_m": 3.5837092792225e-08,
+      "scene_gate_pass": true,
+      "scene_variant": "PARALLEL_WALLS",
+      "trial_count": 30
+    },
+    {
+      "backend": "Open3D",
+      "median_translation_update_m": 1.1022531289170821e-09,
+      "scene_gate_pass": true,
+      "scene_variant": "REPEATED_STRUCTURE",
+      "trial_count": 30
+    },
+    {
+      "backend": "PCL",
+      "median_translation_update_m": 4.604519874905222e-08,
+      "scene_gate_pass": true,
+      "scene_variant": "END_FACE_TRANSITION_ABSENT",
+      "trial_count": 30
+    },
+    {
+      "backend": "PCL",
+      "median_translation_update_m": 2.6255636309411045e-09,
+      "scene_gate_pass": true,
+      "scene_variant": "END_FACE_TRANSITION_PRESENT",
+      "trial_count": 30
+    },
+    {
+      "backend": "PCL",
+      "median_translation_update_m": 2.5947251892948437e-08,
+      "scene_gate_pass": true,
+      "scene_variant": "END_FACE_TRANSITION_WEAK",
+      "trial_count": 30
+    },
+    {
+      "backend": "PCL",
+      "median_translation_update_m": 3.057019648635817e-09,
+      "scene_gate_pass": true,
+      "scene_variant": "GEOMETRY_RICH_ROOM",
+      "trial_count": 30
+    },
+    {
+      "backend": "PCL",
+      "median_translation_update_m": 7.028798873740563e-08,
+      "scene_gate_pass": true,
+      "scene_variant": "LONG_CORRIDOR",
+      "trial_count": 30
+    },
+    {
+      "backend": "PCL",
+      "median_translation_update_m": 4.312270140882217e-08,
+      "scene_gate_pass": true,
+      "scene_variant": "PARALLEL_WALLS",
+      "trial_count": 30
+    },
+    {
+      "backend": "PCL",
+      "median_translation_update_m": 1.150437764137453e-08,
+      "scene_gate_pass": true,
+      "scene_variant": "REPEATED_STRUCTURE",
+      "trial_count": 30
+    }
+  ],
+  "schema_version": "phase_a_minimal_harness_primary_analysis_v1"
+}
