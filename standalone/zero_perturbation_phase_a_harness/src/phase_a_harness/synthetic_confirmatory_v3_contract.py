@@ -1290,6 +1290,7 @@ def manifest_payload(root: str | Path) -> dict[str, Any]:
         runtime_root=FORMAL_RUNTIME_ROOT,
         workers=FORMAL_WORKERS,
         mode="fresh",
+        entry_script="scripts/run_synthetic_confirmatory_v3.py",
     )
     resume_command = build_formal_runner_command(
         repository=repository,
@@ -1298,6 +1299,7 @@ def manifest_payload(root: str | Path) -> dict[str, Any]:
         runtime_root=FORMAL_RUNTIME_ROOT,
         workers=FORMAL_WORKERS,
         mode="resume",
+        entry_script="scripts/run_synthetic_confirmatory_v3.py",
     )
     profile_commands = profile.get("commands")
     profile_bootstrap = profile.get("bootstrap_contract")

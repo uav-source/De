@@ -175,6 +175,7 @@ def test_command_canonicalization_builder_and_sha_are_deterministic(
         runtime_root=runtime,
         workers=2,
         mode="fresh",
+        entry_script="scripts/run_synthetic_confirmatory_v3.py",
     )
     assert command == build_formal_runner_command(
         repository=repository,
@@ -183,6 +184,7 @@ def test_command_canonicalization_builder_and_sha_are_deterministic(
         runtime_root=runtime,
         workers=2,
         mode="fresh",
+        entry_script="scripts/run_synthetic_confirmatory_v3.py",
     )
     assert "--manifest frozen_assets/fixture_manifest.json" in command
     assert f"--runtime-root {runtime}" in command
@@ -507,14 +509,19 @@ def test_historical_v3_manifest_stays_frozen_after_execution_path_repair() -> No
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     binding = manifest["bound_files"]["formal_runtime_state_machine"]
     assert binding["path"] == "src/phase_a_harness/formal_runtime_state_machine.py"
-    assert binding["sha256"] == file_sha256(repository / binding["path"])
+    assert binding["sha256"] != file_sha256(repository / binding["path"])
     assert manifest["formal_bootstrap_contract"]["implementation_revision"] == (
         "synthetic_confirmatory_v3_bootstrap_repair_r1"
     )
     # This task deliberately preserves the failed v3 manifest byte-for-byte.
     # Its execution-adapter bindings must therefore detect, not silently
     # authorize, the newly qualified reader/runner/contract implementation.
-    for name in ("v3_contract", "v3_runner", "v3_snapshot_builder"):
+    for name in (
+        "formal_runtime_state_machine",
+        "v3_contract",
+        "v3_runner",
+        "v3_snapshot_builder",
+    ):
         entry = manifest["bound_files"][name]
         assert entry["sha256"] != file_sha256(repository / entry["path"])
     with pytest.raises(ValueError, match="exact live bindings"):

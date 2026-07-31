@@ -148,6 +148,37 @@ def bootstrap_lease_path(root: str | Path) -> Path:
     return runtime.parent / f".{runtime.name}.bootstrap.lease"
 
 
+def formal_runtime_path_contract(root: str | Path) -> dict[str, Path]:
+    """Return the state machine's complete version-neutral runtime layout.
+
+    The lifecycle spec still supplies every path explicitly.  This projection
+    lets the generic orchestrator authenticate that explicit layout against
+    the bootstrap state machine without duplicating any filename policy in
+    the orchestrator itself.
+    """
+
+    runtime = Path(os.path.abspath(os.fspath(root)))
+    return {
+        "runtime_root": runtime,
+        "snapshot_cache": runtime / "snapshot_cache",
+        "snapshot_lock": runtime / "snapshot_lock.json",
+        "raw_results": runtime / "raw_results",
+        "raw_manifest": runtime / "raw_result_manifest.json",
+        "event_log": runtime / "event_logs" / "attempt_events.ndjson",
+        "backend_temporary": runtime / "backend_tmp",
+        "analysis": runtime / "analysis",
+        "verification": runtime / "verification",
+        "publisher_staging": runtime / "publisher_staging",
+        "artifact_staging": runtime / "artifact_staging",
+        "temporary_inventory": runtime / "working_inventory",
+        "run_manifest": runtime / "run_manifest.json",
+        "formal_command_log": runtime / FORMAL_COMMAND_LOG_NAME,
+        "formal_command_sha256": runtime / FORMAL_COMMAND_SHA256_NAME,
+        "immutable_run_lock": runtime / IMMUTABLE_RUN_LOCK_NAME,
+        "single_writer_lease": bootstrap_lease_path(runtime),
+    }
+
+
 def build_formal_runner_command(
     *,
     repository: str | Path,
@@ -156,8 +187,9 @@ def build_formal_runner_command(
     runtime_root: str | Path,
     workers: int,
     mode: str,
+    entry_script: str,
 ) -> str:
-    """Build the canonical v3 runner command recorded by the bootstrap CLI."""
+    """Build a canonical, explicitly version-bound formal runner command."""
 
     selected_mode = _mode(mode)
     root = Path(repository).resolve()
@@ -177,6 +209,15 @@ def build_formal_runner_command(
         raise ValueError("formal run ID is invalid")
     if type(workers) is not int or type(workers) is bool or workers <= 0:
         raise ValueError("formal workers must be a positive integer")
+    if (
+        type(entry_script) is not str
+        or not entry_script
+        or entry_script.startswith("/")
+        or "\x00" in entry_script
+        or Path(entry_script).parts[:1] != ("scripts",)
+        or any(part in {"", ".", ".."} for part in Path(entry_script).parts)
+    ):
+        raise ValueError("formal entry script must be an explicit scripts/ path")
     argv = [
         "env",
         "-u",
@@ -188,7 +229,7 @@ def build_formal_runner_command(
         "-n",
         "degen-lio-zprm-py311",
         "python",
-        "scripts/run_synthetic_confirmatory_v3.py",
+        entry_script,
         "--manifest",
         manifest_relative,
         "--run-id",
@@ -597,6 +638,7 @@ __all__ = [
     "canonical_formal_command",
     "classify_formal_runtime",
     "formal_command_sha256",
+    "formal_runtime_path_contract",
     "inspect_formal_runtime",
     "transition_bootstrap_run_lock",
     "verify_formal_command_binding",

@@ -1,0 +1,277 @@
+{
+  "backend_parameter_contract_path": "frozen_assets/fixtures/fixture_backend_parameter_lock.json",
+  "backend_parameter_contract_sha256": "dfaf0e15f569a41acacfab1bc660c08e31007e70173f5bc02e60d3ec56b28d0c",
+  "command_profile": {
+    "argv_prefix": [
+      "/home/lj/.local/bin/micromamba",
+      "run",
+      "-n",
+      "degen-lio-zprm-py311",
+      "python"
+    ],
+    "entry_script": "scripts/run_version_agnostic_formal_lifecycle_fixture.py",
+    "environment": {
+      "MAMBA_ROOT_PREFIX": "/home/lj/.local/share/degen-lio-micromamba",
+      "PYTHONNOUSERSITE": "1"
+    },
+    "profile_id": "version-agnostic-lifecycle-command-profile-a-v1",
+    "unset_environment": [
+      "PYTHONPATH"
+    ]
+  },
+  "command_profile_sha256": "e0860331a23f65dc6bd5cd95959fc721c5a92406bd4738e40fc60b178f9068cc",
+  "confirmatory_rng_instantiation_count": 0,
+  "confirmatory_seed_access_count": 0,
+  "confirmatory_seed_values_included": false,
+  "durable_commit_delay_seconds": {
+    "snapshot": 0,
+    "trial": 8
+  },
+  "execution_mode": "QUALIFICATION",
+  "fixture_only": true,
+  "formal_confirmatory_science_evaluated": false,
+  "formal_lifecycle_components": {
+    "bound_contract_id": "version-agnostic-lifecycle-qualification-contract-a-v1",
+    "bound_mode": "QUALIFICATION",
+    "bound_plan_id": "version-agnostic-lifecycle-qualification-plan-a-v1",
+    "bound_publisher_inventory_sha256": "1ec94e1080ccf95c093441d9363fdd526ce519544bcdb294d58084a0d857dec1",
+    "bound_run_id": "version-agnostic-lifecycle-fixture-a-trial-interruption",
+    "bound_runtime_root": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption",
+    "bundle_id": "version-agnostic-lifecycle-component-bundle-a-v1",
+    "bundle_sha256": "cbfc73e5cf8235b48c186253b010c7c73076b19fef190d89416898e046b62bf2",
+    "components": {
+      "artifact_verifier": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_artifact_verifier",
+        "component_id": "v2-fixture-artifact-verifier-adapter-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "backend_input_builder": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_backend_input_builder",
+        "component_id": "authenticated-fixture-input-builder-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "backend_registry.open3d_point_to_plane": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "execute_qualification_open3d",
+        "component_id": "real-open3d-fixture-backend-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "backend_registry.pcl_point_to_plane": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "execute_qualification_pcl",
+        "component_id": "real-pcl-fixture-backend-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "common_record_builder": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_common_record_builder",
+        "component_id": "phase-a-common-record-builder-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "difference_auditor": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_difference_auditor",
+        "component_id": "v2-fixture-difference-adapter-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "git_gate": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_git_gate",
+        "component_id": "runtime-git-gate-adapter-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "independent_verifier": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_independent_verifier",
+        "component_id": "v2-fixture-independent-adapter-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "primary_analyzer": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_primary_analyzer",
+        "component_id": "v2-fixture-primary-adapter-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "publisher": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_publisher",
+        "component_id": "v2-fixture-publisher-adapter-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "result_validator": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "validate_qualification_result",
+        "component_id": "phase-a-result-validator-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "resume_result_validator": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "validate_qualification_resume_result",
+        "component_id": "phase-a-resume-result-validator-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "run_contract_builder": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_run_contract_builder",
+        "component_id": "seed-free-run-contract-builder-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "snapshot_lock_builder": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_snapshot_lock_builder",
+        "component_id": "seed-free-snapshot-lock-builder-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "snapshot_lock_validator": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_snapshot_lock_validator",
+        "component_id": "seed-free-snapshot-lock-validator-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "snapshot_materializer": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_snapshot_materializer",
+        "component_id": "seed-free-snapshot-materializer-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "snapshot_reader": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_snapshot_reader",
+        "component_id": "authenticated-snapshot-reader-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "snapshot_validator": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "qualification_snapshot_validator",
+        "component_id": "seed-free-authenticated-snapshot-validator-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      },
+      "trial_validator": {
+        "callable_module": "phase_a_harness.runtime_lifecycle_fixture",
+        "callable_qualname": "validate_qualification_trial_row",
+        "component_id": "seed-free-trial-row-validator-v1",
+        "implementation_path": "src/phase_a_harness/runtime_lifecycle_fixture.py",
+        "implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9"
+      }
+    }
+  },
+  "formal_lifecycle_paths": {
+    "analysis": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/analysis",
+    "artifact_staging": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/artifact_staging",
+    "backend_temporary": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/backend_tmp",
+    "event_log": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/event_logs/attempt_events.ndjson",
+    "formal_command_log": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/formal_command.log",
+    "formal_command_sha256": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/formal_command.log.sha256",
+    "immutable_run_lock": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/immutable_run_lock.json",
+    "publisher_staging": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/publisher_staging",
+    "raw_manifest": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/raw_result_manifest.json",
+    "raw_results": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/raw_results",
+    "run_manifest": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/run_manifest.json",
+    "runtime_root": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption",
+    "single_writer_lease": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/.trial_interruption.bootstrap.lease",
+    "snapshot_cache": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/snapshot_cache",
+    "snapshot_lock": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/snapshot_lock.json",
+    "temporary_inventory": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/working_inventory",
+    "verification": "/home/lj/zero_perturbation_runtime/qualification/version_agnostic_formal_lifecycle_v1/trial_interruption/verification"
+  },
+  "git_identity_policy": {
+    "checkpoint_prefix": "VERSION_AGNOSTIC_LIFECYCLE_A",
+    "expected_branch": "refactor/zero-perturbation-version-agnostic-formal-lifecycle",
+    "expected_commit_source": "INJECTED_CANDIDATE_HEAD",
+    "expected_tag": "archive/zero-perturbation-version-agnostic-formal-lifecycle-candidate-context-a",
+    "policy_id": "version-agnostic-lifecycle-a-git-identity",
+    "require_clean_worktree": true,
+    "require_tag_at_commit": true
+  },
+  "native_backend_allowed": false,
+  "pcl_cli_path": "bin/pcl_point_to_plane_cli",
+  "pcl_cli_sha256": "d42ce655df74117f0e6965c9df1326526fabba9f4e65ed10a5644ed911fad7ff",
+  "plan_id": "version-agnostic-lifecycle-qualification-plan-a-v1",
+  "planned_snapshot_count": 3,
+  "planned_trial_count": 6,
+  "protocol_version": "qualification-a-protocol-v1",
+  "publisher_inventory": {
+    "figure_count": 3,
+    "figures": [
+      "fixture_execution_matrix.png",
+      "fixture_failure_matrix.png",
+      "fixture_update_metrics.png"
+    ],
+    "inventory_id": "version-agnostic-lifecycle-publisher-inventory-a-v1",
+    "root_file_count": 7,
+    "root_files": [
+      "synthetic_confirmatory_report.md",
+      "primary_analysis.json",
+      "independent_verification.json",
+      "final_decision.json",
+      "run_manifest.json",
+      "SHA256SUMS",
+      "artifact_verification.json"
+    ],
+    "table_count": 7,
+    "tables": [
+      "fixture_trial_inventory.csv",
+      "fixture_snapshot_inventory.csv",
+      "fixture_backend_summary.csv",
+      "fixture_failure_inventory.csv",
+      "fixture_pairing_audit.csv",
+      "fixture_resume_equivalence.csv",
+      "fixture_gate_summary.csv"
+    ]
+  },
+  "publisher_inventory_sha256": "1ec94e1080ccf95c093441d9363fdd526ce519544bcdb294d58084a0d857dec1",
+  "qualification_context_name": "context_a",
+  "qualification_implementation_sha256": "6ddce324df6b71957e1315cb24425e9be3bda05490c01df2012f216d4006d1d9",
+  "qualification_protocol": {
+    "backends": [
+      "open3d_point_to_plane",
+      "pcl_point_to_plane"
+    ],
+    "conditions": [
+      "FIXTURE_IDENTITY",
+      "FIXTURE_NONIDENTITY_REFERENCE",
+      "FIXTURE_NO_CORRESPONDENCE"
+    ],
+    "confirmatory_seed_allowed": false,
+    "confirmatory_seed_value_count": 0,
+    "fixture_only": true,
+    "formal_confirmatory_science_evaluated": false,
+    "planned_snapshot_count": 3,
+    "planned_trial_count": 6,
+    "protocol_version": "qualification-a-protocol-v1",
+    "scenes": [
+      "IDENTITY",
+      "NONIDENTITY_REFERENCE",
+      "NO_CORRESPONDENCE"
+    ],
+    "schema_version": "version_agnostic_lifecycle_fixture_protocol_a_v1"
+  },
+  "qualification_protocol_sha256": "884f9885ca8d12c7d62bd6b91a04791178ea2cddf5d298b1a75bced5b543765b",
+  "qualification_run_contract_schema": "version_agnostic_lifecycle_a_run_contract_v1",
+  "qualification_snapshot_lock_schema": "version_agnostic_lifecycle_snapshot_lock_a_v1",
+  "run_id": "version-agnostic-lifecycle-fixture-a-trial-interruption",
+  "schema_version": "version_agnostic_lifecycle_fixture_manifest_a_v1",
+  "snapshot_plan_rows_sha256": "bdfd9fd8149364c7a9917d190de04a0bd659c13c271ad754925c0bcf6aca2667",
+  "trial_plan_rows_sha256": "4689a30586e6dda9b842b85b8127c4107202d5ec61003787b8136957ea0b7366",
+  "workers": 2
+}

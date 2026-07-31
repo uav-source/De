@@ -82,6 +82,7 @@ def build_execution_profile(repository: Path) -> dict[str, Any]:
         runtime_root=FORMAL_RUNTIME_ROOT,
         workers=FORMAL_WORKERS,
         mode="fresh",
+        entry_script="scripts/run_synthetic_confirmatory_v3.py",
     )
     runner_resume = build_formal_runner_command(
         repository=repository,
@@ -90,6 +91,7 @@ def build_execution_profile(repository: Path) -> dict[str, Any]:
         runtime_root=FORMAL_RUNTIME_ROOT,
         workers=FORMAL_WORKERS,
         mode="resume",
+        entry_script="scripts/run_synthetic_confirmatory_v3.py",
     )
     commands = {
         "step_01_preflight_fresh": _command(

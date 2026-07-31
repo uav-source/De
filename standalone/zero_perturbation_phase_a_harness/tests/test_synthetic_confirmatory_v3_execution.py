@@ -313,255 +313,48 @@ def test_snapshot_builder_import_does_not_import_rng_or_create_formal_root(
     assert json.loads(completed.stdout) == {"bad": []}
 
 
-def test_fake_external_fresh_then_resume_does_not_reexecute_valid_results(
+def test_v3_historical_entry_is_thin_and_resume_is_forbidden(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    formal = tmp_path / "external-formal"
-    monkeypatch.setattr(runner, "FORMAL_RUNTIME_ROOT", formal)
-    monkeypatch.setattr(runner, "EXPECTED_SNAPSHOT_COUNT", 3)
-    monkeypatch.setattr(runner, "EXPECTED_TRIAL_COUNT", 6)
-    snapshots = [
-        {
-            "planned_snapshot_id": f"snapshot-{index}",
-            "scene_variant": "FAKE",
-            "condition": "IDEAL_MATCHED",
-            "geometry_seed": index,
-            "measurement_seed": None,
-            "repeat_index": 0,
-            "planned_backend_count": 2,
-            "replicate_semantics": "ONE_CONTROL_INPUT",
-        }
-        for index in range(3)
-    ]
-    trials = [
-        {
-            "planned_trial_id": f"{snapshot['planned_snapshot_id']}::{backend}",
-            "planned_snapshot_id": snapshot["planned_snapshot_id"],
-            "scene_variant": "FAKE",
-            "condition": "IDEAL_MATCHED",
-            "geometry_seed": snapshot["geometry_seed"],
-            "measurement_seed": None,
-            "repeat_index": 0,
-            "backend": backend,
-        }
-        for snapshot in snapshots
-        for backend in ("open3d_point_to_plane", "pcl_point_to_plane")
-    ]
-    paths = {
-        "analysis": formal / "analysis",
-        "artifact_staging": formal / "artifact_staging",
-        "backend_temporary": formal / "backend_tmp",
-        "event_log": formal / "event_logs",
-        "publisher_staging": formal / "publisher_staging",
-        "raw_results": formal / "raw_results",
-        "snapshot_cache": formal / "snapshot_cache",
-        "snapshot_lock": formal / "snapshot_lock.json",
-        "temporary_inventory": formal / "working_inventory",
-        "verification": formal / "verification",
-        "raw_manifest": formal / "raw_result_manifest.json",
-        "formal_command_log": formal / "formal_command.log",
-        "formal_command_sha256": formal / "formal_command.log.sha256",
-        "run_lock": formal / "immutable_run_lock.json",
-        "run_manifest": formal / "run_manifest.json",
-    }
-    manifest = {
-        "bound_files": {
-            "backend_parameter_contract": {"sha256": "1" * 64},
-            "pcl_cli": {"sha256": "2" * 64},
-            "execution_profile": {"sha256": "c" * 64},
-            "fixture_runner": {"sha256": "d" * 64},
-        },
-        "expected_branch": "fake",
-        "expected_release_tag": "fake-tag",
-        "formal_bootstrap_contract": {
-            "implementation_revision": "fixture-bootstrap-repair-r1",
-            "state_machine_schema": "fixture_formal_runtime_state_machine_v1",
-        },
-        "gate_contract_sha256": "e" * 64,
-        "manifest_payload_sha256": "3" * 64,
-        "protocol_sha256": "4" * 64,
-        "run_id": "synthetic-confirmatory-v3",
-        "seed_schedule_sha256": "5" * 64,
-        "workers": 2,
-    }
-    stack = {
-        "manifest": manifest,
-        "manifest_path": tmp_path / "manifest.json",
-        "parameters": {},
-        "pcl_cli": tmp_path / "pcl",
-        "repository": tmp_path,
-        "runtime_paths": paths,
-        "snapshots": snapshots,
-        "trials": trials,
-        "validated_contract": {
-            "git_identity": {"commit": "6" * 40},
-            "plan_audit": {
-                "planned_snapshot_identity_sha256": "7" * 64,
-                "planned_trial_identity_sha256": "8" * 64,
-            },
-            "planned_snapshots_sha256": "9" * 64,
-            "planned_trials_sha256": "a" * 64,
-        },
-        "manifest_sha256": "b" * 64,
-    }
-    monkeypatch.setattr(runner, "load_v3_execution_stack", lambda **_kwargs: stack)
-    monkeypatch.setattr(runner, "_git_gate", lambda *_args, **_kwargs: {})
-    monkeypatch.setattr(runner, "_recover_orphans", lambda *_args, **_kwargs: [])
+    import phase_a_harness.formal_lifecycle as lifecycle
 
-    calls: list[str] = []
-
-    def execute(_stack: object, row: dict[str, object]):
-        calls.append(str(row["planned_trial_id"]))
-        payload = {
-            "backend": row["backend"],
-            "condition": "IDEAL_MATCHED",
-            "finite_output": True,
-            "planned_trial_id": row["planned_trial_id"],
-            "reference_pose_checksum": "r",
-            "snapshot_checksum": "s",
-            "snapshot_id": row["planned_snapshot_id"],
-            "solver_failure": False,
-            "source_checksum": "x",
-            "target_checksum": "y",
-        }
-        return {"backend": row["backend"]}, payload
-
-    monkeypatch.setattr(runner, "_execute_one", execute)
-
-    def audit(_stack, raw, expected, *, allow_orphans):
-        payloads = []
-        for trial_id in sorted(raw["results"]):
-            row = expected[trial_id]
-            payloads.append(
-                {
-                    "backend": row["backend"],
-                    "condition": "IDEAL_MATCHED",
-                    "finite_output": True,
-                    "snapshot_id": row["planned_snapshot_id"],
-                    "solver_failure": False,
-                    "source_checksum": "x",
-                    "target_checksum": "y",
-                    "reference_pose_checksum": "r",
-                    "snapshot_checksum": "s",
-                }
-            )
-        return {
-            "checksum_mismatch_count": 0,
-            "corrupt_trial_count": 0,
-            "duplicate_trial_count": 0,
-            "extra_trial_count": 0,
-            "missing_trial_count": len(expected) - len(payloads),
-            "orphan_result_files": [],
-            "payloads": payloads,
-            "reverse_inventory_mismatch_count": 0,
-        }
-
-    monkeypatch.setattr(runner, "_audit_raw_inventory", audit)
-
-    import phase_a_harness.asset_verifier as asset_verifier
-    import phase_a_harness.full_synthetic_development_protocol as protocol
-    import phase_a_harness.full_synthetic_snapshot_builder as full_builder
-    import phase_a_harness.synthetic_confirmatory_v3_snapshot_builder as builder
-    from phase_a_harness.runtime_lifecycle_io import (
-        atomic_create_canonical_json,
-        atomic_replace_canonical_json,
-        read_canonical_json,
-    )
-
-    monkeypatch.setattr(protocol, "assert_isolated_python_runtime", lambda: None)
-    monkeypatch.setattr(asset_verifier, "source_runtime_import_paths", lambda: [])
+    sentinel_spec = object()
+    calls: list[tuple[object, str, str]] = []
     monkeypatch.setattr(
-        full_builder,
-        "FullSyntheticSourceAccessMonitor",
-        lambda: SimpleNamespace(count=0, install=lambda: None),
+        runner,
+        "build_v3_formal_lifecycle_spec",
+        lambda **_kwargs: sentinel_spec,
     )
 
-    lock_value = {
-        "schema_version": "fake",
-        "snapshots": [
-            {"snapshot_id": row["planned_snapshot_id"]} for row in snapshots
-        ],
-    }
+    def execute(spec: object, *, requested_mode: str, invocation_id: str):
+        calls.append((spec, requested_mode, invocation_id))
+        return SimpleNamespace(run_manifest={"delegated": True})
 
-    def prepare(_repository, _cache, _snapshots, *, lock_path, resume):
-        if Path(lock_path).exists():
-            lock = read_canonical_json(lock_path)
-        else:
-            atomic_create_canonical_json(lock_path, lock_value)
-            lock = lock_value
-        return {
-            "lock": lock,
-            "confirmatory_rng_instantiation_count_this_invocation": 0,
-            "generated_snapshot_count": 0 if resume else 3,
-            "resumed_snapshot_count": 3 if resume else 0,
-        }
-
-    monkeypatch.setattr(builder, "prepare_v3_snapshots", prepare)
-    from phase_a_harness.formal_runtime_state_machine import (
-        FormalRuntimeState,
-        bootstrap_formal_runtime,
-        build_formal_runner_command,
-        classify_formal_runtime,
-    )
-
-    manifest_path = tmp_path / "manifest.json"
-    frozen_fresh_command = build_formal_runner_command(
-        repository=tmp_path,
-        manifest_path=manifest_path,
-        run_id="synthetic-confirmatory-v3",
-        runtime_root=formal,
-        workers=2,
-        mode="fresh",
-    )
-    bootstrap = bootstrap_formal_runtime(
-        formal, frozen_fresh_command, mode="fresh"
-    )
-    assert bootstrap["state_after"] is FormalRuntimeState.BOOTSTRAP_ONLY
-    assert classify_formal_runtime(formal) is FormalRuntimeState.BOOTSTRAP_ONLY
-
+    monkeypatch.setattr(lifecycle, "execute_formal_lifecycle", execute)
     first = runner.execute_synthetic_confirmatory_v3(
         repository=tmp_path,
-        manifest_path=manifest_path,
-        run_id="synthetic-confirmatory-v3",
-        runtime_root=formal,
+        manifest_path=tmp_path / "manifest.json",
+        run_id="historical-v3",
+        runtime_root=tmp_path / "runtime",
         workers=2,
         resume=False,
         mode="fresh",
-        expected_formal_command=frozen_fresh_command,
-        invocation_id="fresh-from-bootstrap-only",
+        expected_formal_command="bound",
+        invocation_id="compatibility",
     )
-    assert first["completed_trial_count"] == 6
-    assert first["backend_execution_count_this_invocation"] == 6
-    assert len(calls) == 6
-    assert classify_formal_runtime(formal) is FormalRuntimeState.RESUMABLE
-
-    resume_bootstrap = bootstrap_formal_runtime(
-        formal, frozen_fresh_command, mode="resume"
-    )
-    assert resume_bootstrap["state_before"] is FormalRuntimeState.RESUMABLE
-    assert resume_bootstrap["created"] is False
-    expected_resume_invocation = build_formal_runner_command(
-        repository=tmp_path,
-        manifest_path=manifest_path,
-        run_id="synthetic-confirmatory-v3",
-        runtime_root=formal,
-        workers=2,
-        mode="resume",
-    )
-    second = runner.execute_synthetic_confirmatory_v3(
-        repository=tmp_path,
-        manifest_path=manifest_path,
-        run_id="synthetic-confirmatory-v3",
-        runtime_root=formal,
-        workers=2,
-        resume=True,
-        mode="resume",
-        expected_formal_command=expected_resume_invocation,
-        invocation_id="resume-identical",
-    )
-    assert second["backend_execution_count_this_invocation"] == 0
-    assert second["resume_skipped_valid_result_count"] == 6
-    assert len(calls) == 6
+    assert first == {"delegated": True}
+    assert calls == [(sentinel_spec, "fresh", "compatibility")]
+    with pytest.raises(PermissionError, match="resume"):
+        runner.execute_synthetic_confirmatory_v3(
+            repository=tmp_path,
+            manifest_path=tmp_path / "manifest.json",
+            run_id="historical-v3",
+            runtime_root=tmp_path / "runtime",
+            workers=2,
+            resume=True,
+            mode="resume",
+            expected_formal_command="bound",
+        )
 
 
 def test_v3_thin_clis_do_not_call_retired_high_level_orchestrators() -> None:

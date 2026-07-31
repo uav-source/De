@@ -940,6 +940,36 @@ def _git_gate(stack: Mapping[str, Any], checkpoint: str) -> dict[str, Any]:
     return report
 
 
+def build_v3_formal_lifecycle_spec(
+    *,
+    repository: str | Path,
+    manifest_path: str | Path,
+    run_id: str,
+    runtime_root: str | Path,
+    workers: int,
+    expected_formal_command: str | None,
+) -> Any:
+    """Authenticate the historical v3 binding before compatibility delegation.
+
+    The historical v3 run is permanently non-resumable and its frozen
+    implementation binding is intentionally not rewritten by this refactor.
+    Consequently the current archive fails closed while retaining a single
+    compatibility construction boundary for external audit.
+    """
+
+    load_v3_execution_stack(
+        repository=repository,
+        manifest_path=manifest_path,
+        run_id=run_id,
+        workers=workers,
+        require_authorized=True,
+    )
+    del runtime_root, expected_formal_command
+    raise V3ContractError(
+        "historical v3 execution remains archived and is not resumable"
+    )
+
+
 def execute_synthetic_confirmatory_v3(
     *,
     repository: str | Path,
@@ -952,293 +982,30 @@ def execute_synthetic_confirmatory_v3(
     expected_formal_command: str | None = None,
     invocation_id: str = "formal",
 ) -> dict[str, Any]:
-    """Execute/resume the exact authorized external 595/1,190 matrix."""
+    """Thin historical wrapper around the sole generic lifecycle entry."""
 
-    if Path(runtime_root) != FORMAL_RUNTIME_ROOT:
-        raise V3ContractError("v3 runner received a noncanonical runtime root")
-    selected_mode = mode or ("resume" if resume is True else "fresh")
-    if selected_mode not in {"fresh", "resume"}:
-        raise ValueError("formal v3 execution mode must be fresh or resume")
-    is_resume = selected_mode == "resume"
-    if type(resume) is not bool or resume is not is_resume:
-        raise PermissionError("formal v3 mode/resume identity is inconsistent")
-    if not isinstance(expected_formal_command, str) or not expected_formal_command:
-        raise PermissionError("formal v3 execution requires the canonical command")
-    # Static authority, Git identity, and runtime-path policy are authenticated
-    # before the runtime inventory is interpreted.  This preserves the frozen
-    # entry order while remaining seed/RNG/backend free.
-    stack = load_v3_execution_stack(
-        repository=repository,
-        manifest_path=manifest_path,
-        run_id=run_id,
-        workers=workers,
-        require_authorized=True,
-    )
-    from .formal_runtime_state_machine import (
-        FormalRuntimeState,
-        bootstrap_lease_path,
-        build_formal_runner_command,
-        canonical_formal_command,
-        inspect_formal_runtime,
-    )
-
-    expected_invocation = build_formal_runner_command(
+    selected_mode = mode or ("resume" if resume else "fresh")
+    if type(resume) is not bool or selected_mode not in {"fresh", "resume"}:
+        raise ValueError("historical v3 mode is invalid")
+    if resume or selected_mode == "resume":
+        raise PermissionError("historical v3 resume is permanently forbidden")
+    spec = build_v3_formal_lifecycle_spec(
         repository=repository,
         manifest_path=manifest_path,
         run_id=run_id,
         runtime_root=runtime_root,
         workers=workers,
-        mode=selected_mode,
+        expected_formal_command=expected_formal_command,
     )
-    if canonical_formal_command(expected_formal_command) != canonical_formal_command(
-        expected_invocation
-    ):
-        raise PermissionError("formal v3 invocation differs from the frozen command")
-    frozen_fresh_command = build_formal_runner_command(
-        repository=repository,
-        manifest_path=manifest_path,
-        run_id=run_id,
-        runtime_root=runtime_root,
-        workers=workers,
-        mode="fresh",
+    from .formal_lifecycle import execute_formal_lifecycle
+    from .formal_lifecycle_contract import deep_thaw
+
+    completed = execute_formal_lifecycle(
+        spec,
+        requested_mode=selected_mode,
+        invocation_id=invocation_id,
     )
-    base_run_contract = _run_contract(stack, run_id=run_id, workers=workers)
-    initial = inspect_formal_runtime(
-        FORMAL_RUNTIME_ROOT,
-        expected_command=frozen_fresh_command,
-        expected_base_contract=(base_run_contract if is_resume else None),
-    )
-    initial_state = initial["state"]
-    expected_state = (
-        FormalRuntimeState.RESUMABLE
-        if is_resume
-        else FormalRuntimeState.BOOTSTRAP_ONLY
-    )
-    if initial_state is not expected_state:
-        raise V3ContractError(
-            f"formal v3 {selected_mode} requires {expected_state.value}; "
-            f"observed {initial_state.value}: {initial['reasons']}"
-        )
-    from .runtime_lifecycle_io import (
-        SingleWriterLease,
-        append_event_v2,
-        atomic_create_canonical_json,
-        atomic_create_bytes,
-        atomic_replace_canonical_json,
-        canonical_json_bytes,
-        canonical_json_sha256,
-        read_event_journal_v2,
-    )
-    paths = stack["runtime_paths"]
-    with SingleWriterLease(bootstrap_lease_path(FORMAL_RUNTIME_ROOT)):
-        from .formal_runtime_state_machine import (
-            assert_seed_entry_lock,
-            transition_bootstrap_run_lock,
-        )
-
-        transition = transition_bootstrap_run_lock(
-            FORMAL_RUNTIME_ROOT,
-            base_run_contract,
-            mode=selected_mode,
-        )
-        run_contract = transition["enhanced_contract"]
-        run_contract_sha = canonical_json_sha256(run_contract)
-        lock = transition["lock"]
-        seed_gate = assert_seed_entry_lock(
-            FORMAL_RUNTIME_ROOT, base_run_contract
-        )
-        if seed_gate.get("seed_entry_lock_gate_pass") is not True:
-            raise V3ContractError("v3 seed-entry immutable-lock gate failed")
-        _git_gate(stack, "V3_FORMAL_POST_LOCK_GIT_GATE")
-
-        from .full_synthetic_development_protocol import assert_isolated_python_runtime
-
-        assert_isolated_python_runtime()
-
-        from .asset_verifier import source_runtime_import_paths
-        from .full_synthetic_snapshot_builder import FullSyntheticSourceAccessMonitor
-        from .synthetic_confirmatory_v3_snapshot_builder import prepare_v3_snapshots
-
-        monitor = FullSyntheticSourceAccessMonitor()
-        monitor.install()
-        preparation = prepare_v3_snapshots(
-            stack["repository"],
-            paths["snapshot_cache"],
-            stack["snapshots"],
-            lock_path=paths["snapshot_lock"],
-            resume=is_resume,
-        )
-        snapshot_lock = preparation["lock"]
-        lock_entries = snapshot_lock.get("snapshots")
-        if type(lock_entries) is not list:
-            raise V3ContractError("v3 snapshot lock inventory is malformed")
-        stack["lock_by_id"] = {
-            entry["snapshot_id"]: entry for entry in lock_entries
-        }
-        if len(stack["lock_by_id"]) != EXPECTED_SNAPSHOT_COUNT:
-            raise V3ContractError("v3 snapshot lock count/uniqueness failed")
-        stack["snapshot_lock_sha256"] = _file_sha256(paths["snapshot_lock"])
-        _git_gate(stack, "V3_FORMAL_POST_SNAPSHOT_GIT_GATE")
-
-        raw_manifest = _read_raw_manifest(
-            paths["raw_manifest"],
-            run_id=run_id,
-            contract_sha256=run_contract_sha,
-        )
-        rows_by_id = {row["planned_trial_id"]: row for row in stack["trials"]}
-        if len(rows_by_id) != EXPECTED_TRIAL_COUNT:
-            raise V3ContractError("v3 trial plan contains duplicate IDs")
-        if not paths["raw_manifest"].exists():
-            atomic_create_canonical_json(paths["raw_manifest"], raw_manifest)
-        recovered = _recover_orphans(stack, raw_manifest, rows_by_id)
-        initial = _audit_raw_inventory(
-            stack, raw_manifest, rows_by_id, allow_orphans=False
-        )
-        pending = [
-            row
-            for row in stack["trials"]
-            if row["planned_trial_id"] not in raw_manifest["results"]
-        ]
-        event_path = paths["event_log"] / "attempt_events.ndjson"
-        for trial_id in sorted(raw_manifest["results"]):
-            entry = raw_manifest["results"][trial_id]
-            append_event_v2(
-                event_path,
-                run_id=run_id,
-                invocation_id=invocation_id,
-                event_type="SKIPPED_VALID_RESULT",
-                planned_trial_id=trial_id,
-                backend=rows_by_id[trial_id]["backend"],
-                result_sha256=entry["sha256"],
-            )
-        for row in pending:
-            append_event_v2(
-                event_path,
-                run_id=run_id,
-                invocation_id=invocation_id,
-                event_type=("RESUMED" if is_resume else "STARTED"),
-                planned_trial_id=row["planned_trial_id"],
-                backend=row["backend"],
-            )
-
-        completed_this_invocation = 0
-        with ThreadPoolExecutor(
-            max_workers=workers, thread_name_prefix="synthetic-confirmatory-v3"
-        ) as executor:
-            futures = {
-                executor.submit(_execute_one, stack, row): row for row in pending
-            }
-            for future in as_completed(futures):
-                row = futures[future]
-                common, payload = future.result()
-                destination = paths["raw_results"] / _result_filename(
-                    row["planned_trial_id"]
-                )
-                atomic_create_bytes(destination, canonical_json_bytes(payload))
-                digest = _file_sha256(destination)
-                raw_manifest["results"][row["planned_trial_id"]] = {
-                    "path": destination.name,
-                    "planned_trial_id": row["planned_trial_id"],
-                    "sha256": digest,
-                }
-                atomic_replace_canonical_json(paths["raw_manifest"], raw_manifest)
-                append_event_v2(
-                    event_path,
-                    run_id=run_id,
-                    invocation_id=invocation_id,
-                    event_type="COMPLETED",
-                    planned_trial_id=row["planned_trial_id"],
-                    backend=common["backend"],
-                    result_sha256=digest,
-                )
-                completed_this_invocation += 1
-
-        final = _audit_raw_inventory(
-            stack, raw_manifest, rows_by_id, allow_orphans=False
-        )
-        payloads = final["payloads"]
-        if len(payloads) != EXPECTED_TRIAL_COUNT or final["missing_trial_count"]:
-            raise RuntimeError("v3 formal matrix is incomplete")
-        by_snapshot: dict[str, list[dict[str, Any]]] = defaultdict(list)
-        for payload in payloads:
-            by_snapshot[payload["snapshot_id"]].append(payload)
-        checksum_fields = (
-            "source_checksum",
-            "target_checksum",
-            "reference_pose_checksum",
-            "snapshot_checksum",
-        )
-        pairing_mismatch = sum(
-            len(rows) != 2
-            or {row["backend"] for row in rows} != set(EXPECTED_BACKEND_COUNTS)
-            or any(rows[0][name] != rows[1][name] for name in checksum_fields)
-            for rows in by_snapshot.values()
-        )
-        if pairing_mismatch:
-            raise V3ContractError("v3 backend input pairing failed")
-        imports = source_runtime_import_paths()
-        if monitor.count or imports:
-            raise PermissionError("source repository runtime isolation failed")
-        backend_counts = Counter(row["backend"] for row in payloads)
-        condition_counts = Counter(row["condition"] for row in payloads)
-        events = read_event_journal_v2(event_path, expected_run_id=run_id)
-        raw_sha = _file_sha256(paths["raw_manifest"])
-        _git_gate(stack, "V3_FORMAL_POST_TRIAL_GIT_GATE")
-        run_manifest = {
-            "schema_version": FORMAL_RUN_SCHEMA,
-            "backend_execution_count_this_invocation": completed_this_invocation,
-            "backend_input_checksum_mismatch_count": pairing_mismatch,
-            "completed_snapshot_count": len(by_snapshot),
-            "completed_trial_count": len(payloads),
-            "condition_trial_counts": dict(sorted(condition_counts.items())),
-            "confirmatory_rng_instantiation_count_this_invocation": preparation[
-                "confirmatory_rng_instantiation_count_this_invocation"
-            ],
-            "corrupt_trial_count": final["corrupt_trial_count"],
-            "duplicate_trial_count": final["duplicate_trial_count"],
-            "event_count": len(events),
-            "extra_trial_count": final["extra_trial_count"],
-            "generated_snapshot_count_this_invocation": preparation[
-                "generated_snapshot_count"
-            ],
-            "immutable_run_lock_payload_sha256": lock["payload_sha256"],
-            "missing_trial_count": final["missing_trial_count"],
-            "native_execution_count": 0,
-            "native_trial_count": 0,
-            "nonfinite_output_count": sum(not row["finite_output"] for row in payloads),
-            "open3d_trial_count": backend_counts["open3d_point_to_plane"],
-            "pcl_trial_count": backend_counts["pcl_point_to_plane"],
-            "recovered_orphan_result_count": len(recovered),
-            "raw_result_manifest_sha256": raw_sha,
-            "formal_command_log_sha256": transition["command_binding"][
-                "command_log_sha256"
-            ],
-            "formal_runtime_entry_state": transition["state_before"].value,
-            "formal_runtime_mode": selected_mode,
-            "resume_requested": is_resume,
-            "resume_skipped_valid_result_count": len(initial["payloads"]),
-            "resumed_snapshot_count_this_invocation": preparation[
-                "resumed_snapshot_count"
-            ],
-            "run_id": run_id,
-            "scientific_solver_failure_count": sum(
-                row["solver_failure"] for row in payloads
-            ),
-            "snapshot_lock_sha256": stack["snapshot_lock_sha256"],
-            "source_repository_runtime_file_read_count": monitor.count,
-            "source_repository_runtime_import_count": len(imports),
-            "source_repository_runtime_import_paths": imports,
-            "trial_result_checksum_mismatch_count": final[
-                "checksum_mismatch_count"
-            ],
-            "workers": workers,
-        }
-        if paths["run_manifest"].exists():
-            atomic_replace_canonical_json(paths["run_manifest"], run_manifest)
-        else:
-            atomic_create_canonical_json(paths["run_manifest"], run_manifest)
-        _git_gate(stack, "V3_FORMAL_FINAL_GIT_GATE")
-        return run_manifest
+    return deep_thaw(completed.run_manifest)
 
 
 def _load_snapshot_lock(stack: dict[str, Any]) -> None:

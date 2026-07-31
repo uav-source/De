@@ -97,6 +97,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         runtime_root=args.runtime_root,
         workers=args.workers,
         mode=selected_mode,
+        entry_script="scripts/run_synthetic_confirmatory_v3.py",
     )
     # The execution-capable runner is intentionally imported only on the
     # non-dry path.  Its own first action repeats the authorization artifact,
